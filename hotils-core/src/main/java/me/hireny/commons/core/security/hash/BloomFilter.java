@@ -1,4 +1,4 @@
-package me.hireny.commons.hash;
+package me.hireny.commons.core.security.hash;
 
 import java.util.BitSet;
 
