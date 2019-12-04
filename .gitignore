@@ -134,6 +134,7 @@ gen
 ### Scala template
 *.class
 *.log
+target/
 
 ### Gradle template
 .gradle
