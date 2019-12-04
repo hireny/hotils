@@ -12,6 +12,16 @@ public class ArrayUtils {
 
     private ArrayUtils() {}
 
+    /**
+     * 判断数组是否为空
+     * @param arrays
+     * @return
+     */
+    public static boolean isEmpty(Object[] arrays) {
+        return null == arrays;
+    }
+
+
     /********************************************************************************************
      *   Helper.sorting.functions   排序的辅助方法
      ********************************************************************************************/
@@ -248,8 +258,12 @@ public class ArrayUtils {
     }
     // is the array sorted from a[lo] to a[hi]
     private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
+        for (int i = lo + 1; i <= hi; i++) {
+            if (less(a[i], a[i-1])) {
+                return false;
+            }
+        }
+
         return true;
     }
     // is the array a[] sorted?
@@ -258,8 +272,12 @@ public class ArrayUtils {
     }
     // is the array sorted from a[lo] to a[hi]
     private static boolean isSorted(Object[] a, Comparator comparator, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if(less(comparator, a[i], a[i-1])) return false;
+        for (int i = lo + 1; i <= hi; i++) {
+            if(less(comparator, a[i], a[i-1])) {
+                return false;
+            }
+        }
+
         return true;
     }
 }

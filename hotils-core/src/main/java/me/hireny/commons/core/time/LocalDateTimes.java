@@ -205,7 +205,7 @@ public class LocalDateTimes {
      * @return
      */
     public Long getUnixTimeStampByDefault() {
-        return getUnixTimeStamp(java.time.ZoneId.UTC);
+        return getUnixTimeStamp(me.hireny.commons.core.time.ZoneId.UTC);
     }
     /**
      * 获取北京时间戳
@@ -213,7 +213,7 @@ public class LocalDateTimes {
      */
     public Long getUnixTimeStampByBeijing() {
         // 初始化时区对象，北京时间是UTC+8，所以入参为8
-        return getUnixTimeStamp(ZoneId.BJS);
+        return getUnixTimeStamp(me.hireny.commons.core.time.ZoneId.BJS);
     }
 
     /**

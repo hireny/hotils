@@ -2,7 +2,6 @@ package me.hireny.commons.core.lang;
 
 import me.hireny.commons.utils.Assert;
 
-import javax.annotation.Nullable;
 import java.io.Closeable;
 import java.io.Externalizable;
 import java.io.Serializable;
@@ -127,7 +126,6 @@ public class Classes {
      * 获取默认类加载器
      * @return
      */
-    @Nullable
     public static ClassLoader getDefaultClassLoader() {
         ClassLoader cl = null;
         try {
@@ -169,7 +167,7 @@ public class Classes {
      * @param classLoader the ClassLoader to check against
      * (may be {@code null} in which case this method will always return {@code true})
      */
-    public static boolean isVisible(Class<?> clazz, @Nullable ClassLoader classLoader) {
+    public static boolean isVisible(Class<?> clazz, ClassLoader classLoader) {
         if (classLoader == null) {
             return true;
         }

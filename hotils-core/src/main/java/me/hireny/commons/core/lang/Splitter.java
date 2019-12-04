@@ -2,7 +2,10 @@ package me.hireny.commons.core.lang;
 
 import me.hireny.commons.utils.Assert;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Splitter
@@ -60,5 +63,28 @@ public final class Splitter {
 
     private Iterator<String> splittingIterator(CharSequence cs) {
         return null;
+    }
+
+    /**
+     * 分离
+     * @param cs
+     * @return
+     */
+    public List<String> splitToList(CharSequence cs) {
+        Assert.checkNotNull(cs);
+
+        Iterator<String> iterator = splittingIterator(cs);
+        List<String> result = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            result.add(iterator.next());
+        }
+
+        return Collections.unmodifiableList(result);
+    }
+
+
+    private interface Strategy {
+        Iterator<String> iterator(Splitter splitter, CharSequence toSplit);
     }
 }

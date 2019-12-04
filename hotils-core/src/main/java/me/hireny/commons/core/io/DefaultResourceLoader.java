@@ -3,7 +3,6 @@ package me.hireny.commons.core.io;
 
 import me.hireny.commons.core.lang.Classes;
 
-import javax.annotation.Nullable;
 import java.net.URL;
 
 /**
@@ -12,7 +11,6 @@ import java.net.URL;
  */
 public class DefaultResourceLoader implements ResourceLoader {
 
-    @Nullable
     private ClassLoader classLoader;
 
     public DefaultResourceLoader() {
