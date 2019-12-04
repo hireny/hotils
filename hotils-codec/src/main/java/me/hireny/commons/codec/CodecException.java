@@ -1,6 +1,6 @@
 package me.hireny.commons.codec;
 
-import me.hireny.commons.RetortsException;
+import me.hireny.commons.HotilsException;
 
 /**
  * CodecException
@@ -8,7 +8,7 @@ import me.hireny.commons.RetortsException;
  * @Author: hireny
  * @Date: Create in 2019/10/04 10:10
  */
-public class CodecException extends RetortsException {
+public class CodecException extends HotilsException {
 
     public CodecException() {
         super();

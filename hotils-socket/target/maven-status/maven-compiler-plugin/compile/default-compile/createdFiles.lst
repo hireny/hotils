@@ -1,0 +1,6 @@
+me\hireny\commons\socket\SocketClient.class
+me\hireny\commons\socket\nio\NioClient.class
+me\hireny\commons\socket\SocketServer.class
+me\hireny\commons\socket\SocketUtils.class
+me\hireny\commons\socket\SocketConfiguration.class
+me\hireny\commons\socket\SocketException.class

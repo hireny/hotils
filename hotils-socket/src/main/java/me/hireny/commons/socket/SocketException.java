@@ -1,6 +1,6 @@
 package me.hireny.commons.socket;
 
-import me.hireny.commons.RetortsException;
+import me.hireny.commons.HotilsException;
 
 /**
  * @ClassName: SocketException
@@ -8,7 +8,7 @@ import me.hireny.commons.RetortsException;
  * @Date: Create in 2019/12/01 14:00
  * @Description: TODO   Socket异常
  */
-public class SocketException extends RetortsException {
+public class SocketException extends HotilsException {
 
     private static final long serialVersionUID = 3674006536906084422L;
 

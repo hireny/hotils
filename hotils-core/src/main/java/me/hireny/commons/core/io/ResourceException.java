@@ -1,6 +1,6 @@
 package me.hireny.commons.core.io;
 
-import me.hireny.commons.RetortsException;
+import me.hireny.commons.HotilsException;
 
 /**
  * ResourceException
@@ -9,7 +9,7 @@ import me.hireny.commons.RetortsException;
  * @Author: hireny
  * @Date: Create in 2019/10/05 22:56
  */
-public class ResourceException extends RetortsException {
+public class ResourceException extends HotilsException {
 
     public ResourceException() {
         super();
