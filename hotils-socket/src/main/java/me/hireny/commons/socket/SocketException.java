@@ -8,7 +8,7 @@ import me.hireny.commons.HotilsException;
  * @Date: Create in 2019/12/01 14:00
  * @Description: TODO   Socket异常
  */
-public class SocketException extends HotilsException {
+public class SocketException extends RuntimeException {
 
     private static final long serialVersionUID = 3674006536906084422L;
 

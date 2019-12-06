@@ -1,7 +1,13 @@
 package me.hireny.commons.core.lang;
 
+import com.sun.deploy.util.ArrayUtil;
+import me.hireny.commons.core.text.StringFormatters;
+import me.hireny.commons.utils.ArrayUtils;
 import me.hireny.commons.utils.Assert;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -305,6 +311,172 @@ public final class Strings {
                 && index <= (cs.length() - 2)
                 && Character.isHighSurrogate(cs.charAt(index))
                 && Character.isLowSurrogate(cs.charAt(index + 1));
+    }
+
+    /**
+     * 格式化文本, {} 表示占位符
+     * 此方法只是简单将占位符{} 按照顺序替换为参数
+     * 如果想输出{}使用\\转移 { 即可，如果想输出 {} 之前 \ 使用双转义符 \\\\ 即可
+     * 例子：
+     *  通常使用：format("this is {} for {}", "a", "b") =》 this is a for b<br>
+     * 	转义{}： format("this is \\{} for {}", "a", "b") =》 this is \{} for a<br>
+     * 	转义\： format("this is \\\\{} for {}", "a", "b") =》 this is \a for b<br>
+     * @param cs        文本模板，被替换的部分用{}表示
+     * @param params    参数值
+     * @return          格式化后的文本
+     */
+    public static String format(CharSequence cs, Object... params) {
+        if (null == cs) {
+            return null;
+        }
+        if (ArrayUtils.isEmpty(params) || isBlank(cs)) {
+            return cs.toString();
+        }
+        return StringFormatters.format(cs.toString(), params);
+    }
+
+    /**
+     * 将对象转为字符串
+     * 1、Byte数组和ByteBuffer会被转换为对应字符串的数组
+     * 2、对象数组会调用Arrays.toString方法
+     * @param object    对象
+     * @return          字符串
+     */
+    public static String stringForUtf8(Object object) {
+        return string(object, Charset.forName("UTF-8"));
+    }
+
+    /**
+     * 将对象转换为字符串
+     * 1、Byte数组和ByteBuffer会被转换为对应字符串的数组
+     * 2、对象数组会调用Arrays.toString方法
+     * @param object        对象
+     * @param charsetName   字符集
+     * @return              字符串
+     */
+    public static String string(Object object, String charsetName) {
+        return string(object, Charset.forName(charsetName));
+    }
+
+    public static String string(Object object, Charset charset) {
+        if (null == object) {
+            return null;
+        }
+
+        if (object instanceof String) {
+            return (String) object;
+        } else if (object instanceof byte[]) {
+            return string((byte[]) object, charset);
+        } else if (object instanceof Byte[]) {
+            return string((Byte[]) object, charset);
+        } else if (object instanceof ByteBuffer) {
+            return string((ByteBuffer) object, charset);
+        } else if (ArrayUtils.isArray(object)) {
+            return Objects.nullSafeToString(object);
+        }
+
+        return object.toString();
+    }
+
+    /**
+     * 将byte数组转为字符串
+     *
+     * @param bytes byte数组
+     * @param charset 字符集
+     * @return 字符串
+     */
+    public static String string(byte[] bytes, String charset) {
+        return string(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
+    }
+
+    /**
+     * 解码字节码
+     *
+     * @param data 字符串
+     * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+     * @return 解码后的字符串
+     */
+    public static String string(byte[] data, Charset charset) {
+        if (data == null) {
+            return null;
+        }
+
+        if (null == charset) {
+            return new String(data);
+        }
+        return new String(data, charset);
+    }
+
+    /**
+     * 将Byte数组转为字符串
+     *
+     * @param bytes byte数组
+     * @param charset 字符集
+     * @return 字符串
+     */
+    public static String string(Byte[] bytes, String charset) {
+        return string(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
+    }
+
+    /**
+     * 解码字节码
+     *
+     * @param data 字符串
+     * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+     * @return 解码后的字符串
+     */
+    public static String string(Byte[] data, Charset charset) {
+        if (data == null) {
+            return null;
+        }
+
+        byte[] bytes = new byte[data.length];
+        Byte dataByte;
+        for (int i = 0; i < data.length; i++) {
+            dataByte = data[i];
+            bytes[i] = (null == dataByte) ? -1 : dataByte;
+        }
+
+        return string(bytes, charset);
+    }
+
+    /**
+     * 将编码的byteBuffer数据转换为字符串
+     *
+     * @param data 数据
+     * @param charset 字符集，如果为空使用当前系统字符集
+     * @return 字符串
+     */
+    public static String string(ByteBuffer data, String charset) {
+        if (data == null) {
+            return null;
+        }
+
+        return string(data, Charset.forName(charset));
+    }
+
+    /**
+     * 将编码的byteBuffer数据转换为字符串
+     *
+     * @param data 数据
+     * @param charset 字符集，如果为空使用当前系统字符集
+     * @return 字符串
+     */
+    public static String string(ByteBuffer data, Charset charset) {
+        if (null == charset) {
+            charset = Charset.defaultCharset();
+        }
+        return charset.decode(data).toString();
+    }
+
+    /**
+     * {@link CharSequence} 转为字符串，null安全
+     *
+     * @param cs {@link CharSequence}
+     * @return 字符串
+     */
+    public static String string(CharSequence cs) {
+        return null == cs ? null : cs.toString();
     }
 
 //    /**

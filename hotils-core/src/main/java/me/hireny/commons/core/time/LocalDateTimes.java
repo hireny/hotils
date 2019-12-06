@@ -1,29 +1,26 @@
 package me.hireny.commons.core.time;
 
 import java.time.*;
-import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.TemporalUnit;
+import java.util.Date;
 
 /**
  * @Author: hireny
  * @Date: Create in 2019/10/11 01:33
  */
-public class LocalDateTimes {
-
-//    private final class LocalDatesHodler {
-//        private final LocalDateTimes INSTANCE = new LocalDateTimes();
-//    }
-//
-//    private LocalDateTimes INSTANCE = new LocalDatesHodler().INSTANCE;
+public final class LocalDateTimes {
 
     private LocalDateTime localDateTime;
 
-    public LocalDateTimes() {
+    private LocalDateTimes() {
         // 初始化LocalDateTime对象
         this.localDateTime = LocalDateTime.now();
     }
 
-    public LocalDateTimes(LocalDateTime localDateTime) {
+    private LocalDateTimes(LocalDateTime localDateTime) {
         this.localDateTime = LocalDateTime.of(localDateTime.toLocalDate(), localDateTime.toLocalTime());
     }
 
@@ -199,33 +196,127 @@ public class LocalDateTimes {
     
     // end region
 
+    //*****************************静态方法************************************************
 
-    /**
-     * 获取默认时间戳
-     * @return
-     */
-    public Long getUnixTimeStampByDefault() {
-        return getUnixTimeStamp(me.hireny.commons.core.time.ZoneId.UTC);
-    }
-    /**
-     * 获取北京时间戳
-     * @return
-     */
-    public Long getUnixTimeStampByBeijing() {
-        // 初始化时区对象，北京时间是UTC+8，所以入参为8
-        return getUnixTimeStamp(me.hireny.commons.core.time.ZoneId.BJS);
+    public static LocalDateTime getUTCLocalDateTime(LocalDateTime localDateTime) {
+        return localDateTime;
     }
 
     /**
-     * 获取Unix时间戳
-     * @param zone  时区
+     * Date转换为LocalDateTime
+     * @param date
      * @return
      */
-    private Long getUnixTimeStamp(int zone) {
-        // 初始化时区对象
-        ZoneOffset zoneOffset = ZoneOffset.ofHours(zone);
-        // 获取LocalDateTime对象对应时区的Unix时间戳
-        Long now = localDateTime.toEpochSecond(zoneOffset);
-        return now;
+    public static LocalDateTime convertDateToLocalDateTime(Date date) {
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+
+    /**
+     * LocalDateTime转换为Date
+     * @param localDateTime
+     * @return
+     */
+    public static Date convertLocalDateTimeToDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    /**
+     * 获取指定日期的毫秒
+     * @param localDateTime
+     * @return
+     */
+    public static Long getMillisecondByTime(LocalDateTime localDateTime) {
+        return localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+    }
+
+    /**
+     * 获取指定日期的秒
+     * @param localDateTime
+     * @return
+     */
+    public static Long getSecondsByTime(LocalDateTime localDateTime) {
+        return localDateTime.atZone(ZoneId.systemDefault()).toInstant().getEpochSecond();
+    }
+
+    /**
+     * 获取当前时间的指定格式
+     * @param pattern
+     * @return
+     */
+    public static String formatTime(String pattern) {
+        return formatTime(LocalDateTime.now(), pattern);
+    }
+
+    /**
+     * 获取指定时间的指定格式
+     * @param localDateTime
+     * @param pattern
+     * @return
+     */
+    public static String formatTime(LocalDateTime localDateTime, String pattern) {
+        return localDateTime.format(DateTimeFormatter.ofPattern(pattern));
+    }
+
+    /**
+     * 日期加上一个数，根据field不同加不同值，field为ChronoUnit.*
+     * @param localDateTime
+     * @param number
+     * @param field
+     * @return
+     */
+    public static LocalDateTime plus(LocalDateTime localDateTime, long number, TemporalUnit field) {
+        return localDateTime.plus(number, field);
+    }
+
+    /**
+     * 日期减去一个数，根据field不同减不同值，field为ChronoUnit.*
+     * @param localDateTime
+     * @param number
+     * @param field
+     * @return
+     */
+    public static LocalDateTime minus(LocalDateTime localDateTime, long number, TemporalUnit field) {
+        return localDateTime.minus(number, field);
+    }
+
+    /**
+     * 获取两个日期的差  field参数为ChronoUnit.*.
+     * @param startDateTime
+     * @param endDateTime
+     * @param field
+     * @return
+     */
+    public static long betweenTwoTime(LocalDateTime startDateTime, LocalDateTime endDateTime, ChronoUnit field) {
+        Period period = Period.between(LocalDate.from(startDateTime), LocalDate.from(endDateTime));
+        if (field == ChronoUnit.YEARS) {
+            return period.getYears();
+        } else if (field == ChronoUnit.MONTHS) {
+            return period.getYears() * 12L + period.getMonths();
+        }
+        return field.between(startDateTime, endDateTime);
+    }
+
+    /**
+     * 获取一天的开始时间，例如：2019,1,1 00:00
+     * @param localDateTime
+     * @return
+     */
+    public static LocalDateTime getDayStart(LocalDateTime localDateTime) {
+        return localDateTime.withHour(0)
+                .withMinute(0)
+                .withSecond(0)
+                .withNano(0);
+    }
+
+    /**
+     * 获取一天的结束时间，例如：2019,1,1 23:59:59.999999999.
+     * @param localDateTime
+     * @return
+     */
+    public static LocalDateTime getDayEnd(LocalDateTime localDateTime) {
+        return localDateTime.withHour(23)
+                .withMinute(59)
+                .withSecond(59)
+                .withNano(999999999);
     }
 }

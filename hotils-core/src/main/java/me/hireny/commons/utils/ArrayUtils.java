@@ -21,6 +21,18 @@ public class ArrayUtils {
         return null == arrays;
     }
 
+    /**
+     * 对象是否为数组
+     * @param object    对象
+     * @return          是否为数组对象，如果为{@code null} 返回false
+     */
+    public static boolean isArray(Object object) {
+        if (null == object) {
+            return false;
+        }
+        return object.getClass().isArray();
+    }
+
 
     /********************************************************************************************
      *   Helper.sorting.functions   排序的辅助方法

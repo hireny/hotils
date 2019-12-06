@@ -1,5 +1,6 @@
 package me.hireny.commons.core.lang;
 
+import com.sun.deploy.util.ArrayUtil;
 import me.hireny.commons.utils.Assert;
 
 import java.util.*;
@@ -7,6 +8,7 @@ import java.util.*;
 /**
  * @Author: hireny
  * @Date: Create in 2019/09/30 01:36
+ * @Description: TODO   对象工具类，包括判空、克隆、序列化等操作
  */
 public final class Objects {
     private Objects() {}
@@ -727,4 +729,61 @@ public final class Objects {
         sb.append(ARRAY_END);
         return sb.toString();
     }
+
+    /**
+     * 如果给定对象为{@code null} 返回默认值
+     *
+     * ObjectUtil.defaultIfNull(null, null)      = null
+     * ObjectUtil.defaultIfNull(null, "")        = ""
+     * ObjectUtil.defaultIfNull(null, "zz")      = "zz"
+     * ObjectUtil.defaultIfNull("abc", *)        = "abc"
+     * ObjectUtil.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
+     *
+     * @param object            被检查对象，可能为{@code null}
+     * @param defaultValue      被检查对象为{@code null}返回的默认值，可以为{@code null}
+     * @param <T>               对象类型
+     * @return                  被检查对象为{@code null}返回默认值，否则返回原值
+     */
+    public static <T> T defaultIfNull(final T object, final T defaultValue) {
+        return (null != object) ? object : defaultValue;
+    }
+
+    /**
+     * 克隆对象
+     * 如果对象实现Cloneable接口，调用其clone方法
+     * 如果实现Serializable接口，执行深度克隆
+     * 否则返回 {@code null}
+     * @param object    被克隆的对象
+     * @param <T>       对象类型
+     * @return          克隆后的对象
+     */
+//    public static <T> T clone(T object) {
+//        T result = ArrayUtil.clone(object);
+//        if (null == result) {
+//            if (object instanceof Cloneable) {
+//                result = ReflectUtil.invoke(obj, "clone");
+//            } else {
+//                result = cloneByStream(obj);
+//            }
+//        }
+//        return result;
+//    }
+
+    /**
+     * 返回克隆后的对象，如果克隆失败，返回原对象
+     *
+     * @param <T> 对象类型
+     * @param obj 对象
+     * @return 克隆后或原对象
+     */
+//    public static <T> T cloneIfPossible(final T obj) {
+//        T clone = null;
+//        try {
+//            clone = clone(obj);
+//        } catch (Exception e) {
+//            // pass
+//        }
+//        return clone == null ? obj : clone;
+//    }
+
 }

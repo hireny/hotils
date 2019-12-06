@@ -4,6 +4,7 @@ import me.hireny.commons.core.lang.Splitter;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @ClassName: WebSecurityUtils
@@ -36,11 +37,7 @@ public class WebSecurityUtils {
      * @param value
      * @return
      */
-    public static String xssStrip(String value) {
-        if (null == value) {
-            return null;
-        }
-
+    private static String xssStrip(String value) {
         return null;
     }
 
