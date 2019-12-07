@@ -87,4 +87,13 @@ public class Servlets {
         }
         return ip;
     }
+
+    /**
+     * 判断是否为AJAX请求
+     * @param request
+     * @return
+     */
+    public static String getRequestType(HttpServletRequest request) {
+        return request.getHeader("X-Requested-With");
+    }
 }
