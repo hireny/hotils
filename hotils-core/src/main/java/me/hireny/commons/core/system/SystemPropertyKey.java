@@ -73,6 +73,10 @@ public interface SystemPropertyKey {
      */
     String JVM_NAME = "java.vm.name";
     /**
+     * Java虚拟机信息
+     */
+    String JVM_INFO = "java.vm.info";
+    /**
      * Java虚拟机规范版本号
      */
     String JVM_SPECIFICATION_VERSION = "java.vm.specification.version";
