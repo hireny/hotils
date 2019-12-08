@@ -15,8 +15,9 @@
         <module>hotils-core</module>
         <module>hotils-jdbc</module>
         <module>hotils-json</module>
-        <module>hotils-web</module>
+        <module>hotils-pools</module>
         <module>hotils-socket</module>
+        <module>hotils-web</module>
     </modules>
     <packaging>pom</packaging>
     <name>hotils: hotils Parent for Java</name>
@@ -107,6 +108,16 @@
             </dependency>
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
+                <artifactId>hotils-pools</artifactId>
+                <version>${hotils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.hireny.hotils</groupId>
+                <artifactId>hotils-socket</artifactId>
+                <version>${hotils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-web</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
@@ -150,7 +161,6 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
-                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

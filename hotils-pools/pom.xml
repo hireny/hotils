@@ -9,23 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hotils-core</artifactId>
-    <name>Hotils: Hotils Core for Java</name>
-    <description>Java核心模块，封装一些常用的工具</description>
+    <artifactId>hotils-pools</artifactId>
+    <name>Hotils: Hotils Pools for Java</name>
+    <description>对象池的工具组件</description>
 
     <dependencies>
-        <!--日志框架-->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-core</artifactId>
         </dependency>
         <!--测试框架-->
         <dependency>
