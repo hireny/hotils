@@ -1,6 +1,5 @@
 package me.hireny.commons.core.text;
 
-import com.sun.deploy.util.ArrayUtil;
 import me.hireny.commons.core.lang.Strings;
 import me.hireny.commons.utils.ArrayUtils;
 

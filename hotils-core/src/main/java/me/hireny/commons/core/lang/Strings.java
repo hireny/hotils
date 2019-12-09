@@ -1,13 +1,11 @@
 package me.hireny.commons.core.lang;
 
-import com.sun.deploy.util.ArrayUtil;
 import me.hireny.commons.core.text.StringFormatters;
 import me.hireny.commons.utils.ArrayUtils;
 import me.hireny.commons.utils.Assert;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -1,4 +1,4 @@
-package me.hireny.commons.servlet;
+package me.hireny.commons.web;
 
 import me.hireny.commons.core.lang.Strings;
 import me.hireny.commons.core.lang.Symbol;
@@ -8,18 +8,21 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
- * @ClassName: Servlets
+ * @ClassName: Webs
  * @Author: hireny
- * @Date: Create in 2019/12/03 01:28
- * @Description: TODO   Servlet容器工具类
+ * @Date: Create in 2019/12/10 00:03
+ * @Description: TODO   Web工具类
  */
-public class Servlets {
+public class Webs {
+    private static final Logger logger = LoggerFactory.getLogger(Webs.class);
 
-    private static final Logger logger = LoggerFactory.getLogger(Servlets.class);
-
-    private Servlets() {}
+    private Webs() {}
 
     private static final String UNKNOWN = "unknown";
     private static final String X_FORWARDED_FOR = "X-Forwarded-For";
@@ -32,6 +35,17 @@ public class Servlets {
     private static final String LOCALHOST_IP_16 = "0:0:0:0:0:0:0:1";
     private static final int MAX_IP_LENGTH = 15;
 
+    /**
+     * IP地址请求头
+     */
+    private static final String[] IP_HEADERS = {
+            "X-Real-IP",
+            "X-Forwarded-For",
+            "Proxy-Client-IP",
+            "WL-Proxy-Client-IP",
+            "HTTP_CLIENT_IP",
+            "HTTP_X_FORWARDED_FOR"
+    };
 
     /**
      * 获取 IP地址
@@ -86,6 +100,46 @@ public class Servlets {
             }
         }
         return ip;
+    }
+
+    /**
+     * 尝试获取当前请求的HttpServletRequest实例中的参数
+     * @param request
+     * @return
+     */
+    public static Map<String, String> getParameters(HttpServletRequest request) {
+        Map<String, String> parameters = new HashMap<>();
+        Enumeration enumeration = request.getParameterNames();
+        while (enumeration.hasMoreElements()) {
+            String name = String.valueOf(enumeration.nextElement());
+            parameters.put(name, request.getParameter(name));
+        }
+        return parameters;
+    }
+
+    /**
+     * 尝试获取当前请求的HttpServletRequest实例中的请求头
+     * @param request
+     * @return
+     */
+    public static Map<String, String> getHeaders(HttpServletRequest request) {
+        Map<String, String> map = new LinkedHashMap<>();
+        Enumeration<String> enumeration = request.getHeaderNames();
+        while (enumeration.hasMoreElements()) {
+            String key = enumeration.nextElement();
+            String value = request.getHeader(key);
+            map.put(key, value);
+        }
+        return map;
+    }
+
+    public static String getDomain(HttpServletRequest request){
+        StringBuffer url = request.getRequestURL();
+        return url.delete(url.length() - request.getRequestURI().length(), url.length()).toString();
+    }
+
+    public static String getOrigin(HttpServletRequest request){
+        return request.getHeader("Origin");
     }
 
     /**

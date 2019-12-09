@@ -13,6 +13,7 @@
         <module>hotils-cache</module>
         <module>hotils-codec</module>
         <module>hotils-core</module>
+        <module>hotils-http</module>
         <module>hotils-jdbc</module>
         <module>hotils-json</module>
         <module>hotils-pools</module>
@@ -30,6 +31,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <hotils.version>0.0.1</hotils.version>
     </properties>
     <issueManagement>
@@ -66,11 +69,25 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <!-- Javadoc -->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                <version>3.1.1</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
@@ -95,6 +112,11 @@
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-core</artifactId>
+                <version>${hotils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.hireny.hotils</groupId>
+                <artifactId>hotils-http</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>

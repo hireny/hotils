@@ -12,6 +12,7 @@ hotils|算法与数据结构的实现
 hotils-cache|简单缓存实现
 hotils-codec|编解码实现
 hotils-core|核心包实现
+hotils-http|HTTP客户端封装
 hotils-jdbc|对JDBC封装后的操作工具
 hotils-json|对JSON序列化解析的实现
 hotils-pools|对象池的实现

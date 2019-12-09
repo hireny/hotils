@@ -1,6 +1,5 @@
 package me.hireny.commons.core.lang;
 
-import com.sun.deploy.util.ArrayUtil;
 import me.hireny.commons.utils.Assert;
 
 import java.util.*;
@@ -140,11 +139,11 @@ public final class Objects {
 
     /**
      * 返回hashCode
-     * @param object
+     * @param o
      * @return
      */
-    public static int hashCode(Object object) {
-        return nullSafeHashCode(object);
+    public static int hashCode(Object o) {
+        return nullSafeHashCode(o);
     }
     /**
      * 返回hashCode
@@ -739,13 +738,13 @@ public final class Objects {
      * ObjectUtil.defaultIfNull("abc", *)        = "abc"
      * ObjectUtil.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
      *
-     * @param object            被检查对象，可能为{@code null}
+     * @param obj               被检查对象，可能为{@code null}
      * @param defaultValue      被检查对象为{@code null}返回的默认值，可以为{@code null}
      * @param <T>               对象类型
      * @return                  被检查对象为{@code null}返回默认值，否则返回原值
      */
-    public static <T> T defaultIfNull(final T object, final T defaultValue) {
-        return (null != object) ? object : defaultValue;
+    public static <T> T defaultIfNull(final T obj, final T defaultValue) {
+        return (null != obj) ? obj : defaultValue;
     }
 
     /**
