@@ -1,4 +1,4 @@
-package me.hireny.commons.http;
+package me.hireny.commons.core.net.http;
 
 import java.io.Serializable;
 

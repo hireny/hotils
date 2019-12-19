@@ -7,6 +7,8 @@ package me.hireny.commons;
  * @Description: TODO   基础的运行时异常
  */
 public class HotilsRuntimeException extends RuntimeException {
+    private static final long serialVersionUID = -6349020547767422108L;
+
     public HotilsRuntimeException() {
         super();
     }

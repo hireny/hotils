@@ -1,4 +1,6 @@
-package me.hireny.commons.jdbc;
+package me.hireny.commons.jdbc.datasource;
+
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -9,8 +11,12 @@ import java.util.logging.Logger;
 /**
  * @Author: hireny
  * @Date: Create in 2019/11/03 13:59
+ * @Description:    抽象数据连接
  */
 public abstract class AbstractDataSource implements DataSource {
+
+    protected final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+
     /**
      * 获取登录时间
      * @return

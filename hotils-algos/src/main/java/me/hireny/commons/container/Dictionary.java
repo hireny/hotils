@@ -1,14 +1,5 @@
 package me.hireny.commons.container;
 
-
-import me.hireny.commons.core.beans.getter.BeanTypeGetter;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,7 +10,7 @@ import java.util.Map;
  * @Date: Create in 2019/12/04 14:45
  * @Description: TODO   字典容器的实现，扩充HashMap中的方法
  */
-public class Dictionary extends LinkedHashMap<String, Object> implements BeanTypeGetter<String> {
+public class Dictionary extends LinkedHashMap<String, Object> {
     private static final long serialVersionUID = -7309133758732015700L;
 
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
@@ -87,92 +78,66 @@ public class Dictionary extends LinkedHashMap<String, Object> implements BeanTyp
      * 构造方法
      * @param map   map容器
      */
-    public Dictionary(Map<String, Object> map) {
+    public Dictionary(Map<? extends String, ?> map) {
         super((null == map) ? new HashMap<>() : map);
     }
 
-    @Override
-    public Object getObject(String key) {
-        return null;
+    /**
+     * 设置列
+     * @param attr      属性
+     * @param value     值
+     * @return          本身
+     */
+    public Dictionary set(String attr, Object value) {
+        this.put(attr, value);
+        return this;
+    }
+
+    /**
+     * 设置列，当键获值为null时忽略
+     * @param attr      属性
+     * @param value     值
+     * @return          本身
+     */
+    public Dictionary setIgnoreNull(String attr, Object value) {
+        if (null != attr && null != value) {
+            set(attr, value);
+        }
+        return this;
+    }
+
+    /**
+     * 获取特定类型值
+     * @param attr              字段名
+     * @param defaultValue      默认值
+     * @param <T>               值类型
+     * @return                  字段值
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T get(String attr, T defaultValue) {
+        final Object result = get(attr);
+        return (T) (result != null ? result : defaultValue);
     }
 
     @Override
-    public String getString(String key) {
-        return null;
+    public Object put(String key, Object value) {
+        return super.put(customKey(key), value);
     }
 
     @Override
-    public Integer getInt(String key) {
-        return null;
+    public Dictionary clone() {
+        return (Dictionary) super.clone();
     }
 
-    @Override
-    public Short getShort(String key) {
-        return null;
-    }
-
-    @Override
-    public Boolean getBoolean(String key) {
-        return null;
-    }
-
-    @Override
-    public Long getLong(String key) {
-        return null;
-    }
-
-    @Override
-    public Character getChar(String key) {
-        return null;
-    }
-
-    @Override
-    public Float getFloat(String key) {
-        return null;
-    }
-
-    @Override
-    public Double getDouble(String key) {
-        return null;
-    }
-
-    @Override
-    public Byte getByte(String key) {
-        return null;
-    }
-
-    @Override
-    public BigDecimal getBigDecimal(String key) {
-        return null;
-    }
-
-    @Override
-    public BigInteger getBigInteger(String key) {
-        return null;
-    }
-
-    @Override
-    public <E extends Enum<E>> E getEnum(Class<E> clazz, String key) {
-        return null;
-    }
-
-    @Override
-    public Date getDate(String key) {
-        return null;
-    }
-
-    @Override
-    public LocalDate getLocalDate(String key) {
-        return null;
-    }
-
-    @Override
-    public LocalTime getLocalTime(String key) {
-        return null;
-    }
-
-    @Override
-    public LocalDateTime getLocalDateTime(String key) {
-        return null;
+    /**
+     * 将 Key 转为小写
+     * @param key       KEY
+     * @return          小写KEY
+     */
+    private String customKey(String key) {
+        if (this.caseInsensitive && null != key) {
+            key = key.toLowerCase();
+        }
+        return key;
     }
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * @Author: hireny
  * @Date: Create in 2019/11/03 14:12
+ * @Description: TODO   最近最久未使用
  */
 public class LRUCache<K, V> extends LinkedHashMap<K, V> {
     private static final long serialVersionUID = -3644310128315227043L;

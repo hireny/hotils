@@ -13,5 +13,12 @@
     <name>Hotils：Hotils Jdbc for Java</name>
     <description>对JDBC封装后的操作工具</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-core</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>
