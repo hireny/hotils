@@ -29,6 +29,25 @@ public final class HttpTemplate {
      * @return  {@link HttpRequest}
      */
     public static HttpRequest createRequest(String url, RequestMethod method) {
-        return new HttpRequest(url).method();
+        return new HttpRequest(url).method(method);
+    }
+
+    /**
+     * 创建 Http GET 请求对象
+     *
+     * @param url   请求的URL，可以使用HTTP或者HTTPS
+     * @return      {@link RequestMethod}
+     */
+    public static HttpRequest createGetRequest(String url) {
+        return createRequest(url, RequestMethod.GET);
+    }
+
+    /**
+     * 创建 Http POST 请求对象
+     * @param url   请求的URL，可以使用HTTP或者HTTPS
+     * @return      {@link RequestMethod}
+     */
+    public static HttpRequest createPostRequest(String url) {
+        return createRequest(url, RequestMethod.POST);
     }
 }
