@@ -1,5 +1,6 @@
 package me.hireny.commons.algos.sort;
 
+import me.hireny.commons.core.lang.Comparators;
 import me.hireny.commons.utils.ArrayUtils;
 
 /**
@@ -44,7 +45,7 @@ public class BubbleSort<T extends Comparable<? super T>> implements Sort<T> {
 
         for (int i=0; i<length; i++) {
             for (int j=0; j< length - i - 1; j++) {
-                if (array[j].compareTo(array[j+1]) > 0) {
+                if (Comparators.less(array[j+1], array[j])) {
                     ArrayUtils.exchange(array, j, j+1);
                 }
             }
