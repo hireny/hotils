@@ -1,7 +1,7 @@
 package me.hireny.commons.core.collect;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * @ClassName: CaseInsensitiveMap
@@ -11,8 +11,20 @@ import java.util.Map;
  *
  * 对KEY忽略大小写，get("Value")和get("value")获得的值相同，put进入的值也会被覆盖
  */
-public class CaseInsensitiveMap<K, V> extends CustomKeyMap<K, V> {
+public class CaseInsensitiveMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>, Cloneable, Serializable {
     private static final long serialVersionUID = -8177370574947249548L;
+
+    /**
+     * 默认增长因子
+     */
+    protected static final float DEFAULT_LOAD_FACTOR = 0.75f;
+
+    /**
+     * 默认初始大小
+     */
+    protected static final int DEFAULT_INITIAL_CAPACITY = 1 << 4;   // aka 16
+
+    private Map<K, V> raw;
 
 
     public CaseInsensitiveMap() {
@@ -51,7 +63,90 @@ public class CaseInsensitiveMap<K, V> extends CustomKeyMap<K, V> {
      * @param loadFactor        加载因子
      */
     public CaseInsensitiveMap(int initialCapacity, float loadFactor) {
-        super(new HashMap<>(initialCapacity, loadFactor));
+        this.raw = new HashMap<>(initialCapacity, loadFactor);
+    }
+
+    /**
+     * 获取原始的Map
+     * @return
+     */
+    public Map<K, V> getRaw() {
+        return this.raw;
+    }
+
+    @Override
+    public V get(Object key) {
+        return raw.get(customKey(key));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public V put(K key, V value) {
+        return raw.put((K) customKey(key), value);
+    }
+
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m) {
+        for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
+            raw.put(entry.getKey(), entry.getValue());
+        }
+    }
+
+    @Override
+    public V remove(Object key) {
+        return raw.remove(key);
+    }
+
+
+    @Override
+    public boolean containsKey(Object key) {
+        return raw.containsKey(customKey(key));
+    }
+
+
+    @Override
+    public int size() {
+        return raw.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return raw.isEmpty();
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        return raw.containsValue(value);
+    }
+
+    @Override
+    public void clear() {
+        raw.clear();
+    }
+
+    @Override
+    public Set<K> keySet() {
+        return raw.keySet();
+    }
+
+    @Override
+    public Collection<V> values() {
+        return raw.values();
+    }
+
+    @Override
+    public Set<Entry<K, V>> entrySet() {
+        return raw.entrySet();
+    }
+
+    @Override
+    public Iterator<Entry<K, V>> iterator() {
+        return this.entrySet().iterator();
+    }
+
+    @Override
+    public String toString() {
+        return raw.toString();
     }
 
     /**
@@ -59,7 +154,6 @@ public class CaseInsensitiveMap<K, V> extends CustomKeyMap<K, V> {
      * @param key   KEY
      * @return      小写KEY
      */
-    @Override
     protected Object customKey(Object key) {
         if (key instanceof CharSequence) {
             key = key.toString().toLowerCase();
