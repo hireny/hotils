@@ -24,11 +24,11 @@
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>
-            <artifactId>hotils-codec</artifactId>
+            <artifactId>hotils-core</artifactId>
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>
-            <artifactId>hotils-core</artifactId>
+            <artifactId>hotils-crypto</artifactId>
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>

@@ -1,5 +1,8 @@
 package me.hireny.commons.container;
 
+import org.hayros.commons.container.LinkedStack;
+import org.hayros.commons.container.Stack;
+
 /**
  * @ClassName: LinkedStackTest
  * @Author: hireny

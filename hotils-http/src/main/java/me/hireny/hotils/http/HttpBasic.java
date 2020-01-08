@@ -2,7 +2,8 @@ package me.hireny.hotils.http;
 
 import me.hireny.commons.core.collect.CaseInsensitiveMap;
 import me.hireny.commons.core.collect.Collections;
-import me.hireny.commons.core.lang.Charsets;
+import me.hireny.commons.core.io.Charsets;
+import me.hireny.commons.core.io.Resource;
 import me.hireny.commons.core.lang.Strings;
 
 import java.nio.charset.Charset;

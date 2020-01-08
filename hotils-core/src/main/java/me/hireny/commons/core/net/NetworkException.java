@@ -1,12 +1,15 @@
 package me.hireny.commons.core.net;
 
+import me.hireny.commons.NestedRuntimeException;
+
 /**
  * @ClassName: NetworkException
  * @Author: hireny
  * @Date: Create in 2019/12/08 00:36
- * @Description: TODO
+ * @Description: TODO 网络异常
  */
-public class NetworkException extends RuntimeException {
+public class NetworkException extends NestedRuntimeException {
+
     public NetworkException() {
         super();
     }

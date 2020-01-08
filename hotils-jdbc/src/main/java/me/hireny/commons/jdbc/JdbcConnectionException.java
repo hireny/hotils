@@ -1,6 +1,6 @@
 package me.hireny.commons.jdbc;
 
-import me.hireny.commons.HotilsRuntimeException;
+import me.hireny.commons.NestedRuntimeException;
 
 /**
  * @ClassName: JdbcConnectionException
@@ -8,7 +8,7 @@ import me.hireny.commons.HotilsRuntimeException;
  * @Date: Create in 2019/12/11 13:32
  * @Description: TODO   JDBC连接异常
  */
-public class JdbcConnectionException extends HotilsRuntimeException {
+public class JdbcConnectionException extends NestedRuntimeException {
 
     private static final long serialVersionUID = 4313919867933853333L;
 

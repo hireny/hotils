@@ -1,6 +1,6 @@
 package me.hireny.commons.core.beans;
 
-import me.hireny.commons.HotilsRuntimeException;
+import me.hireny.commons.NestedRuntimeException;
 
 /**
  * @ClassName: BeansException
@@ -8,7 +8,7 @@ import me.hireny.commons.HotilsRuntimeException;
  * @Date: Create in 2019/12/22 00:31
  * @Description: TODO   Bean异常
  */
-public class BeansException extends HotilsRuntimeException {
+public class BeansException extends NestedRuntimeException {
 
     public BeansException() {
         super();

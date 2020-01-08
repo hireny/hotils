@@ -1,6 +1,6 @@
 package me.hireny.commons.jdbc;
 
-import me.hireny.commons.HotilsRuntimeException;
+import me.hireny.commons.NestedRuntimeException;
 
 /**
  * @ClassName: SQLWaringException
@@ -8,7 +8,7 @@ import me.hireny.commons.HotilsRuntimeException;
  * @Date: Create in 2019/12/11 13:33
  * @Description: TODO   SQL错误异常
  */
-public class SQLWaringException extends HotilsRuntimeException {
+public class SQLWaringException extends NestedRuntimeException {
     private static final long serialVersionUID = 2542010725802206030L;
 
     public SQLWaringException() {

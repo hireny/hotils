@@ -85,5 +85,4 @@ public class JvmInfo implements Serializable {
 
         return builder.toString();
     }
-
 }

@@ -1,6 +1,6 @@
 package me.hireny.commons.jdbc;
 
-import me.hireny.commons.HotilsRuntimeException;
+import me.hireny.commons.NestedRuntimeException;
 
 /**
  * @ClassName: DataAccessException
@@ -8,7 +8,7 @@ import me.hireny.commons.HotilsRuntimeException;
  * @Date: Create in 2019/12/11 13:31
  * @Description: TODO   数据处理异常
  */
-public class DataAccessException extends HotilsRuntimeException {
+public class DataAccessException extends NestedRuntimeException {
     private static final long serialVersionUID = 5455046653376834286L;
 
     public DataAccessException() {

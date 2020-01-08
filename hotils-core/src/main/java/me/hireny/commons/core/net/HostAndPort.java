@@ -16,6 +16,15 @@ public final class HostAndPort implements Serializable {
     private static final int NO_PORT = -1;
     private static final long serialVersionUID = 1089419575331919825L;
 
+    /**
+     * 默认最小端口,1024
+     */
+    public static final int PORT_RANGE_MIN = 1024;
+    /**
+     * 默认最大端口，65535
+     */
+    public static final int PORT_RANGE_MAX = 0xFFFF;
+
     /** Hostname, IPv4/IPv6 literal, or unvalidated nonsense. */
     private final String host;
 
@@ -72,7 +81,7 @@ public final class HostAndPort implements Serializable {
      * @return
      */
     public static HostAndPort fromParts(String host, int port) {
-        Assert.isTrue(isValidPort(port), "Port out of range: " + port);
+        Assert.isTrue(Networks.isValidPort(port), "Port out of range: " + port);
         HostAndPort parsedHost = fromString(host);
         Assert.isTrue(!parsedHost.hasPort(), "Host has a port: " + host);
         return new HostAndPort(parsedHost.host, port,parsedHost.hasBracketlessColons);
@@ -127,7 +136,7 @@ public final class HostAndPort implements Serializable {
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Unparseable port number: " + hostPortString);
             }
-            Assert.isTrue(isValidPort(port), "Port number out of range: " + hostPortString);
+            Assert.isTrue(Networks.isValidPort(port), "Port number out of range: " + hostPortString);
         }
 
         return new HostAndPort(host, port, hasBracketlessColons);
@@ -168,7 +177,8 @@ public final class HostAndPort implements Serializable {
      * @return
      */
     public HostAndPort withDefaultPort(int defaultPort) {
-        Assert.state(isValidPort(defaultPort));
+        // 验证端口号是否有效
+        Assert.state(Networks.isValidPort(defaultPort));
         if (hasPort()) {
             return this;
         }
@@ -218,15 +228,5 @@ public final class HostAndPort implements Serializable {
             builder.append(':').append(port);
         }
         return builder.toString();
-    }
-
-    /**
-     * Return true for valid port numbers.
-     * 验证端口是否有效
-     * @param port
-     * @return
-     */
-    private static boolean isValidPort(int port) {
-        return port >= 0 && port <= 65535;
     }
 }

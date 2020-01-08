@@ -1,5 +1,6 @@
 package me.hireny.commons.core.io;
 
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;

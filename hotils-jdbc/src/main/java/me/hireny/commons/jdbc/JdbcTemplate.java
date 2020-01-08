@@ -8,7 +8,7 @@ import java.util.Map;
  * @Date: Create in 2019/12/11 14:00
  * @Description: TODO   JDBC操作模板
  */
-public class JdbcTemplate implements JdbcOperations {
+public class JdbcTemplate implements JdbcOptions {
     @Override
     public <T> T execute(ConnectionCallback<T> action) throws DataAccessException {
         return null;

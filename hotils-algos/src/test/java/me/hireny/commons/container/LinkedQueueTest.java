@@ -1,5 +1,8 @@
 package me.hireny.commons.container;
 
+import org.hayros.commons.container.LinkedQueue;
+import org.hayros.commons.container.Queue;
+
 /**
  * @ClassName: LinkedQueueTest
  * @Author: hireny

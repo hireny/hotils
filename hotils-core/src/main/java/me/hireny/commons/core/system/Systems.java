@@ -3,6 +3,7 @@ package me.hireny.commons.core.system;
 import me.hireny.commons.core.lang.Strings;
 
 import java.io.Console;
+import java.lang.management.ManagementFactory;
 import java.util.Properties;
 
 /**
@@ -119,7 +120,12 @@ public class Systems {
      *
      * @return 当前进程 ID
      */
-//    public static long getCurrentPID() {
-//        return Long.parseLong(getRuntimeMXBean().getName().split("@")[0]);
-//    }
+    public static long getCurrentPID() {
+        String pid = ManagementFactory.getRuntimeMXBean().getName();
+        int indexOf = pid.indexOf('@');
+        if (indexOf > 0) {
+            pid = pid.substring(0, indexOf);
+        }
+        return Long.parseLong(pid);
+    }
 }

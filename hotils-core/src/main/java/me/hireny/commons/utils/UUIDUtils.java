@@ -2,6 +2,7 @@ package me.hireny.commons.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -63,6 +64,19 @@ public class UUIDUtils {
         String timeStr = sdf.format(d);
         String random32 = getRandom32PK();
         return random32.substring(0, random32.length() - 17) + timeStr;
+    }
+
+    public static String  getUUID() {
+        //public static void main(String[] args) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String newDate = sdf.format(new Date());
+        String result = "";
+        Random random = new Random();
+        for (int i = 0; i < 2; i++) {
+            result += random.nextInt(10);
+        }
+        return newDate + result;
+        //System.out.println(newDate + result);
     }
 
     public static void main(String[] args) {

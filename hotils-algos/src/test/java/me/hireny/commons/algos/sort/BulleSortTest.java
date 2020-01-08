@@ -1,5 +1,8 @@
 package me.hireny.commons.algos.sort;
 
+import org.hayros.commons.algos.sort.BubbleSort;
+import org.hayros.commons.algos.sort.Sort;
+
 /**
  * @ClassName: BulleSortTest
  * @Author: hireny

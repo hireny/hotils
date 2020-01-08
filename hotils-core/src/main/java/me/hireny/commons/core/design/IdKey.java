@@ -19,15 +19,15 @@ public class IdKey implements Serializable {
     /**
      * Constructor for IDKey
      *
-     * @param _value The value
+     * @param value The value
      */
-    public IdKey(final Object _value) {
+    public IdKey(final Object value) {
         // This is the Object hashcode
-        id = System.identityHashCode(_value);
+        id = System.identityHashCode(value);
         // There have been some cases (LANG-459) that return the
         // same identity hash code for different objects. So
         // the value is also added to disambiguate these cases.
-        value = _value;
+        this.value = value;
     }
 
     /**

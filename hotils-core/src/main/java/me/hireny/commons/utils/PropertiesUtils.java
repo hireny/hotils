@@ -12,7 +12,7 @@ import java.util.Properties;
  * @Date: Create in 2019/12/07 22:53
  * @Description: TODO   提供一些常用的属性文件相关的方法.
  */
-public class PropertiesUtils {
+public final class PropertiesUtils {
     private PropertiesUtils() {}
 
     /**
