@@ -1,8 +1,6 @@
-package me.hireny.commons.core.codec.binary;
+package me.hireny.commons.core.codec;
 
 
-import me.hireny.commons.core.codec.Codec;
-import me.hireny.commons.core.codec.CodecConstants;
 import me.hireny.commons.utils.StringUtils;
 
 import java.io.UnsupportedEncodingException;
