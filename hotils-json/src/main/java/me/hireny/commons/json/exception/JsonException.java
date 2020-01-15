@@ -1,13 +1,11 @@
 package me.hireny.commons.json.exception;
 
-import me.hireny.commons.HotilsException;
-
 /**
  * Json异常
  * @Author: hireny
  * @Date: Create in 2019/07/16 21:28
  */
-public class JsonException extends HotilsException {
+public class JsonException extends Exception {
 
     public JsonException() {
     }

@@ -9,7 +9,7 @@ import java.util.*;
  * @Date: Create in 2019/12/22 22:02
  * @Description: TODO   多值的映射表的链表实现
  */
-public class LinkedMultiValueMap<K, V> implements MultiMap<K, V>, Serializable, Cloneable {
+public class LinkedMultiValueMap<K, V> implements MultiValueMap<K, V>, Serializable, Cloneable {
     private static final long serialVersionUID = 3321345201905547073L;
 
     private final Map<K, List<V>> targetMap;
@@ -45,7 +45,7 @@ public class LinkedMultiValueMap<K, V> implements MultiMap<K, V>, Serializable, 
     }
 
     @Override
-    public void addAll(MultiMap<K, V> values) {
+    public void addAll(MultiValueMap<K, V> values) {
         for (Entry<K, List<V>> entry : values.entrySet()) {
             addAll(entry.getKey(), entry.getValue());
         }

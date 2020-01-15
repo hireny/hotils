@@ -20,7 +20,10 @@ public enum DateUnit {
     /**一天的毫秒数*/
     DAY(HOUR.getMillis() * 24),
     /**一周的毫秒数*/
-    WEEK(DAY.getMillis() * 7);
+    WEEK(DAY.getMillis() * 7),
+    /** 一年的毫秒数 */
+    YEAR(DAY.getMillis() * 365),
+    YEAR2(DAY.getMillis() * 366);
 
 
     private long millis;

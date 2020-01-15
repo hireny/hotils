@@ -7,5 +7,6 @@ package me.hireny.commons.core.time;
  * @Date: Create in 2019/10/02 21:36
  */
 public class Dates {
+
     private Dates() {}
 }

@@ -1,8 +1,8 @@
 package me.hireny.commons.socket.aio;
 
 import me.hireny.commons.core.io.ResourceException;
-import me.hireny.commons.core.utils.concurrent.ThreadFactoryBuilder;
-import me.hireny.commons.core.utils.concurrent.ThreadPoolUtils;
+import me.hireny.commons.utils.concurrent.ThreadFactoryBuilder;
+import me.hireny.commons.utils.concurrent.ThreadPoolUtils;
 import me.hireny.commons.socket.SocketConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,5 @@
 package me.hireny.commons.utils;
 
-import me.hireny.commons.core.lang.Strings;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,7 +76,7 @@ public class HtmlUtils {
     }
 
     public static String htmlEscape(String html) {
-        if (!Strings.isBlank(html)) {
+        if (!StringUtils.isBlank(html)) {
             Pattern pattern = Pattern.compile("<([^>]*)>");
             return htmlEscape(html, pattern);
         }
@@ -92,8 +90,8 @@ public class HtmlUtils {
      * @return
      */
     public static String htmlEscape(String html, String tag) {
-        if (!Strings.isBlank(html)) {
-            if (Strings.isBlank(tag)) {
+        if (!StringUtils.isBlank(html)) {
+            if (StringUtils.isBlank(tag)) {
                 Pattern pattern = Pattern.compile("<([^>]*)>");
                 return htmlEscape(html, pattern);
             } else {

@@ -1,6 +1,6 @@
 package me.hireny.commons.servlet;
 
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ public class XssFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         // 获取不拦截的地址
         excludedPages = filterConfig.getInitParameter("excludedPages");
-        if (!Strings.isEmpty(excludedPages)) {
+        if (!StringUtils.isEmpty(excludedPages)) {
             excludedPageArray = excludedPages.split(",");
         }
     }

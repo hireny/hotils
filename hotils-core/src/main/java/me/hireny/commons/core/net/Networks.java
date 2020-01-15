@@ -1,8 +1,8 @@
 package me.hireny.commons.core.net;
 
-import me.hireny.commons.core.collect.Collections;
+import me.hireny.commons.utils.CollectionUtils;
 import me.hireny.commons.core.lang.Filter;
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 
 import java.net.*;
 import java.util.Enumeration;
@@ -142,7 +142,7 @@ public class Networks {
      * @return              是否未知
      */
     public static boolean isUnknow(String checkString) {
-        return Strings.isBlank(checkString) || "unknown".equalsIgnoreCase(checkString);
+        return StringUtils.isBlank(checkString) || "unknown".equalsIgnoreCase(checkString);
     }
 
     /**
@@ -226,8 +226,8 @@ public class Networks {
                     && address instanceof Inet4Address;
         });
 
-        if (!Collections.isEmpty(localAddressList)) {
-            return Collections.get(localAddressList, 0);
+        if (!CollectionUtils.isEmpty(localAddressList)) {
+            return CollectionUtils.get(localAddressList, 0);
         }
 
         try {

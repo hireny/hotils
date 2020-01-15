@@ -1,7 +1,7 @@
 package me.hireny.commons.core.convert.converter.support;
 
 import me.hireny.commons.core.convert.converter.Converter;
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 
 import java.util.UUID;
 
@@ -14,6 +14,6 @@ import java.util.UUID;
 public class StringToUUIDConverter implements Converter<String, UUID> {
     @Override
     public UUID convert(String source) {
-        return Strings.hasLength(source) ? UUID.fromString(source.trim()) : null;
+        return StringUtils.hasLength(source) ? UUID.fromString(source.trim()) : null;
     }
 }

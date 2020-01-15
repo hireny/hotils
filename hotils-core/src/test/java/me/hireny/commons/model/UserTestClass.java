@@ -114,6 +114,10 @@ public class UserTestClass {
         this.registTime = registTime;
     }
 
+    public void methodTest2() {
+        System.out.println("是一个空参数的方法");
+    }
+
     public void methodTest(String name, String value) {
         System.out.println("name=" + name + ", value=" + value);
     }

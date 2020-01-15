@@ -3,7 +3,7 @@ package me.hireny.commons.core.codec.binary;
 
 import me.hireny.commons.core.codec.Codec;
 import me.hireny.commons.core.codec.CodecConstants;
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -49,7 +49,7 @@ public class Base64 {
      * @return
      */
     public boolean isBase64(String encoder) {
-        if (Strings.isEmpty(encoder)) {
+        if (StringUtils.isEmpty(encoder)) {
             return false;
         }
         if (encoder.length() % 4 != 0) {

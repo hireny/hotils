@@ -1,6 +1,6 @@
 package me.hireny.commons.core.text;
 
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 import me.hireny.commons.utils.ArrayUtils;
 
 /**
@@ -26,7 +26,7 @@ public final class StringFormatters {
      * @return              结果
      */
     public static String format(final String strPattern, final  Object... args) {
-        if (Strings.isBlank(strPattern) || ArrayUtils.isEmpty(args)) {
+        if (StringUtils.isBlank(strPattern) || ArrayUtils.isEmpty(args)) {
             return strPattern;
         }
         final int strPatternLength = strPattern.length();
@@ -52,7 +52,7 @@ public final class StringFormatters {
                 if (delimIndex > 1 && strPattern.charAt(delimIndex - 2) == '\\') {// 双转义符
                     // 转义符之前还有一个转义符，占位符依旧有效
                     sbuf.append(strPattern, handledPosition, delimIndex - 1);
-                    sbuf.append(Strings.stringForUtf8(args[argIndex]));
+                    sbuf.append(StringUtils.stringForUtf8(args[argIndex]));
                     handledPosition = delimIndex + 2;
                 } else {
                     // 占位符被转义
@@ -63,7 +63,7 @@ public final class StringFormatters {
                 }
             } else {// 正常占位符
                 sbuf.append(strPattern, handledPosition, delimIndex);
-                sbuf.append(Strings.stringForUtf8(args[argIndex]));
+                sbuf.append(StringUtils.stringForUtf8(args[argIndex]));
                 handledPosition = delimIndex + 2;
             }
         }

@@ -1,7 +1,7 @@
 package me.hireny.commons.core.convert.converter.support;
 
 import me.hireny.commons.core.convert.converter.Converter;
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 
 /**
  * @ClassName: StringToCharacterConverter
@@ -13,7 +13,7 @@ public class StringToCharacterConverter implements Converter<String, Character> 
     @Override
     public Character convert(String source) {
 
-        if (Strings.isEmpty(source)) {
+        if (StringUtils.isEmpty(source)) {
             return null;
         }
         if (source.length() > 1) {

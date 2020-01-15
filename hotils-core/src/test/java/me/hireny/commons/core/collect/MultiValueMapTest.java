@@ -1,6 +1,5 @@
 package me.hireny.commons.core.collect;
 
-import com.sun.deploy.util.StringUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -17,22 +16,22 @@ public class MultiValueMapTest {
 
     @Test
     public void linkedMultiValueMapTest() {
-        MultiMap<String, String> multiMap = new LinkedMultiValueMap<>();
-        multiMap.add("测试多值Map","第一个值就是这样");
-        multiMap.add("测试多值Map", "第二个值就是这样");
-        multiMap.add("测试多值Map", "第三个值就是这样");
+        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
+        multiValueMap.add("测试多值Map","第一个值就是这样");
+        multiValueMap.add("测试多值Map", "第二个值就是这样");
+        multiValueMap.add("测试多值Map", "第三个值就是这样");
 
-        multiMap.add("2019-12-24", "这是今天的日期");
-        multiMap.add("2019-12-24", "这是明天的日期");
-        multiMap.add("2019-12-24", "这是昨天的日期");
+        multiValueMap.add("2019-12-24", "这是今天的日期");
+        multiValueMap.add("2019-12-24", "这是明天的日期");
+        multiValueMap.add("2019-12-24", "这是昨天的日期");
 
         // 打印所有值
-        for (Map.Entry<String, List<String>> entry : multiMap.entrySet()) {
+        for (Map.Entry<String, List<String>> entry : multiValueMap.entrySet()) {
             System.out.println("key="+ entry.getKey() + ", value=" + entry.getValue());
         }
 
-        for (String s : multiMap.keySet()) {
-            List<String> values = multiMap.get(s);
+        for (String s : multiValueMap.keySet()) {
+            List<String> values = multiValueMap.get(s);
             System.out.println("key=" + s + ", values="+ Arrays.toString(values.toArray()));
         }
     }

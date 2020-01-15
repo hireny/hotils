@@ -1,6 +1,5 @@
 package me.hireny.commons.utils;
 
-import me.hireny.commons.core.lang.Strings;
 import java.util.function.Supplier;
 
 /**
@@ -188,7 +187,7 @@ public class Assert {
      * @param message
      */
     public static void hasLength( String text, String message) {
-        if (!Strings.hasLength(text)) {
+        if (!StringUtils.hasLength(text)) {
             throw new IllegalArgumentException(message);
         }
     }
@@ -210,10 +209,10 @@ public class Assert {
      * @param text the String to check
      * @param message the exception message to use if the assertion fails
      * @throws IllegalArgumentException if the text does not contain valid text content
-     * @see Strings#hasText
+     * @see StringUtils#hasText
      */
     public static void hasText(String text, String message) {
-        if (Strings.hasText(text)) {
+        if (StringUtils.hasText(text)) {
             throw new IllegalArgumentException(message);
         }
     }
@@ -229,10 +228,10 @@ public class Assert {
      * assertion fails
      * @throws IllegalArgumentException if the text does not contain valid text content
      * @since 5.0
-     * @see Strings#hasText
+     * @see StringUtils#hasText
      */
     public static void hasText( String text, Supplier<String> messageSupplier) {
-        if (Strings.hasText(text)) {
+        if (StringUtils.hasText(text)) {
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }

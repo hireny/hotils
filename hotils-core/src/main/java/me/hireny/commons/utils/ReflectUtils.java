@@ -18,6 +18,12 @@ public final class ReflectUtils {
 
     private ReflectUtils() {}
 
+    private static final String SETTER_PREFIX = "set";
+
+    private static final String GETTER_PREFIX = "get";
+
+    private static final String CGLIB_CLASS_SEPARATOR = "$$";
+
     /**
      * 空的 Class 类数组
      */

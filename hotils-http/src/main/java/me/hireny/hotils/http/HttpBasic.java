@@ -1,10 +1,9 @@
 package me.hireny.hotils.http;
 
 import me.hireny.commons.core.collect.CaseInsensitiveMap;
-import me.hireny.commons.core.collect.Collections;
+import me.hireny.commons.utils.CollectionUtils;
 import me.hireny.commons.core.io.Charsets;
-import me.hireny.commons.core.io.Resource;
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -42,7 +41,7 @@ public abstract class HttpBasic<T> {
      */
     public String header(String name) {
         final List<String> values = headers(name);
-        if (Collections.isEmpty(values)) {
+        if (CollectionUtils.isEmpty(values)) {
             return null;
         }
         return values.get(0);
@@ -55,7 +54,7 @@ public abstract class HttpBasic<T> {
      * @return      Header值
      */
     public List<String> headers(String name) {
-        if (Strings.isBlank(name)) {
+        if (StringUtils.isBlank(name)) {
             return null;
         }
         final CaseInsensitiveMap<String, List<String>> headersIgnoreCase = new CaseInsensitiveMap<>(this.headers);

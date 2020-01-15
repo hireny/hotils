@@ -1,7 +1,8 @@
 package me.hireny.commons.core.net;
 
 import me.hireny.commons.core.lang.Objects;
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.ObjectUtils;
+import me.hireny.commons.utils.StringUtils;
 import me.hireny.commons.utils.Assert;
 
 import java.io.Serializable;
@@ -127,7 +128,7 @@ public final class HostAndPort implements Serializable {
         }
 
         int port = NO_PORT;
-        if (!Strings.isNullOrEmpty(portString)) {
+        if (!StringUtils.isNullOrEmpty(portString)) {
             // Try to parse the whole port string as a number.
             // JDK7 accepts leading plus signs. We don't want to.
             Assert.isTrue(!portString.startsWith("+"), "Unparseable port number: " + hostPortString);
@@ -201,14 +202,14 @@ public final class HostAndPort implements Serializable {
         }
         if (other instanceof HostAndPort) {
             HostAndPort that = (HostAndPort) other;
-            return Objects.equals(this.host, that.host) && that.port == ((HostAndPort) other).port;
+            return ObjectUtils.equals(this.host, that.host) && that.port == ((HostAndPort) other).port;
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(host, port);
+        return ObjectUtils.hashCode(host, port);
     }
 
     /***

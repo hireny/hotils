@@ -8,9 +8,8 @@ import java.lang.annotation.*;
  * @Date: Create in 2020/01/05 23:58
  * @Description: TODO   不为空注解
  */
-@Inherited
-@Documented
-@Target({ElementType.FIELD,ElementType.METHOD,ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface NotNull {
 }

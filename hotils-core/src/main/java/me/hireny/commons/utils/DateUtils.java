@@ -1,7 +1,5 @@
 package me.hireny.commons.utils;
 
-import me.hireny.commons.core.lang.Strings;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -76,11 +74,11 @@ public class DateUtils {
      * @return
      */
     public static Date stirngToDate(String cur, String fm) {
-        if (Strings.isBlank(cur)) {
+        if (StringUtils.isBlank(cur)) {
             return null;
         }
 
-        if (Strings.isBlank(fm)) {
+        if (StringUtils.isBlank(fm)) {
             fm = fm_yyyyMMdd;
         }
 
@@ -106,7 +104,7 @@ public class DateUtils {
             cur = Calendar.getInstance().getTime();
         }
 
-        if (Strings.isBlank(fm)) {
+        if (StringUtils.isBlank(fm)) {
             fm = fm_yyyyMMdd;
         }
 
@@ -438,7 +436,7 @@ public class DateUtils {
     public static Date englishStringToDate(String cur) throws ParseException {
         try {
             // cur = "Sun Nov 13 21:56:41 +0800 2011";
-            if (Strings.isBlank(cur)) {
+            if (StringUtils.isBlank(cur)) {
                 return null;
             }
             return new SimpleDateFormat("MMM dd, yyyy", Locale.US).parse(cur);

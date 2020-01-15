@@ -1,6 +1,7 @@
 package me.hireny.commons.core.lang;
 
 import me.hireny.commons.utils.Assert;
+import me.hireny.commons.utils.StringUtils;
 
 import java.util.Scanner;
 
@@ -55,7 +56,7 @@ public final class Console {
      * @param values        值
      */
     public static void log(Throwable t, String template, Object... values) {
-        System.out.println(Strings.format(template, values));
+        System.out.println(StringUtils.format(template, values));
         if (null != t) {
             t.printStackTrace();
             System.out.flush();
@@ -78,7 +79,7 @@ public final class Console {
      * @param values 值
      */
     public static void print(String template, Object... values) {
-        System.out.print(Strings.format(template, values));
+        System.out.print(StringUtils.format(template, values));
     }
 
 
@@ -148,7 +149,7 @@ public final class Console {
      * @param values        值
      */
     public static void error(Throwable t, String template, Object... values) {
-        System.err.println(Strings.format(template, values));
+        System.err.println(StringUtils.format(template, values));
         if (null != t) {
             t.printStackTrace();
             System.err.flush();

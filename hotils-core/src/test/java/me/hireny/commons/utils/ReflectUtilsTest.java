@@ -68,11 +68,17 @@ public class ReflectUtilsTest {
         System.out.println(fieldValue);
     }
 
+    @Test
+    public void findMethodTest() {
+        Method method = ReflectUtils.findMethod(UserTestClass.class, "methodTest2");
+        System.out.println(method);
+    }
+
     /**
      * 获取方法测试
      */
     @Test
-    public void findMethodTest() {
+    public void findMethodWithParamsTest() {
         Method method = ReflectUtils.findMethod(UserTestClass.class, "methodTest", String.class, String.class);
         System.out.println(method);
     }

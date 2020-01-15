@@ -1,7 +1,5 @@
 package me.hireny.commons.socket;
 
-import me.hireny.commons.HotilsException;
-
 /**
  * @ClassName: SocketException
  * @Author: hireny

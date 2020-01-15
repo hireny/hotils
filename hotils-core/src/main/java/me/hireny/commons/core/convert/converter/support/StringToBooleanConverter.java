@@ -1,8 +1,7 @@
 package me.hireny.commons.core.convert.converter.support;
 
 import me.hireny.commons.core.convert.converter.Converter;
-import me.hireny.commons.core.lang.Strings;
-import org.omg.CORBA.portable.ValueBase;
+import me.hireny.commons.utils.StringUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,7 +31,7 @@ public class StringToBooleanConverter implements Converter<String, Boolean> {
 
     @Override
     public Boolean convert(String source) {
-        if (Strings.isBlank(source)) {
+        if (StringUtils.isBlank(source)) {
             return null;
         }
         source = source.toLowerCase();

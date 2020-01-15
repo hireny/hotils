@@ -1,6 +1,6 @@
 package me.hireny.commons.http;
 
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 import me.hireny.commons.core.lang.Symbol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,25 +46,25 @@ public class Requests {
      */
     public static String getRemoteAddress(HttpServletRequest request) {
         String ip = request.getHeader("X-Real-IP");
-        if (Strings.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Forwarded-For");
         }
-        if (Strings.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }
-        if (Strings.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (Strings.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("HTTP_CLIENT_IP");
         }
-        if (Strings.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("HTTP_X_FORWARDED_FOR");
         }
-        if (Strings.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
-        if (Strings.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
             if (LOCALHOST_IP.equals(ip) || LOCALHOST_IP_16.equals(ip)) {
                 //根据网卡取本机配置的IP

@@ -1,8 +1,7 @@
 package me.hireny.commons.core.system;
 
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 
-import java.io.Console;
 import java.lang.management.ManagementFactory;
 import java.util.Properties;
 
@@ -22,7 +21,7 @@ public class Systems {
      * @return  属性值或默认值
      */
     public static String get(String name, String defaultValue) {
-        return Strings.isBlank(get(name, false)) ? defaultValue : get(name, false);
+        return StringUtils.isBlank(get(name, false)) ? defaultValue : get(name, false);
     }
 
     /**

@@ -2,6 +2,8 @@ package me.hireny.commons.core.io;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.URL;
 
 /**
@@ -96,5 +98,27 @@ public class Resources {
             }
         }
         return null;
+    }
+
+    public static void copyBytes(InputStream in, OutputStream out, int bufferSize, boolean close) throws IOException {
+        if (close) {
+            try (InputStream input = in; OutputStream output = out) {
+                copyBytes(in, out, bufferSize);
+            }
+        } else {
+            copyBytes(in, out, bufferSize);
+        }
+    }
+
+    public static void copyBytes(InputStream in, OutputStream out, int bufferSize) throws IOException {
+        PrintStream ps = out instanceof PrintStream ? (PrintStream) out : null;
+        byte[] buffer = new byte[bufferSize];
+        int bytesRead = -1;
+        while ((bytesRead = in.read(buffer)) >= 0) {
+            out.write(buffer, 0, bytesRead);
+            if ((ps != null) && ps.checkError()) {
+                throw new IOException("Unable to write to output stream.");
+            }
+        }
     }
 }

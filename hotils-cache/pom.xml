@@ -12,5 +12,12 @@
     <artifactId>hotils-cache</artifactId>
     <name>Hotils: Hotils Cache for Java</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-core</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>

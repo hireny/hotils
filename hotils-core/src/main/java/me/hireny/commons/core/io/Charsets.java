@@ -1,6 +1,6 @@
 package me.hireny.commons.core.io;
 
-import me.hireny.commons.core.lang.Strings;
+import me.hireny.commons.utils.StringUtils;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -44,6 +44,6 @@ public final class Charsets {
      * @throws UnsupportedCharsetException  编码不支持
      */
     public static Charset forName(String charsetName) throws UnsupportedCharsetException {
-        return Strings.isBlank(charsetName) ? Charset.defaultCharset() : Charset.forName(charsetName);
+        return StringUtils.isBlank(charsetName) ? Charset.defaultCharset() : Charset.forName(charsetName);
     }
 }

@@ -13,5 +13,12 @@
 
     <description>IoC容器与DI控制反转</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-core</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>
