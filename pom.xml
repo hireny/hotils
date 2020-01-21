@@ -18,7 +18,6 @@
         <module>hotils-http</module>
         <module>hotils-jdbc</module>
         <module>hotils-json</module>
-        <module>hotils-pools</module>
         <module>hotils-socket</module>
         <module>hotils-web</module>
         <module>hotils-nosql</module>
@@ -147,11 +146,6 @@
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-nosql</artifactId>
-                <version>${hotils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-pools</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>

@@ -1,0 +1,12 @@
+package org.hotilsframework.json.style;
+
+/**
+ * @Author: hireny
+ * @Date: Create in 2019/07/22 21:54
+ */
+public class JsonPrimitive extends JsonElement {
+    @Override
+    public JsonElement deepCopy() {
+        return null;
+    }
+}
