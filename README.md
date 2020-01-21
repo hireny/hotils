@@ -8,7 +8,7 @@ Hotils是一个Java工具类库。
 模块|介绍
 ---|---:
 hotils|引入所有模块
-hotils|算法与数据结构的实现
+hotils-algos|算法与数据结构的实现
 hotils-cache|简单缓存实现
 hotils-core|核心包实现
 hotils-encrypt|加密解密实现
