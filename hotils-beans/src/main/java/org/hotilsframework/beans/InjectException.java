@@ -1,7 +1,5 @@
 package org.hotilsframework.beans;
 
-import org.hotilsframework.core.beans.BeansException;
-
 /**
  * @ClassName: InjectException
  * @Description: TODO   注入异常类

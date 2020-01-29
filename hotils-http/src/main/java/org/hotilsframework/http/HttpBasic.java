@@ -1,7 +1,7 @@
 package org.hotilsframework.http;
 
-import org.hotilsframework.core.collect.CaseInsensitiveMap;
-import org.hotilsframework.core.io.Charsets;
+import org.hotilsframework.collect.CaseInsensitiveMap;
+import org.hotilsframework.io.Charsets;
 import org.hotilsframework.utils.CollectionUtils;
 import org.hotilsframework.utils.StringUtils;
 
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.hotilsframework.core.net.NetConstants.HTTP_1_1;
+import static org.hotilsframework.net.NetConstants.HTTP_1_1;
 
 /**
  * @ClassName: HttpBasic

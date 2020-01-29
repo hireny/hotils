@@ -1,6 +1,6 @@
 package org.hotilsframework.algos.sort;
 
-import org.hotilsframework.core.lang.Comparators;
+import org.hotilsframework.lang.Comparators;
 import org.hotilsframework.utils.ArrayUtils;
 
 /**

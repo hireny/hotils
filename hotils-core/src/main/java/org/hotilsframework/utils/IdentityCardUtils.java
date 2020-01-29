@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.lang.enums.Gender;
+import org.hotilsframework.lang.enums.Gender;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

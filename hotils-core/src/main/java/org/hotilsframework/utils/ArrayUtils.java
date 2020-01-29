@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.lang.Comparators;
+import org.hotilsframework.lang.Comparators;
 
 import java.util.Arrays;
 import java.util.Comparator;

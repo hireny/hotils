@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.text.StringFormatters;
+import org.hotilsframework.text.StringFormatters;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;

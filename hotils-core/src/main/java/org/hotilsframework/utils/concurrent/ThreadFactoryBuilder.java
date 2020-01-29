@@ -1,6 +1,6 @@
 package org.hotilsframework.utils.concurrent;
 
-import org.hotilsframework.core.design.Builder;
+import org.hotilsframework.design.Builder;
 import org.hotilsframework.utils.StringUtils;
 
 import java.lang.Thread.UncaughtExceptionHandler;

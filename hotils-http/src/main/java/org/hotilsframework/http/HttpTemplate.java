@@ -1,6 +1,6 @@
 package org.hotilsframework.http;
 
-import org.hotilsframework.core.net.http.RequestMethod;
+import org.hotilsframework.net.http.RequestMethod;
 
 /**
  * @ClassName: HttpTemplate

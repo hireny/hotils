@@ -1,7 +1,7 @@
 package org.hotilsframework.utils.generator;
 
 import org.hotilsframework.utils.StringUtils;
-import org.hotilsframework.core.time.SystemClock;
+import org.hotilsframework.time.SystemClock;
 
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
