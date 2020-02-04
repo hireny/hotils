@@ -1,9 +1,7 @@
 package org.hotilsframework.time;
 
 import java.sql.Timestamp;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -51,6 +49,7 @@ public class SystemClock {
 
     @SuppressWarnings("checked")
     private void scheduleClockUpdating() {
+
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(runnable -> {
             Thread thread = new Thread(runnable, "System Clock");
             thread.setDaemon(true);

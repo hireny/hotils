@@ -1,6 +1,6 @@
 package org.hotilsframework.beans;
 
-import org.hotilsframework.NestedRuntimeException;
+import org.hotilsframework.lang.NestedRuntimeException;
 
 /**
  * @ClassName: BeansException

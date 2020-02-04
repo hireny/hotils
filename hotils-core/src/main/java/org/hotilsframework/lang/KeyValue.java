@@ -39,12 +39,18 @@ public class KeyValue<K, V> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         KeyValue<?, ?> that = (KeyValue<?, ?>) o;
 
-        if (key != null ? !key.equals(that.key) : that.key != null) return false;
+        if (key != null ? !key.equals(that.key) : that.key != null) {
+            return false;
+        }
         return value != null ? value.equals(that.value) : that.value == null;
     }
 
@@ -57,7 +63,7 @@ public class KeyValue<K, V> {
 
     @Override
     public String toString() {
-        return "KeyValuePair{" +
+        return "KeyValue{" +
                 "key=" + key +
                 ", value=" + value +
                 '}';

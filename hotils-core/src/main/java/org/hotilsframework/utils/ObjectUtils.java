@@ -1,5 +1,6 @@
 package org.hotilsframework.utils;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -24,6 +25,35 @@ public class ObjectUtils {
     private static final String ARRAY_ELEMENT_SEPARATOR = ", ";
 
     /**
+     * 判断对象是否为Empty(null 或元素为 0)
+     * 适用于对如下对象做判断：String Collection及其子类 Map及其子类
+     * @param o     待检查的对象
+     * @return
+     */
+    public static boolean isEmpty(Object o) {
+        if (o == null) {
+            return true;
+        }
+        if (o == "") {
+            return true;
+        }
+        if (o instanceof String) {
+            return ((String) o).length() == 0;
+        } else if (o instanceof Optional) {
+            return !((Optional) o).isPresent();
+        } else if (o instanceof CharSequence) {
+            return ((CharSequence) o).length() == 0;
+        } else if (o.getClass().isArray()) {
+            return Array.getLength(o) == 0;
+        } else if (o instanceof Collection) {
+            return ((Collection) o).isEmpty();
+        } else if (o instanceof Map) {
+            return ((Map) o).isEmpty();
+        }
+        return false;
+    }
+
+    /**
      * 该方法判断一个Object对象是否是Optional类型的。
      * 如果是，打开Optional使用get()获取值，如果不是返回Object对象
      * @param obj
@@ -42,30 +72,87 @@ public class ObjectUtils {
             Assert.isTrue(!(result instanceof Optional), "Multi-level Optional usage not supported");
             return result;
         }
+        if (obj instanceof org.hotilsframework.lang.Optional) {
+            org.hotilsframework.lang.Optional<?> optional = (org.hotilsframework.lang.Optional<?>) obj;
+            if (!optional.isPresent()) {
+                return null;
+            }
+            Object result = optional.get();
+            Assert.isTrue(!(result instanceof org.hotilsframework.lang.Optional), "Multi-level Optional usage not supported");
+            return result;
+        }
         return obj;
     }
 
+    /********************************************************************************************
+     *   Helper.sorting.functions   排序的辅助方法
+     ********************************************************************************************/
+
     /**
-     * 判断对象是否为Empty(null 或元素为 0)
-     * 适用于对如下对象做判断：String Collection及其子类 Map及其子类
-     * @param o     待检查的对象
+     * 比较大小 v < w 返回true； v > w 返回false
+     * @param v
+     * @param w
      * @return
      */
-    public static boolean isEmpty(Object o) {
-        if (o == null) {
-            return true;
+    // is v < w ?
+    public static boolean less(Comparable v, Comparable w) {
+        return v.compareTo(w) < 0;
+    }
+
+    // is v < w ?
+    public static boolean less(Comparator comparator, Object v, Object w) {
+        return comparator.compare(v, w) < 0;
+    }
+
+    // is v < w ?
+    public static boolean less(char v, char w) {
+        return v - w < 0;
+    }
+
+    // is v < w ?
+    public static boolean less(byte v, byte w) {
+        return v - w < 0;
+    }
+
+    // is v < w ?
+    public static boolean less(short v, short w) {
+        return v - w < 0;
+    }
+
+    // is v < w ?
+    public static boolean less(int v, int w) {
+        return v - w < 0;
+    }
+
+    // is v < w ?
+    public static boolean less(long v, long w) {
+        return v - w < 0;
+    }
+
+    // is v < w ?
+    public static boolean less(float v, float w) {
+        return v - w < 0;
+    }
+
+    // is v < w ?
+    public static boolean less(double v, double w) {
+        return v - w < 0;
+    }
+
+
+    /**
+     * 获取不相等的属性
+     * @param o1    对象一
+     * @param o2    对象二
+     * @return      不相等的属性，键为属性名，值为属性类型
+     */
+    public static List<Object> getDiffFields(Object o1, Object o2) {
+        if (o1 == o2) {
+            return Collections.emptyList();
         }
-        if (o == "") {
-            return true;
-        }
-        if (o instanceof String) {
-            return ((String) o).length() == 0;
-        } else if (o instanceof Collection) {
-            return ((Collection) o).isEmpty();
-        } else if (o instanceof Map) {
-            return ((Map) o).size() == 0;
-        }
-        return false;
+        // 先尝试判断是否为简单数据类型
+//        if ()
+        return null;
     }
 
     /**
@@ -344,45 +431,6 @@ public class ObjectUtils {
         }
         return hash;
     }
-
-    // 对各对象的hashCode进行多态封装
-
-    /**
-     * Return the same value as {@link Boolean#hashCode(boolean)}}.
-     * @deprecated as of Spring Framework 5.0, in favor of the native JDK 8 variant
-     */
-    @Deprecated
-    public static int hashCode(boolean bool) {
-        return Boolean.hashCode(bool);
-    }
-
-    /**
-     * Return the same value as {@link Double#hashCode(double)}}.
-     * @deprecated as of Spring Framework 5.0, in favor of the native JDK 8 variant
-     */
-    @Deprecated
-    public static int hashCode(double dbl) {
-        return Double.hashCode(dbl);
-    }
-
-    /**
-     * Return the same value as {@link Float#hashCode(float)}}.
-     * @deprecated as of Spring Framework 5.0, in favor of the native JDK 8 variant
-     */
-    @Deprecated
-    public static int hashCode(float flt) {
-        return Float.hashCode(flt);
-    }
-
-    /**
-     * Return the same value as {@link Long#hashCode(long)}}.
-     * @deprecated as of Spring Framework 5.0, in favor of the native JDK 8 variant
-     */
-    @Deprecated
-    public static int hashCode(long lng) {
-        return Long.hashCode(lng);
-    }
-
 
     //---------------------------------------------------------------------
     // Convenience methods for toString output

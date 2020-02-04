@@ -11,26 +11,36 @@ public interface Symbol {
     /**
      * The constant COMMA.
      */
-    String COMMA = ",";
-    String SPOT = ".";
+    char COMMA = ',';
+    char SPOT = '.';
     /**
      * The constant UNDER_LINE.
      */
-    String UNDER_LINE = "_";
+    char UNDER_LINE = '_';
     /**
      * The constant PER_CENT.
      */
-    String PER_CENT = "%";
+    char PER_CENT = '%';
     /**
      * The constant AT.
      */
-    String AT = "@";
+    char AT = '@';
     /**
      * The constant PIPE.
      */
     String PIPE = "||";
-    String SHORT_LINE = "-";
-    String SPACE = " ";
-    String SLASH = "/";
-    String MH = ":";
+    char SHORT_LINE = '-';
+    char SPACE = ' ';
+    char SLASH = '/';
+    char BACKSLASH = '\\';
+    char MH = ':';
+    char TAB = '	';
+    char CR = '\r';
+    char LF = '\n';
+    char DELIM_START = '{';
+    char DELIM_END = '}';
+    char BRACKET_START = '[';
+    char BRACKET_END = ']';
+    char DOUBLE_QUOTES = '"';
+    char SINGLE_QUOTE = '\'';
 }

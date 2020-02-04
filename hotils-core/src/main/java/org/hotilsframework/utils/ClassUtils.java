@@ -1,5 +1,7 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.beans.BeanInstantiationException;
+
 import java.io.Closeable;
 import java.io.Externalizable;
 import java.io.Serializable;
@@ -163,8 +165,19 @@ public final class ClassUtils {
         return Class.forName(name);
     }
 
-    public static <T> T newInstance(Class<?> clazz) throws IllegalAccessException, InstantiationException {
-        return (T) clazz.newInstance();
+    public static <T> T newInstance(Class<?> clazz) {
+        Assert.checkNotNull(clazz, "Class must not be null.");
+        if (clazz.isInterface()) {
+            throw new BeanInstantiationException(clazz, "Specified class is an interface");
+        }
+        try {
+            return (T) clazz.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -247,5 +260,17 @@ public final class ClassUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * 判断类是否为数组
+     * @param clazz     类
+     * @return          是否为数组对象，如果为{@code null} 返回false
+     */
+    public static boolean isArray(Class<?> clazz) {
+        if (null == clazz) {
+            return false;
+        }
+        return clazz.isArray();
     }
 }

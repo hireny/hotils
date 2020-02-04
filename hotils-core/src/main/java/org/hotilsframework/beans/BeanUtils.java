@@ -1,6 +1,9 @@
 package org.hotilsframework.beans;
 
-import org.hotilsframework.collect.Maps;
+import org.hotilsframework.collection.CaseInsensitiveMap;
+import org.hotilsframework.collection.Maps;
+import org.hotilsframework.lang.Filter;
+import org.hotilsframework.utils.ArrayUtils;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.ClassUtils;
 import org.hotilsframework.utils.CollectionUtils;
@@ -9,13 +12,11 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @ClassName: BeanUtils
@@ -27,21 +28,106 @@ public final class BeanUtils {
 
     private BeanUtils() {}
 
+    //****************BeanInfo PropertyDescriptors********************//
+
+    /**
+     * 获得Bean字段描述数组
+     * @param clazz             Bean类
+     * @return                  字段描述数组
+     * @throws BeansException   获取属性异常
+     */
     public static PropertyDescriptor[] getPropertyDescriptors(Class<?> clazz)
             throws BeansException {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            propertyDescriptors = ArrayUtils.filter(propertyDescriptors, (Filter<PropertyDescriptor>) t -> {
+                // 过滤掉getClass方法
+                return true == "class".equals(t.getName());
+            });
+            return propertyDescriptors;
         } catch (IntrospectionException e) {
-            e.printStackTrace();
+            throw new BeansException(e);
         }
-//        Cached
+    }
+
+    /**
+     * 获得字段名和字段描述Map，获得的结果会缓存
+     * @param clazz         Bean类
+     * @param ignoreCase    是否忽略大小写
+     * @return
+     */
+    public static Map<String, PropertyDescriptor> getPropertyDescriptors(Class<?> clazz, boolean ignoreCase) throws BeansException {
+        final PropertyDescriptor[] propertyDescriptors = getPropertyDescriptors(clazz);
+        final Map<String, PropertyDescriptor> propertyDescriptorMap = ignoreCase ? new CaseInsensitiveMap<>(propertyDescriptors.length, 1)
+                : new HashMap<>(propertyDescriptors.length, 1);
+        for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+            propertyDescriptorMap.put(propertyDescriptor.getName(), propertyDescriptor);
+        }
+        return propertyDescriptorMap;
+    }
+
+    /**
+     * 获得Bean类属性描述
+     * @param clazz             Bean类
+     * @param propertyName      属性名
+     * @return                  PropertyDescriptor
+     * @throws BeansException   Bean异常
+     */
+    public static PropertyDescriptor getPropertyDescriptor(Class<?> clazz, String propertyName)
+            throws BeansException {
+        final PropertyDescriptor[] propertyDescriptors = getPropertyDescriptors(clazz);
+        for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+            if (propertyName.equals(propertyDescriptor.getName())) {
+                return propertyDescriptor;
+            }
+        }
         return null;
     }
 
-    public static PropertyDescriptor getPropertyDescriptor(Class<?> clazz, String propertyName)
-            throws BeansException {
-        return null;
+    /**
+     * 对目标对象中指定的属性名设置值
+     * @param target            目标对象
+     * @param propertyName      属性名
+     * @param value             属性值
+     */
+    public static void setPropertyValue(Object target, String propertyName, Object value) throws BeansException {
+        // 获取对象的类型
+        Class<?> clazz = target.getClass();
+        // 获取clazz类型中propertyName的属性描述器
+        PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, propertyName);
+        // 从属性描述器中获取 set 方法
+        Method setter = propertyDescriptor.getWriteMethod();
+        try {
+            // 调用 set 方法将传入的 value 值保存到属性中去
+            setter.invoke(target, new Object[]{value});
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new BeansException(e);
+        }
+    }
+
+    /**
+     * 根据属性名以及对象获取对应的属性值
+     * @param target        目标对象
+     * @param propertyName  属性名
+     * @return              属性值
+     */
+    public static Object getPropertyValue(Object target, String propertyName) throws BeansException {
+        // 获取对象的类型
+        Class<?> clazz = target.getClass();
+        // 获取 clazz 类型中 propertyName 的属性描述器
+        PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, propertyName);
+        // 从属性描述其中获取 get 方法
+        Method getter = propertyDescriptor.getReadMethod();
+        Object value = null;
+        try {
+            // 调用方法获取方法的返回值
+            value = getter.invoke(clazz, new Object[]{});
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new BeansException(e);
+        }
+        // 返回值
+        return value;
     }
 
 
@@ -53,6 +139,31 @@ public final class BeanUtils {
      * @param target    目标Bean对象
      */
     public static void copyProperties(Object source, Object target) {
+//        Class clsDestination;
+//        try {
+//            clsDestination = Class.forName(target.getClass().getName());
+//            Class clsSource = Class.forName(source.getClass().getName());
+//            Field[] declaredFields = clsDestination.getDeclaredFields();
+//            for (Field field : declaredFields) {
+//                field.setAccessible(true);
+//                String fieldName = field.getName();
+//                try{
+//                    //跳过serialVersionUID
+//                    if("serialVersionUID".equals(fieldName)){
+//                        continue;
+//                    }
+//                    Field sourceField = clsSource.getDeclaredField(fieldName);
+//                    sourceField.setAccessible(true);
+//                    field.set(target,sourceField.get(source));
+//
+//                }catch (NoSuchFieldException e) {
+//                    // continue;
+//                }
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException("PropertyUtils 属性转换错误");
+//        }
+        copyProperties(source, target, null);
 //        copyProperties(source, target, CopyOptions.create());
     }
 
@@ -66,6 +177,7 @@ public final class BeanUtils {
      */
     public static void copyProperties(Object source, Object target, String... ignoreProperties) {
 //        copyProperties(source, target, CopyOptions.create().setIgnoreProperties(ignoreProperties));
+        copyProperties(source, target, null, null);
     }
 
     /**
@@ -84,6 +196,7 @@ public final class BeanUtils {
      *
      * @param source            源Bean对象
      * @param target            目标Bean对象
+     * @param editable          编辑的类
      * @param ignoreProperties       忽略的配置
      */
     public static void copyProperties(Object source, Object target, Class<?> editable, String... ignoreProperties) {
@@ -180,7 +293,7 @@ public final class BeanUtils {
                     setterMethod.invoke(target, value);
                 }
             }
-        } catch (IntrospectionException | IllegalAccessException | InstantiationException e) {
+        } catch (IntrospectionException | IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();

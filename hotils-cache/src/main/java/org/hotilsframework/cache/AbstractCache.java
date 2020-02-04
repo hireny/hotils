@@ -1,6 +1,6 @@
 package org.hotilsframework.cache;
 
-import org.hotilsframework.collect.CopiedIterator;
+import org.hotilsframework.collection.CopiedIterator;
 
 import java.util.Iterator;
 import java.util.Map;

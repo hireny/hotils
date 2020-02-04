@@ -20,6 +20,12 @@ public class DefaultDeserializer implements Deserializer<Object> {
         this.classLoader = classLoader;
     }
 
+    /**
+     * 从提供的 {@code InputStream} 中读取并反序列化内容
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
     @Override
     public Object deserialize(InputStream inputStream) throws IOException {
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);

@@ -7,4 +7,6 @@ package org.hotilsframework.aop;
  * @Description: TODO   AOP代理
  */
 public interface AopProxy {
+    Object getProxy();
+    Object getProxy(ClassLoader classLoader);
 }

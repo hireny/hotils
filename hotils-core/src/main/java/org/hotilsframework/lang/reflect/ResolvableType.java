@@ -1,21 +1,20 @@
-package org.hotilsframework.lang.reflect;//package me.hireny.grana.lang.reflect;
-//
-//import java.io.Serializable;
-//import java.lang.reflect.Type;
-//import java.lang.reflect.TypeVariable;
-//
-///**
-// * ResolvableType类是封装了 Type({@link Type})，提供了对Type的操作
-// * @Author: hireny
-// * @Date: Create in 2019/10/31 10:52
-// */
-//public class ResolvableType {
-//
-//    /**
-//     * 需要解析的JDK Type 类型
-//     */
+package org.hotilsframework.lang.reflect;
+
+
+import java.lang.reflect.Type;
+
+/**
+ * ResolvableType类是封装了 Type({@link Type})，提供了对Type的操作
+ * @Author: hireny
+ * @Date: Create in 2019/10/31 10:52
+ */
+public class ResolvableType {
+
+    /**
+     * 需要解析的JDK Type 类型
+     */
 //    private final Type type;
-//
+
 //    private final TypeWrapper.TypeProvider typeProvider;
 //
 //    /**
@@ -45,4 +44,4 @@ package org.hotilsframework.lang.reflect;//package me.hireny.grana.lang.reflect;
 //            return this.source;
 //        }
 //    }
-//}
+}

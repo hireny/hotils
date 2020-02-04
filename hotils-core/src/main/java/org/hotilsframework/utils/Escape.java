@@ -11,8 +11,9 @@ public class Escape {
     private Escape() {}
 
     public static String html(String input) {
-        if (input == null)
+        if (input == null) {
             return null;
+        }
 
         int length = input.length();
         StringBuilder output = allocateStringBuilder(length);
@@ -75,8 +76,9 @@ public class Escape {
     }
 
     public static String htmlText(String input) {
-        if (input == null)
+        if (input == null) {
             return null;
+        }
 
         int length = input.length();
         StringBuilder output = allocateStringBuilder(length);
@@ -108,8 +110,9 @@ public class Escape {
     }
 
     public static String uriParam(String input) {
-        if (input == null)
+        if (input == null) {
             return null;
+        }
 
         int length = input.length();
         StringBuilder output = allocateStringBuilder(length);
@@ -217,8 +220,9 @@ public class Escape {
     }
 
     public static String jsString(String input) {
-        if (input == null)
+        if (input == null) {
             return null;
+        }
 
         int length = input.length();
         StringBuilder output = allocateStringBuilder(length);
@@ -289,8 +293,9 @@ public class Escape {
     }
 
     public static String jsRegex(String input) {
-        if (input == null)
+        if (input == null) {
             return null;
+        }
 
         int length = input.length();
         StringBuilder output = allocateStringBuilder(length);
@@ -383,8 +388,9 @@ public class Escape {
     }
 
     public static String cssString(String input) {
-        if (input == null)
+        if (input == null) {
             return null;
+        }
 
         int length = input.length();
         StringBuilder output = allocateStringBuilder(length);
@@ -452,8 +458,9 @@ public class Escape {
     }
 
     public static String sqlLikeClause(String input, char escape) {
-        if (input == null)
+        if (input == null) {
             return null;
+        }
 
         int length = input.length();
         StringBuilder output = allocateStringBuilder(length);
@@ -473,8 +480,9 @@ public class Escape {
         // cases. If you believe you will output large amount of data at once
         // you might need to change the factor.
         int buflen = length;
-        if (length * 2 > 0)
+        if (length * 2 > 0) {
             buflen = length * 2;
+        }
         return new StringBuilder(buflen);
     }
 }

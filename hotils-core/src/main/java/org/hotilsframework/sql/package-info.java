@@ -1,5 +1,5 @@
 /**
- * 对一些常见SQL操作进行封装
+ * JDBC封装包
  */
 
 package org.hotilsframework.sql;

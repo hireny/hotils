@@ -11,12 +11,11 @@
         <module>hotils</module>
         <module>hotils-algos</module>
         <module>hotils-aop</module>
-        <module>hotils-beans</module>
         <module>hotils-cache</module>
+        <module>hotils-context</module>
         <module>hotils-core</module>
         <module>hotils-crypto</module>
         <module>hotils-http</module>
-        <module>hotils-jdbc</module>
         <module>hotils-json</module>
         <module>hotils-socket</module>
         <module>hotils-web</module>
@@ -110,12 +109,12 @@
             </dependency>
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-beans</artifactId>
+                <artifactId>hotils-cache</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-cache</artifactId>
+                <artifactId>hotils-context</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>
@@ -131,11 +130,6 @@
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-http</artifactId>
-                <version>${hotils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-jdbc</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>

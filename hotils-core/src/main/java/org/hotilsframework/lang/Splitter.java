@@ -1,8 +1,8 @@
 package org.hotilsframework.lang;
 
+import org.hotilsframework.collection.Lists;
 import org.hotilsframework.utils.Assert;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -74,13 +74,25 @@ public final class Splitter {
         Assert.checkNotNull(cs);
 
         Iterator<String> iterator = splittingIterator(cs);
-        List<String> result = new ArrayList<>();
+        List<String> result = Lists.newArrayList();
 
         while (iterator.hasNext()) {
             result.add(iterator.next());
         }
 
         return Collections.unmodifiableList(result);
+    }
+
+    /**
+     * 分离
+     * @param cs
+     * @return
+     */
+    public String[] splitToArray(CharSequence cs) {
+        Assert.checkNotNull(cs);
+
+        List<String> list = splitToList(cs);
+        return (String[]) list.toArray();
     }
 
 

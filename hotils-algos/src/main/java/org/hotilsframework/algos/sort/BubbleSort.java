@@ -1,7 +1,7 @@
 package org.hotilsframework.algos.sort;
 
-import org.hotilsframework.lang.Comparators;
 import org.hotilsframework.utils.ArrayUtils;
+import org.hotilsframework.utils.ObjectUtils;
 
 /**
  * BubbleSort
@@ -45,7 +45,7 @@ public class BubbleSort<T extends Comparable<? super T>> implements Sort<T> {
 
         for (int i=0; i<length; i++) {
             for (int j=0; j< length - i - 1; j++) {
-                if (Comparators.less(array[j+1], array[j])) {
+                if (ObjectUtils.less(array[j+1], array[j])) {
                     ArrayUtils.exchange(array, j, j+1);
                 }
             }

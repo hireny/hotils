@@ -1,5 +1,8 @@
 package org.hotilsframework.beans;
 
+import org.hotilsframework.lang.Copiable;
+import org.hotilsframework.utils.ObjectUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -10,7 +13,7 @@ import java.util.Map;
  * @Date: Create in 2019/12/09 01:30
  * @Description: TODO   Bean对象操作
  */
-public final class BeanOptions<T> implements Serializable {
+public final class BeanOptions<T> implements Copiable<T>, Serializable {
     private static final long serialVersionUID = -2558120262295127413L;
 
     /** 源对象 */
@@ -62,6 +65,16 @@ public final class BeanOptions<T> implements Serializable {
         this.target = target;
         this.targetType = targetType;
         this.copyOptions = copyOptions;
+    }
+
+    @Override
+    public T copy() {
+        if (!ObjectUtils.isEmpty(this.source)) {
+            if (this.source instanceof Map) {
+
+            }
+        }
+        return null;
     }
 
     /**

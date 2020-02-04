@@ -1,7 +1,10 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.lang.Comparators;
+import org.hotilsframework.collection.Lists;
+import org.hotilsframework.lang.Filter;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -13,15 +16,100 @@ import java.util.Comparator;
  */
 public class ArrayUtils {
 
+    /**
+     * 空对象数组
+     */
+    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
+
     private ArrayUtils() {}
 
     /**
      * 判断数组是否为空
-     * @param arrays
+     * @param array     数组元素
      * @return
      */
-    public static boolean isEmpty(Object[] arrays) {
-        return null == arrays || arrays.length <= 0;
+    public static boolean isEmpty(Object[] array) {
+        return null == array || array.length <= 0;
+    }
+
+    /**
+     * 数组是否为空
+     *
+     * @param array 数组
+     * @return 是否为空
+     */
+    public static boolean isEmpty(long[] array) {
+        return array == null || array.length == 0;
+    }
+
+    /**
+     * 数组是否为空
+     *
+     * @param array 数组
+     * @return 是否为空
+     */
+    public static boolean isEmpty(int[] array) {
+        return array == null || array.length == 0;
+    }
+
+    /**
+     * 数组是否为空
+     *
+     * @param array 数组
+     * @return 是否为空
+     */
+    public static boolean isEmpty(short[] array) {
+        return array == null || array.length == 0;
+    }
+
+    /**
+     * 数组是否为空
+     *
+     * @param array 数组
+     * @return 是否为空
+     */
+    public static boolean isEmpty(char[] array) {
+        return array == null || array.length == 0;
+    }
+
+    /**
+     * 数组是否为空
+     *
+     * @param array 数组
+     * @return 是否为空
+     */
+    public static boolean isEmpty(byte[] array) {
+        return array == null || array.length == 0;
+    }
+
+    /**
+     * 数组是否为空
+     *
+     * @param array 数组
+     * @return 是否为空
+     */
+    public static boolean isEmpty(double[] array) {
+        return array == null || array.length == 0;
+    }
+
+    /**
+     * 数组是否为空
+     *
+     * @param array 数组
+     * @return 是否为空
+     */
+    public static boolean isEmpty(float[] array) {
+        return array == null || array.length == 0;
+    }
+
+    /**
+     * 数组是否为空
+     *
+     * @param array 数组
+     * @return 是否为空
+     */
+    public static boolean isEmpty(boolean[] array) {
+        return array == null || array.length == 0;
     }
 
     /**
@@ -34,6 +122,157 @@ public class ArrayUtils {
             return false;
         }
         return object.getClass().isArray();
+    }
+
+    /**
+     * 是否包含 {@code null} 元素
+     * @param array 被检查的数组
+     * @return
+     */
+    public static boolean hasNull(Object... array) {
+        if (!isEmpty(array)) {
+            for (Object e : array) {
+                if (null == e) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 检查给定数组中是否存在查找的元素
+     * @param arrays
+     * @param element
+     * @return
+     */
+    public static boolean contains(Object[] arrays, Object element) {
+        if (isEmpty(arrays)) {
+            return false;
+        }
+        for (Object e : arrays) {
+            if (ObjectUtils.equals(e, element)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 新键一个空数组
+     * @param clazz 元素类型
+     * @param size  大小
+     * @param <T>   数组元素类型
+     * @return
+     */
+    public static <T> T[] newArray(Class<?> clazz, int size) {
+        return (T[]) Array.newInstance(clazz, size);
+    }
+
+    /**
+     * 添加元素到数组
+     * @param arrays
+     * @param obj
+     * @param <A>
+     * @param <O>
+     * @return
+     */
+    public static <A, O extends A> A[] add(A[] arrays, O obj) {
+        Class<?> compType = Object.class;
+        if (arrays != null) {
+            compType = arrays.getClass().getComponentType();
+        } else if (obj != null) {
+            compType = obj.getClass();
+        }
+        int newArrayLength = (arrays != null ? arrays.length + 1 : 1);
+        A[] newArray = (A[]) Array.newInstance(compType, newArrayLength);
+        if (!isEmpty(arrays)) {
+            System.arraycopy(arrays, 0, newArray, 0, arrays.length);
+        }
+        newArray[newArray.length - 1] = obj;
+        return newArray;
+    }
+
+    public static <A, O extends A> A[] add(A[] array, O... objs) {
+        return null;
+    }
+
+    /**
+     * 插入元素
+     * @param array
+     * @param index
+     * @param newElements
+     * @param <A>
+     * @param <O>
+     * @return
+     */
+    public static <A, O extends A> A[] insert(A[] array, int index, O... newElements) {
+        if (isEmpty(newElements)) {
+            return array;
+        }
+        if (isEmpty(array)) {
+            return newElements;
+        }
+        Class<?> compType = Object.class;
+        if (array != null) {
+            compType = array.getClass().getComponentType();
+        } else if (newElements != null) {
+            compType = newElements[0].getClass();
+        }
+        int newArrayLength = (array != null ? array.length + newElements.length : newElements.length);
+        A[] newArray = (A[]) Array.newInstance(compType, newArrayLength);
+        if (!isEmpty(array)) {
+            System.arraycopy(array, 0, newArray, 0, Math.min(newArrayLength, index));
+        }
+        return newArray;
+    }
+
+    /**
+     * 将给定的对象转换为数组
+     * @param source
+     * @return
+     */
+    public static Object[] toObjectArray(Object source) {
+        if (source instanceof Object[]) {
+            return (Object[]) source;
+        }
+        if (source == null) {
+            return EMPTY_OBJECT_ARRAY;
+        }
+        if (!source.getClass().isArray()) {
+            // 非数组的情况下
+            throw new IllegalArgumentException("Source is not an array: " + source);
+        }
+        int length = Array.getLength(source);
+        if (length == 0) {
+            return EMPTY_OBJECT_ARRAY;
+        }
+        // 获取包装类型
+        Class<?> wrapperType = Array.get(source, 0).getClass();
+        Object[] newArray = (Object[]) Array.newInstance(wrapperType, length);
+        for (int i = 0; i < length; i++) {
+            newArray[i] = Array.get(source, i);
+        }
+        return newArray;
+    }
+
+    /**
+     * 过滤
+     * @param array
+     * @param filter
+     * @param <T>
+     * @return
+     */
+    public static <T> T[] filter(T[] array, Filter<T> filter) {
+        ArrayList<T> list = Lists.newArrayList(array.length);
+        boolean accept;
+        for (T t : array) {
+            accept = filter.accept(t);
+            if (!accept) {
+                list.add(t);
+            }
+        }
+        return list.toArray(Arrays.copyOf(array, list.size()));
     }
 
     /**
@@ -77,125 +316,6 @@ public class ArrayUtils {
         }
         return uniqueAray;
     }
-
-    /**
-     * 数组交集
-     *
-     * 算法思路：该算法依旧是利用了差分的性质，只不过这次比较隐蔽。
-     *          它首先把两数组a和b都进行unique操作，得到两个unique数组，
-     *          再将这两个数组拼接在一起，对其排序，得到数组c，如果a和b有交集2，
-     *          那么数组c中一定有两个挨着的2，
-     *          因此数组c中所有相邻且相等的数值(差分值等于0)都是数组a和b的交集。
-     *
-     * @param aArray
-     * @param bArray
-     * @param <T>
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T[] intersect(T[] aArray, T[] bArray) {
-        if (aArray == null || bArray == null) {
-            return null;
-        }
-        if (aArray.length == 0 || bArray.length == 0) {
-            Object[] o = new Object[0];
-            return (T[]) o;
-        }
-        T[] tempA = unique(aArray);
-        T[] tempB = unique(bArray);
-        int tempALen = tempA.length;
-        int tempBLen = tempB.length;
-        int tempMergeLen = tempALen + tempBLen;
-        // 可能排除内存溢出错误(OutOfMemoryError)和数组大小为负(NegativeArraySizeException)的异常
-        Object[] sortMergeArray = new Object[tempMergeLen];
-        System.arraycopy(tempA, 0, sortMergeArray, 0, tempALen);
-        System.arraycopy(tempB, 0, sortMergeArray, tempALen, tempBLen);
-        Arrays.sort(sortMergeArray);
-        int minLenOfTwoArrays = tempALen > tempBLen ? tempBLen : tempALen;
-        Object[] minOfTwoArrays = new Object[minLenOfTwoArrays];
-        int index = 0;
-        for (int i = 1; i < tempMergeLen; i++) {
-            if (sortMergeArray[i] == sortMergeArray[i - 1]) {
-                minOfTwoArrays[index++] = sortMergeArray[i++];
-                // 下一个绝对不等
-            }
-        }
-        return (T[]) Arrays.copyOf(minOfTwoArrays, index);
-    }
-
-    /**
-     * 数组并集
-     *
-     * 算法思路：把两个数组拼接起来，所有工作全交由unique处理。
-     *
-     * @param aArray
-     * @param bArray
-     * @param <T>
-     * @return
-     */
-    public static <T> T[] union(T[] aArray, T[] bArray) {
-        int aLen;
-        if (aArray == null || (aLen = aArray.length) == 0) {
-            return unique(aArray);
-        }
-        int bLen;
-        if (bArray == null || (bLen = bArray.length) == 0) {
-            return unique(bArray);
-        }
-        int mergeLen = aLen + bLen;
-        // May throw OutOfMemoryError and NegativeArraySizeException
-        Object[] mergeArray = new Object[mergeLen];
-        System.arraycopy(aArray, 0, mergeArray, 0, aLen);
-        System.arraycopy(bArray, 0, mergeArray, aLen, bLen);
-        // Call unique to do all the work.
-        // 剩下的工作交给数组去重去处理。
-        return (T[]) unique(mergeArray);
-    }
-
-    /**
-     * 差集
-     *      假设有集合A和B，所有属于A且不属于B的元素的集合被称为A与B的差集。
-     *      示例：对于集合A = {a, b, c, d} 和 集合B = {b, c, w}，则A与B的差集为 {a, b}.
-     *
-     * 算法思路：先将一个数组存储起来，在使用另一个数组进行判断，若有相同的，则删除。
-     *
-     * @param aArray
-     * @param bArray
-     * @param <T>
-     * @return          返回aArray与bArray的差集
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T[] except(T[] aArray, T[] bArray) {
-        if (aArray == null || bArray == null) {
-            return null;
-        }
-        if (aArray.length == 0 || bArray.length == 0) {
-            return (T[]) new Object[0];
-        }
-        int aLen = aArray.length;
-        Object[] tempA = unique(aArray);
-        Object[] tempB = unique(bArray);
-        boolean[] diffs = new boolean[aLen];
-        outer:
-        for (Object o : tempB) {
-            for (int i = 0; i < aLen; i++) {
-                if (o == tempA[i]) {
-                    diffs[i] = true;
-                    continue outer;
-                }
-            }
-        }
-        Object[] exceptArray = new Object[aLen];
-        int index = 0;
-        for (int i = 0; i < aLen; i++) {
-            if (!diffs[i]) {
-                exceptArray[index++] = tempA[i];
-            }
-        }
-
-        return (T[]) Arrays.copyOf(exceptArray, index);
-    }
-
 
     /**
      * 将两个下标的值进行交换
@@ -425,7 +545,7 @@ public class ArrayUtils {
     // is the array sorted from a[lo] to a[hi]
     private static boolean isSorted(Comparable[] a, int lo, int hi) {
         for (int i = lo + 1; i <= hi; i++) {
-            if (Comparators.less(a[i], a[i-1])) {
+            if (ObjectUtils.less(a[i], a[i-1])) {
                 return false;
             }
         }
@@ -439,7 +559,7 @@ public class ArrayUtils {
     // is the array sorted from a[lo] to a[hi]
     private static boolean isSorted(Object[] a, Comparator comparator, int lo, int hi) {
         for (int i = lo + 1; i <= hi; i++) {
-            if(Comparators.less(comparator, a[i], a[i-1])) {
+            if(ObjectUtils.less(comparator, a[i], a[i-1])) {
                 return false;
             }
         }

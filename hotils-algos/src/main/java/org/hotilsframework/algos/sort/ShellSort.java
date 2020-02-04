@@ -1,7 +1,7 @@
 package org.hotilsframework.algos.sort;
 
-import org.hotilsframework.lang.Comparators;
 import org.hotilsframework.utils.ArrayUtils;
+import org.hotilsframework.utils.ObjectUtils;
 
 /**
  * ShellSort
@@ -45,7 +45,7 @@ public class ShellSort<T extends Comparable<? super T>> implements Sort<T> {
             // 将数组变成h有序
             for (int i = h; i < length; i++) {
                 //将a[i]插入到a[i-h],a[i-2*h],a[i-3*h]...之中
-                for (int j = i; j >= h && Comparators.less(array[j], array[j-h]); j -= h) {
+                for (int j = i; j >= h && ObjectUtils.less(array[j], array[j-h]); j -= h) {
                     ArrayUtils.exchange(array, j, j-h);
                 }
             }

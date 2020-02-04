@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @ClassName: FileUtils
@@ -17,8 +18,40 @@ import java.util.List;
  */
 public class FileUtils {
 
+    /**
+     * 类Unix路径分隔符
+     */
+    private static final char UNIX_SEPARATOR = '/';
+    /**
+     * Windows路径分隔符
+     */
+    private static final char WINDOWS_SEPARATOR = '\\';
+    /**
+     * Windows下文件名中的无效字符
+     */
+    private static Pattern FILE_NAME_INVALID_PATTERN_WIN = Pattern.compile("[\\\\/:*?\"<>|]");
     private static final String FOLDER_SEPARATOR = "/";
     private static final char EXTENSION_SEPARATOR = '.';
+
+    /**
+     * 判断文件是否为空
+     * 目录：里面没有文件时为空 文件：文件大小为0时为空
+     *
+     * @param file  文件
+     * @return      是否为空，当提供非目录时，返回false
+     */
+    public static boolean isEmpty(File file) {
+        if (null == file) {
+            return true;
+        }
+        if (file.isDirectory()) {
+            String[] subFiles = file.list();
+            return ArrayUtils.isEmpty(subFiles);
+        } else if (file.isFile()) {
+            return file.length() <= 0;
+        }
+        return false;
+    }
 
     /**
      * 文件列表

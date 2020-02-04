@@ -367,7 +367,7 @@ public final class StringUtils {
             return string((Byte[]) object, charset);
         } else if (object instanceof ByteBuffer) {
             return string((ByteBuffer) object, charset);
-        } else if (ArrayUtils.isArray(object)) {
+        } else if (object.getClass().isArray()) {
             return ObjectUtils.nullSafeToString(object);
         }
 

@@ -172,7 +172,7 @@ public final class ReflectUtils {
         Object value = null;
         if (field != null) {
             field.setAccessible(true);
-            if (isStatic(field)) {
+            if (ModifierUtils.isStatic(field)) {
                 try {
                     value = field.get(null);
                 } catch (IllegalAccessException e) {
@@ -187,6 +187,15 @@ public final class ReflectUtils {
         return value;
     }
 
+    public static void setField(Field field,  Object target,  Object value) {
+        try {
+            field.set(target, value);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(
+                    "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
     /**
      * 设置属性值
      * @param object        对象
@@ -198,7 +207,7 @@ public final class ReflectUtils {
             Field field = findField(object.getClass(), fieldName);
             if (field != null) {
                 field.setAccessible(true);
-                if (!isFinal(field)) {
+                if (!ModifierUtils.isFinal(field)) {
                     try {
                         field.set(object, newValue);
                     } catch (IllegalAccessException e) {
@@ -221,11 +230,10 @@ public final class ReflectUtils {
      */
     public static void setFieldValue(Class<?> clazz, String fieldName, Object newValue) {
         Field field = findField(clazz, fieldName);
-        System.out.println(field);
         if (field != null) {
             field.setAccessible(true);
-            if (isStatic(field)) {
-                if (!isFinal(field)) {
+            if (ModifierUtils.isStatic(field)) {
+                if (!ModifierUtils.isFinal(field)) {
                     try {
                         field.set(null, newValue);
                     } catch (IllegalAccessException e) {
@@ -244,12 +252,9 @@ public final class ReflectUtils {
 
 
     /**
-     * This variant retrieves {@link Class#getDeclaredFields()} from a local cache
-     * in order to avoid the JVM's SecurityManager check and defensive array copying.
-     * @param clazz the class to introspect
-     * @return the cached array of fields
-     * @throws IllegalStateException if introspection fails
-     * @see Class#getDeclaredFields()
+     * 获取当前类的所有字段（不包括父类）
+     * @param clazz
+     * @return
      */
     private static Field[] getDeclaredFields(Class<?> clazz) {
         Assert.checkNotNull(clazz, "Class must not be null");
@@ -266,27 +271,77 @@ public final class ReflectUtils {
         return result;
     }
 
+    /**
+     * 获取一个类中所有字段列表，包括父类
+     * @param clazz
+     * @return
+     */
+    public static Field[] getInheritFields(Class<?> clazz) {
+        Field[] fields = getInheritFields(clazz, true);
+        return fields;
+    }
 
-    public static void setField(Field field,  Object target,  Object value) {
+    /**
+     * 获得一个类中所有字段列表，直接反射获取，无缓存
+     * @param clazz                     类
+     * @param withSuperClassFields      是否包括父类的字段列表
+     * @return
+     */
+    public static Field[] getInheritFields(Class<?> clazz, boolean withSuperClassFields) {
+        Assert.checkNotNull(clazz);
+
+        Field[] fields = null;
+        Class<?> searchType = clazz;
+        Field[] declaredFields;
+        while (searchType != null) {
+            // 获取所有字段
+            declaredFields = searchType.getDeclaredFields();
+            if (null == fields) {
+                fields = declaredFields;
+            } else {
+                fields = ArrayUtils.add(fields, declaredFields);
+            }
+            searchType = withSuperClassFields ? searchType.getSuperclass() : null;
+        }
+        return fields;
+    }
+
+    //======================================================
+    //  构造器处理 start
+    //======================================================
+
+    /**
+     * 获取某个 Constructor
+     * @param clazz
+     * @param parameterTypes
+     * @return
+     */
+    public static Constructor<?> findConstructor(Class<?> clazz, Class<?>... parameterTypes) {
+        Constructor<?> constructor = null;
         try {
-            field.set(target, value);
-        } catch (IllegalAccessException e) {
+            constructor = clazz.getDeclaredConstructor(parameterTypes);
+        } catch (NoSuchMethodException e) {
             throw new IllegalStateException(
                     "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
         }
+        return constructor;
+    }
+
+    /**
+     * 查找所有的 Constructor
+     * @param clazz
+     * @return
+     */
+    public static Constructor<?>[] findConstructors(Class<?> clazz) {
+        Constructor<?>[] constructors = clazz.getDeclaredConstructors();
+        return constructors;
     }
 
 
-    public static Object getField(Field field,  Object target) {
-        try {
-            return field.get(target);
-        }
-        catch (IllegalAccessException ex) {
-            handleReflectionException(ex);
-            throw new IllegalStateException(
-                    "Unexpected reflection exception - " + ex.getClass().getName() + ": " + ex.getMessage());
-        }
-    }
+    //======================================================
+    //  构造器处理 end
+    //======================================================
+
 
     //======================================================
     //  方法处理
@@ -337,16 +392,6 @@ public final class ReflectUtils {
 
     /**
      * 调用方法
-     * @param method
-     * @param target
-     * @return
-     */
-    public static Object invokeMethod(Method method,  Object target) {
-        return invokeMethod(method, target, EMPTY_OBJECT_ARRAY);
-    }
-
-    /**
-     * 执行类方法
      * @param source        类对象
      * @param methodName    方法名
      * @param args          参数数组
@@ -362,19 +407,23 @@ public final class ReflectUtils {
         }
         Method method = findMethod(source.getClass(), methodName, classes);
         Object result = null;
-        try {
-            if (method != null) {
-                method.setAccessible(true);
-                result = method.invoke(source, args);
-            } else {
-                System.err.println("Method is not exist");
-            }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        if (method != null) {
+            method.setAccessible(true);
+            result = invokeMethod(method, source, args);
+        } else {
+            System.err.println("Method is not exist");
         }
         return result;
+    }
+
+    /**
+     * 调用方法
+     * @param method
+     * @param target
+     * @return
+     */
+    public static Object invokeMethod(Method method,  Object target) {
+        return invokeMethod(method, target, EMPTY_OBJECT_ARRAY);
     }
 
     /**
@@ -394,16 +443,9 @@ public final class ReflectUtils {
     }
 
     /**
-     * Variant of {@link Class#getDeclaredMethods()} that uses a local cache in
-     * order to avoid the JVM's SecurityManager check and new Method instances.
-     * In addition, it also includes Java 8 default methods from locally
-     * implemented interfaces, since those are effectively to be treated just
-     * like declared methods.
-     * @param clazz the class to introspect
-     * @return the cached array of methods
-     * @throws IllegalStateException if introspection fails
-     * @since 5.2
-     * @see Class#getDeclaredMethods()
+     * 获取当前类中所有方法
+     * @param clazz
+     * @return
      */
     public static Method[] getDeclaredMethods(Class<?> clazz) {
         return getDeclaredMethods(clazz, true);
@@ -454,65 +496,13 @@ public final class ReflectUtils {
         return result;
     }
 
-    //============================================
-    //  对象判断标识符
-    //============================================
-
-    /**
-     * 是否静态（方法、属性。。。）
-     *
-     * @param field 要判断的对象
-     * @return 是否
-     */
-    public static boolean isStatic(Object field) {
-        return Modifier.isStatic((Integer) invokeMethod(field, "getModifiers", null));
-    }
-
-    /**
-     * 是否不可变/覆写（方法、属性。。。）
-     *
-     * @param field 要判断的对象
-     * @return 是否
-     */
-    public static boolean isFinal(Object field) {
-        return Modifier.isFinal((Integer) invokeMethod(field, "getModifiers", null));
-    }
-
-    /**
-     * 是否公共（方法、属性。。。）
-     *
-     * @param field 要判断的对象
-     * @return 是否
-     */
-    public static boolean isPublic(Object field) {
-        return Modifier.isPublic((Integer) invokeMethod(field, "getModifiers", null));
-    }
-
-    /**
-     * 是否私有(方法、属性...)
-     * @param source 要判断的对象
-     * @return
-     */
-    public static boolean isPrivate(Object source) {
-        return Modifier.isPrivate((Integer) invokeMethod(source, "getModifiers", null));
-    }
-
-    /**
-     * 是否受保护(方法、属性...)
-     * @param source    要判断的对象
-     * @return
-     */
-    public static boolean isProtected(Object source) {
-        return Modifier.isProtected((Integer) invokeMethod(source, "getModifiers", null));
-    }
-
     /**
      * Determine whether the given method is an "equals" method.
      *
      * 确定给定的方法是否是 一个 "equals" 方法
      * @see Object#equals(Object)
      */
-    public static boolean isEqualsMethod( Method method) {
+    public static boolean isEqualsMethod(Method method) {
         if (method == null || !method.getName().equals("equals")) {
             return false;
         }

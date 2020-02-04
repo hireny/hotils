@@ -20,7 +20,15 @@
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>me.hireny.hotils</groupId>
             <artifactId>hotils-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-context</artifactId>
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>
@@ -29,10 +37,6 @@
         <dependency>
             <groupId>me.hireny.hotils</groupId>
             <artifactId>hotils-crypto</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>me.hireny.hotils</groupId>
-            <artifactId>hotils-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>

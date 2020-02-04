@@ -10,8 +10,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hotils-aop</artifactId>
-
+    <name>Hotils: Hotils Aop for Java</name>
     <description>代理封装，提供切面支持</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-core</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>

@@ -22,7 +22,7 @@ public class Hex {
     };
 
     /**
-     * 16禁止转byte数组
+     * 16进制转byte数组
      * @param data  16进制字符串
      * @return  byte数组
      * @throws Exception    转换失败的异常

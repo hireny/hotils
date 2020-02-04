@@ -12,7 +12,7 @@ public interface Codec {
     /**
      * 编码类
      */
-    public interface Encoder {
+    interface Encoder {
 
         byte[] encoder(byte[] data);
     }
@@ -20,7 +20,7 @@ public interface Codec {
     /**
      * 解码类
      */
-    public interface Decoder {
+    interface Decoder {
         /**
          * 解码
          * @param data
