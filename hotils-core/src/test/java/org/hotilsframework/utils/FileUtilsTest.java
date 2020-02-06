@@ -1,7 +1,9 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.io.FileResource;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -34,8 +36,17 @@ public class FileUtilsTest {
      */
     @Test
     public void fileSizeTest() {
-        String s = "C:\\Users\\hireny\\Downloads\\spring-framework-master\\spring-core\\src\\main\\java\\org\\springframework\\util\\SerializationUtils.java";
+//        String s = "C:\\Users\\hireny\\Downloads\\spring-framework-master\\spring-core\\src\\main\\java\\org\\springframework\\util\\SerializationUtils.java";
+        String s = "C:\\Users\\hireny\\IdeaProjects\\java-tutorial\\a";
         long size = FileUtils.size(s);
+        System.out.println(size);
+        System.out.println(FileUtils.byteUnits(size));
+    }
+
+    @Test
+    public void fileSizeTest2() {
+        String s = "C:\\Users\\hireny\\IdeaProjects\\java-tutorial\\a";
+        long size = FileResource.of(new File(s)).size();
         System.out.println(size);
         System.out.println(FileUtils.byteUnits(size));
     }

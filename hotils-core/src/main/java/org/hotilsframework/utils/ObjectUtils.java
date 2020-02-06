@@ -1,5 +1,7 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.beans.BeanInstantiationException;
+
 import java.lang.reflect.Array;
 import java.util.*;
 

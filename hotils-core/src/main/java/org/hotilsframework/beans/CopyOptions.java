@@ -1,6 +1,9 @@
 package org.hotilsframework.beans;
 
+import org.hotilsframework.collection.Lists;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @ClassName: CopyOptions
@@ -16,6 +19,10 @@ import java.io.Serializable;
 public class CopyOptions implements Serializable {
 
     private static final long serialVersionUID = -5649406277601803761L;
+
+    private List<String> ignoreFields = Lists.newArrayList();
+
+
 
     /**
      * 创建拷贝选项

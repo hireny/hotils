@@ -1,5 +1,7 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.beans.BeanInstantiationException;
+
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,6 +104,25 @@ public final class ReflectUtils {
             throw (Error) e;
         }
         throw new UndeclaredThrowableException(e);
+    }
+
+    //=====================================================
+    // 对象处理(Object)
+    //=====================================================
+
+    public static <T> T newInstance(Class<?> clazz) {
+        Assert.checkNotNull(clazz, "Class must not be null.");
+        if (clazz.isInterface()) {
+            throw new BeanInstantiationException(clazz, "Specified class is an interface");
+        }
+        try {
+            return (T) clazz.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //=====================================================

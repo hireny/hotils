@@ -3,16 +3,12 @@ package org.hotilsframework.beans;
 import org.hotilsframework.collection.CaseInsensitiveMap;
 import org.hotilsframework.collection.Maps;
 import org.hotilsframework.lang.Filter;
-import org.hotilsframework.utils.ArrayUtils;
-import org.hotilsframework.utils.Assert;
-import org.hotilsframework.utils.ClassUtils;
-import org.hotilsframework.utils.CollectionUtils;
+import org.hotilsframework.utils.*;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -236,6 +232,11 @@ public final class BeanUtils {
         }
     }
 
+
+    //===========================================================================
+    // Java Bean 与 Map 转换
+    //===========================================================================
+
     /**
      * Java Bean转换为Map
      * @param source    待转换的Java Bean
@@ -253,9 +254,10 @@ public final class BeanUtils {
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
                 String key = propertyDescriptor.getName();
                 // 过滤class属性
-                if (!key.equals("class")) {
+                if (!"class".equals(key)) {
                     // 得到propertyDescriptor对应的getter方法
                     Method getterMethod = propertyDescriptor.getReadMethod();
+                    getterMethod.setAccessible(true);
                     Object value = getterMethod.invoke(source);
 
                     map.put(key, value);
@@ -273,7 +275,7 @@ public final class BeanUtils {
      * @param clazz     转换的目标类
      * @return          转换后的Java Bean对象
      */
-    public static Object mapToBean(Map map, Class<?> clazz) {
+    public static Object mapToBean(Map<String, Object> map, Class<?> clazz) {
         if (CollectionUtils.isEmpty(map)) {
             return null;
         }
@@ -283,7 +285,7 @@ public final class BeanUtils {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-            target = ClassUtils.newInstance(clazz);
+            target = ReflectUtils.newInstance(clazz);
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
                 String key = propertyDescriptor.getName();
                 if (map.containsKey(key)) {

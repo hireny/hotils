@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /**
- * Bean实例化异常
+ * 对象实例化异常
  * @ClassName: BeanInstantiationException
  * @Author: hireny
  * @Date: Created in 2020-01-29 16:12

@@ -1,10 +1,7 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.io.ResourceException;
-
 import java.io.*;
-import java.math.BigInteger;
-import java.security.MessageDigest;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -170,15 +167,42 @@ public class FileUtils {
      * @return
      */
     public static long size(File file) {
+        return sizeOfFile(file);
+    }
+
+    private static long sizeOfDirectory(final File directory) {
+        final File[] files = directory.listFiles();
+        if (files == null) {
+            return 0L;
+        }
+
         long size = 0;
-        if (file.exists()) {
-            try (FileInputStream fis = new FileInputStream(file)) {
-                size = fis.available();
-            } catch (IOException e) {
-                throw new IllegalArgumentException("Failed to get the file size.");
+
+        for (final File file : files) {
+            if (!isSymlink(file)) {
+                size += sizeOfFile(file);
+                if (size < 0) {
+                    break;
+                }
             }
         }
         return size;
+    }
+
+    private static long sizeOfFile(File file) {
+        if (file.isDirectory()) {
+            return sizeOfDirectory(file);
+        }
+        return file.length();
+    }
+
+    /**
+     * 是否是链接
+     * @param file
+     * @return
+     */
+    public static boolean isSymlink(final File file) {
+        return Files.isSymbolicLink(file.toPath());
     }
 
     /**

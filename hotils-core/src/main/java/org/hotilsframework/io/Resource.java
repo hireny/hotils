@@ -24,6 +24,24 @@ public interface Resource extends InputStreamSource {
     }
 
     /**
+     * 判断该资源是否是目录
+     * @return
+     * @throws ResourceException
+     */
+    default boolean isDirectory() throws ResourceException {
+        return false;
+    }
+
+    /**
+     * 判断该资源是否是链接
+     * @return
+     * @throws ResourceException
+     */
+    default boolean isSymlink() throws ResourceException {
+        return false;
+    }
+
+    /**
      * 获取统一资源定位符
      * @return
      * @throws IOException

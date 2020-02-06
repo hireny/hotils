@@ -1,5 +1,7 @@
 package org.hotilsframework.lang;
 
+import java.io.EOFException;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -21,15 +23,19 @@ public final class ObjectDescriptor implements Wrapper {
     private Field[] fields;
     private Constructor<?>[] constructors;
     private Method[] methods;
+    private Class<?> extendsClass;
 
-    public static ObjectDescriptor of(Object t) {
-        return new ObjectDescriptor(t);
-    }
+    private Class<?> implementsClasses;
+
+    private Field[] staticFields;
+
+    private Method[] staticMethods;
 
     private ObjectDescriptor(Object o) {
         this.target = o;
         this.targetClass = o.getClass();
     }
+
 
     @Override
     public Object getTarget() {
@@ -39,5 +45,9 @@ public final class ObjectDescriptor implements Wrapper {
     @Override
     public Class<?> getTargetClass() {
         return this.targetClass;
+    }
+
+    public static ObjectDescriptor of(Object t) {
+        return new ObjectDescriptor(t);
     }
 }

@@ -165,21 +165,6 @@ public final class ClassUtils {
         return Class.forName(name);
     }
 
-    public static <T> T newInstance(Class<?> clazz) {
-        Assert.checkNotNull(clazz, "Class must not be null.");
-        if (clazz.isInterface()) {
-            throw new BeanInstantiationException(clazz, "Specified class is an interface");
-        }
-        try {
-            return (T) clazz.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     /**
      * Check whether the given class is visible in the given ClassLoader.
      * @param clazz the class to check (typically an interface)

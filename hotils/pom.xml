@@ -40,6 +40,10 @@
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>me.hireny.hotils</groupId>
             <artifactId>hotils-json</artifactId>
         </dependency>
         <dependency>
