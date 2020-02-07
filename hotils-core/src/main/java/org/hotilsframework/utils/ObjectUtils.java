@@ -1,5 +1,7 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.core.lang.Defaults;
+
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -101,36 +103,41 @@ public class ObjectUtils {
     }
 
     /**
-     * 确定两个对象是否相等
-     * @param o1
-     * @param o2
-     * @return
+     * 比较两个对象是否完全相同
+     *
+     * <p>
+     *     此方法可以正确地比较多维数组
+     * </p>
+     *
+     * <pre>
+     *     ObjectUtils.equals(null, null)                   = true
+     *     ObjectUtils.equals(null, "")                     = false
+     *     ObjectUtils.equals("", null)                     = false
+     *     ObjectUtils.equals("", "")                       = true
+     *     ObjectUtils.equals(Boolean.TRUE, null)           = false
+     *     ObjectUtils.equals(Boolean.TRUE, "true")         = false
+     *     ObjectUtils.equals(Boolean.TRUE, Boolean.TRUE)   = true
+     *     ObjectUtils.equals(Boolean.TRUE, Boolean.FALSE)  = false
+     * </pre>
+     * @param o1    对象1
+     * @param o2    对象2
+     * @return      如果相等，则返回 {@code true}
      */
     public static boolean equals(Object o1, Object o2) {
-        return nullSafeEquals(o1, o2);
-    }
-
-    /**
-     * 确定两个对象是否相等
-     * @param o1
-     * @param o2
-     * @return
-     */
-    private static boolean nullSafeEquals(Object o1, Object o2) {
         if (o1 == o2) {
             return true;
         }
         if (o1 == null || o2 == null) {
             return false;
         }
-        if (o1.equals(o2)) {
-            return true;
+        if (!o1.getClass().equals(o2.getClass())) {
+            return false;
         }
         if (o1.getClass().isArray() && o2.getClass().isArray()) {
             // 同为数组的话，判断数组是否相同
             return arrayEquals(o1, o2);
         }
-        return false;
+        return o1.equals(o2);
     }
 
     /**
@@ -141,7 +148,7 @@ public class ObjectUtils {
      */
     private static boolean arrayEquals(Object o1, Object o2) {
         if (o1 instanceof Object[] && o2 instanceof Object[]) {
-            return Arrays.equals((Object[]) o1, (Object[]) o2);
+            return Arrays.deepEquals((Object[]) o1, (Object[]) o2);
         }
         if (o1 instanceof boolean[] && o2 instanceof boolean[]) {
             return Arrays.equals((boolean[]) o1, (boolean[]) o2);
@@ -171,88 +178,97 @@ public class ObjectUtils {
     }
 
     /**
-     * 返回hashCode
-     * @param o
-     * @return
+     * 比较两个对象是否类型相同 {@code null} 被看做任意类型
+     * @param o1    对象1
+     * @param o2    对象2
+     * @return      如果两个对象有相同的类型，则返回 {@code true}
      */
-    public static int hashCode(Object o) {
-        return nullSafeHashCode(o);
-    }
-    /**
-     * 返回hashCode
-     * @param objects
-     * @return
-     */
-    public static int hashCode(Object... objects) {
-        return nullSafeHashCode(objects);
+    public static boolean isSameType(Object o1, Object o2) {
+        if (o1 == null || o2 == null) {
+            return true;
+        }
+        return o1.getClass().equals(o2.getClass());
     }
 
     /**
-     * 返回Object对象的HashCode
-     *
-     * Return as hash code for the given object; typically the value of
-     * {@code Object#hashCode()}}. If the object is an array,
-     * this method will delegate to any of the {@code nullSafeHashCode}
-     * methods for arrays in this class. If the object is {@code null},
-     * this method returns 0.
-     * @see Object#hashCode()
-     * @see #nullSafeHashCode(Object[])
-     * @see #nullSafeHashCode(boolean[])
-     * @see #nullSafeHashCode(byte[])
-     * @see #nullSafeHashCode(char[])
-     * @see #nullSafeHashCode(double[])
-     * @see #nullSafeHashCode(float[])
-     * @see #nullSafeHashCode(int[])
-     * @see #nullSafeHashCode(long[])
-     * @see #nullSafeHashCode(short[])
+     * 取得对象的hash值，如果对象为 {@code null}, 则返回 {@code 0}
+     * 
+     * <p>
+     *     此方法可以正确地处理多维数组
+     * </p>
+     * @param o     对象
+     * @return      hash值
      */
-    private static int nullSafeHashCode(Object obj) {
-        if (obj == null) {
+    public static int hashCode(Object o) {
+        if (o == null) {
             return 0;
         }
-        if (obj.getClass().isArray()) {
-            if (obj instanceof Object[]) {
-                return nullSafeHashCode((Object[]) obj);
-            }
-            if (obj instanceof boolean[]) {
-                return nullSafeHashCode((boolean[]) obj);
-            }
-            if (obj instanceof byte[]) {
-                return nullSafeHashCode((byte[]) obj);
-            }
-            if (obj instanceof char[]) {
-                return nullSafeHashCode((char[]) obj);
-            }
-            if (obj instanceof double[]) {
-                return nullSafeHashCode((double[]) obj);
-            }
-            if (obj instanceof float[]) {
-                return nullSafeHashCode((float[]) obj);
-            }
-            if (obj instanceof int[]) {
-                return nullSafeHashCode((int[]) obj);
-            }
-            if (obj instanceof long[]) {
-                return nullSafeHashCode((long[]) obj);
-            }
-            if (obj instanceof short[]) {
-                return nullSafeHashCode((short[]) obj);
-            }
+        if (o.getClass().isArray()) {
+            return arrayHashCode(o);
         }
-        return obj.hashCode();
+        return o.hashCode();
+    }
+
+    /**
+     * 取得对象的hash值，如果对象为 {@code null}, 则返回 {@code 0}
+     *
+     * <p>
+     *     此方法可以正确地处理多维数组
+     * </p>
+     * @param objects   对象
+     * @return          hash值
+     */
+    public static int hashCode(Object... objects) {
+        return arrayHashCode(objects);
+    }
+
+    /**
+     * 取得对象的hash值，如果对象为 {@code null}, 则返回 {@code 0}
+     * @param o     对象
+     * @return      hash值
+     */
+    private static int arrayHashCode(Object o) {
+        if (o instanceof Object[]) {
+            return arrayHashCode((Object[]) o);
+        }
+        if (o instanceof boolean[]) {
+            return arrayHashCode((boolean[]) o);
+        }
+        if (o instanceof byte[]) {
+            return arrayHashCode((byte[]) o);
+        }
+        if (o instanceof char[]) {
+            return arrayHashCode((char[]) o);
+        }
+        if (o instanceof double[]) {
+            return arrayHashCode((double[]) o);
+        }
+        if (o instanceof float[]) {
+            return arrayHashCode((float[]) o);
+        }
+        if (o instanceof int[]) {
+            return arrayHashCode((int[]) o);
+        }
+        if (o instanceof long[]) {
+            return arrayHashCode((long[]) o);
+        }
+        if (o instanceof short[]) {
+            return arrayHashCode((short[]) o);
+        }
+        return o.hashCode();
     }
 
     /**
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int nullSafeHashCode(Object[] array) {
+    private static int arrayHashCode(Object[] array) {
         if (array == null) {
             return 0;
         }
         int hash = INITIAL_HASH;
         for (Object element : array) {
-            hash = MULTIPLIER * hash + nullSafeHashCode(element);
+            hash = MULTIPLIER * hash + arrayHashCode(element);
         }
         return hash;
     }
@@ -261,7 +277,7 @@ public class ObjectUtils {
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int nullSafeHashCode(boolean[] array) {
+    private static int arrayHashCode(boolean[] array) {
         if (array == null) {
             return 0;
         }
@@ -276,7 +292,7 @@ public class ObjectUtils {
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int nullSafeHashCode( byte[] array) {
+    private static int arrayHashCode( byte[] array) {
         if (array == null) {
             return 0;
         }
@@ -291,7 +307,7 @@ public class ObjectUtils {
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int nullSafeHashCode(char[] array) {
+    private static int arrayHashCode(char[] array) {
         if (array == null) {
             return 0;
         }
@@ -306,7 +322,7 @@ public class ObjectUtils {
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int nullSafeHashCode(double[] array) {
+    private static int arrayHashCode(double[] array) {
         if (array == null) {
             return 0;
         }
@@ -321,7 +337,7 @@ public class ObjectUtils {
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int nullSafeHashCode(float[] array) {
+    private static int arrayHashCode(float[] array) {
         if (array == null) {
             return 0;
         }
@@ -336,7 +352,7 @@ public class ObjectUtils {
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int nullSafeHashCode(int[] array) {
+    private static int arrayHashCode(int[] array) {
         if (array == null) {
             return 0;
         }
@@ -351,7 +367,7 @@ public class ObjectUtils {
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int nullSafeHashCode(long[] array) {
+    private static int arrayHashCode(long[] array) {
         if (array == null) {
             return 0;
         }
@@ -366,7 +382,7 @@ public class ObjectUtils {
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int nullSafeHashCode(short[] array) {
+    private static int arrayHashCode(short[] array) {
         if (array == null) {
             return 0;
         }
@@ -382,10 +398,10 @@ public class ObjectUtils {
     //---------------------------------------------------------------------
 
     /**
-     * Return a String representation of an object's overall identity.
-     * @param obj the object (may be {@code null})
-     * @return the object's identity as String representation,
-     * or an empty String if the object was {@code null}
+     * 取得对象自身的 identity，如果对象没有覆盖 {@code toString()} 方法时，
+     * {@code Object.toString()} 的原始输出。
+     * @param obj
+     * @return
      */
     public static String identityToString( Object obj) {
         if (obj == null) {
@@ -404,47 +420,53 @@ public class ObjectUtils {
     }
 
     /**
-     * Return a String representation of the specified Object.
-     * <p>Builds a String representation of the contents in case of an array.
-     * Returns a {@code "null"} String if {@code obj} is {@code null}.
-     * @param obj the object to build a String representation for
-     * @return a String representation of {@code obj}
+     * 获取对象的 {@code toString()} 的值，如果对象为 {@code null}，则返回空字符串 {@code ""}
+     *
+     * <pre>
+     *     ObjectUtils.toString(null)         = ""
+     *     ObjectUtils.toString("")           = ""
+     *     ObjectUtils.toString("bat")        = "bat"
+     *     ObjectUtils.toString(Boolean.TRUE) = "true"
+     *     ObjectUtils.toString([1, 2, 3])    = "[1, 2, 3]"
+     * </pre>
+     * @param o     对象
+     * @return      对象的 {@code toString()} 的返回值，或空字符串 {@code ""}
      */
-    public static String nullSafeToString( Object obj) {
-        if (obj == null) {
+    public static String toString(Object o) {
+        if (o == null) {
             return NULL_STRING;
         }
-        if (obj instanceof String) {
-            return (String) obj;
+        if (o instanceof String) {
+            return (String) o;
         }
-        if (obj instanceof Object[]) {
-            return nullSafeToString((Object[]) obj);
+        if (o instanceof Object[]) {
+            return arrayToString((Object[]) o);
         }
-        if (obj instanceof boolean[]) {
-            return nullSafeToString((boolean[]) obj);
+        if (o instanceof boolean[]) {
+            return arrayToString((boolean[]) o);
         }
-        if (obj instanceof byte[]) {
-            return nullSafeToString((byte[]) obj);
+        if (o instanceof byte[]) {
+            return arrayToString((byte[]) o);
         }
-        if (obj instanceof char[]) {
-            return nullSafeToString((char[]) obj);
+        if (o instanceof char[]) {
+            return arrayToString((char[]) o);
         }
-        if (obj instanceof double[]) {
-            return nullSafeToString((double[]) obj);
+        if (o instanceof double[]) {
+            return arrayToString((double[]) o);
         }
-        if (obj instanceof float[]) {
-            return nullSafeToString((float[]) obj);
+        if (o instanceof float[]) {
+            return arrayToString((float[]) o);
         }
-        if (obj instanceof int[]) {
-            return nullSafeToString((int[]) obj);
+        if (o instanceof int[]) {
+            return arrayToString((int[]) o);
         }
-        if (obj instanceof long[]) {
-            return nullSafeToString((long[]) obj);
+        if (o instanceof long[]) {
+            return arrayToString((long[]) o);
         }
-        if (obj instanceof short[]) {
-            return nullSafeToString((short[]) obj);
+        if (o instanceof short[]) {
+            return arrayToString((short[]) o);
         }
-        String str = obj.toString();
+        String str = o.toString();
         return (str != null ? str : EMPTY_STRING);
     }
 
@@ -457,7 +479,7 @@ public class ObjectUtils {
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
      */
-    public static String nullSafeToString(Object[] array) {
+    public static String arrayToString(Object[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -481,7 +503,7 @@ public class ObjectUtils {
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
      */
-    public static String nullSafeToString(boolean[] array) {
+    public static String arrayToString(boolean[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -513,7 +535,7 @@ public class ObjectUtils {
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
      */
-    public static String nullSafeToString(byte[] array) {
+    public static String arrayToString(byte[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -544,7 +566,7 @@ public class ObjectUtils {
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
      */
-    public static String nullSafeToString(char[] array) {
+    public static String arrayToString(char[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -575,7 +597,7 @@ public class ObjectUtils {
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
      */
-    public static String nullSafeToString(double[] array) {
+    public static String arrayToString(double[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -607,7 +629,7 @@ public class ObjectUtils {
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
      */
-    public static String nullSafeToString(float[] array) {
+    public static String arrayToString(float[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -639,7 +661,7 @@ public class ObjectUtils {
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
      */
-    public static String nullSafeToString(int[] array) {
+    public static String arrayToString(int[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -670,7 +692,7 @@ public class ObjectUtils {
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
      */
-    public static String nullSafeToString(long[] array) {
+    public static String arrayToString(long[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -701,7 +723,7 @@ public class ObjectUtils {
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
      */
-    public static String nullSafeToString(short[] array) {
+    public static String arrayToString(short[] array) {
         if (array == null) {
             return NULL_STRING;
         }
