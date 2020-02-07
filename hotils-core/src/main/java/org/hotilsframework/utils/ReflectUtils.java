@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.beans.BeanInstantiationException;
+import org.hotilsframework.core.beans.BeanInstantiationException;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;
@@ -128,6 +128,14 @@ public final class ReflectUtils {
     //=====================================================
     // 属性处理(Field)
     //=====================================================
+
+    public static void makeAccessible(Field field) {
+        if ((!Modifier.isPublic(field.getModifiers()) ||
+                !Modifier.isPublic(field.getDeclaringClass().getModifiers()) ||
+                Modifier.isFinal(field.getModifiers())) && !field.isAccessible()) {
+            field.setAccessible(true);
+        }
+    }
 
     /**
      * 获取类属性(包含私有以及受保护的，父类也会检索)
@@ -331,6 +339,13 @@ public final class ReflectUtils {
     //  构造器处理 start
     //======================================================
 
+    public static void makeAccessible(Constructor<?> constructor) {
+        if ((!Modifier.isPublic(constructor.getModifiers()) ||
+                !Modifier.isPublic(constructor.getDeclaringClass().getModifiers())) && !constructor.isAccessible() ) {
+            constructor.setAccessible(true);
+        }
+    }
+
     /**
      * 获取某个 Constructor
      * @param clazz
@@ -367,6 +382,13 @@ public final class ReflectUtils {
     //======================================================
     //  方法处理
     //======================================================
+
+    public static void makeAccessible(Method method) {
+        if ((!Modifier.isPublic(method.getModifiers()) ||
+                !Modifier.isPublic(method.getDeclaringClass().getModifiers())) && !method.isAccessible()) {
+            method.setAccessible(true);
+        }
+    }
 
     /**
      * Attempt to find a {@link Method} on the supplied class with the supplied name

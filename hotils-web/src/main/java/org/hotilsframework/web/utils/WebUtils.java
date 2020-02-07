@@ -1,7 +1,7 @@
 package org.hotilsframework.web.utils;
 
-import org.hotilsframework.collection.Maps;
-import org.hotilsframework.lang.Symbol;
+import org.hotilsframework.core.collection.Maps;
+import org.hotilsframework.core.lang.Symbol;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.StringUtils;
 import org.slf4j.Logger;
@@ -154,21 +154,12 @@ public class WebUtils {
      * @return
      */
     public static String getRemoteAddress(HttpServletRequest request) {
-        String ip = request.getHeader("X-Real-IP");
-        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("X-Forwarded-For");
-        }
-        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        String ip = request.getHeader(IP_HEADERS[0]);
+        int length = IP_HEADERS.length;
+        for (int i = 1; i < length; i++) {
+            if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+                ip = request.getHeader(IP_HEADERS[i]);
+            }
         }
         if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();

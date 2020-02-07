@@ -1,6 +1,6 @@
 package org.hotilsframework.socket;
 
-import org.hotilsframework.io.ResourceConstants;
+import org.hotilsframework.core.io.ResourceConstants;
 
 import java.io.Serializable;
 

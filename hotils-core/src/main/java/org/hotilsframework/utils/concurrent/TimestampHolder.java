@@ -1,6 +1,6 @@
 package org.hotilsframework.utils.concurrent;
 
-import org.hotilsframework.time.SystemClock;
+import org.hotilsframework.core.time.SystemClock;
 
 /**
  * @ClassName: TimestampHolder

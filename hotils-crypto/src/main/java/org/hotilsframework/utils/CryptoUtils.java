@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.codec.Hex;
+import org.hotilsframework.core.codec.Hex;
 
 import java.io.*;
 import java.nio.ByteBuffer;

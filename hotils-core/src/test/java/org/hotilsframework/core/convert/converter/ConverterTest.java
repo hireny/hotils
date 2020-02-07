@@ -1,10 +1,9 @@
 package org.hotilsframework.core.convert.converter;
 
-import org.hotilsframework.convert.converter.Converter;
-import org.hotilsframework.convert.converter.support.StringToBooleanConverter;
-import org.hotilsframework.convert.converter.support.StringToCharacterConverter;
-import org.hotilsframework.convert.converter.support.StringToCharsetConverter;
-import org.hotilsframework.convert.converter.support.StringToUUIDConverter;
+import org.hotilsframework.core.convert.converter.support.StringToBooleanConverter;
+import org.hotilsframework.core.convert.converter.support.StringToCharacterConverter;
+import org.hotilsframework.core.convert.converter.support.StringToCharsetConverter;
+import org.hotilsframework.core.convert.converter.support.StringToUUIDConverter;
 import org.junit.Test;
 
 import java.nio.charset.Charset;

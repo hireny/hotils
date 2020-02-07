@@ -1,10 +1,11 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.lang.reflect.ModifierType;
+import org.hotilsframework.core.lang.reflect.ModifierType;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * 修饰符工具类
@@ -201,6 +202,11 @@ public final class ModifierUtils {
         return hasModifier(clazz, ModifierType.STATIC);
     }
 
+
+    public static boolean isPublicStaticFinal(Field field) {
+        int modifiers = field.getModifiers();
+        return (Modifier.isPublic(modifiers) && Modifier.isStatic(modifiers) && Modifier.isFinal(modifiers));
+    }
 
     /**
      * 多个修饰符做 "与" 操作，表示同时存在多个修饰符

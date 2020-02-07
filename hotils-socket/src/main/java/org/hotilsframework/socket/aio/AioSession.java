@@ -1,6 +1,6 @@
 package org.hotilsframework.socket.aio;
 
-import org.hotilsframework.io.ResourceException;
+import org.hotilsframework.core.io.ResourceException;
 import org.hotilsframework.socket.SocketConfiguration;
 import org.hotilsframework.socket.SocketUtils;
 

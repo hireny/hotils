@@ -2,6 +2,7 @@ package org.hotilsframework.algos.sort;
 
 import org.hotilsframework.utils.ArrayUtils;
 import org.hotilsframework.utils.ObjectUtils;
+import org.hotilsframework.utils.comparator.Comparators;
 
 /**
  * InsertionSort
@@ -28,7 +29,7 @@ public class InsertionSort<T extends Comparable<? super T>> implements Sort<T> {
 
         for (int i = 1; i < length; i++) {
             for (int j = i; j > 0; j--) {
-                if (ObjectUtils.less(array[j], array[j-1])) {
+                if (Comparators.less(array[j], array[j-1])) {
                     ArrayUtils.exchange(array, j, j-1);
                 }
             }

@@ -1,6 +1,5 @@
 package org.hotilsframework.core.collection;
 
-import org.hotilsframework.collection.Lists;
 import org.junit.Test;
 
 import java.util.ArrayList;

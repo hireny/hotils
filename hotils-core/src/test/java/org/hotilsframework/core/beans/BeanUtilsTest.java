@@ -1,15 +1,16 @@
 package org.hotilsframework.core.beans;
 
-import org.hotilsframework.beans.BeanUtils;
+import org.hotilsframework.core.beans.copier.CopyOptions;
+import org.hotilsframework.core.collection.Maps;
 import org.junit.Test;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.StringJoiner;
 
 /**
  * @ClassName: BeanUtilsTest
@@ -19,14 +20,25 @@ import java.util.Arrays;
  */
 public class BeanUtilsTest {
 
+    /**
+     * 测试 获取属性描述数组
+     */
     @Test
-    public void copyPropertiesTest1() throws InvocationTargetException, IllegalAccessException, IntrospectionException {
+    public void getPropertyDescriptorsTest() {
+        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(JavaBean3.class);
+        System.out.println(Arrays.toString(propertyDescriptors));
+    }
 
-        BeanInfo beanInfo = Introspector.getBeanInfo(JavaBean3.class);
-        System.out.println(beanInfo.getPropertyDescriptors().length);
-        for (PropertyDescriptor descriptor : beanInfo.getPropertyDescriptors()) {
-            System.out.println(descriptor.getPropertyType());
-        }
+    //============================================
+    // 测试 copyProperties 的 Bean To Bean
+    //============================================
+
+    /**
+     * 测试 复制属性
+     * @throws IntrospectionException
+     */
+    @Test
+    public void copyPropertiesTest1() {
 
         JavaBean1 javaBean1 = new JavaBean1();
         javaBean1.setId(1);
@@ -37,13 +49,124 @@ public class BeanUtilsTest {
         BeanUtils.copyProperties(javaBean1, javaBean2);
         System.out.println("Java Bean 1 = " + javaBean1);
         System.out.println("Java Bean 2 = " + javaBean2);
+    }
 
-        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(JB.class);
-        for (PropertyDescriptor pd : propertyDescriptors) {
-            System.out.println(pd);
-        }
-        System.out.println("写完后：");
+    @Test
+    public void copyPropertiesTest2() {
+        JavaBean1 javaBean1 = new JavaBean1();
+        javaBean1.setId(1);
+        javaBean1.setUsername("我是小沈阳");
+        javaBean1.setPassword("123456");
+        javaBean1.setSex(true);
+        JavaBean2 javaBean2 = new JavaBean2();
+        BeanUtils.copyProperties(javaBean1, javaBean2, "password", "id");
         System.out.println("Java Bean 1 = " + javaBean1);
+        System.out.println("Java Bean 2 = " + javaBean2);
+    }
+
+    @Test
+    public void copyPropertiesTest3() {
+        JavaBean1 javaBean1 = new JavaBean1();
+        javaBean1.setId(1);
+        javaBean1.setUsername("我是小沈阳");
+        javaBean1.setPassword("123456");
+        javaBean1.setSex(true);
+        JavaBean3 javaBean2 = new JavaBean3();
+        BeanUtils.copyProperties(javaBean1, javaBean2, CopyOptions.create(JavaBean3.class, "password"));
+        System.out.println("Java Bean 1 = " + javaBean1);
+        System.out.println("Java Bean 2 = " + javaBean2);
+    }
+
+    //============================================
+    // 测试 copyProperties 的 Bean To Map
+    //============================================
+
+    @Test
+    public void copyPropertiesTest4() {
+
+        JavaBean1 javaBean1 = new JavaBean1();
+        javaBean1.setId(1);
+        javaBean1.setUsername("我是小沈阳");
+        javaBean1.setPassword("123456");
+        javaBean1.setSex(true);
+        Map<String, Object> map = Maps.newHashMap();
+        BeanUtils.copyProperties(javaBean1, map);
+        System.out.println("Java Bean 1 = " + javaBean1);
+        System.out.println("Map 2 = " + map.toString());
+    }
+
+    @Test
+    public void copyPropertiesTest5() {
+        JavaBean1 javaBean1 = new JavaBean1();
+        javaBean1.setId(1);
+        javaBean1.setUsername("我是小沈阳");
+        javaBean1.setPassword("123456");
+        javaBean1.setSex(true);
+        Map<String, Object> map = Maps.newHashMap();
+        BeanUtils.copyProperties(javaBean1, map, "password", "id");
+        System.out.println("Java Bean 1 = " + javaBean1);
+        System.out.println("Map 2 = " + map.toString());
+    }
+
+    @Test
+    public void copyPropertiesTest6() {
+        JavaBean1 javaBean1 = new JavaBean1();
+        javaBean1.setId(1);
+        javaBean1.setUsername("我是小沈阳");
+        javaBean1.setPassword("123456");
+        javaBean1.setSex(true);
+        Map<String, Object> map = Maps.newHashMap();
+        BeanUtils.copyProperties(javaBean1, map, CopyOptions.create(JavaBean3.class, "password"));
+        System.out.println("Java Bean 1 = " + javaBean1);
+        System.out.println("Map 2 = " + map.toString());
+    }
+
+    //============================================
+    // 测试 copyProperties 的 Map To Bean
+    //============================================
+
+    @Test
+    public void copyPropertiesTest7() {
+
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("id", 1);
+        map.put("username", "我是笑声杨");
+        map.put("password", "123456");
+        map.put("sex", true);
+        JavaBean1 javaBean1 = new JavaBean1();
+
+        BeanUtils.copyProperties(map, javaBean1);
+        System.out.println("Map  = " + map.toString());
+        System.out.println("Java Bean 1 = " + javaBean1);
+
+    }
+
+    @Test
+    public void copyPropertiesTest8() {
+        Map<String, Object> map = Maps.newHashMap();
+        JavaBean1 javaBean1 = new JavaBean1();
+        javaBean1.setId(1);
+        javaBean1.setUsername("我是小沈阳");
+        javaBean1.setPassword("123456");
+        javaBean1.setSex(true);
+
+        BeanUtils.copyProperties(javaBean1, map, "password", "id");
+        System.out.println("Map 2 = " + map.toString());
+        System.out.println("Java Bean 1 = " + javaBean1);
+
+    }
+
+    @Test
+    public void copyPropertiesTest9() {
+        JavaBean1 javaBean1 = new JavaBean1();
+        javaBean1.setId(1);
+        javaBean1.setUsername("我是小沈阳");
+        javaBean1.setPassword("123456");
+        javaBean1.setSex(true);
+        Map<String, Object> map = Maps.newHashMap();
+        BeanUtils.copyProperties(javaBean1, map, CopyOptions.create(JavaBean3.class, "password"));
+        System.out.println("Java Bean 1 = " + javaBean1);
+        System.out.println("Map 2 = " + map.toString());
     }
 
     class JB {
@@ -101,18 +224,19 @@ public class BeanUtilsTest {
 
         @Override
         public String toString() {
-            return "JavaBean1{" +
-                    "id=" + id +
-                    ", username='" + username + '\'' +
-                    ", password='" + password + '\'' +
-                    ", sex=" + sex +
-                    '}';
+            return new StringJoiner(", ", JavaBean1.class.getSimpleName() + "[", "]")
+                    .add("id=" + id)
+                    .add("username='" + username + "'")
+                    .add("password='" + password + "'")
+                    .add("sex=" + sex)
+                    .toString();
         }
     }
 
     class JavaBean2 {
         private Integer id;
         private String username;
+        private String password;
         private Boolean sex;
         private Long age;
 
@@ -130,6 +254,14 @@ public class BeanUtilsTest {
 
         public void setUsername(String username) {
             this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
         }
 
         public Boolean getSex() {
@@ -150,12 +282,13 @@ public class BeanUtilsTest {
 
         @Override
         public String toString() {
-            return "JavaBean2{" +
-                    "id=" + id +
-                    ", username='" + username + '\'' +
-                    ", sex=" + sex +
-                    ", age=" + age +
-                    '}';
+            return new StringJoiner(", ", JavaBean2.class.getSimpleName() + "[", "]")
+                    .add("id=" + id)
+                    .add("username='" + username + "'")
+                    .add("password='" + password + "'")
+                    .add("sex=" + sex)
+                    .add("age=" + age)
+                    .toString();
         }
     }
 
@@ -172,9 +305,13 @@ public class BeanUtilsTest {
 
         @Override
         public String toString() {
-            return "JavaBean3{" +
-                    "objects=" + Arrays.toString(objects) +
-                    '}';
+            return new StringJoiner(", ", JavaBean3.class.getSimpleName() + "[", "]")
+                    .add("id=" + super.id)
+                    .add("username='" + super.username + "'")
+                    .add("password='" + super.password + "'")
+                    .add("sex=" + super.sex)
+                    .add("objects=" + Arrays.toString(objects))
+                    .toString();
         }
     }
 }

@@ -1,7 +1,6 @@
 package org.hotilsframework.core.lang.primitives;
 
-import org.hotilsframework.lang.Gender;
-import org.hotilsframework.lang.primitives.Chars;
+import org.hotilsframework.core.lang.Gender;
 import org.junit.Test;
 
 import java.util.ArrayList;

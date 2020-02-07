@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.lang.Gender;
+import org.hotilsframework.core.lang.Gender;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

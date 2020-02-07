@@ -1,7 +1,5 @@
 package org.hotilsframework.core.collection;
 
-import org.hotilsframework.collection.LinkedMultiValueMap;
-import org.hotilsframework.collection.MultiValueMap;
 import org.junit.Test;
 
 import java.util.Arrays;

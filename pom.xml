@@ -34,7 +34,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <hotils.version>0.0.1</hotils.version>
-
         <!--打包跳过单元测试-->
         <skip-tests>true</skip-tests>
     </properties>

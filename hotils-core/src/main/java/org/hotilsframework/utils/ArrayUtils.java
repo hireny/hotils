@@ -1,7 +1,8 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.collection.Lists;
-import org.hotilsframework.lang.Filter;
+import org.hotilsframework.core.collection.Lists;
+import org.hotilsframework.core.lang.Filter;
+import org.hotilsframework.utils.comparator.Comparators;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -545,7 +546,7 @@ public class ArrayUtils {
     // is the array sorted from a[lo] to a[hi]
     private static boolean isSorted(Comparable[] a, int lo, int hi) {
         for (int i = lo + 1; i <= hi; i++) {
-            if (ObjectUtils.less(a[i], a[i-1])) {
+            if (Comparators.less(a[i], a[i-1])) {
                 return false;
             }
         }
@@ -559,7 +560,7 @@ public class ArrayUtils {
     // is the array sorted from a[lo] to a[hi]
     private static boolean isSorted(Object[] a, Comparator comparator, int lo, int hi) {
         for (int i = lo + 1; i <= hi; i++) {
-            if(ObjectUtils.less(comparator, a[i], a[i-1])) {
+            if(Comparators.less(comparator, a[i], a[i-1])) {
                 return false;
             }
         }

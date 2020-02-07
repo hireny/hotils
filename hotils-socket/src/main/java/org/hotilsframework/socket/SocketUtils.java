@@ -1,6 +1,6 @@
 package org.hotilsframework.socket;
 
-import org.hotilsframework.io.ResourceException;
+import org.hotilsframework.core.io.ResourceException;
 
 import java.io.IOException;
 import java.net.SocketAddress;

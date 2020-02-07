@@ -1,6 +1,6 @@
 package org.hotilsframework.crypto;
 
-import org.hotilsframework.lang.NestedRuntimeException;
+import org.hotilsframework.core.lang.NestedRuntimeException;
 
 /**
  * @ClassName: CryptoException

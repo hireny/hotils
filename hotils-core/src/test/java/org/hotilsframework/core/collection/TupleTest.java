@@ -1,7 +1,7 @@
 package org.hotilsframework.core.collection;
 
 import org.hotilsframework.model.UserTestClass;
-import org.hotilsframework.tuple.Tuple;
+import org.hotilsframework.core.tuple.Tuple;
 import org.junit.Test;
 
 /**

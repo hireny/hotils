@@ -1,6 +1,6 @@
 package org.hotilsframework.socket.nio;
 
-import org.hotilsframework.io.ResourceException;
+import org.hotilsframework.core.io.ResourceException;
 
 import java.io.Closeable;
 import java.io.IOException;

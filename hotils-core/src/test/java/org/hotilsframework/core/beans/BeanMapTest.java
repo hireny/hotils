@@ -1,12 +1,9 @@
 package org.hotilsframework.core.beans;
 
-import org.hotilsframework.beans.BeanMap;
-import org.hotilsframework.collection.Lists;
-import org.hotilsframework.collection.Maps;
+import org.hotilsframework.core.collection.Lists;
+import org.hotilsframework.core.collection.Maps;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-import java.security.PublicKey;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;

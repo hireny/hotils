@@ -1,7 +1,5 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.beans.BeanInstantiationException;
-
 import java.io.Closeable;
 import java.io.Externalizable;
 import java.io.Serializable;

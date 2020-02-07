@@ -1,7 +1,7 @@
 package org.hotilsframework.core.lang;
 
-import org.hotilsframework.lang.Enums;
-import org.hotilsframework.lang.Gender;
+import org.hotilsframework.core.lang.Enums;
+import org.hotilsframework.core.lang.Gender;
 import org.junit.Test;
 
 import java.lang.reflect.Field;

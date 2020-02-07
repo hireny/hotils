@@ -1,6 +1,6 @@
 package org.hotilsframework.core.system;
 
-import org.hotilsframework.system.Systems;
+import org.hotilsframework.core.system.Systems;
 import org.junit.Test;
 
 /**

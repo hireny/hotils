@@ -1,7 +1,7 @@
 package org.hotilsframework.core.pools;
 
-import org.hotilsframework.pools.DefaultObjectPools;
-import org.hotilsframework.pools.ObjectFactory;
+import org.hotilsframework.core.pools.DefaultObjectPools;
+import org.hotilsframework.core.pools.ObjectFactory;
 import org.junit.Assert;
 import org.junit.Test;
 

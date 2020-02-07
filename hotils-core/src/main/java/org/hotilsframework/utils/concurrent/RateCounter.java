@@ -1,6 +1,6 @@
 package org.hotilsframework.utils.concurrent;
 
-import org.hotilsframework.time.SystemClock;
+import org.hotilsframework.core.time.SystemClock;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
