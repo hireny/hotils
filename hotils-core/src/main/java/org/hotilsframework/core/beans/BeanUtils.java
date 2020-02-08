@@ -3,7 +3,6 @@ package org.hotilsframework.core.beans;
 import org.hotilsframework.core.beans.copier.BeanCopier;
 import org.hotilsframework.core.beans.copier.CopyOptions;
 import org.hotilsframework.core.collection.CaseInsensitiveMap;
-import org.hotilsframework.core.collection.Maps;
 import org.hotilsframework.core.lang.Filter;
 import org.hotilsframework.utils.*;
 
@@ -184,14 +183,12 @@ public final class BeanUtils {
     /**
      * Java Bean转换为Map
      * @param source    待转换的Java Bean
-     * @return          转换后的Map关系映射
+     * @param target    转换后的Map关系映射
      */
-    public static Map<?, ?> beanToMap(Object source) {
-        if (Objects.isNull(source)) {
-            return null;
-        }
+    public static void beanToMap(Object source, Map<String, Object> target) {
+        Assert.checkNotNull(source, "bean is not null.");
+        Assert.checkNotNull(target, "map is not null.");
 
-        Map<String, Object> map = Maps.newHashMap();
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(source.getClass());
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
@@ -204,36 +201,34 @@ public final class BeanUtils {
                     getterMethod.setAccessible(true);
                     Object value = getterMethod.invoke(source);
 
-                    map.put(key, value);
+                    target.put(key, value);
                 }
             }
         } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        return map;
     }
 
     /**
      * Map转换为Java Bean
-     * @param map       待转换的Map
-     * @param clazz     转换的目标类
+     * @param source       待转换的Map
+     * @param target     转换的目标类
      * @return          转换后的Java Bean对象
      */
-    public static Object mapToBean(Map<?, ?> map, Class<?> clazz) {
-        if (CollectionUtils.isEmpty(map)) {
-            return null;
-        }
-
-        Object target = null;
+    public static void mapToBean(Map<?, ?> source, Object target) {
+        Assert.checkNotNull(source, "bean is not null.");
+        Assert.checkNotNull(target, "map is not null.");
 
         try {
-            BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
+            BeanInfo beanInfo = Introspector.getBeanInfo(target.getClass());
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-            target = ReflectUtils.newInstance(clazz);
+            if (Objects.isNull(target)) {
+                target = ReflectUtils.newInstance(target.getClass());
+            }
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
                 String key = propertyDescriptor.getName();
-                if (map.containsKey(key)) {
-                    Object value = map.get(key);
+                if (source.containsKey(key)) {
+                    Object value = source.get(key);
                     // 得到propertyDescriptor对应的setter方法
                     Method setterMethod = propertyDescriptor.getWriteMethod();
                     setterMethod.invoke(target, value);
@@ -244,6 +239,5 @@ public final class BeanUtils {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        return target;
     }
 }

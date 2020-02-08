@@ -130,7 +130,7 @@ public class BeanCopier<T> implements Copy<T>, Serializable {
      */
     private void beanToMap(Object source, Map target) {
         BeanMap beanMap = BeanMap.create(source);
-        target.putAll(beanMap.getMap());
+        target.putAll(beanMap.toMap());
         List<String> ignoreList = (options.ignoreProperties != null ? Arrays.asList(options.ignoreProperties) : null);
         if (ignoreList != null) {
             for (String ignoreProperties : ignoreList) {
@@ -155,8 +155,8 @@ public class BeanCopier<T> implements Copy<T>, Serializable {
                 }
             }
         }
-        BeanMap beanMap = BeanMap.create(source, target.getClass());
-        target = (T) beanMap.getBean();
+        System.out.println(source.toString());
+        BeanUtils.mapToBean(source, target);
     }
 
     /**
@@ -165,15 +165,15 @@ public class BeanCopier<T> implements Copy<T>, Serializable {
      * @param target
      */
     private void mapToMap(Map source, Map target) {
+        target.putAll(source);
         List<String> ignoreList = (options.ignoreProperties != null ? Arrays.asList(options.ignoreProperties) : null);
         if (ignoreList != null) {
             for (String ignoreProperties : ignoreList) {
-                if (source.containsKey(ignoreProperties)) {
-                    source.remove(ignoreProperties);
+                if (target.containsKey(ignoreProperties)) {
+                    target.remove(ignoreProperties);
                 }
             }
         }
-        target.putAll(source);
     }
 
 

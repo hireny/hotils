@@ -32,11 +32,11 @@ public class BeanMapTest {
         beanTest.setFriends(Lists.newArrayList("小张", "小赵", "小钱", "小孙", "小李"));
         BeanMap beanMap = BeanMap.create(beanTest);
         System.out.println("获取封装的bean：");
-        System.out.println(beanMap.getBean());
+        System.out.println(beanMap.toBean());
         System.out.println("获取键值对：");
         System.out.println(beanMap.entrySets().toString());
         System.out.println("获取Map：");
-        System.out.println(beanMap.getMap().toString());
+        System.out.println(beanMap.toMap().toString());
         System.out.println("获取键：");
         System.out.println(beanMap.keySets().toString());
         System.out.println("获取值：");
@@ -57,7 +57,29 @@ public class BeanMapTest {
 
         BeanMap beanMap1 = BeanMap.create(mapTest, BeanMapTestClass.class);
         System.out.println("获取另一个Map：");
-        System.out.println(beanMap1.getBean());
+        System.out.println(beanMap1.toBean().toString());
+
+        Map<String, Object> mapTest2 = Maps.newHashMap();
+        mapTest2.put("id", 2);
+        mapTest2.put("username", "肖玲玲");
+        mapTest2.put("password", "123456".getBytes());
+        mapTest2.put("sex", true);
+        mapTest2.put("age", 12);
+        mapTest2.put("createTime", new Date());
+        mapTest2.put("modifiedTime", LocalDateTime.now());
+        mapTest2.put("updateTime", new Timestamp(System.currentTimeMillis()));
+        mapTest2.put("address", new String[]{"小街道", "大街道", "中街道"});
+        mapTest2.put("friends", Lists.newArrayList("小龙", "小凤", "小虎", "小玄武", "小麒麟"));
+
+        BeanMapTestClass beanMapTestClass2 = new BeanMapTestClass();
+        System.out.println("赋值之前=");
+        System.out.println(beanMapTestClass2.toString());
+        BeanMap beanMap2 = BeanMap.create(mapTest, beanMapTestClass2);
+        System.out.println("获取第二个Map：");
+        System.out.println(beanMap2.toBean().toString());
+        System.out.println("获取BeanMapTestClass的对象：");
+        System.out.println("赋值之后=");
+        System.out.println(beanMapTestClass2.toString());
     }
 
     public static class BeanMapTestClass {

@@ -1,5 +1,8 @@
 package org.hotilsframework.core.beans;
 
+import org.hotilsframework.core.collection.Maps;
+import org.hotilsframework.utils.ReflectUtils;
+
 import java.util.*;
 
 /**
@@ -19,29 +22,41 @@ public class BeanMap {
         return new BeanMap(source);
     }
 
+    public static BeanMap create(Map<?,?> source, Object target) {
+        return new BeanMap(source, target);
+    }
+
     public static BeanMap create(Map<?, ?> source, Class<?> clazz) {
         return new BeanMap(source, clazz);
     }
 
     private BeanMap(Object bean) {
         this.bean = bean;
-        this.map = beanToMap(this.bean);
+        this.map = Maps.newHashMap();
+        beanToMap(bean, map);
     }
 
-    private BeanMap(Map<?, ?> map, Class<?> clazz) {
-        this.map = map;
-        this.bean = mapToBean(map, clazz);
+    private BeanMap(Map<?, ?> source, Object target) {
+        this.map = source;
+        this.bean = target;
+        mapToBean(source, target);
     }
 
-    public Object getBean() {
+    private BeanMap(Map<?, ?> source, Class<?> clazz) {
+        this.map = source;
+        this.bean = ReflectUtils.newInstance(clazz);
+        mapToBean(source, bean);
+    }
+
+    public Object toBean() {
         return this.bean;
     }
 
-    public Map getMap() {
+    public Map<?,?> toMap() {
         return this.map;
     }
 
-    public Set keySets() {
+    public Set<?> keySets() {
         return this.map.keySet();
     }
 
@@ -55,18 +70,14 @@ public class BeanMap {
 
     /**
      * 对象转Map
-     * @param source      Bean对象
+     * @param source        Bean对象
+     * @param target        Map对象
      */
-    private Map<?, ?> beanToMap(Object source) {
-        return BeanUtils.beanToMap(source);
+    private void beanToMap(Object source, Map<?, ?> target) {
+        BeanUtils.beanToMap(source, (Map<String, Object>) target);
     }
 
-    /**
-     * Map转Bean属性拷贝
-     * @param source        Map对象
-     * @param clazz         目标类
-     */
-    private Object mapToBean(Map<?, ?> source, Class<?> clazz) {
-        return BeanUtils.mapToBean(source, clazz);
+    private void mapToBean(Map<?, ?> source, Object target) {
+        BeanUtils.mapToBean(source, target);
     }
 }
