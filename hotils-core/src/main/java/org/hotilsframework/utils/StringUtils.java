@@ -4,6 +4,7 @@ import org.hotilsframework.core.text.StringFormatters;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,6 +50,15 @@ public final class StringUtils {
     }
 
     /**
+     * 判断字符串是null或空字符串
+     * @param string
+     * @return
+     */
+    public static boolean isNullOrEmpty(String string) {
+        return string == null || string.length() == 0;
+    }
+
+    /**
      * Check that the given {@code CharSequence} is neither {@code null} nor of length 0.
      * 检查给定的 {@code CharSequence} 既不是为null也不是长度为0
      * @param str
@@ -74,8 +84,8 @@ public final class StringUtils {
      * @param b 作为对比的字符串
      * @return 是否相同
      */
-    public static boolean isEquals(String a, String b) {
-        return a == b || (a != null && a.equals(b));
+    public static boolean equals(String a, String b) {
+        return ObjectUtils.equals(a, b);
     }
 
     /**
@@ -95,15 +105,6 @@ public final class StringUtils {
      */
     public static String nullToEmpty(Object obj) {
         return (obj == null ? "" : (obj instanceof String ? (String) obj : obj.toString()));
-    }
-
-    /**
-     * 判断字符串是null或空字符串
-     * @param string
-     * @return
-     */
-    public static boolean isNullOrEmpty(String string) {
-        return string == null || string.length() == 0;
     }
 
     /**
@@ -368,7 +369,7 @@ public final class StringUtils {
         } else if (object instanceof ByteBuffer) {
             return string((ByteBuffer) object, charset);
         } else if (object.getClass().isArray()) {
-            return ObjectUtils.nullSafeToString(object);
+            return ObjectUtils.toString(object);
         }
 
         return object.toString();

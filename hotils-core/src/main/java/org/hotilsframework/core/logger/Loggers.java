@@ -35,8 +35,9 @@ public final class Loggers {
      * @param arguments 参数
      */
     public static void trace(Logger logger, Throwable e, String message, String... arguments) {
-        if (logger.isTraceEnabled())
+        if (logger.isTraceEnabled()) {
             logger.trace(MessageFormat.format(message, arguments), e);
+        }
     }
 
 
@@ -48,8 +49,9 @@ public final class Loggers {
      * @param arguments 参数
      */
     public static void debug(Logger logger, String message, String... arguments) {
-        if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled()) {
             logger.debug(MessageFormat.format(message, arguments));
+        }
     }
 
 
@@ -62,8 +64,9 @@ public final class Loggers {
      * @param arguments 参数
      */
     public static void debug(Logger logger, Throwable e, String message, String... arguments) {
-        if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled()) {
             logger.debug(MessageFormat.format(message, arguments), e);
+        }
     }
 
     /**
@@ -74,8 +77,9 @@ public final class Loggers {
      * @param arguments 参数
      */
     public static void info(Logger logger, String message, String... arguments) {
-        if (logger.isInfoEnabled())
+        if (logger.isInfoEnabled()) {
             logger.info(MessageFormat.format(message, arguments));
+        }
     }
 
     /**
@@ -87,8 +91,9 @@ public final class Loggers {
      * @param arguments
      */
     public static void info(Logger logger, Throwable e, String message, String... arguments) {
-        if (logger.isInfoEnabled())
+        if (logger.isInfoEnabled()) {
             logger.info(MessageFormat.format(message, arguments), e);
+        }
     }
 
     /**
@@ -98,8 +103,9 @@ public final class Loggers {
      * @param arguments
      */
     public static void warn(Logger logger, String message, String... arguments) {
-        if (logger.isWarnEnabled())
+        if (logger.isWarnEnabled()) {
             logger.warn(MessageFormat.format(message, arguments));
+        }
     }
 
     /**
@@ -111,8 +117,9 @@ public final class Loggers {
      * @param arguments
      */
     public static void warn(Logger logger,  Throwable e, String message, String... arguments) {
-        if (logger.isWarnEnabled())
+        if (logger.isWarnEnabled()) {
             logger.warn(MessageFormat.format(message, arguments), e);
+        }
     }
 
     /**
@@ -123,8 +130,9 @@ public final class Loggers {
      * @param arguments
      */
     public static void error(Logger logger, String message, String... arguments) {
-        if (logger.isErrorEnabled())
+        if (logger.isErrorEnabled()) {
             logger.error(MessageFormat.format(message, arguments));
+        }
     }
 
     /**
@@ -136,7 +144,8 @@ public final class Loggers {
      * @param arguments
      */
     public static void error(Logger logger, Throwable e, String message, String... arguments) {
-        if (logger.isErrorEnabled())
+        if (logger.isErrorEnabled()) {
             logger.error(MessageFormat.format(message, arguments), e);
+        }
     }
 }
