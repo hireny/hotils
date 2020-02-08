@@ -1,6 +1,4 @@
-package org.hotilsframework.core.lang;
-
-import org.hotilsframework.core.io.Charsets;
+package org.hotilsframework.core.io;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -163,6 +161,10 @@ public final class StdOut {
     public static void print(byte x) {
         out.print(x);
         out.flush();
+    }
+
+    public static void printf(String format, Object... args) {
+        printf(Locale.US, format, args);
     }
 
     /**
