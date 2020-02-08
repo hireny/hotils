@@ -101,6 +101,25 @@ public class ObjectUtils {
     }
 
     /**
+     * 判断是否是JDK内部对象
+     * @param o     对象
+     * @return
+     */
+    public static boolean isJdkInnerObject(Object o) {
+        if (isEmpty(o)) {
+            return false;
+        }
+        if (o.getClass().isPrimitive()) {
+            return true;
+        }
+        String packageName = o.getClass().getName();
+        if (packageName.contains("java.")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * 比较两个对象是否完全相同
      *
      * <p>
