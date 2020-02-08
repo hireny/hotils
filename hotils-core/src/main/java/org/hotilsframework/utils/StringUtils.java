@@ -149,6 +149,37 @@ public final class StringUtils {
     }
 
     /**
+     * 截取指定长度的字符串 <br>
+     *
+     * 与字符串 substring 方法相比，规避空字符串。长度不够截取等问题
+     * @param str   字符串
+     * @param len   长度
+     * @return
+     */
+    public static String substring(String str, int len) {
+        return substring(str, 0, len);
+    }
+
+    /**
+     * 截取指定长度的字符串 <br>
+     *
+     * 与字符串 substring 方法相比，规避空字符串。长度不够截取等问题
+     * @param str           字符串
+     * @param beginIndex    起始位置
+     * @param len           长度
+     * @return
+     */
+    public static String substring(String str, int beginIndex, int len) {
+        if (isEmpty(str)) {
+            return "";
+        }
+        if (str.length() <= beginIndex + len) {
+            return str;
+        }
+        return str.substring(beginIndex, len);
+    }
+
+    /**
      * 首字母小写
      * @param str
      * @return
@@ -340,7 +371,7 @@ public final class StringUtils {
      * @return          字符串
      */
     public static String stringForUtf8(Object object) {
-        return string(object, Charset.forName("UTF-8"));
+        return toString(object, Charset.forName("UTF-8"));
     }
 
     /**
@@ -351,11 +382,11 @@ public final class StringUtils {
      * @param charsetName   字符集
      * @return              字符串
      */
-    public static String string(Object object, String charsetName) {
-        return string(object, Charset.forName(charsetName));
+    public static String toString(Object object, String charsetName) {
+        return toString(object, Charset.forName(charsetName));
     }
 
-    public static String string(Object object, Charset charset) {
+    public static String toString(Object object, Charset charset) {
         if (null == object) {
             return null;
         }
@@ -363,11 +394,11 @@ public final class StringUtils {
         if (object instanceof String) {
             return (String) object;
         } else if (object instanceof byte[]) {
-            return string((byte[]) object, charset);
+            return toString((byte[]) object, charset);
         } else if (object instanceof Byte[]) {
-            return string((Byte[]) object, charset);
+            return toString((Byte[]) object, charset);
         } else if (object instanceof ByteBuffer) {
-            return string((ByteBuffer) object, charset);
+            return toString((ByteBuffer) object, charset);
         } else if (object.getClass().isArray()) {
             return ObjectUtils.toString(object);
         }
@@ -382,8 +413,8 @@ public final class StringUtils {
      * @param charset 字符集
      * @return 字符串
      */
-    public static String string(byte[] bytes, String charset) {
-        return string(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
+    public static String toString(byte[] bytes, String charset) {
+        return toString(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
     }
 
     /**
@@ -393,7 +424,7 @@ public final class StringUtils {
      * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
      * @return 解码后的字符串
      */
-    public static String string(byte[] data, Charset charset) {
+    public static String toString(byte[] data, Charset charset) {
         if (data == null) {
             return null;
         }
@@ -411,8 +442,8 @@ public final class StringUtils {
      * @param charset 字符集
      * @return 字符串
      */
-    public static String string(Byte[] bytes, String charset) {
-        return string(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
+    public static String toString(Byte[] bytes, String charset) {
+        return toString(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
     }
 
     /**
@@ -422,7 +453,7 @@ public final class StringUtils {
      * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
      * @return 解码后的字符串
      */
-    public static String string(Byte[] data, Charset charset) {
+    public static String toString(Byte[] data, Charset charset) {
         if (data == null) {
             return null;
         }
@@ -434,7 +465,7 @@ public final class StringUtils {
             bytes[i] = (null == dataByte) ? -1 : dataByte;
         }
 
-        return string(bytes, charset);
+        return toString(bytes, charset);
     }
 
     /**
@@ -444,12 +475,12 @@ public final class StringUtils {
      * @param charset 字符集，如果为空使用当前系统字符集
      * @return 字符串
      */
-    public static String string(ByteBuffer data, String charset) {
+    public static String toString(ByteBuffer data, String charset) {
         if (data == null) {
             return null;
         }
 
-        return string(data, Charset.forName(charset));
+        return toString(data, Charset.forName(charset));
     }
 
     /**
@@ -459,7 +490,7 @@ public final class StringUtils {
      * @param charset 字符集，如果为空使用当前系统字符集
      * @return 字符串
      */
-    public static String string(ByteBuffer data, Charset charset) {
+    public static String toString(ByteBuffer data, Charset charset) {
         if (null == charset) {
             charset = Charset.defaultCharset();
         }
@@ -472,7 +503,7 @@ public final class StringUtils {
      * @param cs {@link CharSequence}
      * @return 字符串
      */
-    public static String string(CharSequence cs) {
+    public static String toString(CharSequence cs) {
         return null == cs ? null : cs.toString();
     }
 
