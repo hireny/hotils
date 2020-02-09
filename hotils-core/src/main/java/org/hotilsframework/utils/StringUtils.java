@@ -1,10 +1,10 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.text.StringFormatters;
-
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,17 +78,6 @@ public final class StringUtils {
     }
 
     /**
-     * 判断两个字符串是否相同
-     *
-     * @param a 作为对比的字符串
-     * @param b 作为对比的字符串
-     * @return 是否相同
-     */
-    public static boolean equals(String a, String b) {
-        return ObjectUtils.equals(a, b);
-    }
-
-    /**
      * 判断是否为空字符串，为""字符串返回null，不为 "" 则返回原本字符串
      * @param string
      * @return
@@ -105,6 +94,17 @@ public final class StringUtils {
      */
     public static String nullToEmpty(Object obj) {
         return (obj == null ? "" : (obj instanceof String ? (String) obj : obj.toString()));
+    }
+
+    /**
+     * 判断两个字符串是否相同
+     *
+     * @param a 作为对比的字符串
+     * @param b 作为对比的字符串
+     * @return 是否相同
+     */
+    public static boolean equals(String a, String b) {
+        return ObjectUtils.equals(a, b);
     }
 
     /**
@@ -180,37 +180,133 @@ public final class StringUtils {
     }
 
     /**
-     * 首字母小写
-     * @param str
-     * @return
+     * 包装指定字符串
+     * @param cs                被包装的字符串
+     * @param prefixAndSuffix   前缀和后缀
+     * @return                  包装后的字符串
      */
-    public static String decapitalize(String str) {
-        if (str != null && str.length() != 0) {
-            if (str.length() > 1 && Character.isUpperCase(str.charAt(1)) && Character.isUpperCase(str.charAt(0))) {
-                return str;
-            } else {
-                char[] chars = str.toCharArray();
-                chars[0] = Character.toLowerCase(chars[0]);
-                return new String(chars);
-            }
-        } else {
-            return str;
-        }
+    public static String wrap(CharSequence cs, CharSequence prefixAndSuffix) {
+        return wrap(cs, prefixAndSuffix, prefixAndSuffix);
     }
 
     /**
-     * 首字母大写
-     * @param str
-     * @return
+     * 包装指定字符串
+     * @param cs        被包装的字符串
+     * @param prefix    前缀
+     * @param suffix    后缀
+     * @return          包装后的字符串
      */
-    public static String capitalize(String str) {
-        if (str != null && str.length() != 0) {
-            char[] chars = str.toCharArray();
-            chars[0] = Character.toUpperCase(chars[0]);
-            return new String(chars);
-        } else {
-            return str;
+    public static String wrap(CharSequence cs, CharSequence prefix, CharSequence suffix) {
+        return nullToEmpty(prefix).concat(nullToEmpty(cs)).concat(nullToEmpty(suffix));
+    }
+
+    /**
+     * 包装指定字符串，如果前缀或后缀已经包含对应的字符串，则不再包装
+     *
+     * @param cs        被包装的字符串
+     * @param prefix    前缀
+     * @param suffix    后缀
+     * @return          包装后的字符串
+     */
+    public static String wrapIfMissing(CharSequence cs, CharSequence prefix, CharSequence suffix) {
+        int length = 0;
+        if (!isEmpty(cs)) {
+            length += cs.length();
         }
+        if (!isEmpty(prefix)) {
+            length += prefix.length();
+        }
+        if (!isEmpty(suffix)) {
+            length += suffix.length();
+        }
+        StringBuilder stringBuilder = new StringBuilder(length);
+        if (!isEmpty(prefix) && !startWith(cs, prefix)) {
+            stringBuilder.append(prefix);
+        }
+        if (!isEmpty(cs)) {
+            stringBuilder.append(cs);
+        }
+        if (!isEmpty(suffix) && !endWith(cs, suffix)) {
+            stringBuilder.append(suffix);
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * 字符串是否以给定字符开头
+     * @param cs    字符串
+     * @param c     字符
+     * @return      是否开头
+     */
+    public static boolean startWith(CharSequence cs, char c) {
+        return c == cs.charAt(0);
+    }
+
+    /**
+     * 是否以指定字符串开头<br>
+     * 如果给定的字符串和开头字符串都为null则返回true，否则任意一个值为null返回false
+     * @param cs            被检测的字符串
+     * @param prefix        字符串前缀
+     * @param isIgnoreCase  是否忽略大小写
+     * @return              是否以指定字符串开头
+     */
+    public static boolean startWith(CharSequence cs, CharSequence prefix, boolean isIgnoreCase) {
+        if (null == cs || null == prefix) {
+            return null == cs && null == prefix;
+        }
+
+        if (isIgnoreCase) {
+            return cs.toString().toLowerCase().startsWith(prefix.toString().toLowerCase());
+        }
+        return cs.toString().startsWith(prefix.toString());
+    }
+
+    /**
+     * 是否以指定字符串开头
+     * @param cs        被检测的字符串
+     * @param prefix    字符串前缀
+     * @return          是否以指定字符串开头
+     */
+    public static boolean startWith(CharSequence cs, CharSequence prefix) {
+        return startWith(cs, prefix, false);
+    }
+
+    /**
+     * 字符串是否以给定字符结尾
+     * @param cs    字符串
+     * @param c     字符
+     * @return      是否结尾
+     */
+    public static boolean endWith(CharSequence cs, char c) {
+        return c == cs.charAt(cs.length() - 1);
+    }
+
+    /**
+     * 是否以指定字符串结尾<br>
+     * 如果给定的字符串和开头字符串都为null则返回true，否则任意一个值为null返回false
+     * @param cs            被检测的字符串
+     * @param suffix        字符串后缀
+     * @param isIngoreCase  是否忽略大小写
+     * @return              是否以指定字符串结尾
+     */
+    public static boolean endWith(CharSequence cs, CharSequence suffix, boolean isIngoreCase) {
+        if (null == cs || null == suffix) {
+            return null == cs && null == suffix;
+        }
+        if (isIngoreCase) {
+            return cs.toString().toLowerCase().endsWith(suffix.toString().toLowerCase());
+        }
+        return cs.toString().endsWith(suffix.toString());
+    }
+
+    /**
+     * 是否以指定字符串结尾
+     * @param cs        被检测字符串
+     * @param suffix    字符串后缀
+     * @return          是否以指定字符串结尾
+     */
+    public static boolean endWith(CharSequence cs, CharSequence suffix) {
+        return endWith(cs, suffix, false);
     }
 
     /**
@@ -223,7 +319,7 @@ public final class StringUtils {
      * @return
      */
     public static String padStart(String string, int minLength, char padChar) {
-        Assert.checkNotNull(string); //断言不为空
+        Assert.notNull(string); //断言不为空
         if (string.length() >= minLength) {
             return string;
         }
@@ -245,7 +341,7 @@ public final class StringUtils {
      * @return
      */
     public static String padEnd(String string, int minLength, char padChar) {
-        Assert.checkNotNull(string); //断言不为空
+        Assert.notNull(string); //断言不为空
         if (string.length() >= minLength) {
             return string;
         }
@@ -265,7 +361,7 @@ public final class StringUtils {
      */
     public static String repeat(String string, int count) {
         // 首先判断输入的参数是否合法
-        Assert.checkNotNull(string);
+        Assert.notNull(string);
         if (count <= 1) {
 //            checkArgument(count >= 0, "invalid count: %s", count);
             return (count == 0) ? "" : string;
@@ -300,8 +396,8 @@ public final class StringUtils {
      * @return  String 返回 "abc"，如果不相同，则返回 ""
      */
     public static String getSamePrefix(String a, String b) {
-        Assert.checkNotNull(a);
-        Assert.checkNotNull(b);
+        Assert.notNull(a);
+        Assert.notNull(b);
         int maxPrefixLength = Math.min(a.length(), b.length());
         int p = 0;
         while (p < maxPrefixLength && a.charAt(p) == b.charAt(p)) {
@@ -320,8 +416,8 @@ public final class StringUtils {
      * @return  String 返回 "bca"，如果不相同，则返回 ""
      */
     public static String getSameSuffix(String a, String b) {
-        Assert.checkNotNull(a);
-        Assert.checkNotNull(b);
+        Assert.notNull(a);
+        Assert.notNull(b);
         int maxSuffixLength = Math.min(a.length(), b.length());
         int s = 0;
         while (s < maxSuffixLength && a.charAt(a.length() - s - 1) == b.charAt(b.length() - s - 1)) {
@@ -342,6 +438,40 @@ public final class StringUtils {
     }
 
     /**
+     * 首字母小写
+     * @param str
+     * @return
+     */
+    public static String decapitalize(String str) {
+        if (str != null && str.length() != 0) {
+            if (str.length() > 1 && Character.isUpperCase(str.charAt(1)) && Character.isUpperCase(str.charAt(0))) {
+                return str;
+            } else {
+                char[] chars = str.toCharArray();
+                chars[0] = Character.toLowerCase(chars[0]);
+                return new String(chars);
+            }
+        } else {
+            return str;
+        }
+    }
+
+    /**
+     * 首字母大写
+     * @param str
+     * @return
+     */
+    public static String capitalize(String str) {
+        if (str != null && str.length() != 0) {
+            char[] chars = str.toCharArray();
+            chars[0] = Character.toUpperCase(chars[0]);
+            return new String(chars);
+        } else {
+            return str;
+        }
+    }
+
+    /**
      * 格式化文本, {} 表示占位符
      * 此方法只是简单将占位符{} 按照顺序替换为参数
      * 如果想输出{}使用\\转移 { 即可，如果想输出 {} 之前 \ 使用双转义符 \\\\ 即可
@@ -349,18 +479,47 @@ public final class StringUtils {
      *  通常使用：format("this is {} for {}", "a", "b") =》 this is a for b<br>
      * 	转义{}： format("this is \\{} for {}", "a", "b") =》 this is \{} for a<br>
      * 	转义\： format("this is \\\\{} for {}", "a", "b") =》 this is \a for b<br>
-     * @param cs        文本模板，被替换的部分用{}表示
-     * @param params    参数值
+     * @param template  文本模板，被替换的部分用{}表示
+     * @param args      参数值
      * @return          格式化后的文本
      */
-    public static String format(CharSequence cs, Object... params) {
-        if (null == cs) {
-            return null;
+    public static String lenientFormat(CharSequence template, Object... args) {
+        template = String.valueOf(template);    // null -> "null"
+
+        if (Objects.isNull(args)) {
+            args = new Object[]{"(Object[])null"};
+        } else {
+            for (int i = 0; i < args.length; i++) {
+                args[i] = ObjectUtils.lenientToString(args[i]);
+            }
         }
-        if (ArrayUtils.isEmpty(params) || isBlank(cs)) {
-            return cs.toString();
+
+        StringBuilder stringBuilder = new StringBuilder(template.length() + 16 * args.length);
+        int templateStart = 0;
+        int i = 0;
+        while (i < args.length) {
+            int placehodlerStart = template.toString().indexOf("%s", templateStart);
+            if (placehodlerStart == -1) {
+                break;
+            }
+            stringBuilder.append(template, templateStart, placehodlerStart);
+            stringBuilder.append(args[i++]);
+            templateStart = placehodlerStart + 2;
         }
-        return StringFormatters.format(cs.toString(), params);
+        stringBuilder.append(template, templateStart, template.length());
+
+        // if we run out of placeholders, append the extra args in square braces
+        if (i < args.length) {
+            stringBuilder.append(" [");
+            stringBuilder.append(args[i++]);
+            while (i < args.length) {
+                stringBuilder.append(", ");
+                stringBuilder.append(args[i]);
+            }
+            stringBuilder.append(']');
+        }
+        return stringBuilder.toString();
+
     }
 
     /**

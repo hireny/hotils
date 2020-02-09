@@ -2,6 +2,8 @@ package org.hotilsframework.utils;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 对象工具类
@@ -420,7 +422,7 @@ public class ObjectUtils {
      * @param obj
      * @return
      */
-    public static String identityToString( Object obj) {
+    public static String identityToString(Object obj) {
         if (obj == null) {
             return EMPTY_STRING;
         }
@@ -434,6 +436,24 @@ public class ObjectUtils {
      */
     public static String getIdentityHexString(Object o) {
         return Integer.toHexString(System.identityHashCode(o));
+    }
+
+    /**
+     * 将对象以字符串的形式返回的容忍处理
+     * @param o
+     * @return
+     */
+    public static String lenientToString(Object o) {
+        try {
+            return String.valueOf(o);
+        } catch (Exception e) {
+            // Default toString(0 behavior - see Object.toString()
+            String objectToString = identityToString(o);
+            // Logger is created inline with fixed name to avoid forcing Proguard to create another class.
+            Logger.getLogger("org.hotilsframework.utils.StringUtils")
+                    .log(Level.WARNING, "Exception during lenientFormat for " + objectToString, e);
+            return "<" + objectToString + " throw " + e.getClass().getName() + ">";
+        }
     }
 
     /**

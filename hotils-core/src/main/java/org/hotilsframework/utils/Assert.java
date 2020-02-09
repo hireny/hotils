@@ -1,5 +1,8 @@
 package org.hotilsframework.utils;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
 import java.util.function.Supplier;
 
 /**
@@ -11,244 +14,638 @@ import java.util.function.Supplier;
 public class Assert {
 
     /**
-     * check state 检查状态
-     * Assert a boolean expression, throwing an {@code IllegalStateException}
-     * 断言一个布尔表达式，抛出一个 IllegalStateException 异常
-     * @param expression
-     * @param message
+     * 检查是否为true，如果为 {@code false} 时抛出 {@link IllegalArgumentException} 异常 <br>
+     *
+     * <pre class="code">
+     *      Assert.isTrue(i > 0, "The value must be greater than zero")
+     * </pre>
+     * @param expression            布尔值
+     * @throws IllegalArgumentException if expression is {@code false}
      */
-    public static void state(boolean expression, String message) {
-        if (!expression) {
-            throw new IllegalStateException(message);
-        }
-    }
-
-    /**
-     *  Assert a boolean expression, throwing an {@code IllegalStateException}
-     *  断言一个布尔表达式，抛出一个 IllegalStateExpression 异常
-     * @param expression
-     */
-    public static void state(boolean expression) {
-        state(expression, "[Assertion failed] - this state invariant must be true");
-    }
-
-    /**
-     * check argument 检查参数是否异常
-     * Assert a boolean expression, throwing an {@code IllegalArgumentException}
-     * 断言一个布尔表达式，抛出一个 IllegalArgumentException 异常
-     * @param expression
-     * @param message
-     */
-    public static void isTrue(boolean expression, String message) {
-        if (!expression) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    /**
-     * Assert a boolean expression, throwing an {@code IllegalArgumentException}
-     * 断言一个布尔表达式，抛出一个 IllegalArgumentExpression 异常
-     * @param expression
-     */
-    public static void isTure(boolean expression) {
+    public static void isTrue(boolean expression) throws IllegalArgumentException {
         isTrue(expression, "[Assertion failed] - this expression must be true");
     }
 
     /**
-     * 检查索引是否超出大小
-     * @param index
-     * @param size
-     * @return
+     * 检查是否为true，如果为 {@code false} 时抛出 {@link IllegalArgumentException} 异常 <br>
+     *
+     * <pre class="code">
+     *     Assert.isTrue(i > 0, "The value must be greater than zero")
+     * </pre>
+     * @param expression        布尔值
+     * @param errorMessage      错误时抛出异常的错误信息模板，变量用 {} 代替
+     * @param args              参数列表
+     * @throws IllegalArgumentException if expression is {@code false}
      */
-    public static int checkElementIndex(int index, int size) {
-        return checkElementIndex(index, size, "index");
+    public static void isTrue(boolean expression, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (!expression) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
     }
 
     /**
-     * 检查索引是否超出大小
-     * @param index
-     * @param size
-     * @param message
-     * @return
+     * 断言对象是否为 {@code null}，如果不为 {@code null} 时抛出 {@link IllegalArgumentException} 异常
+     *
+     * <pre class="code">
+     *     Assert.isNull(value);
+     * </pre>
+     *
+     * @param object        被检查的对象
+     * @throws IllegalArgumentException if the object is not {@code null}
      */
-    public static int checkElementIndex(int index, int size,  String message) {
+    public static void isNull(Object object) throws IllegalArgumentException {
+        isNull(object, "[Assertion failed] - the object argument must be null.");
+    }
+
+    /**
+     * 断言对象是否为 {@code null}，如果不为 {@code null} 时抛出 {@link IllegalArgumentException} 异常
+     *
+     * <pre class="code">
+     *     Assert.isNull(value, "The value must be null.");
+     * </pre>
+     * @param object            被检查的对象
+     * @param errorMessage      错误消息模板，变量使用 {} 表示
+     * @param args              参数列表
+     * @throws IllegalArgumentException if the object is not {@code null}
+     */
+    public static void isNull(Object object, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (object != null) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+    }
+
+    //=======================================================
+    //  check not null start.
+    //=======================================================
+
+    /**
+     * 断言对象是否不为 {@code null}，如果为 {@code null} 时抛出 {@link IllegalArgumentException} 异常
+     *
+     * <pre class="code">
+     *     Assert.notNull(clazz);
+     * </pre>
+     * @param reference     被检查的对象
+     * @param <T>           被检查的对象类型
+     * @return              非空对象
+     * @throws IllegalArgumentException if the reference is {@code null}
+     */
+    public static <T extends Object> T notNull( T reference) throws IllegalArgumentException {
+        return notNull(reference, "[Assertion failed] - this argument is required; it must not be null");
+    }
+
+    /**
+     * 断言对象是否不为 {@code null}，如果不为 {@code null} 抛出 {@link IllegalArgumentException}  异常
+     * Assert that an object is not {@code null} .
+     *
+     * <pre class="code">
+     *     Assert.notNull(clazz, "The class must not be null.");
+     * </pre>
+     * @param reference     被检查的引用对象
+     * @param errorMessage  错误消息模板
+     * @param args          参数列表
+     * @param <T>           被检查的对象泛型类型
+     * @return              检查后的对象
+     * @throws IllegalArgumentException if the reference is {@code null}
+     */
+    public static <T extends Object> T notNull(T reference, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (reference == null) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+        return reference;
+    }
+
+    //=======================================================
+    //  check not null end.
+    //=======================================================
+
+    //=======================================================
+    //  check empty start.
+    //=======================================================
+
+    /**
+     * 检查给定字符串是否为空，为空抛出 {@link IllegalArgumentException}
+     *
+     * <pre class="code">
+     *     Assert.notEmpty(name);
+     * </pre>
+     *
+     * @param reference     被检查的字符串
+     * @param <T>           字符串的泛型类型
+     * @return              被检查的字符串
+     * @throws IllegalArgumentException 被检查的字符串为空
+     */
+    public static <T extends CharSequence> T notEmpty(T reference) throws IllegalArgumentException {
+        return notEmpty(reference, "[Assertion failed] - this String argument must have length; it must not be null or empty.");
+    }
+
+    /**
+     * 检查给定字符串是否为空，为空抛出 {@link IllegalArgumentException}
+     *
+     * <pre class="code">
+     *     Assert.notEmpty(name, "Name must not be empty.");
+     * </pre>
+     * @param reference     被检查的字符串
+     * @param errorMessage  错误消息模板，变量使用{}表示
+     * @param args          参数列表
+     * @param <T>           字符串类型
+     * @return              非空字符串
+     * @throws IllegalArgumentException 被检查字符串为空
+     */
+    public static <T extends CharSequence> T notEmpty(T reference, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (StringUtils.isEmpty(reference)) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+        return reference;
+    }
+
+    /**
+     * 断言给定数组是否包含元素，数组必须不为 {@code null} 且至少包含一个元素
+     *
+     * <pre class="code">
+     *     Assert.notEmpty(array);
+     * </pre>
+     *
+     * @param array     被检查的数组
+     * @return          被检查的数组
+     * @throws IllegalArgumentException if the object array is {@code null} or has no elements
+     */
+    public static Object[] notEmpty(Object[] array) throws IllegalArgumentException {
+        return notEmpty(array, "[Assertion failed] - this array must not be empty: it must contain at least 1 element.");
+    }
+
+    /**
+     * 断言给定数组是否包含元素，数组必须不为 {@code null} 且至少包含一个元素
+     *
+     * <pre class="code">
+     *     Assert.notEmpty(array, "The array must have elements.");
+     * </pre>
+     *
+     * @param array             被检查的数组
+     * @param errorMessage      异常时的错误消息模板
+     * @param args              参数列表
+     * @return                  被检查的数组
+     * @throws IllegalArgumentException if the object array is {@code null} or has no elements.
+     */
+    public static Object[] notEmpty(Object[] array, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (ArrayUtils.isEmpty(array)) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+        return array;
+    }
+
+    /**
+     * 断言给定集合非空
+     *
+     * <pre class="code">
+     *     Assert.notEmpty(collection);
+     * </pre>
+     *
+     * @param collection        被检查的集合
+     * @param <T>               集合元素类型
+     * @return                  非空集合
+     * @throws IllegalArgumentException if the collection is {@code null} or has no elements.
+     */
+    public static <T> Collection<T> notEmpty(Collection<T> collection) throws IllegalArgumentException {
+        return notEmpty(collection, "[Assertion failed] - this collection must not be empty: it must cotain at least 1 element.");
+    }
+
+    /**
+     * 断言给定集合非空
+     *
+     * <pre class="code">
+     *     Assert.notEmpty(collection, "Collection must have elements.");
+     * </pre>
+     *
+     * @param collection        被检查的集合
+     * @param errorMessage      异常时的消息模板
+     * @param args              参数列表
+     * @param <T>               集合元素类型
+     * @return                  非空集合
+     * @throws IllegalArgumentException if the collection is {@code null} or has no elements.
+     */
+    public static <T> Collection<T> notEmpty(Collection<T> collection, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (CollectionUtils.isEmpty(collection)) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+        return collection;
+    }
+
+    /**
+     * 断言给定Map非空
+     *
+     * <pre class="code">
+     *     Assert.notEmpty(map, "The must have entries.");
+     * </pre>
+     *
+     * @param map               被检查的Map
+     * @param <K>               Key类型
+     * @param <V>               Value类型
+     * @return                  被检查的Map
+     * @throws IllegalArgumentException if the map is {@code null} or has no entries.
+     */
+    public static <K, V> Map<K, V> notEmpty(Map<K, V> map) throws IllegalArgumentException {
+        return notEmpty(map, "[Assertion failed] - this map must not be empty; it must contain at least one entry.");
+    }
+
+    /**
+     * 断言给定Map非空
+     *
+     * <pre class="code">
+     *     Assert.notEmpty(map, "The must have entries.");
+     * </pre>
+     *
+     * @param map               被检查的Map
+     * @param errorMessage      异常时的错误消息模板
+     * @param args              参数列表
+     * @param <K>               Key类型
+     * @param <V>               Value类型
+     * @return                  被检查的Map
+     * @throws IllegalArgumentException if the map is {@code null} or has no entries.
+     */
+    public static <K, V> Map<K, V> notEmpty(Map<K, V> map, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (CollectionUtils.isEmpty(map)) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+        return map;
+    }
+
+    //=======================================================
+    //  check empty end.
+    //=======================================================
+
+    //=======================================================
+    //  check blank start.
+    //=======================================================
+
+    /**
+     * 检查给定字符串是否为空白（null、空串或只包含空白符），为空抛出 {@link IllegalArgumentException}
+     * @param reference     被检查的字符串
+     * @param <T>           字符串的泛型类型
+     * @return              非空字符串
+     * @throws IllegalArgumentException 被检查的字符串为空白
+     */
+    public static <T extends CharSequence> T notBlank(T reference) throws IllegalArgumentException {
+        return notBlank(reference, "[Assertion failed] - this String argument must have text; it must not be null, empty, or blank.");
+    }
+
+    /**
+     * 检查给定字符串是否为空白（null、空串或只包含空白符），为空抛出 {@link IllegalArgumentException}
+     *
+     * <pre class="code">
+     *     Assert.notBlank(name, "Name must not be blank");
+     * </pre>
+     *
+     * @param reference         被检查的字符串
+     * @param errorMessage      错误消息模板，变量使用{}表示
+     * @param args              参数列表
+     * @param <T>               被检查的字符串泛型类型
+     * @return                  非空字符串
+     * @throws IllegalArgumentException 被检查的字符串为空白
+     */
+    public static <T extends CharSequence> T notBlank(T reference, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (StringUtils.isBlank(reference)) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+        return reference;
+    }
+
+    //=======================================================
+    //  check blank end.
+    //=======================================================
+
+
+    //=======================================================
+    //  check not contain start.
+    //=======================================================
+
+    /**
+     * 断言给定字符串是否不被另一个字符串包含（即是否为子串）
+     *
+     * <pre class="node">
+     *     Assert.doesNotContain(name, "rod", "Name must not contain 'rod'.");
+     * </pre>
+     *
+     * @param textToSearch      被搜索的字符串
+     * @param substring         被检查的子串
+     * @return                  被检查的子串
+     * @throws IllegalArgumentException 是子串抛出异常
+     */
+    public static String doesNotContain(String textToSearch, String substring) throws IllegalArgumentException {
+        return doesNotContain(textToSearch, substring, "[Assertion failed] - this String argument must not contain the substring [{}]", substring);
+    }
+
+    /**
+     * 断言给定字符串是否不被另一个字符串包含（即是否为子串）
+     *
+     * <pre class="node">
+     *     Assert.doesNotContain(name, "rod", "Name must not contain 'rod'.");
+     * </pre>
+     *
+     * @param textToSearch      被搜索的字符串
+     * @param substring         被检查的子串
+     * @param errorMessage      异常时的错误消息模板
+     * @param args              参数列表
+     * @return                  被检查的子串
+     * @throws IllegalArgumentException 是子串抛出异常
+     */
+    public static String doesNotContain(String textToSearch, String substring, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (!StringUtils.isEmpty(textToSearch) && !StringUtils.isEmpty(substring) && textToSearch.contains(substring)) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+        return substring;
+    }
+
+    //=======================================================
+    //  check not contain end.
+    //=======================================================
+
+
+    //=======================================================
+    //  check elements start.
+    //=======================================================
+
+    /**
+     * 断言给定数组是否不包含 {@code null} 元素，如果数组为空或 {@code null} 将被认为不包含
+     *
+     * <pre class="code">
+     *     Assert.noNullElements(array);
+     * </pre>
+     *
+     * @param array     被检查的数组
+     * @param <T>       数组元素类型
+     * @return          被检查的数组
+     * @throws IllegalArgumentException if the object array contains a {@code null} element.
+     */
+    public static <T> T[] noNullElements(T[] array) throws IllegalArgumentException {
+        return noNullElements(array, "[Assertion failed] - this array must not contain any null elements.");
+    }
+
+    /**
+     * 断言给定数组是否不包含 {@code null} 元素，如果数组为空或 {@code null} 将被认为不包含
+     *
+     * <pre class="code">
+     *     Assert.noNullElements(array, "The array must have non-null elements");
+     * </pre>
+     *
+     * @param array             被检查的数组
+     * @param errorMessage      异常时的错误消息模板
+     * @param args              参数列表
+     * @param <T>               被检查的数组元素类型
+     * @return                  被检查的数组
+     * @throws IllegalArgumentException if the object array contains a {@code null} element
+     */
+    public static <T> T[] noNullElements(T[] array, String errorMessage, Object... args) throws IllegalArgumentException {
+        if (ArrayUtils.hasNull(array)) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+        return array;
+    }
+
+    //=======================================================
+    //  check elements end.
+    //=======================================================
+
+
+    //=======================================================
+    //  check instance start.
+    //=======================================================
+
+    /**
+     * 断言给定对象是否是给定类的实例
+     *
+     * <pre class="code">
+     *     Assert.isInstanceOf(Foo.class, foo, "Type to check against must not be null.");
+     * </pre>
+     *
+     * @param type              被检查对象匹配的类型
+     * @param obj               被检查的对象
+     * @param <T>               被检查对象的泛型类型
+     * @throws IllegalArgumentException if the object is not an instance of clazz
+     */
+    public static <T> T isInstanceOf(Class<?> type, T obj) throws IllegalArgumentException {
+        return isInstanceOf(type, obj, "Object [{}] is not instanceof [{}]", obj, type);
+    }
+
+    /**
+     * 断言给定对象是否是给定类的实例
+     *
+     * <pre class="code">
+     *     Assert.isInstanceOf(Foo.class, foo, "Object [{}] is not instanceof [{}]", foo, Foo.class);
+     * </pre>
+     *
+     * @param type              被检查对象匹配的类型
+     * @param obj               被检查的对象
+     * @param errorMessage      异常时的错误消息模板
+     * @param args              参数列表
+     * @param <T>               被检查对象的泛型类型
+     * @throws IllegalArgumentException if the object is not an instance of clazz
+     */
+    public static <T> T isInstanceOf(Class<?> type, T obj, String errorMessage, Object... args) throws IllegalArgumentException {
+        notNull(type, "Type to check against must not be null.");
+        if (false == type.isInstance(obj)) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+        return obj;
+    }
+
+    //=======================================================
+    //  check instance end.
+    //=======================================================
+
+    //=======================================================
+    //  check assignable start.
+    //=======================================================
+
+    /**
+     * 断言 {@code superType.isAssignableFrom(subType)} 是否为 {@code true}
+     *
+     * <pre class="code">
+     *     Assert.isAssignable(Number.class, myClass);
+     * </pre>
+     *
+     * @param superType     需要检查的父类或接口
+     * @param subType       需要检查的子类
+     * @throws IllegalArgumentException 如果子类非继承父类，抛出此异常
+     */
+    public static void isAssignable(Class<?> superType, Class<?> subType) throws IllegalArgumentException {
+        isAssignable(superType, subType, "{} is not assignable to {}", subType, superType);
+    }
+
+    /**
+     * 断言 {@code superType.isAssignableFrom(subType)} 是否为 {@code true}
+     *
+     * <pre class="code">
+     *     Assert.isAssignable(Number.class, myClass);
+     * </pre>
+     *
+     * @param superType     需要检查的父类或接口
+     * @param subType       需要检查的子类
+     * @param errorMessage  异常时的错误消息模板
+     * @param args          参数列表
+     * @throws IllegalArgumentException 如果子类非继承父类，抛出此异常
+     */
+    public static void isAssignable(Class<?> superType, Class<?> subType, String errorMessage, Object... args) throws IllegalArgumentException {
+        notNull(superType, "Type to check against must not be null.");
+        if (subType == null || !superType.isAssignableFrom(subType)) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+        }
+    }
+
+    //=======================================================
+    //  check assignable end.
+    //=======================================================
+
+    //=======================================================
+    //  check state start.
+    //=======================================================
+
+    /**
+     * 检查boolean表达式，当检查结果为false时抛出 {@link IllegalStateException}
+     *
+     * <pre class="code">
+     *     Assert.state(id == null);
+     * </pre>
+     * @param expression    boolean表达式
+     * @throws IllegalStateException    表达式为 {@code false} 时抛出此异常
+     */
+    public static void state(boolean expression) throws IllegalStateException {
+        state(expression, "[Assertion failed] - this state invariant must be true");
+    }
+
+    /**
+     * 检查boolean表达式，当检查结果为false时抛出 {@link IllegalStateException}
+     *
+     * <pre class="code">
+     *      Assert.state(id == null, "The id property must not already be initialized");
+     * </pre>
+     * @param expression        boolean表达式
+     * @param errorMessage      异常时的消息模板
+     * @param args              参数列表
+     * @throws IllegalStateException    表达式为 {@code false} 时抛出异常
+     */
+    public static void state(boolean expression, String errorMessage, Object... args) throws IllegalStateException {
+        if (!expression) {
+            throw new IllegalStateException(StringUtils.lenientFormat(errorMessage, args));
+        }
+    }
+
+    //=======================================================
+    //  check state end.
+    //=======================================================
+
+    //=======================================================
+    //  check the range of values start.
+    //=======================================================
+
+    /**
+     * 检查下标（数组、集合、字符串）是否符合要求，下标必须满足：
+     *
+     * <pre class="code">
+     *      0 <= index <= size
+     * </pre>
+     *
+     * @param index     下标
+     * @param size      长度
+     * @return          检查后的下标
+     * @throws IllegalArgumentException 如果 size<=0 抛出此异常
+     * @throws IndexOutOfBoundsException    如果 index <= 0 或者 index >= size 抛出此异常
+     */
+    public static int checkElementIndex(int index, int size) throws IllegalArgumentException, IndexOutOfBoundsException {
+        return checkElementIndex(index, size, "[Assertion failed]");
+    }
+
+    /**
+     * 检查下标（数组、集合、字符串）是否符合要求，下标必须满足：
+     *
+     * <pre class="code">
+     *      0 <= index <= size
+     * </pre>
+     *
+     * @param index             下标
+     * @param size              长度
+     * @param errorMessage      异常时的错误消息模板
+     * @return                  检查后的下标
+     * @throws IllegalArgumentException 如果 size<=0 抛出此异常
+     * @throws IndexOutOfBoundsException    如果 index <= 0 或者 index >= size 抛出此异常
+     */
+    public static int checkElementIndex(int index, int size, String errorMessage, Object... args) throws IllegalArgumentException, IndexOutOfBoundsException {
         if (index < 0 || index >= size) {
-//            throw new IndexOutOfBoundsException(badElementIndex(index, size, message));
-            throw new IndexOutOfBoundsException(message);
+            throw new IndexOutOfBoundsException(badIndexMessage(index, size, errorMessage, args));
         }
         return index;
     }
 
-    //    private static String badElementIndex(int index, int size,  String message) {
-//        if (index < 0) {
-//            return lenientFormat("%s (%s) must not be negative", message, index);
-//        } else if (size < 0) {
-//            throw new IllegalArgumentException("negative size: " + size);
-//        } else { // index >= size
-//            return lenientFormat("%s (%s) must be less than size (%s)", message, index, size);
-//        }
-//    }
-
-    private static String badPositionIndex(int index, int size,  String desc) {
-//        if (index < 0) {
-//            return lenientFormat("%s (%s) must not be negative", desc, index);
-//        } else if (size < 0) {
-//            throw new IllegalArgumentException("negative size: " + size);
-//        } else { // index > size
-//            return lenientFormat("%s (%s) must not be greater than size (%s)", desc, index, size);
-//        }
-        return null;
+    /**
+     * 检查值是否在指定范围内
+     *
+     * @param value     值
+     * @param min       最小值（包含）
+     * @param max       最大值（包含）
+     * @return          检查后的长度值
+     */
+    public static long checkBetween(long value, long min, long max) {
+        if (value < min || value > max) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat("Length must be between {} and {}.", min, max));
+        }
+        return value;
     }
 
     /**
-     * 检查开始与结束下标是否超出大小
-     * @param start
-     * @param end
-     * @param size
+     * 检查值是否在指定范围内
+     *
+     * @param value     值
+     * @param min       最小值（包含）
+     * @param max       最大值（包含）
+     * @return          检查后的长度值
      */
-    public static void checkPositionIndexes(int start, int end, int size) {
-        if (start < 0 || end < start || end > size) {
-            throw new IndexOutOfBoundsException(badPositionIndexes(start, end, size));
+    public static double checkBetween(double value, double min, double max) {
+        if (value < min || value > max) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat("Length must be between {} and {}.", min, max));
         }
-    }
-
-    private static String badPositionIndexes(int start, int end, int size) {
-        if (start < 0 || start > size) {
-            return badPositionIndex(start, size, "start index");
-        }
-        if (end < 0 || end > size) {
-            return badPositionIndex(end, size, "end index");
-        }
-        // end < start
-//        return lenientFormat("end index (%s) must not be less than start index (%s)", end, start);
-        return null;
+        return value;
     }
 
     /**
-     * Assert that an object is {@code null}.
-     * 断言一个对象，判断是否为空
-     * @param object
-     * @param message
+     * 检查值是否在指定范围内
+     *
+     * @param value     值
+     * @param min       最小值（包含）
+     * @param max       最大值（包含）
+     * @return          检查后的长度值
      */
-    public static void isNull( Object object, String message) {
-        if (object != null) {
-            throw new IllegalArgumentException(message);
+    public static Number checkBetween(Number value, Number min, Number max) {
+        notNull(value);
+        notNull(min);
+        notNull(max);
+        double valueDouble = value.doubleValue();
+        double minDouble = min.doubleValue();
+        double maxDouble = max.doubleValue();
+        if (valueDouble < minDouble || valueDouble > maxDouble) {
+            throw new IllegalArgumentException(StringUtils.lenientFormat("Length must be between {} and {}.", min, max));
         }
+        return value;
     }
 
-    public static void isNull( Object object, Supplier<String> messageSupplier) {
-        if (object != null) {
-            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
+    //=======================================================
+    //  check the range of values end.
+    //=======================================================
+
+    /**
+     * 错误的下标时显示的消息
+     * @param index     下标
+     * @param size      长度
+     * @param desc      异常时的消息模板
+     * @param args      参数列表
+     * @return          消息
+     */
+    private static String badIndexMessage(int index, int size, String desc, Object... args) {
+        if (index < 0) {
+            return StringUtils.lenientFormat("{} ({}) must not be negative", StringUtils.lenientFormat(desc, args), index);
+        } else if (size < 0) {
+            throw new IllegalArgumentException("negative size: " + size);
+        } else {
+            // index >= size
+            return StringUtils.lenientFormat("{} ({}) must be less than size ({})", StringUtils.lenientFormat(desc, args), index, size);
         }
-    }
-
-    /**
-     * Assert that an object is {@code null}
-     * 断言一个对象是否为空
-     * @param object
-     */
-    public static void isNull( Object object) {
-        isNull(object, "[Assertion failed] - the object argument must be null");
-    }
-
-    /**
-     * Assert that an object is not {@code null}.
-     * 断言一个对象是否不为空
-     * @param reference
-     */
-    public static <T extends Object> T checkNotNull( T reference) {
-        return checkNotNull(reference, "[Assertion failed] - this argument is required; it must not be null");
-    }
-
-    /**
-     * Assert that an object is not {@code null}.
-     * 断言一个对象是否不为空
-     * @param reference
-     * @param message
-     */
-    public static <T extends Object> T checkNotNull( T reference, String message) {
-        if (reference == null) {
-            throw new IllegalArgumentException(message);
-        }
-        return reference;
-    }
-
-    public static <T extends Object> T checkNotNull( T reference, Supplier<String> messageSupplier) {
-        if (reference == null) {
-            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
-        }
-        return reference;
-    }
-
-    /**
-     * Assert that the given String is not empty; that is, it must not be {@code null} and not the empty String.
-     * 断言给定的字符串不是空的，也就是说，它必须不是 null，也不是空的字符串
-     * @param text
-     * @param message
-     */
-    public static void hasLength( String text, String message) {
-        if (!StringUtils.hasLength(text)) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    /**
-     * Assert that the given String is not empty; that is, it must not be {@code null} and not the empty String.
-     * 断言给定的字符串不是空的，也就是说，它必须不是 null，也不是空的字符串
-     * @param text
-     */
-    public static void hasLength( String text) {
-        hasLength(text, "[Assertion failed] - this String argument must have length; it must not be null or empty");
-    }
-
-
-    /**
-     * Assert that the given String contains valid text content; that is, it must not
-     * be {@code null} and must contain at least one non-whitespace character.
-     * <pre class="code">Assert.hasText(name, "'name' must not be empty");</pre>
-     * @param text the String to check
-     * @param message the exception message to use if the assertion fails
-     * @throws IllegalArgumentException if the text does not contain valid text content
-     * @see StringUtils#hasText
-     */
-    public static void hasText(String text, String message) {
-        if (StringUtils.hasText(text)) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    /**
-     * Assert that the given String contains valid text content; that is, it must not
-     * be {@code null} and must contain at least one non-whitespace character.
-     * <pre class="code">
-     * Assert.hasText(name, () -&gt; "Name for account '" + account.getId() + "' must not be empty");
-     * </pre>
-     * @param text the String to check
-     * @param messageSupplier a supplier for the exception message to use if the
-     * assertion fails
-     * @throws IllegalArgumentException if the text does not contain valid text content
-     * @since 5.0
-     * @see StringUtils#hasText
-     */
-    public static void hasText( String text, Supplier<String> messageSupplier) {
-        if (StringUtils.hasText(text)) {
-            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
-        }
-    }
-
-    /**
-     * Assert that the given String contains valid text content; that is, it must not
-     * be {@code null} and must contain at least one non-whitespace character.
-     * @deprecated as of 4.3.7, in favor of {@link #hasText(String, String)}
-     */
-    @Deprecated
-    public static void hasText( String text) {
-        hasText(text,
-                "[Assertion failed] - this String argument must have text; it must not be null, empty, or blank");
-    }
-
-    
-    private static String nullSafeGet( Supplier<String> messageSupplier) {
-        return (messageSupplier != null ? messageSupplier.get() : null);
     }
 }

@@ -2,12 +2,12 @@ package org.hotilsframework.utils;
 
 import org.hotilsframework.core.collection.Lists;
 import org.hotilsframework.core.lang.Filter;
+import org.hotilsframework.core.lang.NestedRuntimeException;
+import org.hotilsframework.core.lang.primitives.Primitives;
 import org.hotilsframework.utils.comparator.Comparators;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 /**
  * ArrayUtils
@@ -158,6 +158,45 @@ public class ArrayUtils {
         }
         return false;
     }
+
+    /**
+     * 包装数组对象
+     * @param o         对象，可以是对象数组或者基本类型数组
+     * @return          包装类型数组或对象数组
+     */
+    public static Object[] wrap(Object o) {
+        if (null == o) {
+            return null;
+        }
+        if (isArray(o)) {
+            try {
+                return (Object[]) o;
+            } catch (Exception e) {
+                final String className = o.getClass().getComponentType().getName();
+                if ("double".equals(className)) {
+                    return Primitives.wrap((double[]) o);
+                } else if ("float".equals(className)) {
+                    return Primitives.wrap((float[]) o);
+                } else if ("long".equals(className)) {
+                    return Primitives.wrap((long[]) o);
+                } else if ("int".equals(className)) {
+                    return Primitives.wrap((int[]) o);
+                } else if ("short".equals(className)) {
+                    return Primitives.wrap((short[]) o);
+                } else if ("byte".equals(className)) {
+                    return Primitives.wrap((byte[]) o);
+                } else if ("char".equals(className)) {
+                    return Primitives.wrap((char[]) o);
+                } else if ("boolean".equals(className)) {
+                    return Primitives.wrap((boolean[]) o);
+                } else {
+                    throw new NestedRuntimeException(e);
+                }
+            }
+        }
+        throw new NestedRuntimeException(StringUtils.lenientFormat("[{}] is not Array!", o.getClass()));
+    }
+
 
     /**
      * 新键一个空数组
@@ -535,6 +574,7 @@ public class ArrayUtils {
             throw new ArrayIndexOutOfBoundsException(toIndex);
         }
     }
+
 
     /***************************************************************************
      *  Check if array is sorted - useful for debugging. 检查数组是否已排序
