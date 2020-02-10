@@ -1,5 +1,7 @@
 package org.hotilsframework.core.lang;
 
+import java.io.Serializable;
+
 /**
  * @ClassName: KeyValuePair
  * @Description: TODO   键值对
@@ -7,8 +9,9 @@ package org.hotilsframework.core.lang;
  * @Date: Created in 2020-01-10 1:52
  * @Version: 1.0
  */
-public class KeyValue<K, V> {
-
+public class KeyValue<K, V> implements Serializable {
+    private static final long serialVersionUID = -4044114608524858618L;
+    
     private K key;
     private V value;
 

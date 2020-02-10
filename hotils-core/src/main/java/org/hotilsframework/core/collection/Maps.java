@@ -3,6 +3,7 @@ package org.hotilsframework.core.collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.TreeMap;
+import java.util.WeakHashMap;
 
 /**
  * @ClassName: Maps
@@ -42,5 +43,15 @@ public final class Maps {
      */
     public static <K, V> TreeMap<K, V> newTreeMap() {
         return new TreeMap<>();
+    }
+
+    /**
+     * 创建WeakHashMap
+     * @param <K>
+     * @param <V>
+     * @return
+     */
+    public static <K, V> WeakHashMap<K, V> newWeakHashMap() {
+        return new WeakHashMap<>();
     }
 }

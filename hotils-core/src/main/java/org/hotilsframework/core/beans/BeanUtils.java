@@ -186,8 +186,8 @@ public final class BeanUtils {
      * @param target    转换后的Map关系映射
      */
     public static void beanToMap(Object source, Map<String, Object> target) {
-        Assert.checkNotNull(source, "bean is not null.");
-        Assert.checkNotNull(target, "map is not null.");
+        Assert.notNull(source, "bean is not null.");
+        Assert.notNull(target, "map is not null.");
 
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(source.getClass());
@@ -216,8 +216,8 @@ public final class BeanUtils {
      * @return          转换后的Java Bean对象
      */
     public static void mapToBean(Map<?, ?> source, Object target) {
-        Assert.checkNotNull(source, "bean is not null.");
-        Assert.checkNotNull(target, "map is not null.");
+        Assert.notNull(source, "bean is not null.");
+        Assert.notNull(target, "map is not null.");
 
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(target.getClass());
