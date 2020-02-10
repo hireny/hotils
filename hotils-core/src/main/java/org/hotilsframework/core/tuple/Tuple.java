@@ -156,12 +156,18 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Tuple objects = (Tuple) o;
 
-        if (size != objects.size) return false;
+        if (size != objects.size) {
+            return false;
+        }
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         return Arrays.equals(args, objects.args);
     }
