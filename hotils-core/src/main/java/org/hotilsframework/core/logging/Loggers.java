@@ -1,4 +1,4 @@
-package org.hotilsframework.core.logger;
+package org.hotilsframework.core.logging;
 
 import org.slf4j.Logger;
 

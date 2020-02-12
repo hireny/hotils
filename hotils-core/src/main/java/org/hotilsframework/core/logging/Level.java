@@ -1,4 +1,6 @@
-package org.hotilsframework.core.logger;
+package org.hotilsframework.core.logging;
+
+import java.util.EnumSet;
 
 /**
  * @ClassName: Level
@@ -51,9 +53,22 @@ public enum Level {
      */
     OFF;
 
+    private static final EnumSet<Level> LEVEL_ENUM_SET = EnumSet.allOf(Level.class);
+
     /*
     * 如果将 log level 设置在某一个级别上，那么比此级别优先级高的log都能打印出来。
     * 例如：如果设置优先级为WARN，那么OFF、FATAL、ERROR、WARN 4个级别的log能正常输出，
     * 而INFO、DEBUG、TRACE、ALL级别的log则会被忽略。
     */
+
+    public static Level getLevel(final String levelName) {
+        Level level = Level.OFF;
+        for (final Level lv1 : LEVEL_ENUM_SET) {
+            if (levelName.equals(lv1.name())) {
+                level = lv1;
+                break;
+            }
+        }
+        return level;
+    }
 }
