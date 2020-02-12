@@ -1,10 +1,7 @@
 package org.hotilsframework.core.logging;
 
-import com.sun.deploy.util.ArrayUtil;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @ClassName: ConsoleAdaptor

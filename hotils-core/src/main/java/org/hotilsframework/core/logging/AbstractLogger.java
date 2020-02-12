@@ -1,5 +1,6 @@
 package org.hotilsframework.core.logging;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -90,6 +91,6 @@ public abstract class AbstractLogger implements Logger {
      * @param message   日志信息
      */
     protected void logPrint(Level level, String message) {
-        System.out.printf("%-4s %1s %-52s %5s %-5s %1s %-6s%n", new Date(), "|", name, "|", level, "|", message);
+        System.out.printf("%-4s %1s %-5s %5s %-52s %1s %-6s%n", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()), " ", level, " ", name, ":", message);
     }
 }
