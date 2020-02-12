@@ -1,7 +1,5 @@
 package org.hotilsframework.core.logging;
 
-import org.junit.Test;
-
 /**
  * @ClassName: LoggerTest
  * @Author: hireny
