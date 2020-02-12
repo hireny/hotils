@@ -27,7 +27,7 @@ public class Defaults {
      */
     @SuppressWarnings("unchecked")
     public static <T> T defaultValue(Class<T> type) {
-        Assert.checkNotNull(type);
+        Assert.notNull(type);
         if (type == boolean.class) {
             return (T) Boolean.FALSE;
         } else if (type == char.class) {

@@ -50,8 +50,8 @@ public class BeanCopier<T> implements Copy<T>, Serializable {
      * @param options       拷贝属性选项
      */
     private BeanCopier(Object source, T target, Class<?> targetType, CopyOptions options) {
-        Assert.checkNotNull(source, "Source must not be null");
-        Assert.checkNotNull(target, "Target must not be null");
+        Assert.notNull(source, "Source must not be null");
+        Assert.notNull(target, "Target must not be null");
         this.source = source;
         this.target = target;
         this.targetType = targetType == null ? target.getClass() : targetType;

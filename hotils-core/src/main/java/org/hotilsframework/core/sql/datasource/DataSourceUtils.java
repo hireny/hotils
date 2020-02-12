@@ -30,7 +30,7 @@ public class DataSourceUtils {
 
     public static Connection doGetConnection(DataSource dataSource) throws SQLException {
         // 没有指定数据源
-        Assert.checkNotNull(dataSource, "No DataSource specified");
+        Assert.notNull(dataSource, "No DataSource specified");
         return null;
     }
 }

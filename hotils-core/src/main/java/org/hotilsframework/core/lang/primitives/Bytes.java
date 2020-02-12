@@ -75,8 +75,8 @@ public class Bytes {
      * @return
      */
     public static int indexOf(byte[] array, byte[] target) {
-        Assert.checkNotNull(array, "array");
-        Assert.checkNotNull(target, "target");
+        Assert.notNull(array, "array");
+        Assert.notNull(target, "target");
         if (target.length == 0) {
             return 0;
         }
@@ -154,7 +154,7 @@ public class Bytes {
         int length = boxedArray.length;
         byte[] array = new byte[length];
         for (int i = 0; i < length; i++) {
-            array[i] = ((Number) Assert.checkNotNull(boxedArray[i])).byteValue();
+            array[i] = ((Number) Assert.notNull(boxedArray[i])).byteValue();
         }
         return array;
     }
@@ -242,7 +242,7 @@ public class Bytes {
             Assert.checkElementIndex(index, size());
             byte oldValue = array[start + index];
             // checkNotNull for GWT (do not optimize)
-            array[start + index] = Assert.checkNotNull(element);
+            array[start + index] = Assert.notNull(element);
             return oldValue;
         }
 
@@ -255,7 +255,7 @@ public class Bytes {
         @Override
         public List<Byte> subList(int fromIndex, int toIndex) {
             int size = size();
-            Assert.checkPositionIndexes(fromIndex, toIndex, size);
+//            Assert.checkPositionIndexes(fromIndex, toIndex, size);
             if (fromIndex == toIndex) {
                 return Collections.emptyList();
             }
@@ -323,7 +323,7 @@ public class Bytes {
      * @param array
      */
     public static void reverse(byte[] array) {
-        Assert.checkNotNull(array);
+        Assert.notNull(array);
         reverse(array, 0, array.length);
     }
 
@@ -334,8 +334,8 @@ public class Bytes {
      * @param toIndex
      */
     public static void reverse(byte[] array, int fromIndex, int toIndex) {
-        Assert.checkNotNull(array);
-        Assert.checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+//        Assert.checkPositionIndexes(fromIndex, toIndex, array.length);
         for (int i = fromIndex, j = toIndex - 1; i < j; i++, j--) {
             byte tmp = array[i];
             array[i] = array[j];

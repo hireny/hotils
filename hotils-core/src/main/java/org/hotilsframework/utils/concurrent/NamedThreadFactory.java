@@ -69,7 +69,7 @@ public class NamedThreadFactory implements ThreadFactory {
 
     @Override
     public Thread newThread(Runnable r) {
-        final Thread t = new Thread(this.group, r, StringUtils.format("{}{}", prefix, threadNumber.getAndIncrement()));
+        final Thread t = new Thread(this.group, r, StringUtils.lenientFormat("{}{}", prefix, threadNumber.getAndIncrement()));
 
         //守护线程
         if (false == t.isDaemon()) {

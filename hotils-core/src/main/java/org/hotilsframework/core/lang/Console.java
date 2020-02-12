@@ -43,7 +43,7 @@ public class Console {
      * @param args  值
      */
     public static void info(Throwable t, String text, Object... args) {
-        System.out.println(StringUtils.format(text, args));
+        System.out.println(StringUtils.lenientFormat(text, args));
         if (null != t) {
             t.printStackTrace();
             System.out.flush();

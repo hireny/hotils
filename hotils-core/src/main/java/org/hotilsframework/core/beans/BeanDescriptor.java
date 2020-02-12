@@ -62,7 +62,7 @@ public interface BeanDescriptor {
          * @param beanClass
          */
         public DefaultBeanDescriptor(Class<?> beanClass) {
-            this.targetClass = Assert.checkNotNull(beanClass);
+            this.targetClass = Assert.notNull(beanClass);
         }
 
         /**

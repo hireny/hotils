@@ -3,6 +3,7 @@ package org.hotilsframework.core.design;
 import java.io.Serializable;
 
 /**
+ * 通用的 Builder 模式构建器
  * @ClassName: Builder
  * @Author: hireny
  * @Date: Create in 2019/12/07 01:30

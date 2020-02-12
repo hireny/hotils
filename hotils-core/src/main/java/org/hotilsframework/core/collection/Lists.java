@@ -241,7 +241,7 @@ public final class Lists {
 
         public OneDimensional(E key, E[] rest) {
             this.key = key;
-            this.rest = Assert.checkNotNull(rest);
+            this.rest = Assert.notNull(rest);
         }
 
         @Override

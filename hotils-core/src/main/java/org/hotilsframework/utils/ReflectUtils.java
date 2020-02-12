@@ -111,7 +111,7 @@ public final class ReflectUtils {
     //=====================================================
 
     public static <T> T newInstance(Class<?> clazz) {
-        Assert.checkNotNull(clazz, "Class must not be null.");
+        Assert.notNull(clazz, "Class must not be null.");
         if (clazz.isInterface()) {
             throw new BeanInstantiationException(clazz, "Specified class is an interface");
         }
@@ -148,7 +148,7 @@ public final class ReflectUtils {
     }
 
     public static Field findField(Class<?> clazz,  String name,  Class<?> type) {
-        Assert.checkNotNull(clazz, "Class must not be null");
+        Assert.notNull(clazz, "Class must not be null");
         Assert.isTrue(name != null || type != null, "Either name or type of the field must be specified");
         Class<?> searchType = clazz;
         while (Object.class != searchType && searchType != null) {
@@ -286,7 +286,7 @@ public final class ReflectUtils {
      * @return
      */
     private static Field[] getDeclaredFields(Class<?> clazz) {
-        Assert.checkNotNull(clazz, "Class must not be null");
+        Assert.notNull(clazz, "Class must not be null");
         Field[] result = declaredFieldsCache.get(clazz);
         if (result == null) {
             try {
@@ -317,7 +317,7 @@ public final class ReflectUtils {
      * @return
      */
     public static Field[] getInheritFields(Class<?> clazz, boolean withSuperClassFields) {
-        Assert.checkNotNull(clazz);
+        Assert.notNull(clazz);
 
         Field[] fields = null;
         Class<?> searchType = clazz;
@@ -415,8 +415,8 @@ public final class ReflectUtils {
      * @return
      */
     public static Method findMethod(Class<?> clazz, String methodName, Class<?>... paramTypes) {
-        Assert.checkNotNull(clazz, "Class must not be null");
-        Assert.checkNotNull(methodName, "Method name must not be null");
+        Assert.notNull(clazz, "Class must not be null");
+        Assert.notNull(methodName, "Method name must not be null");
         Class<?> searchType = clazz;
         while (searchType != null) {
             Method[] methods = searchType.isInterface() ?
@@ -495,7 +495,7 @@ public final class ReflectUtils {
     }
 
     private static Method[] getDeclaredMethods(Class<?> clazz, boolean defensive) {
-        Assert.checkNotNull(clazz, "Class must not be null");
+        Assert.notNull(clazz, "Class must not be null");
         Method[] result = declaredMethodsCache.get(clazz);
         if (result == null) {
             try {

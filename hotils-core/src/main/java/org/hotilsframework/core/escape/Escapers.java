@@ -20,7 +20,7 @@ public final class Escapers {
             new CharEscaper() {
                 @Override
                 public String escape(String string) {
-                    return Assert.checkNotNull(string);
+                    return Assert.notNull(string);
                 }
 
                 @Override

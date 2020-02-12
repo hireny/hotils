@@ -25,6 +25,6 @@ public class ResponseEntity<T> extends HttpEntity<T> {
      */
     private ResponseEntity(T body, Map<String, String> headers, Object status) {
         super(body, headers);
-        this.stauts = Assert.checkNotNull(status, "HttpStatus must not be null");
+        this.stauts = Assert.notNull(status, "HttpStatus must not be null");
     }
 }

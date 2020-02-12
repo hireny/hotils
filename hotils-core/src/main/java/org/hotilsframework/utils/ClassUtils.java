@@ -209,7 +209,7 @@ public final class ClassUtils {
      * @return
      */
     public static Class<?> resolvePrimitiveIfNecessary(Class<?> clazz) {
-        Assert.checkNotNull(clazz, "Class must not be null.");
+        Assert.notNull(clazz, "Class must not be null.");
         return (clazz.isPrimitive() && clazz != void.class ? primitiveTypeToWrapperMap.get(clazz) : clazz);
     }
 
@@ -220,8 +220,8 @@ public final class ClassUtils {
      * @return
      */
     public static boolean isAssignable(Class<?> sourceType, Class<?> targetType) {
-        Assert.checkNotNull(sourceType, "Left-hand side type must not be null");
-        Assert.checkNotNull(targetType, "Right-hand side type must not be null");
+        Assert.notNull(sourceType, "Left-hand side type must not be null");
+        Assert.notNull(targetType, "Right-hand side type must not be null");
         if (sourceType.isAssignableFrom(targetType)) {
             return true;
         }

@@ -104,7 +104,7 @@ public final class HostAndPort implements Serializable {
      * @return
      */
     public static HostAndPort fromString(String hostPortString) {
-        Assert.checkNotNull(hostPortString);
+        Assert.notNull(hostPortString);
         String host;
         String portString = null;
         boolean hasBracketlessColons = false;

@@ -20,7 +20,7 @@ public final class Splitter {
     }
 
     public static Splitter on(final CharSequence separator) {
-        Assert.checkNotNull(separator);
+        Assert.notNull(separator);
         return new Splitter(separator);
     }
 
@@ -46,7 +46,7 @@ public final class Splitter {
      * @return
      */
     public Iterable<String> split(final CharSequence cs) {
-        Assert.checkNotNull(cs);
+        Assert.notNull(cs);
 
         return new Iterable<String>() {
             @Override
@@ -71,7 +71,7 @@ public final class Splitter {
      * @return
      */
     public List<String> splitToList(CharSequence cs) {
-        Assert.checkNotNull(cs);
+        Assert.notNull(cs);
 
         Iterator<String> iterator = splittingIterator(cs);
         List<String> result = Lists.newArrayList();
@@ -89,7 +89,7 @@ public final class Splitter {
      * @return
      */
     public String[] splitToArray(CharSequence cs) {
-        Assert.checkNotNull(cs);
+        Assert.notNull(cs);
 
         List<String> list = splitToList(cs);
         return (String[]) list.toArray();

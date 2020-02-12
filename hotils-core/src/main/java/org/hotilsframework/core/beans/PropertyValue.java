@@ -28,7 +28,7 @@ public class PropertyValue implements Serializable {
 
     public PropertyValue(String name, Object value) {
         // name不能为空
-        Assert.checkNotNull(name, "Name must not be null.");
+        Assert.notNull(name, "Name must not be null.");
         this.name = name;
         this.value = value;
     }

@@ -32,7 +32,7 @@ public class Joiner {
     private final String separator;
 
     private Joiner(String separator) {
-        Assert.checkNotNull(separator);
+        Assert.notNull(separator);
         this.separator = separator;
     }
 
@@ -41,7 +41,7 @@ public class Joiner {
     }
 
     public <A extends Appendable> A appendTo(A appendable, Iterator<?> parts) throws IOException {
-        Assert.checkNotNull(appendable);
+        Assert.notNull(appendable);
         if (parts.hasNext()) {
             appendable.append(toString(parts.next()));
             while (parts.hasNext()) {
@@ -71,7 +71,7 @@ public class Joiner {
     }
 
     CharSequence toString(Object part) {
-        Assert.checkNotNull(part);
+        Assert.notNull(part);
         return (part instanceof CharSequence) ? (CharSequence) part : part.toString();
     }
 }

@@ -115,8 +115,8 @@ public final class Booleans {
      * @param target the array to search for as a sub-sequence of {@code array}
      */
     public static int indexOf(boolean[] array, boolean[] target) {
-        Assert.checkNotNull(array, "array");
-        Assert.checkNotNull(target, "target");
+        Assert.notNull(array, "array");
+        Assert.notNull(target, "target");
         if (target.length == 0) {
             return 0;
         }

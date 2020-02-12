@@ -15,7 +15,7 @@ public abstract class CharEscaper extends Escaper {
 
     @Override
     public String escape(String string) {
-        Assert.checkNotNull(string);
+        Assert.notNull(string);
         int length = string.length();
         for (int index = 0; index < length; index++) {
             if (escape(string.charAt(index)) != null) {

@@ -41,8 +41,8 @@ public class DateBetween implements Serializable {
      * @param isAbs     日期间隔是否只保留绝对值正数
      */
     public DateBetween(LocalDateTime begin, LocalDateTime end, boolean isAbs) {
-        Assert.checkNotNull(begin, "Begin date is null !");
-        Assert.checkNotNull(end, "End date is null !");
+        Assert.notNull(begin, "Begin date is null !");
+        Assert.notNull(end, "End date is null !");
 
         if (isAbs && begin.isAfter(end)) {
             // 间隔只为正数的情况下，如果开始日期晚于结束日期，置换之
