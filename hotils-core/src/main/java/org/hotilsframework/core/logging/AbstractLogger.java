@@ -1,5 +1,6 @@
 package org.hotilsframework.core.logging;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,11 +11,22 @@ import java.util.Date;
  * @Date: Created in 2020-02-11 22:39
  * @Version: 1.0
  */
-public abstract class AbstractLogger implements Logger {
+public abstract class AbstractLogger implements Logger, Serializable {
+    private static final long serialVersionUID = 2370094256623879117L;
     /**
-     * 完全限定名 full
+     * 记录类的完全限定名，用于收集呼叫者信息
+     */
+    private String fqcn;
+
+    /**
+     * 日志记录器的名称
      */
     private String name;
+
+    /**
+     * 记录日志的级别，可以为空
+     */
+    private Level level;
 
 
     public AbstractLogger(String name) {

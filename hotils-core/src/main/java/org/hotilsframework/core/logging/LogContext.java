@@ -11,7 +11,7 @@ import java.util.Map;
  * @Date: Created in 2020-02-12 17:51
  * @Version: 1.0
  */
-public class LoggerContext {
+public class LogContext {
 
     /**
      * 根logger

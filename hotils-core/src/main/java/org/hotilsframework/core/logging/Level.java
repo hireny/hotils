@@ -53,7 +53,13 @@ public enum Level {
      */
     OFF(70, "OFF");
 
+    /**
+     * 优先级
+     */
     private int levelInt;
+    /**
+     * 日志级别名称
+     */
     private String levelString;
 
     Level(int levelInt, String levelString) {
@@ -61,6 +67,10 @@ public enum Level {
         this.levelString = levelString;
     }
 
+    /**
+     * 优先级
+     * @return
+     */
     public int toInt() {
         return this.levelInt;
     }
@@ -77,6 +87,16 @@ public enum Level {
     * 例如：如果设置优先级为WARN，那么OFF、FATAL、ERROR、WARN 4个级别的log能正常输出，
     * 而INFO、DEBUG、TRACE、ALL级别的log则会被忽略。
     */
+
+    /**
+     * 比较级别
+     * @param l1
+     * @param l2
+     * @return  if value > 0 优先级 l1 > l2， else value < 0 优先级 l1 < l2
+     */
+    public static int compare(Level l1, Level l2) {
+        return l1.toInt() - l2.toInt();
+    }
 
     public static Level getLevel(final String levelName) {
         Level level = Level.OFF;
