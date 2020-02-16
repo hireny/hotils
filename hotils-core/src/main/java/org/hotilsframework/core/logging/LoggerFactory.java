@@ -1,6 +1,8 @@
 package org.hotilsframework.core.logging;
 
-import ch.qos.logback.classic.util.ContextInitializer;
+import org.hotilsframework.core.collection.Maps;
+
+import java.util.Map;
 
 /**
  * 日志工厂接口，所有的日志对象都根据这个接口标准
@@ -11,24 +13,26 @@ import ch.qos.logback.classic.util.ContextInitializer;
  */
 public class LoggerFactory {
 
-    private LogContext logContext;
+    /**
+     * 日志记录器
+     */
+    private static Map<String, Logger> loggerMap;
 
+    /**
+     * 获取日志记录器
+     * @param clazz
+     * @return
+     */
     public static Logger getLogger(Class<?> clazz) {
         return getLogger(clazz.getName());
     }
 
+    /**
+     * 获取日志记录器
+     * @param name
+     * @return
+     */
     public static Logger getLogger(String name) {
-        LoggerFactory loggerFactory = new LoggerFactory();
-        Logger logger = loggerFactory.logContext.getLoggerCache().get(name);
-        if (logger == null) {
-            logger = loggerFactory.newLogger(name);
-        }
-        return logger;
-    }
-
-    private Logger newLogger(String name) {
-        AbstractLogger logger = new DefaultLogger(name);
-        logger.setName(name);
-        return logger;
+        return null;
     }
 }
