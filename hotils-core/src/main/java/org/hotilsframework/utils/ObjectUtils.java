@@ -56,6 +56,32 @@ public class ObjectUtils {
     }
 
     /**
+     * 获取对象的类型
+     * @param o
+     * @return
+     */
+    public static Class<?> getClass(Object o) {
+        if (o.getClass() == boolean.class) {
+            return boolean.class;
+        } else if (o.getClass() == char.class) {
+            return char.class;
+        } else if (o.getClass() == byte.class) {
+            return byte.class;
+        } else if (o.getClass() == short.class) {
+            return short.class;
+        } else if (o.getClass() == int.class) {
+            return int.class;
+        } else if (o.getClass() == long.class) {
+            return long.class;
+        } else if (o.getClass() == float.class) {
+            return float.class;
+        } else if (o.getClass() == double.class) {
+            return double.class;
+        }
+        return o.getClass();
+    }
+
+    /**
      * 该方法判断一个Object对象是否是Optional类型的。
      * 如果是，打开Optional使用get()获取值，如果不是返回Object对象
      * @param obj

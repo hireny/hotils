@@ -1,6 +1,7 @@
 package org.hotilsframework.core.beans;
 
 import org.hotilsframework.core.collection.Maps;
+import org.hotilsframework.core.lang.primitives.Primitives;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.ModifierUtils;
 import org.hotilsframework.utils.NumberUtils;
@@ -83,7 +84,7 @@ public interface BeanDescriptor {
         private PropDescriptor createPropDescriptor(Field field) {
             final String fieldName = field.getName();
             final Class<?> fieldType = field.getType();
-            final boolean isBooleanField = NumberUtils.isBoolean(fieldType);
+            final boolean isBooleanField = Primitives.isBoolean(fieldType);
 
             Method getter = null;
             Method setter = null;

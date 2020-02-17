@@ -15,48 +15,6 @@ public final class NumberUtils {
 
     private NumberUtils() {}
 
-    /**
-     * 给定类是否为Boolean或者boolean
-     * @param type      类
-     * @return          是否为Boolean或者boolean
-     */
-    public static boolean isBoolean(Class<?> type) {
-        return (type == Boolean.class || type == boolean.class);
-    }
-
-    public static boolean isByte(Class<?> clazz) {
-        return (clazz == Byte.class || clazz == byte.class);
-    }
-
-    public static boolean isChar(Class<?> clazz) {
-        return (clazz == Character.class || clazz == char.class);
-    }
-
-    public static boolean isShort(Class<?> clazz) {
-        return (clazz == Short.class || clazz == short.class);
-    }
-
-    /**
-     * 给定类是否为Integer或者int
-     * @param clazz
-     * @return
-     */
-    public static boolean isInt(Class<?> clazz) {
-        return (clazz == Integer.class || clazz == int.class);
-    }
-
-    public static boolean isLong(Class<?> clazz) {
-        return (clazz == Long.class || clazz == long.class);
-    }
-
-    public static boolean isFloat(Class<?> clazz) {
-        return (clazz == Float.class || clazz == float.class);
-    }
-
-    public static boolean isDouble(Class<?> clazz) {
-        return (clazz == Double.class || clazz == double.class);
-    }
-
 //    public static int hashCode(boolean value) {
 //        return value ? 1231 : 1237;
 //    }
