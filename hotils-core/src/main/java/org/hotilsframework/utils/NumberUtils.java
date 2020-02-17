@@ -101,7 +101,7 @@ public final class NumberUtils {
      * @param object    原始数据
      * @return  BigDecimal
      */
-    public static final BigDecimal bigDecimal(Object object) {
+    public static BigDecimal bigDecimal(Object object) {
         if (object == null) {
             throw new NullPointerException();
         }
@@ -124,7 +124,7 @@ public final class NumberUtils {
      * @param num2 加数
      * @return 两个参数的和
      */
-    public static final BigDecimal add(Number num1, Number num2) {
+    public static BigDecimal add(Number num1, Number num2) {
         BigDecimal result = bigDecimal(num1).add(bigDecimal(num2));
         return result.setScale(DEFAULT_SCALE, BigDecimal.ROUND_HALF_UP);
     }
@@ -136,7 +136,7 @@ public final class NumberUtils {
      * @param num2 减数
      * @return 两个参数的差
      */
-    public static final BigDecimal subtract(Number num1, Number num2) {
+    public static BigDecimal subtract(Number num1, Number num2) {
         BigDecimal result = bigDecimal(num1).subtract(bigDecimal(num2));
         return result.setScale(DEFAULT_SCALE, BigDecimal.ROUND_HALF_UP);
     }
@@ -148,7 +148,7 @@ public final class NumberUtils {
      * @param num2 乘数
      * @return 两个参数的积
      */
-    public static final BigDecimal multiply(Number num1, Number num2) {
+    public static BigDecimal multiply(Number num1, Number num2) {
         BigDecimal result = bigDecimal(num1).multiply(bigDecimal(num2));
         return result.setScale(DEFAULT_SCALE, BigDecimal.ROUND_HALF_UP);
     }
@@ -160,7 +160,7 @@ public final class NumberUtils {
      * @param num2 除数
      * @return 两个参数的商
      */
-    public static final BigDecimal divide(Number num1, Number num2) {
+    public static BigDecimal divide(Number num1, Number num2) {
         return divide(num1, num2, DEFAULT_SCALE);
     }
 
@@ -172,7 +172,7 @@ public final class NumberUtils {
      * @param scale 表示表示需要精确到小数点以后几位。
      * @return 两个参数的商
      */
-    public static final BigDecimal divide(Number num1, Number num2, Integer scale) {
+    public static BigDecimal divide(Number num1, Number num2, Integer scale) {
         if (scale == null) {
             scale = DEFAULT_SCALE;
         }
@@ -191,7 +191,7 @@ public final class NumberUtils {
      * @param scale 小数点后保留几位
      * @return 四舍五入后的结果
      */
-    public static final BigDecimal round(Number num, int scale) {
+    public static BigDecimal round(Number num, int scale) {
         if (scale < 0) {
             throw new IllegalArgumentException("The scale must be a positive integer or zero");
         }
@@ -206,7 +206,7 @@ public final class NumberUtils {
      * @param end
      * @return
      */
-    public static final BigDecimal getRandom(double start, double end) {
+    public static BigDecimal getRandom(double start, double end) {
         return new BigDecimal(start + Math.random() * (end - start));
     }
 
