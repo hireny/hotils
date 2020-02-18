@@ -1,5 +1,7 @@
 package org.hotilsframework.core.system;
 
+import org.hotilsframework.utils.SystemUtils;
+
 import java.io.Serializable;
 
 /**
@@ -11,12 +13,12 @@ import java.io.Serializable;
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = 5208410596114807707L;
 
-    private final String USER_NAME = Systems.get("user.name", false);
-    private final String USER_HOME = Systems.get("user.home", false);
-    private final String USER_DIR = Systems.get("user.dir", false);
-    private final String USER_LANGUAGE = Systems.get("user.language", false);
-    private final String USER_COUNTRY = ((Systems.get("user.country", false) == null) ? Systems.get("user.region", false) : Systems.get("user.country", false));
-    private final String JAVA_IO_TMPDIR = Systems.get("java.io.tmpdir", false);
+    private final String USER_NAME = SystemUtils.get("user.name", false);
+    private final String USER_HOME = SystemUtils.get("user.home", false);
+    private final String USER_DIR = SystemUtils.get("user.dir", false);
+    private final String USER_LANGUAGE = SystemUtils.get("user.language", false);
+    private final String USER_COUNTRY = ((SystemUtils.get("user.country", false) == null) ? SystemUtils.get("user.region", false) : SystemUtils.get("user.country", false));
+    private final String JAVA_IO_TMPDIR = SystemUtils.get("java.io.tmpdir", false);
 
 
     /**

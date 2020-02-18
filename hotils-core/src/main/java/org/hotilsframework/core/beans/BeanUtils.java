@@ -223,7 +223,7 @@ public final class BeanUtils {
             BeanInfo beanInfo = Introspector.getBeanInfo(target.getClass());
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
             if (Objects.isNull(target)) {
-                target = ReflectUtils.newInstance(target.getClass());
+                target = ReflectionUtils.newInstance(target.getClass());
             }
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
                 String key = propertyDescriptor.getName();

@@ -4,8 +4,7 @@ import org.hotilsframework.core.collection.Maps;
 import org.hotilsframework.core.lang.primitives.Primitives;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.ModifierUtils;
-import org.hotilsframework.utils.NumberUtils;
-import org.hotilsframework.utils.ReflectUtils;
+import org.hotilsframework.utils.ReflectionUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -72,7 +71,7 @@ public interface BeanDescriptor {
          * @return
          */
         private DefaultBeanDescriptor init() {
-            for (Field field : ReflectUtils.getInheritFields(targetClass)) {
+            for (Field field : ReflectionUtils.getInheritFields(targetClass)) {
                 if (false == ModifierUtils.isStatic(field)) {
                     // 只针对非static属性
                     this.propDescriptorMap.put(field.getName(), createPropDescriptor(field));

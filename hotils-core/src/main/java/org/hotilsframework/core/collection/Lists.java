@@ -184,29 +184,6 @@ public final class Lists {
         return new CopyOnWriteArrayList<>(values);
     }
 
-    /**
-     * 根据集合类型创建集合
-     * @param type
-     * @param <E>
-     * @return
-     */
-    public static <E> List<E> newList(ListType type) {
-        switch (type) {
-            case ArrayList:
-                return new ArrayList<>();
-            case LinkedList:
-                return new LinkedList<>();
-            case Vector:
-                return new Vector<>();
-            case STACK:
-                return new Stack<>();
-            case CopyOnWriteArrayList:
-                return new CopyOnWriteArrayList<>();
-            default:
-                throw new NoSuchListTypeException("no such list type.");
-        }
-    }
-
     public static <E> List<E> asList(E key, E[] rest) {
         return new OneDimensional<>(key, rest);
     }

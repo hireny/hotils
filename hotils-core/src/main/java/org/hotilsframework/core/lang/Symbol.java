@@ -19,6 +19,7 @@ public interface Symbol {
     char UNDER_LINE = '_';
     /**
      * The constant PER_CENT.
+     * 百分比
      */
     char PER_CENT = '%';
     /**

@@ -98,10 +98,10 @@ public enum Level {
         return l1.toInt() - l2.toInt();
     }
 
-    public static Level getLevel(final String levelName) {
+    public static Level parse(final String levelName) {
         Level level = Level.OFF;
         for (final Level lv1 : LEVEL_ENUM_SET) {
-            if (levelName.equals(lv1.name())) {
+            if (levelName.equalsIgnoreCase(lv1.name())) {
                 level = lv1;
                 break;
             }

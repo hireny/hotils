@@ -1,7 +1,7 @@
 package org.hotilsframework.core.beans;
 
 import org.hotilsframework.core.collection.Maps;
-import org.hotilsframework.utils.ReflectUtils;
+import org.hotilsframework.utils.ReflectionUtils;
 
 import java.util.*;
 
@@ -44,7 +44,7 @@ public class BeanMap {
 
     private BeanMap(Map<?, ?> source, Class<?> clazz) {
         this.map = source;
-        this.bean = ReflectUtils.newInstance(clazz);
+        this.bean = ReflectionUtils.newInstance(clazz);
         mapToBean(source, bean);
     }
 

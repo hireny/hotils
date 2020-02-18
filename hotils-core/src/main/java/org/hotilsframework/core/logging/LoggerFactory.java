@@ -1,7 +1,5 @@
 package org.hotilsframework.core.logging;
 
-import org.hotilsframework.core.collection.Maps;
-
 import java.util.Map;
 
 /**
@@ -13,10 +11,15 @@ import java.util.Map;
  */
 public class LoggerFactory {
 
-    /**
-     * 日志记录器
-     */
-    private static Map<String, Logger> loggerMap;
+    private static Loggers loggers;
+
+    static {
+        loggers = new Loggers();
+    }
+
+    public static Loggers getLoggers() {
+        return loggers;
+    }
 
     /**
      * 获取日志记录器
@@ -33,6 +36,6 @@ public class LoggerFactory {
      * @return
      */
     public static Logger getLogger(String name) {
-        return null;
+        return getLoggers().getLogger(name);
     }
 }

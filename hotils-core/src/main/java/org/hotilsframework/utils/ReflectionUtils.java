@@ -16,9 +16,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date: Created in 2020-01-08 8:25
  * @Version: 1.0
  */
-public final class ReflectUtils {
+public final class ReflectionUtils {
 
-    private ReflectUtils() {}
+    private ReflectionUtils() {}
 
     private static final String SETTER_PREFIX = "set";
 
@@ -216,8 +216,16 @@ public final class ReflectUtils {
         return value;
     }
 
-    public static void setField(Field field,  Object target,  Object value) {
+    /**
+     * 设置属性值
+     * @param field     字段
+     * @param target    目标对象
+     * @param value     值
+     */
+    public static void setFieldValue(Field field,  Object target,  Object value) {
+        Assert.notNull(field, "Field is not exist.");
         try {
+            field.setAccessible(true);
             field.set(target, value);
         } catch (IllegalAccessException e) {
             throw new IllegalStateException(
@@ -232,23 +240,12 @@ public final class ReflectUtils {
      * @param newValue      新值
      */
     public static void setFieldValue(Object object, String fieldName, Object newValue) {
-        if (object != null) {
-            Field field = findField(object.getClass(), fieldName);
-            if (field != null) {
-                field.setAccessible(true);
-                if (!ModifierUtils.isFinal(field)) {
-                    try {
-                        field.set(object, newValue);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.err.println("Field is final");
-                }
-            } else {
-                System.err.println("Field is not exist");
-            }
-        }
+        Assert.notNull(object, "Object can not be empty.");
+        Field field = findField(object.getClass(), fieldName);
+
+        Assert.state(!ModifierUtils.isFinal(field), "Field is final.");
+
+        setFieldValue(field, object, newValue);
     }
 
     /**
@@ -266,7 +263,8 @@ public final class ReflectUtils {
                     try {
                         field.set(null, newValue);
                     } catch (IllegalAccessException e) {
-                        e.printStackTrace();
+                        throw new IllegalStateException(
+                                "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
                     }
                 } else {
                     System.err.println("Field is final");

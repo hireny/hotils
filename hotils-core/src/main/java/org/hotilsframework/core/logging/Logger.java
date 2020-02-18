@@ -9,6 +9,8 @@ package org.hotilsframework.core.logging;
  */
 public interface Logger {
 
+    String getName();
+
     /**
      * 级别判定 是否可TRACE
      * @return  {@code true} 可以；{@code false} 不能。

@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * @ClassName: ImmutableList
- * @Description: TODO
- * @Author: hireny
- * @Date: Created in 2020-01-10 1:43
- * @Version: 1.0
+ * 不可变的列表
+ * @className: ImmutableList
+ * @author: hireny
+ * @date: Created in 2020-01-10 1:43
+ * @version: 1.0
  */
 public class ImmutableList {
     private ImmutableList() {}

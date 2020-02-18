@@ -1,5 +1,7 @@
 package org.hotilsframework.core.system;
 
+import org.hotilsframework.utils.SystemUtils;
+
 import java.io.Serializable;
 
 /**
@@ -11,10 +13,10 @@ import java.io.Serializable;
 public class JvmInfo implements Serializable {
     private static final long serialVersionUID = -609373140313096234L;
 
-    private final String JVM_NAME = Systems.get(SystemPropertyKey.JVM_NAME, false);
-    private final String JVM_VERSION = Systems.get(SystemPropertyKey.JVM_VERSION, false);
-    private final String JVM_VENDOR = Systems.get(SystemPropertyKey.JVM_VENDOR, false);
-    private final String JVM_INFO = Systems.get(SystemPropertyKey.JVM_INFO, false);
+    private final String JVM_NAME = SystemUtils.get(SystemPropertyKey.JVM_NAME, false);
+    private final String JVM_VERSION = SystemUtils.get(SystemPropertyKey.JVM_VERSION, false);
+    private final String JVM_VENDOR = SystemUtils.get(SystemPropertyKey.JVM_VENDOR, false);
+    private final String JVM_INFO = SystemUtils.get(SystemPropertyKey.JVM_INFO, false);
 
     /**
      * 获取当前JVM 的名称

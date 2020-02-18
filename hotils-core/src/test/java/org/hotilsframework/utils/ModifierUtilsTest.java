@@ -1,6 +1,5 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.model.UserTestClass;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -19,19 +18,19 @@ public class ModifierUtilsTest {
     @Test
     public void isPublicTest() {
         System.out.println("测试字段 Field：");
-        Field field = ReflectUtils.findField(ModifierTestClass.class, "isSex");
+        Field field = ReflectionUtils.findField(ModifierTestClass.class, "isSex");
         System.out.println(ModifierUtils.isPublic(field));
         System.out.println(ModifierUtils.isPrivate(field));
         System.out.println(ModifierUtils.isProtected(field));
 
         System.out.println("测试方法 Method：");
-        Method method = ReflectUtils.findMethod(ModifierTestClass.class, "test3");
+        Method method = ReflectionUtils.findMethod(ModifierTestClass.class, "test3");
         System.out.println(ModifierUtils.isPublic(method));
         System.out.println(ModifierUtils.isProtected(method));
         System.out.println(ModifierUtils.isPrivate(method));
 
         System.out.println("测试构造器 Constructor：");
-        Constructor constructor = ReflectUtils.findConstructor(ModifierTestClass.class, int.class);
+        Constructor constructor = ReflectionUtils.findConstructor(ModifierTestClass.class, int.class);
         System.out.println(ModifierUtils.isPublic(constructor));
         System.out.println(ModifierUtils.isProtected(constructor));
         System.out.println(ModifierUtils.isPrivate(constructor));
@@ -43,6 +42,12 @@ public class ModifierUtilsTest {
 
         System.out.println("测试是否是 Static");
         System.out.println(ModifierUtils.isStatic(ModifierTestClass.class));
+    }
+
+    @Test
+    public void isFinalTest() {
+        Field field = ReflectionUtils.findField(ModifierTestClass.class, "username");
+        System.out.println(ModifierUtils.isFinal(field));
     }
 
     public static class ModifierTestClass {

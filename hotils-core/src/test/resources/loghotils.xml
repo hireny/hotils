@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<configuration>
+    <appender name="std_pattern" class="org.hotilsframework.core.logging.ConsoleAppender">
+        <filter class="org.hotilsframework.core.logging.LevelFilter">
+            <param name="level" value="debug"/>
+        </filter>
+        <layout class="org.hotilsframework.core.logging.layout.PatternLayout">
+            <param name="pattern" value="%d %level %pid --- %thread %logger %msg %n"/>
+        </layout>
+    </appender>
+
+    <appender name="std_plain" class="org.hotilsframework.core.logging.ConsoleAppender">
+        <filter class="org.hotilsframework.core.logging.LevelFilter">
+            <param name="level" value="debug"/>
+        </filter>
+        <layout class="org.hotilsframework.core.logging.layout.PlainLayout"/>
+    </appender>
+
+    <logger name="org.hotilsframework.core.logging">
+        <appender-ref ref="std_plain"/>
+        <appender-ref ref="std_pattern"/>
+    </logger>
+
+    <root level="trace">
+        <appender-ref ref="std_pattern"/>
+    </root>
+</configuration>
