@@ -97,6 +97,19 @@ public final class StringUtils {
     }
 
     /**
+     * 如果为空的返回默认值
+     * @param cs                字符串
+     * @param defaultValue      默认值
+     * @return
+     */
+    public static String defaultIfEmpty(CharSequence cs, String defaultValue) {
+        if (isEmpty(cs)) {
+            return defaultValue;
+        }
+        return cs.toString();
+    }
+
+    /**
      * 判断两个字符串是否相同
      *
      * @param a 作为对比的字符串

@@ -47,6 +47,12 @@ public final class NumberUtils {
 //        return Double.hashCode(dbl);
 //    }
 
+    //===========================bytes[] 与原始类型数字转换 start=====================================//
+
+    public static byte[] toBytes(int value) {
+        return new byte[0];
+    }
+
 
     //===========================数学运算 start=====================================//
 

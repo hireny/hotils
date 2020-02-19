@@ -7,9 +7,11 @@ import org.hotilsframework.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletException;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -26,7 +28,6 @@ public class WebUtils {
     private static final Logger logger = LoggerFactory.getLogger(WebUtils.class);
 
     private WebUtils() {}
-
 
     /**
      * 获取指定Cookie的值
@@ -50,7 +51,7 @@ public class WebUtils {
      * @return
      */
     public static final Cookie getCookie(HttpServletRequest request, String cookName) {
-        Assert.checkNotNull(request, "Request must not be null.");
+        Assert.notNull(request, "Request must not be null.");
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length > 0) {
             int length = cookies.length;
@@ -235,6 +236,17 @@ public class WebUtils {
      */
     public static String getRequestType(HttpServletRequest request) {
         return request.getHeader("X-Requested-With");
+    }
+
+    /**
+     * 获取请求路径
+     * @param request
+     * @return
+     */
+    public static String getRequestPath(HttpServletRequest request) {
+        String servletPath = request.getServletPath();
+        String pathInfo = StringUtils.defaultIfEmpty(request.getPathInfo(), "");
+        return servletPath + pathInfo;
     }
 
     /**

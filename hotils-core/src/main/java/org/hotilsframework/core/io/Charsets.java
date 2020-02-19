@@ -7,11 +7,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
 
 /**
- * @ClassName: Charsets
- * @Description: TODO   编码工具类
- * @Author: hireny
- * @Date: Created in 2020-01-08 8:27
- * @Version: 1.0
+ * 字符集工具集
+ * @className Charsets
+ * @author hireny
+ * @date Created in 2020-01-08 8:27
+ * @version 1.0
  */
 public final class Charsets {
     /**
@@ -26,6 +26,8 @@ public final class Charsets {
      * GBK
      */
     public static final String GBK = "GBK";
+
+    public static final String US_ASCII = "US-ASCII";
     /**
      * ISO-8859-1
      */
@@ -34,8 +36,12 @@ public final class Charsets {
      * UTF-8
      */
     public static final Charset CHARSET_UTF_8 = StandardCharsets.UTF_8;
+    /**
+     * GBK
+     */
+    public static final Charset CHARSET_GBK = Charsets.forName(GBK);
 
-    public static final Charset CHARSET_GBK = Charset.forName(GBK);
+    public static final Charset CHARSET_US_ASCII = Charsets.forName(US_ASCII);
 
     /**
      * 转换为Charset对象

@@ -1,30 +1,39 @@
 package org.hotilsframework.core.lang.primitives;
 
 import org.hotilsframework.core.lang.Symbol;
+import org.hotilsframework.utils.Assert;
 
 /**
  * 字符
- * @ClassName: Chars
- * @Author: hireny
- * @Date: Created in 2020-02-03 12:44
- * @Version: 1.0
+ * @className Chars
+ * @author hireny
+ * @date Created in 2020-02-03 12:44
+ * @version 1.0
  */
 public final class Chars {
 
-    private int c;
+    private char value;
 
     private Chars() {}
 
-    private Chars(char c) {
-        this.c = c;
+    private Chars(char value) {
+        this.value = value;
     }
 
-    private Chars(int c) {
-        this.c = c;
+    private Chars(Character value) {
+        this.value = value;
     }
 
-    public char getC() {
-        return (char) c;
+    public char getValue() {
+        return (char) value;
+    }
+
+    /**
+     * 将字符转换为byte数组
+     * @return
+     */
+    public byte[] toBytes() {
+        return new byte[] {(byte) (value >> 8), (byte) value};
     }
 
     /**
@@ -32,7 +41,7 @@ public final class Chars {
      * @return
      */
     public boolean isAscii() {
-        return c < 128;
+        return value < 128;
     }
 
     /**
@@ -40,7 +49,7 @@ public final class Chars {
      * @return
      */
     public boolean isAsciiPrintable() {
-        return c >= 32 && c < 127;
+        return value >= 32 && value < 127;
     }
 
     /**
@@ -48,7 +57,7 @@ public final class Chars {
      * @return
      */
     public boolean isAsciiControl() {
-        return c < 32 || c == 127;
+        return value < 32 || value == 127;
     }
 
     /**
@@ -65,7 +74,7 @@ public final class Chars {
      * @return
      */
     public boolean isLetterUpper() {
-        return c >= 'A' && c <= 'Z';
+        return value >= 'A' && value <= 'Z';
     }
 
     /**
@@ -73,7 +82,7 @@ public final class Chars {
      * @return
      */
     public boolean isLetterLower() {
-        return c >= 'a' && c <= 'z';
+        return value >= 'a' && value <= 'z';
     }
 
     /**
@@ -81,7 +90,7 @@ public final class Chars {
      * @return
      */
     public boolean isNumber() {
-        return c >= '0' && c <= '9';
+        return value >= '0' && value <= '9';
     }
 
     /**
@@ -94,7 +103,7 @@ public final class Chars {
      * @return
      */
     public boolean isHex() {
-        return isNumber() || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
+        return isNumber() || (value >= 'a' && value <= 'f') || (value >= 'A' && value <= 'F');
     }
 
     /**
@@ -113,7 +122,7 @@ public final class Chars {
      * @return
      */
     public boolean isBlankChar() {
-        return Character.isWhitespace(c) || Character.isSpaceChar(c) || c == '\ufeff' || c == '\u202a';
+        return Character.isWhitespace(value) || Character.isSpaceChar(value) || value == '\ufeff' || value == '\u202a';
     }
 
     /**
@@ -124,7 +133,7 @@ public final class Chars {
      * @since 4.1.11
      */
     public boolean isFileSeparator() {
-        return Symbol.SLASH == c || Symbol.BACKSLASH == c;
+        return Symbol.SLASH == value || Symbol.BACKSLASH == value;
     }
 
     /**
@@ -141,12 +150,12 @@ public final class Chars {
         }
         if (isCharClass(o.getClass())) {
             char oc = (char) o;
-            return c == oc;
+            return value == oc;
         }
         if (getClass() != o.getClass()) {
             return false;
         }
-        return Character.toLowerCase(this.c) == Character.toLowerCase(((Chars) o).c);
+        return Character.toLowerCase(this.value) == Character.toLowerCase(((Chars) o).value);
     }
 
     /**
@@ -164,7 +173,7 @@ public final class Chars {
         }
         if (isCharClass(o.getClass())) {
             char oc = (char) o;
-            return c == oc;
+            return value == oc;
         }
 
         if (o.getClass() != this.getClass()) {
@@ -173,17 +182,17 @@ public final class Chars {
 
         Chars chars = (Chars) o;
 
-        return c == chars.c;
+        return value == chars.value;
     }
 
     @Override
     public int hashCode() {
-        return c;
+        return value;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(this.c);
+        return String.valueOf(this.value);
     }
 
 
@@ -191,16 +200,35 @@ public final class Chars {
     // 静态方法
     //=========================================
 
-    public static Chars of(char c) {
-        return new Chars(c);
+    public static final int BYTES = Character.SIZE / Byte.SIZE;
+
+    public static Chars of(char value) {
+        return new Chars(value);
     }
 
-    public static Chars of(Character c) {
-        return new Chars(c);
+    public static Chars of(Character value) {
+        return new Chars(value);
     }
 
-    public static Chars of(int c) {
-        return new Chars(c);
+    /**
+     * 将byte数组转换为字符
+     * @param bytes
+     * @return
+     */
+    public static Chars fromBytes(byte[] bytes) {
+        Assert.state(bytes.length >= BYTES, "array to small: %s < %s", bytes.length, BYTES);
+        return fromBytes(bytes[0], bytes[1]);
+    }
+
+    /**
+     * 将byte数组转换为字符
+     * @param b1
+     * @param b2
+     * @return
+     */
+    public static Chars fromBytes(byte b1, byte b2) {
+        char value = (char) ((b1 << 8) | (b2 & 0xFF));
+        return of(value);
     }
 
     /**

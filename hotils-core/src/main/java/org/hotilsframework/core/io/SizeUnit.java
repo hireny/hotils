@@ -7,7 +7,7 @@ package org.hotilsframework.core.io;
  * @Date: Created in 2020-01-25 21:16
  * @Version: 1.0
  */
-public enum ByteUnit {
+public enum SizeUnit {
     B,
     KB,
     MB,
