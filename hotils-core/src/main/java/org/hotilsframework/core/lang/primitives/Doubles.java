@@ -1,5 +1,7 @@
 package org.hotilsframework.core.lang.primitives;
 
+import org.hotilsframework.utils.Assert;
+
 /**
  * 双精度浮点型
  * @className Doubles
@@ -17,6 +19,15 @@ public final class Doubles {
 
     public double getValue() {
         return value;
+    }
+
+    /**
+     * 将双精度浮点型转换为byte数组
+     * @return
+     */
+    public byte[] toBytes() {
+        long result = Double.doubleToRawLongBits(value);
+        return Longs.of(result).toBytes();
     }
 
     /**
@@ -72,6 +83,18 @@ public final class Doubles {
 
     public static Doubles of(Double value) {
         return new Doubles(value);
+    }
+
+    /**
+     * 将byte数组转换为双精度浮点型
+     * @param bytes
+     * @return
+     */
+    public static Doubles fromBytes(byte[] bytes) {
+        Assert.state(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
+        Longs longs = Longs.fromBytes(bytes);
+        double result = Double.longBitsToDouble(longs.getValue());
+        return Doubles.of(result);
     }
 
     /**

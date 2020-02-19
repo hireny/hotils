@@ -22,6 +22,15 @@ public final class Floats {
     }
 
     /**
+     * 将双精度浮点型转换为byte数组
+     * @return
+     */
+    public byte[] toBytes() {
+        int result = Float.floatToRawIntBits(value);
+        return Ints.of(result).toBytes();
+    }
+
+    /**
      * 比较是否相等
      * @param o
      * @return
@@ -74,6 +83,18 @@ public final class Floats {
 
     public static Floats of(Float value) {
         return new Floats(value);
+    }
+
+    /**
+     * 将byte数组转换为单精度浮点型
+     * @param bytes
+     * @return
+     */
+    public static Floats fromBytes(byte[] bytes) {
+        Assert.state(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
+        Ints ints = Ints.fromBytes(bytes);
+        float result = Float.floatToIntBits(ints.getValue());
+        return Floats.of(result);
     }
 
     /**
