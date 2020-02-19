@@ -3,6 +3,7 @@ package org.hotilsframework.utils;
 import java.io.Closeable;
 import java.io.Externalizable;
 import java.io.Serializable;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 /**
@@ -246,6 +247,18 @@ public final class ClassUtils {
     }
 
     /**
+     * 判断类型是否是基本类型
+     * @param clazz     类
+     * @return          是否为基本类型，如果为 {@code null} 返回false
+     */
+    public static boolean isPrimitive(Class<?> clazz) {
+        if (null ==clazz) {
+            return false;
+        }
+        return clazz.isPrimitive();
+    }
+
+    /**
      * 判断类是否为数组
      * @param clazz     类
      * @return          是否为数组对象，如果为{@code null} 返回false
@@ -255,5 +268,29 @@ public final class ClassUtils {
             return false;
         }
         return clazz.isArray();
+    }
+
+    /**
+     * 判断类是否是接口
+     * @param clazz     类
+     * @return          是否为接口，如果为 {@code null} 返回false
+     */
+    public static boolean isInterface(Class<?> clazz) {
+        if (null == clazz) {
+            return false;
+        }
+        return clazz.isInterface();
+    }
+
+    /**
+     * 判断类是否是抽象类
+     * @param clazz     类
+     * @return          是否为抽象类，如果为 {@code null} 返回false
+     */
+    public static boolean isAbstractClass(Class<?> clazz) {
+        if (null == clazz) {
+            return false;
+        }
+        return Modifier.isAbstract(clazz.getModifiers());
     }
 }
