@@ -31,7 +31,7 @@ public final class Booleans {
         if (this == o) {
             return true;
         }
-        if (isBooleanClass(o.getClass())) {
+        if (isBoolean(o.getClass())) {
             boolean ob = (boolean) o;
             return value == ob;
         }
@@ -91,7 +91,7 @@ public final class Booleans {
      * @param clazz
      * @return
      */
-    public static boolean isBooleanClass(Class<?> clazz) {
+    public static boolean isBoolean(Class<?> clazz) {
         return clazz == boolean.class || clazz == Boolean.class;
     }
 }

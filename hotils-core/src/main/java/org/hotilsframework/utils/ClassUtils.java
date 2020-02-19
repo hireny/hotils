@@ -41,33 +41,11 @@ public final class ClassUtils {
     /** The ".class" file suffix. */
     public static final String CLASS_FILE_SUFFIX = ".class";
 
-
-
     /**
-     * Map with primitive wrapper type as key and corresponding primitive
-     * type as value, for example: Integer.class -> int.class.
-     * 包装类型对应的基本类型
+     * 常用的类型缓存，都是Java中的类型，不包括基本类型，
+     * 例如：boolean、char、byte、short、int、long、float、double等
      */
-    private static final Map<Class<?>, Class<?>> primitiveWrapperTypeMap = new IdentityHashMap<>(8);
-
-    /**
-     * Map with primitive type as key and corresponding wrapper
-     * type as value, for example: int.class -> Integer.class.
-     * 基本类型对应的包装类型
-     */
-    private static final Map<Class<?>, Class<?>> primitiveTypeToWrapperMap = new IdentityHashMap<>(8);
-
-    /**
-     * Map with primitive type name as key and corresponding primitive
-     * type as value, for example: "int" -> "int.class".
-     * 基本类型的映射关系的缓存
-     */
-    private static final Map<String, Class<?>> primitiveTypeNameMap = new HashMap<>(32);
-
-    /**
-     * 常用的类型缓存
-     */
-    private static final Map<String, Class<?>> commonClassCache = new HashMap<>();
+    private static final Map<String, Class<?>> commonClassCache;
 
     /**
      * Common Java language interfaces which are supposed to be ignored
@@ -77,49 +55,38 @@ public final class ClassUtils {
     private static final Set<Class<?>> javaLanguageInterfaces;
 
     static {
-        primitiveWrapperTypeMap.put(Boolean.class, boolean.class);
-        primitiveWrapperTypeMap.put(Byte.class, byte.class);
-        primitiveWrapperTypeMap.put(Character.class, char.class);
-        primitiveWrapperTypeMap.put(Double.class, double.class);
-        primitiveWrapperTypeMap.put(Float.class, float.class);
-        primitiveWrapperTypeMap.put(Integer.class, int.class);
-        primitiveWrapperTypeMap.put(Long.class, long.class);
-        primitiveWrapperTypeMap.put(Short.class, short.class);
+        Map<String, Class<?>> tempCommonClassCache = new LinkedHashMap<>(16);
 
-        for (Map.Entry<Class<?>, Class<?>> entry : primitiveWrapperTypeMap.entrySet()) {
-            primitiveTypeToWrapperMap.put(entry.getValue(), entry.getKey());
-            registerCommonClasses(entry.getKey());
+        for (Class<?> wrapperType : PrimitiveUtils.allWrapperTypes()) {
+            // 注册常用类型
+            registerCommonClasses(tempCommonClassCache, wrapperType);
         }
 
-        Set<Class<?>> primitiveTypes = new HashSet<>(32);
-        primitiveTypes.addAll(primitiveWrapperTypeMap.values());
-        Collections.addAll(primitiveTypes, boolean[].class, byte[].class, char[].class,
-                double[].class, float[].class, int[].class, long[].class, short[].class);
-        primitiveTypes.add(void.class);
-        for (Class<?> primitiveType : primitiveTypes) {
-            primitiveTypeNameMap.put(primitiveType.getName(), primitiveType);
-        }
-
-        registerCommonClasses(Boolean[].class, Byte[].class, Character[].class, Double[].class,
+        // 注册常用类型
+        registerCommonClasses(tempCommonClassCache, Boolean[].class, Byte[].class, Character[].class, Double[].class,
                 Float[].class, Integer[].class, Long[].class, Short[].class);
-        registerCommonClasses(Number.class, Number[].class, String.class, String[].class,
+        registerCommonClasses(tempCommonClassCache, Number.class, Number[].class, String.class, String[].class,
                 Class.class, Class[].class, Object.class, Object[].class);
-        registerCommonClasses(Throwable.class, Exception.class, RuntimeException.class,
+        registerCommonClasses(tempCommonClassCache, Throwable.class, Exception.class, RuntimeException.class,
                 Error.class, StackTraceElement.class, StackTraceElement[].class);
-        registerCommonClasses(Enum.class, Iterable.class, Iterator.class, Enumeration.class,
+        registerCommonClasses(tempCommonClassCache, Enum.class, Iterable.class, Iterator.class, Enumeration.class,
                 Collection.class, List.class, Set.class, Map.class, Map.Entry.class, Optional.class);
 
+        // Java语言公共接口的数组
         Class<?>[] javaLanguageInterfaceArray = {Serializable.class, Externalizable.class,
                 Closeable.class, AutoCloseable.class, Cloneable.class, Comparable.class};
-        registerCommonClasses(javaLanguageInterfaceArray);
+        registerCommonClasses(tempCommonClassCache, javaLanguageInterfaceArray);
         javaLanguageInterfaces = new HashSet<>(Arrays.asList(javaLanguageInterfaceArray));
+
+        commonClassCache = Collections.unmodifiableMap(tempCommonClassCache);
     }
 
     /**
      * 注册常用的类型
+     * @param commonClassCache
      * @param commonClasses
      */
-    private static void registerCommonClasses(Class<?>... commonClasses) {
+    private static void registerCommonClasses(Map<String, Class<?>> commonClassCache, Class<?>... commonClasses) {
         for (Class<?> commonClass : commonClasses) {
             commonClassCache.put(commonClass.getName(), commonClass);
         }
@@ -205,16 +172,6 @@ public final class ClassUtils {
     }
 
     /**
-     * 如果给定的类是基本类型，则返回它对应的相应包装类
-     * @param clazz
-     * @return
-     */
-    public static Class<?> resolvePrimitiveIfNecessary(Class<?> clazz) {
-        Assert.notNull(clazz, "Class must not be null.");
-        return (clazz.isPrimitive() && clazz != void.class ? primitiveTypeToWrapperMap.get(clazz) : clazz);
-    }
-
-    /**
      * 检测是否可以将sourceType代表的类型转换到targetType代表的类型
      * @param sourceType        要转换的类型
      * @param targetType        目标的类型
@@ -230,7 +187,7 @@ public final class ClassUtils {
             // 判断类型是否是基本类型，例如：int，float
 
             // 如果类型是基本类型，则我们要从缓存包装对应基本的映射集合中，使用targetType，从中获取对应的基本类型
-            Class<?> resolvedPrimitive = primitiveWrapperTypeMap.get(targetType);
+            Class<?> resolvedPrimitive = PrimitiveUtils.getWrapperToPrimitiveType().get(targetType);
             if (sourceType == resolvedPrimitive) {
                 return true;
             }
@@ -238,7 +195,7 @@ public final class ClassUtils {
             // 如果不是基本类型，就是包装类型，例如：Integer，Float
 
             // 如果sourceType是不是基本类型，则我们要从缓存基本对应包装的映射集合中，使用targetType，从中获取对应的包装类型
-            Class<?> resolvedWrapper = primitiveTypeToWrapperMap.get(targetType);
+            Class<?> resolvedWrapper = PrimitiveUtils.getPrimitiveToWrapperType().get(targetType);
             if (resolvedWrapper != null && sourceType.isAssignableFrom(resolvedWrapper)) {
                 return true;
             }

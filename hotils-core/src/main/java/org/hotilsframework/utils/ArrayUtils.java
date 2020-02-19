@@ -3,7 +3,6 @@ package org.hotilsframework.utils;
 import org.hotilsframework.core.collection.Lists;
 import org.hotilsframework.core.lang.Filter;
 import org.hotilsframework.core.lang.NestedRuntimeException;
-import org.hotilsframework.core.lang.primitives.Primitives;
 import org.hotilsframework.utils.comparator.Comparators;
 
 import java.lang.reflect.Array;
@@ -190,21 +189,21 @@ public class ArrayUtils {
             } catch (Exception e) {
                 final String className = o.getClass().getComponentType().getName();
                 if ("double".equals(className)) {
-                    return Primitives.wrap((double[]) o);
+                    return PrimitiveUtils.wrap((double[]) o);
                 } else if ("float".equals(className)) {
-                    return Primitives.wrap((float[]) o);
+                    return PrimitiveUtils.wrap((float[]) o);
                 } else if ("long".equals(className)) {
-                    return Primitives.wrap((long[]) o);
+                    return PrimitiveUtils.wrap((long[]) o);
                 } else if ("int".equals(className)) {
-                    return Primitives.wrap((int[]) o);
+                    return PrimitiveUtils.wrap((int[]) o);
                 } else if ("short".equals(className)) {
-                    return Primitives.wrap((short[]) o);
+                    return PrimitiveUtils.wrap((short[]) o);
                 } else if ("byte".equals(className)) {
-                    return Primitives.wrap((byte[]) o);
+                    return PrimitiveUtils.wrap((byte[]) o);
                 } else if ("char".equals(className)) {
-                    return Primitives.wrap((char[]) o);
+                    return PrimitiveUtils.wrap((char[]) o);
                 } else if ("boolean".equals(className)) {
-                    return Primitives.wrap((boolean[]) o);
+                    return PrimitiveUtils.wrap((boolean[]) o);
                 } else {
                     throw new NestedRuntimeException(e);
                 }

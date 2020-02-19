@@ -1,11 +1,13 @@
-package org.hotilsframework.core.lang.primitives;
+package org.hotilsframework.utils;
 
 import org.hotilsframework.utils.Assert;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.awt.*;
+import java.io.Closeable;
+import java.io.Externalizable;
+import java.io.Serializable;
+import java.util.*;
+import java.util.List;
 
 /**
  * 基本/包装类型工具类
@@ -14,8 +16,8 @@ import java.util.Set;
  * @Date: Created in 2020-02-09 0:44
  * @Version: 1.0
  */
-public final class Primitives {
-    private Primitives() {}
+public final class PrimitiveUtils {
+    private PrimitiveUtils() {}
 
     /**
      * A map from primitive types to their corresponding wrapper types.
@@ -29,9 +31,19 @@ public final class Primitives {
      */
     private static final Map<Class<?>, Class<?>> WRAPPER_TO_PRIMITIVE_TYPE;
 
+    /**
+     * Map with primitive type name as key and corresponding primitive
+     * type as value, for example: "int" -> "int.class".
+     * 基本类型的映射关系的缓存
+     */
+    private static final Map<String, Class<?>> primitiveTypeNameMap;
+
+
     static {
         Map<Class<?>, Class<?>> primToWrap = new LinkedHashMap<>(16);
         Map<Class<?>, Class<?>> wrapToPrim = new LinkedHashMap<>(16);
+        Map<String, Class<?>> tempCommonClassCache = new LinkedHashMap<>(16);
+        Map<String, Class<?>> tempPrimitiveTypeNameMap = new LinkedHashMap<>(32);
 
         add(primToWrap, wrapToPrim, boolean.class, Boolean.class);
         add(primToWrap, wrapToPrim, byte.class, Byte.class);
@@ -46,6 +58,20 @@ public final class Primitives {
 
         PRIMITIVE_TO_WRAPPER_TYPE = Collections.unmodifiableMap(primToWrap);
         WRAPPER_TO_PRIMITIVE_TYPE = Collections.unmodifiableMap(wrapToPrim);
+
+
+        // 基本类型的集合
+        Set<Class<?>> primitiveTypes = new HashSet<>(32);
+        primitiveTypes.addAll(wrapToPrim.values());
+        Collections.addAll(primitiveTypes, boolean[].class, byte[].class, char[].class,
+                double[].class, float[].class, int[].class, long[].class, short[].class);
+        primitiveTypes.add(void.class);
+        for (Class<?> primitiveType : primitiveTypes) {
+            tempPrimitiveTypeNameMap.put(primitiveType.getName(), primitiveType);
+        }
+
+        primitiveTypeNameMap = Collections.unmodifiableMap(tempPrimitiveTypeNameMap);
+
     }
 
     /**
@@ -80,6 +106,30 @@ public final class Primitives {
     }
 
     /**
+     * 获取从基本类型映射到包装类类型的映射容器
+     * @return
+     */
+    public static Map<Class<?>, Class<?>> getPrimitiveToWrapperType() {
+        return PRIMITIVE_TO_WRAPPER_TYPE;
+    }
+
+    /**
+     * 获取从包装类型映射到基本类型的映射容器
+     * @return
+     */
+    public static Map<Class<?>, Class<?>> getWrapperToPrimitiveType() {
+        return WRAPPER_TO_PRIMITIVE_TYPE;
+    }
+
+    /**
+     * 获取基本类型的映射
+     * @return
+     */
+    public static Map<String, Class<?>> getPrimitiveTypeNameMap() {
+        return primitiveTypeNameMap;
+    }
+
+    /**
      * 是否是包装类型
      * @param type
      * @return
@@ -97,77 +147,38 @@ public final class Primitives {
         return type.isPrimitive() || PRIMITIVE_TO_WRAPPER_TYPE.containsKey(Assert.notNull(type));
     }
 
-    /**
-     * 给定类是否为Boolean或者boolean
-     * @param type      类
-     * @return          是否为Boolean或者boolean
-     */
-    public static boolean isBoolean(Class<?> type) {
-        return (type == Boolean.class || type == boolean.class);
-    }
-
-    public static boolean isByte(Class<?> clazz) {
-        return (clazz == Byte.class || clazz == byte.class);
-    }
-
-    public static boolean isChar(Class<?> clazz) {
-        return (clazz == Character.class || clazz == char.class);
-    }
-
-    public static boolean isShort(Class<?> clazz) {
-        return (clazz == Short.class || clazz == short.class);
-    }
-
-    /**
-     * 给定类是否为Integer或者int
-     * @param clazz
-     * @return
-     */
-    public static boolean isInt(Class<?> clazz) {
-        return (clazz == Integer.class || clazz == int.class);
-    }
-
-    public static boolean isLong(Class<?> clazz) {
-        return (clazz == Long.class || clazz == long.class);
-    }
-
-    public static boolean isFloat(Class<?> clazz) {
-        return (clazz == Float.class || clazz == float.class);
-    }
-
-    public static boolean isDouble(Class<?> clazz) {
-        return (clazz == Double.class || clazz == double.class);
-    }
-
     //=============================================
     // wrap and unwrap
     //=============================================
 
     /**
-     * 获取基本类型的包装类型
-     * @param type
-     * @param <T>
+     * 如果给定的类是基本类型，则返回它对应的相应包装类
+     * @param clazz
      * @return
      */
-    public static <T> Class<T> wrap(Class<T> type) {
-        Assert.notNull(type);
-
-        @SuppressWarnings("unchecked")
-        Class<T> wrapped = (Class<T>) PRIMITIVE_TO_WRAPPER_TYPE.get(type);
-        return (wrapped == null) ? type : wrapped;
+    public static Class<?> resolvePrimitiveIfNecessary(Class<?> clazz) {
+        Assert.notNull(clazz, "Class must not be null.");
+        return (clazz.isPrimitive() && clazz != void.class ? PRIMITIVE_TO_WRAPPER_TYPE.get(clazz) : clazz);
     }
 
     /**
-     * 获取基本类型
+     * 获取基本类型的包装类型
      * @param type
-     * @param <T>
      * @return
      */
-    public static <T> Class<T> unwrap(Class<T> type) {
-        Assert.notNull(type);
+    public static Class<?> wrap(Class<?> type) {
+        Assert.notNull(type, "class must not be null.");
+        return (type.isPrimitive() && type != void.class ? PRIMITIVE_TO_WRAPPER_TYPE.get(type) : type);
+    }
 
-        @SuppressWarnings("unchecked")
-        Class<T> unwrapped = (Class<T>) WRAPPER_TO_PRIMITIVE_TYPE.get(type);
+    /**
+     * 获取包装类型的基本类型
+     * @param type
+     * @return
+     */
+    public static Class<?> unwrap(Class<?> type) {
+        Assert.notNull(type, "class must not be null.");
+        Class<?> unwrapped =  WRAPPER_TO_PRIMITIVE_TYPE.get(type);
         return (unwrapped == null) ? type : unwrapped;
     }
 
