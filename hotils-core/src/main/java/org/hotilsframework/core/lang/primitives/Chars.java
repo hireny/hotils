@@ -33,7 +33,7 @@ public final class Chars {
      * @return
      */
     public byte[] toBytes() {
-        return new byte[] {(byte) (value >> 8), (byte) value};
+        return toByteArray(value);
     }
 
     /**
@@ -211,11 +211,21 @@ public final class Chars {
     }
 
     /**
+     * 将字符转换为byte数组
+     * @param value
+     * @return
+     */
+    public static byte[] toByteArray(char value) {
+        return new byte[] {(byte) (value >> 8), (byte) value};
+    }
+
+
+    /**
      * 将byte数组转换为字符
      * @param bytes
      * @return
      */
-    public static Chars fromBytes(byte[] bytes) {
+    public static char fromByteArray(byte[] bytes) {
         Assert.state(bytes.length >= BYTES, "array to small: %s < %s", bytes.length, BYTES);
         return fromBytes(bytes[0], bytes[1]);
     }
@@ -226,9 +236,8 @@ public final class Chars {
      * @param b2
      * @return
      */
-    public static Chars fromBytes(byte b1, byte b2) {
-        char value = (char) ((b1 << 8) | (b2 & 0xFF));
-        return of(value);
+    public static char fromBytes(byte b1, byte b2) {
+        return  (char) ((b1 << 8) | (b2 & 0xFF));
     }
 
     /**

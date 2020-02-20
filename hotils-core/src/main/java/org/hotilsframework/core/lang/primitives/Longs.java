@@ -26,13 +26,7 @@ public class Longs {
      * @return
      */
     public byte[] toBytes() {
-        long val = this.value;
-        byte[] result = new byte[8];
-        for (int i = 7; i >= 0; i--) {
-            result [i] = (byte) (val & 0xFFL);
-            val >>= 8;
-        }
-        return result;
+        return toByteArray(value);
     }
 
     /**
@@ -91,11 +85,25 @@ public class Longs {
     }
 
     /**
+     * 将长整型转换为byte数组类型
+     * @param value
+     * @return
+     */
+    public static byte[] toByteArray(long value) {
+        byte[] result = new byte[8];
+        for (int i = 7; i >= 0; i--) {
+            result [i] = (byte) (value & 0xFFL);
+            value >>= 8;
+        }
+        return result;
+    }
+
+    /**
      * 将byte数组转换为长整型
      * @param bytes
      * @return
      */
-    public static Longs fromBytes(byte[] bytes) {
+    public static long fromByteArray(byte[] bytes) {
         Assert.state(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
         return fromBytes(bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]);
     }
@@ -108,8 +116,8 @@ public class Longs {
      * @param b4
      * @return
      */
-    public static Longs fromBytes(byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
-        long value = (b1 & 0xFFL) << 56
+    public static long fromBytes(byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
+        return (b1 & 0xFFL) << 56
                 | (b2 & 0xFFL) << 48
                 | (b3 & 0xFFL) << 40
                 | (b4 & 0xFFL) << 32
@@ -117,7 +125,6 @@ public class Longs {
                 | (b6 & 0xFFL) << 16
                 | (b7 & 0xFFL) << 8
                 | (b8 & 0xFFL);
-        return of(value);
     }
 
     /**

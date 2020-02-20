@@ -90,11 +90,9 @@ public final class Doubles {
      * @param bytes
      * @return
      */
-    public static Doubles fromBytes(byte[] bytes) {
+    public static double fromByteArray(byte[] bytes) {
         Assert.state(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
-        Longs longs = Longs.fromBytes(bytes);
-        double result = Double.longBitsToDouble(longs.getValue());
-        return Doubles.of(result);
+        return Double.longBitsToDouble(Longs.fromByteArray(bytes));
     }
 
     /**

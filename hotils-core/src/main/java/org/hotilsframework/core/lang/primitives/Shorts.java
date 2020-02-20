@@ -25,7 +25,7 @@ public final class Shorts {
      * @return
      */
     public byte[] toBytes() {
-        return new byte[] {(byte) (value >> 8), (byte) value};
+        return toByteArray(value);
     }
 
     /**
@@ -84,11 +84,20 @@ public final class Shorts {
     }
 
     /**
+     * 将短整型转换为byte数组
+     * @param value
+     * @return
+     */
+    public static byte[] toByteArray(short value) {
+        return new byte[] {(byte) (value >> 8), (byte) value};
+    }
+
+    /**
      * 将byte数组转换为短整型
      * @param bytes
      * @return
      */
-    public static Shorts fromBytes(byte[] bytes) {
+    public static short fromByteArray(byte[] bytes) {
         Assert.state(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
         return fromBytes(bytes[0], bytes[1]);
     }
@@ -99,9 +108,8 @@ public final class Shorts {
      * @param b2
      * @return
      */
-    public static Shorts fromBytes(byte b1, byte b2) {
-        short value = (short) ((b1 << 8) | (b2 & 0xFF));
-        return of(value);
+    public static short fromBytes(byte b1, byte b2) {
+        return  (short) ((b1 << 8) | (b2 & 0xFF));
     }
 
     /**

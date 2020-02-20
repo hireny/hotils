@@ -26,8 +26,7 @@ public final class Floats {
      * @return
      */
     public byte[] toBytes() {
-        int result = Float.floatToRawIntBits(value);
-        return Ints.of(result).toBytes();
+       return toByteArray(value);
     }
 
     /**
@@ -86,15 +85,22 @@ public final class Floats {
     }
 
     /**
+     * 将单精度浮点型转换为byte数组
+     * @param value
+     * @return
+     */
+    public static byte[] toByteArray(float value) {
+        return Ints.toByteArray(Float.floatToRawIntBits(value));
+    }
+
+    /**
      * 将byte数组转换为单精度浮点型
      * @param bytes
      * @return
      */
-    public static Floats fromBytes(byte[] bytes) {
+    public static float fromByteArray(byte[] bytes) {
         Assert.state(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
-        Ints ints = Ints.fromBytes(bytes);
-        float result = Float.floatToIntBits(ints.getValue());
-        return Floats.of(result);
+        return Float.floatToIntBits(Ints.fromByteArray(bytes));
     }
 
     /**

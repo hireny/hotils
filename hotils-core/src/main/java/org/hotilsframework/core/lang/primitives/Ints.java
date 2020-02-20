@@ -24,10 +24,7 @@ public final class Ints {
      * @return
      */
     public byte[] toBytes() {
-        return new byte[] {
-                (byte) (value >> 24), (byte) (value >> 16),
-                (byte) (value >> 8), (byte) value
-        };
+       return toByteArray(value);
     }
 
     /**
@@ -86,11 +83,23 @@ public final class Ints {
     }
 
     /**
+     * 将整型转换为byte数组
+     * @param value
+     * @return
+     */
+    public static byte[] toByteArray(int value) {
+        return new byte[] {
+                (byte) (value >> 24), (byte) (value >> 16),
+                (byte) (value >> 8), (byte) value
+        };
+    }
+
+    /**
      * 将byte数组转换为整型
      * @param bytes
      * @return
      */
-    public static Ints fromBytes(byte[] bytes) {
+    public static int fromByteArray(byte[] bytes) {
         Assert.state(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
         return fromBytes(bytes[0], bytes[1], bytes[2], bytes[3]);
     }
@@ -103,9 +112,8 @@ public final class Ints {
      * @param b4
      * @return
      */
-    public static Ints fromBytes(byte b1, byte b2, byte b3, byte b4) {
-        int value = b1 << 24 | (b2 & 0xFF) << 16 | (b3 & 0xFF) << 8 | (b4 & 0xFF);
-        return of(value);
+    public static int fromBytes(byte b1, byte b2, byte b3, byte b4) {
+        return b1 << 24 | (b2 & 0xFF) << 16 | (b3 & 0xFF) << 8 | (b4 & 0xFF);
     }
 
     /**
