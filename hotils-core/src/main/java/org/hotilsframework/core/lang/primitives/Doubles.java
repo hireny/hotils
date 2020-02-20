@@ -95,6 +95,29 @@ public final class Doubles {
         return Double.longBitsToDouble(Longs.fromByteArray(bytes));
     }
 
+    private static final double DEFAULT_DOUBLE_EPSILON = 0.00001D;
+
+    /**
+     * 因为double的精度问题，允许两个double在0.00001内的误差为相等。
+     * @param d1
+     * @param d2
+     * @return
+     */
+    public static boolean equalsWithin(double d1, double d2) {
+        return Math.abs(d1 -d2) < DEFAULT_DOUBLE_EPSILON;
+    }
+
+    /**
+     * 因为double的精度问题，允许两个double在epsilon内的误差为相等。
+     * @param d1
+     * @param d2
+     * @param epsilon
+     * @return
+     */
+    public static boolean equalsWithin(double d1, double d2, double epsilon) {
+        return Math.abs(d1 - d2) < epsilon;
+    }
+
     /**
      * 检查给定对象对应的类是否为双精度浮点型，双精度浮点型类包括：
      *

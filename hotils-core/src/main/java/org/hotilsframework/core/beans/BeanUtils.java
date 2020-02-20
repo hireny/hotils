@@ -234,9 +234,7 @@ public final class BeanUtils {
                     setterMethod.invoke(target, value);
                 }
             }
-        } catch (IntrospectionException | IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }

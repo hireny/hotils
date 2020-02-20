@@ -1,5 +1,7 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.core.lang.Symbol;
+
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Objects;
@@ -17,18 +19,64 @@ import java.util.regex.Pattern;
 public final class StringUtils {
     private StringUtils() {}
 
+    public static final String SPACE = " ";
+    public static final String TAB = "	";
+    public static final String DOT = ".";
+    public static final String DOUBLE_DOT = "..";
+    public static final String SLASH = "/";
+    public static final String BACKSLASH = "\\";
+    public static final String EMPTY = "";
+    public static final String NULL = "null";
+    public static final String CR = "\r";
+    public static final String LF = "\n";
+    public static final String CRLF = "\r\n";
+    public static final String UNDERLINE = "_";
+    public static final String DASHED = "-";
+    public static final String COMMA = ",";
+    public static final String DELIM_START = "{";
+    public static final String DELIM_END = "}";
+    public static final String BRACKET_START = "[";
+    public static final String BRACKET_END = "]";
+    public static final String COLON = ":";
+
+    public static final String HTML_NBSP = "&nbsp;";
+    public static final String HTML_AMP = "&amp;";
+    public static final String HTML_QUOTE = "&quot;";
+    public static final String HTML_APOS = "&apos;";
+    public static final String HTML_LT = "&lt;";
+    public static final String HTML_GT = "&gt;";
+
+    public static final String EMPTY_JSON = "{}";
+
     //-------------------------------------------------------
     // General convenience methods for working with Strings
     // 处理字符串的一般的简便方法
     //-------------------------------------------------------
 
     /**
-     * 判断字符串是否为空
+     * 检查字符串是否为 "" 或者 null
+     *
+     * <pre>
+     *     StringUtils.isEmpty(null)      = true
+     *     StringUtils.isEmpty("")        = true
+     *     StringUtils.isEmpty(" ")       = false
+     *     StringUtils.isEmpty("bob")     = false
+     *     StringUtils.isEmpty("  bob  ") = false
+     * </pre>
      * @param cs
      * @return
      */
     public static boolean isEmpty(CharSequence cs) {
         return cs == null || cs.length() == 0 || "".contentEquals(cs);
+    }
+
+    /**
+     * 判断字符串是null或空字符串
+     * @param string
+     * @return
+     */
+    public static boolean isNullOrEmpty(String string) {
+        return string == null || string.length() == 0;
     }
 
     /**
@@ -50,12 +98,63 @@ public final class StringUtils {
     }
 
     /**
-     * 判断字符串是null或空字符串
-     * @param string
+     * 检查 CharSequence是否只包含 Unicode 数字。
+     * 小数点不是 Unicode 数字。
+     *
+     * <pre>
+     *     StringUtils.isNumber(null) = false
+     *     StringUtils.isNumber("") = false
+     *     StringUtils.isNumber("  ") = false
+     *     StringUtils.isNumber("123") = true
+     *     StringUtils.isNumber("\u0967\u0968\u0969") = true
+     *     StringUtils.isNumber("12 3") = false
+     *     StringUtils.isNumber("ab2c") = false
+     *     StringUtils.isNumber("12-3") = false
+     *     StringUtils.isNumber("12.3") = false
+     *     StringUtils.isNumber("-123") = false
+     *     StringUtils.isNumber("+123") = false
+     * </pre>
+     * @param cs
      * @return
      */
-    public static boolean isNullOrEmpty(String string) {
-        return string == null || string.length() == 0;
+    public static boolean isNumber(final CharSequence cs) {
+        if (isEmpty(cs)) {
+            return false;
+        }
+        final int length = cs.length();
+        for (int i = 0; i < length; i++) {
+            if (!Character.isDigit(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 检查 CharSequence 是否只是包含空格
+     *
+     * <pre>
+     *     StringUtils.isWhitespace(null)   = false
+     *     StringUtils.isWhitespace("")     = true
+     *     StringUtils.isWhitespace("  ")   = true
+     *     StringUtils.isWhitespace("abc")  = false
+     *     StringUtils.isWhitespace("ab2c") = false
+     *     StringUtils.isWhitespace("ab-c") = false
+     * </pre>
+     * @param cs
+     * @return
+     */
+    public static boolean isWhitespace(final CharSequence cs) {
+        if (cs == null) {
+            return false;
+        }
+        final int length = cs.length();
+        for (int i = 0; i < length; i++) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -74,7 +173,7 @@ public final class StringUtils {
      * @return
      */
     public static boolean hasText(String str) {
-        return (str != null || str.length() > 0 || isBlank(str));
+        return (str != null || str.length() > 0 || !isBlank(str));
     }
 
     /**
@@ -485,16 +584,10 @@ public final class StringUtils {
     }
 
     /**
-     * 格式化文本, {} 表示占位符
-     * 此方法只是简单将占位符{} 按照顺序替换为参数
-     * 如果想输出{}使用\\转移 { 即可，如果想输出 {} 之前 \ 使用双转义符 \\\\ 即可
-     * 例子：
-     *  通常使用：format("this is {} for {}", "a", "b") =》 this is a for b<br>
-     * 	转义{}： format("this is \\{} for {}", "a", "b") =》 this is \{} for a<br>
-     * 	转义\： format("this is \\\\{} for {}", "a", "b") =》 this is \a for b<br>
-     * @param template  文本模板，被替换的部分用{}表示
-     * @param args      参数值
-     * @return          格式化后的文本
+     * 向模式串中的 %s 出按序插入目标对象
+     * @param template
+     * @param args
+     * @return
      */
     public static String lenientFormat(CharSequence template, Object... args) {
         template = String.valueOf(template);    // null -> "null"
@@ -532,8 +625,71 @@ public final class StringUtils {
             stringBuilder.append(']');
         }
         return stringBuilder.toString();
-
     }
+
+    /**
+     * 格式化文本, {} 表示占位符
+     * 此方法只是简单将占位符{} 按照顺序替换为参数
+     * 如果想输出{}使用\\转移 { 即可，如果想输出 {} 之前 \ 使用双转义符 \\\\ 即可
+     * 例子：
+     *  通常使用：format("this is {} for {}", "a", "b") =》 this is a for b<br>
+     * 	转义{}： format("this is \\{} for {}", "a", "b") =》 this is \{} for a<br>
+     * 	转义\： format("this is \\\\{} for {}", "a", "b") =》 this is \a for b<br>
+     * @param template  文本模板，被替换的部分用{}表示
+     * @param args      参数值
+     * @return          格式化后的文本
+     */
+    public static String format(final String template, final Object... args) {
+        if (isBlank(template) || ArrayUtils.isEmpty(args)) {
+            return template.toString();
+        }
+        int length = template.length();
+        // 初始化定义好的长度以获得更好的性能
+        StringBuilder stringBuilder = new StringBuilder(length + 50);
+
+        int handledPosition = 0;    //记录已经处理到的位置
+        int delimIndex;             // 占位符所在的位置
+        for (int i = 0, len = args.length; i < len; i++) {
+            delimIndex = template.indexOf(EMPTY_JSON, handledPosition);
+            if (delimIndex == -1) {
+                // 剩余部分无占位符
+                if (handledPosition == 0) {
+                    // 不带占位符的模板直接返回
+                    return template;
+                }
+                // 字符串模板剩余部分不再包含占位符，加入剩余部分后返回结果
+                stringBuilder.append(template, handledPosition, length);
+                return stringBuilder.toString();
+            }
+            // 转义符
+            if (delimIndex > 0 && template.charAt(delimIndex - 1) == Symbol.BACKSLASH) {    // 转义符
+                if (delimIndex > 1 && template.charAt(delimIndex - 1) == Symbol.BACKSLASH) {    // 双转义符
+                    // 转义符之前还有一个转义符，占位符依旧有效
+                    stringBuilder.append(template, handledPosition, delimIndex - 1);
+                    stringBuilder.append(stringForUtf8(args[i]));
+                    handledPosition = delimIndex + 2;
+                } else {
+                    // 占位符被转义
+                    i--;
+                    stringBuilder.append(template, handledPosition, delimIndex - 1);
+                    stringBuilder.append(Symbol.DELIM_START);
+                    handledPosition = delimIndex + 1;
+                }
+            } else {    // 正常占位符
+                stringBuilder.append(template, handledPosition, delimIndex);
+                stringBuilder.append(stringForUtf8(args[i]));
+                handledPosition = delimIndex + 2;
+            }
+        }
+        // append the characters following the last {} pair
+        // 加入最后一个占位符后所有的字符串
+        stringBuilder.append(template, handledPosition, template.length());
+        return stringBuilder.toString();
+    }
+
+    //==========================================================
+    // toString()方法
+    //==========================================================
 
     /**
      * 将对象转为字符串

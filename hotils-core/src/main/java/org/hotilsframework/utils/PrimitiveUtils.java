@@ -42,7 +42,6 @@ public final class PrimitiveUtils {
     static {
         Map<Class<?>, Class<?>> primToWrap = new LinkedHashMap<>(16);
         Map<Class<?>, Class<?>> wrapToPrim = new LinkedHashMap<>(16);
-        Map<String, Class<?>> tempCommonClassCache = new LinkedHashMap<>(16);
         Map<String, Class<?>> tempPrimitiveTypeNameMap = new LinkedHashMap<>(32);
 
         add(primToWrap, wrapToPrim, boolean.class, Boolean.class);
@@ -152,23 +151,14 @@ public final class PrimitiveUtils {
     //=============================================
 
     /**
-     * 如果给定的类是基本类型，则返回它对应的相应包装类
-     * @param clazz
-     * @return
-     */
-    public static Class<?> resolvePrimitiveIfNecessary(Class<?> clazz) {
-        Assert.notNull(clazz, "Class must not be null.");
-        return (clazz.isPrimitive() && clazz != void.class ? PRIMITIVE_TO_WRAPPER_TYPE.get(clazz) : clazz);
-    }
-
-    /**
      * 获取基本类型的包装类型
      * @param type
      * @return
      */
-    public static Class<?> wrap(Class<?> type) {
+    public static <T> Class<T> wrap(Class<T> type) {
         Assert.notNull(type, "class must not be null.");
-        return (type.isPrimitive() && type != void.class ? PRIMITIVE_TO_WRAPPER_TYPE.get(type) : type);
+        Class<T> wrapped = (Class<T>) PRIMITIVE_TO_WRAPPER_TYPE.get(type);
+        return (wrapped == null) ? type : wrapped;
     }
 
     /**

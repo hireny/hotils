@@ -60,9 +60,7 @@ public abstract class CodecSupport {
         }
         if (o instanceof byte[]) {
             return (byte[]) o;
-        } else if (o instanceof Bytes) {
-            return ((Bytes) o).getBytes();
-        } else if (o instanceof char[]) {
+        }  else if (o instanceof char[]) {
             return toBytes((char[]) o);
         } else if (o instanceof String) {
             return toBytes((String) o);
