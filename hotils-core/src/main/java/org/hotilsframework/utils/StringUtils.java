@@ -5,8 +5,6 @@ import org.hotilsframework.core.lang.Symbol;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,16 +69,15 @@ public final class StringUtils {
     }
 
     /**
-     * 判断字符串是null或空字符串
-     * @param string
-     * @return
-     */
-    public static boolean isNullOrEmpty(String string) {
-        return string == null || string.length() == 0;
-    }
-
-    /**
-     * 判断字符串是否为空或空白
+     * 判断字符串是空白
+     *
+     * <pre>
+     *     StringUtils.isBlank(null)      = true
+     *     StringUtils.isBlank("")        = true
+     *     StringUtils.isBlank(" ")       = true
+     *     StringUtils.isBlank("bob")     = false
+     *     StringUtils.isBlank("  bob  ") = false
+     * </pre>
      * @param cs
      * @return
      */
@@ -100,6 +97,8 @@ public final class StringUtils {
     /**
      * 检查 CharSequence是否只包含 Unicode 数字。
      * 小数点不是 Unicode 数字。
+     *
+     * 该方法使用的是Java自带的函数 Character.isDigit(char ch) ，只能判断正整数
      *
      * <pre>
      *     StringUtils.isNumber(null) = false
@@ -158,31 +157,21 @@ public final class StringUtils {
     }
 
     /**
-     * Check that the given {@code CharSequence} is neither {@code null} nor of length 0.
-     * 检查给定的 {@code CharSequence} 既不是为null也不是长度为0
-     * @param str
+     * 检查 CharSequence 是否是汉字
+     * @param cs
      * @return
      */
-    public static boolean hasLength(String str) {
-        return (str != null || str.length() > 0);
-    }
-
-    /**
-     * 检查给定的 {@code CharSequence} 存在文本
-     * @param str
-     * @return
-     */
-    public static boolean hasText(String str) {
-        return (str != null || str.length() > 0 || !isBlank(str));
-    }
-
-    /**
-     * 判断是否为空字符串，为""字符串返回null，不为 "" 则返回原本字符串
-     * @param string
-     * @return
-     */
-    public static String emptyToNull(String string) {
-        return isNullOrEmpty(string) ? null : string;
+    public static boolean isChinese(final CharSequence cs) {
+        if (isBlank(cs)) {
+            return false;
+        }
+        String regex = "[^u4E00-u9FA5]+";
+        Pattern pattern = Pattern.compile(regex, 34);
+        Matcher matcher = pattern.matcher(cs);
+        if (matcher.find()) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -193,6 +182,15 @@ public final class StringUtils {
      */
     public static String nullToEmpty(Object obj) {
         return (obj == null ? "" : (obj instanceof String ? (String) obj : obj.toString()));
+    }
+
+    /**
+     * 判断是否为空字符串，为""字符串返回null，不为 "" 则返回原本字符串
+     * @param string
+     * @return
+     */
+    public static String emptyToNull(String string) {
+        return isEmpty(string) ? null : string;
     }
 
     /**
@@ -209,21 +207,10 @@ public final class StringUtils {
     }
 
     /**
-     * 判断两个字符串是否相同
-     *
-     * @param a 作为对比的字符串
-     * @param b 作为对比的字符串
-     * @return 是否相同
-     */
-    public static boolean equals(String a, String b) {
-        return ObjectUtils.equals(a, b);
-    }
-
-    /**
      * 取出开头和结尾的空白
      */
-    public static String trimWhiteSpace(String str) {
-        if (!hasLength(str)) {
+    public static String trimWhitespace(String str) {
+        if (isBlank(str)) {
             return str;
         }
 
@@ -244,8 +231,8 @@ public final class StringUtils {
     /**
      * 取出字符串中所有的空白 例如： " hello, World ! " -> "hello,World!"
      */
-    public static String trimAllWhiteSpace(String str) {
-        if (!hasLength(str)) {
+    public static String trimAllWhitespace(String str) {
+        if (isBlank(str)) {
             return str;
         }
 
@@ -258,6 +245,40 @@ public final class StringUtils {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * 首字母小写
+     * @param str
+     * @return
+     */
+    public static String decapitalize(String str) {
+        if (str != null && str.length() != 0) {
+            if (str.length() > 1 && Character.isLowerCase(str.charAt(0))) {
+                return str;
+            } else {
+                char[] chars = str.toCharArray();
+                chars[0] = Character.toLowerCase(chars[0]);
+                return new String(chars);
+            }
+        } else {
+            return str;
+        }
+    }
+
+    /**
+     * 首字母大写
+     * @param str
+     * @return
+     */
+    public static String capitalize(String str) {
+        if (str != null && str.length() != 0) {
+            char[] chars = str.toCharArray();
+            chars[0] = Character.toUpperCase(chars[0]);
+            return new String(chars);
+        } else {
+            return str;
+        }
     }
 
     /**
@@ -549,39 +570,9 @@ public final class StringUtils {
                 && Character.isLowSurrogate(cs.charAt(index + 1));
     }
 
-    /**
-     * 首字母小写
-     * @param str
-     * @return
-     */
-    public static String decapitalize(String str) {
-        if (str != null && str.length() != 0) {
-            if (str.length() > 1 && Character.isUpperCase(str.charAt(1)) && Character.isUpperCase(str.charAt(0))) {
-                return str;
-            } else {
-                char[] chars = str.toCharArray();
-                chars[0] = Character.toLowerCase(chars[0]);
-                return new String(chars);
-            }
-        } else {
-            return str;
-        }
-    }
-
-    /**
-     * 首字母大写
-     * @param str
-     * @return
-     */
-    public static String capitalize(String str) {
-        if (str != null && str.length() != 0) {
-            char[] chars = str.toCharArray();
-            chars[0] = Character.toUpperCase(chars[0]);
-            return new String(chars);
-        } else {
-            return str;
-        }
-    }
+    //==========================================================
+    // 模板方法，使用参数替换字符串中的模板
+    //==========================================================
 
     /**
      * 向模式串中的 %s 出按序插入目标对象
@@ -685,6 +676,21 @@ public final class StringUtils {
         // 加入最后一个占位符后所有的字符串
         stringBuilder.append(template, handledPosition, template.length());
         return stringBuilder.toString();
+    }
+
+    //==========================================================
+    // equals 判断两个字符串是否相等
+    //==========================================================
+
+    /**
+     * 判断两个字符串是否相同
+     *
+     * @param a 作为对比的字符串
+     * @param b 作为对比的字符串
+     * @return 是否相同
+     */
+    public static boolean equals(String a, String b) {
+        return ObjectUtils.equals(a, b);
     }
 
     //==========================================================
@@ -834,50 +840,6 @@ public final class StringUtils {
     public static String toString(CharSequence cs) {
         return null == cs ? null : cs.toString();
     }
-
-//    /**
-//     * 将集合转换为中间使用分隔符 {@code delim} 隔开的字符串
-//     * @param coll
-//     * @param delim
-//     * @return
-//     */
-//    public static String collectionToDelimitedString(Collection<?> coll, String delim) {
-//        return collectionToDelimitedString(coll, delim, "", "");
-//    }
-//
-//    /**
-//     * 将集合转换为中间使用逗号(,)隔开的字符串
-//     * @param coll
-//     * @return
-//     */
-//    public static String collectionToCommaDelimitedString(Collection<?> coll) {
-//        return collectionToDelimitedString(coll, ",");
-//    }
-//
-//    /**
-//     * 将集合转换为中间使用分隔符 {@code delim} 隔开的字符串，并且字符串前后带有前缀和后缀
-//     * @param coll      集合
-//     * @param delim     中间隔开的字符串
-//     * @param prefix    前缀
-//     * @param suffix    后缀
-//     * @return  String 例如：[a,b,c,d] -> "$a,b,c,d^"(,为分隔符；$为前缀；^为后缀)
-//     */
-//    public static String collectionToDelimitedString(
-//            Collection<?> coll, String delim, String prefix, String suffix) {
-//        if (Collections.isEmpty(coll)) {
-//            return "";
-//        }
-//
-//        StringBuilder sb = new StringBuilder();
-//        Iterator<?> it = coll.iterator();
-//        while (it.hasNext()) {
-//            sb.append(prefix).append(it.next()).append(suffix);
-//            if (it.hasNext()) {
-//                sb.append(delim);
-//            }
-//        }
-//        return sb.toString();
-//    }
 
     /**
      * 字符串转换类

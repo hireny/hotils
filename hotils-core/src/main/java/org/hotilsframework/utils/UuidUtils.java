@@ -1,5 +1,8 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.core.lang.ObjectId;
+
+import java.security.cert.TrustAnchor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -11,7 +14,7 @@ import java.util.UUID;
  * @Date: Create in 2019/12/07 01:34
  * @Description: TODO   UUID工具类
  */
-public class UUIDUtils {
+public class UuidUtils {
 
     /*
      * 知识点：
@@ -30,6 +33,24 @@ public class UUIDUtils {
      * String s = UUID.randomUUID().toString();用来生成数据库的主键id非常不错。
      * UUID是由一个十六位的数字组成,表现出来的形式例如 550E8400-E29B-11D4-A716-446655440000
      */
+
+    /**
+     * 获取随机UUID
+     *
+     * @return  随机UUID
+     */
+    public static String randomUUID() {
+        return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 简化的UUID，去掉了横线
+     *
+     * @return  简化的UUID，去掉了横线
+     */
+    public static String simpleUUID() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
+    }
 
     /***
      * 随机产生32位16进制字符串
@@ -80,8 +101,8 @@ public class UUIDUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println("随机" + UUIDUtils.getRandom32PK().length() + "位：" + UUIDUtils.getRandom32PK());
-        System.out.println("随机" + UUIDUtils.getRandom32BeginTimePK().length() + "位以时间打头：" + UUIDUtils.getRandom32BeginTimePK());
-        System.out.println("随机" + UUIDUtils.getRandom32EndTimePK().length() + "位以时间结尾：" + UUIDUtils.getRandom32EndTimePK());
+        System.out.println("随机" + UuidUtils.getRandom32PK().length() + "位：" + UuidUtils.getRandom32PK());
+        System.out.println("随机" + UuidUtils.getRandom32BeginTimePK().length() + "位以时间打头：" + UuidUtils.getRandom32BeginTimePK());
+        System.out.println("随机" + UuidUtils.getRandom32EndTimePK().length() + "位以时间结尾：" + UuidUtils.getRandom32EndTimePK());
     }
 }

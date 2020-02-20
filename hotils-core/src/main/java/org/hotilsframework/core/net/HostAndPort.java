@@ -127,7 +127,7 @@ public final class HostAndPort implements Serializable {
         }
 
         int port = NO_PORT;
-        if (!StringUtils.isNullOrEmpty(portString)) {
+        if (!StringUtils.isEmpty(portString)) {
             // Try to parse the whole port string as a number.
             // JDK7 accepts leading plus signs. We don't want to.
             Assert.isTrue(!portString.startsWith("+"), "Unparseable port number: " + hostPortString);

@@ -14,6 +14,6 @@ import java.util.UUID;
 public class StringToUUIDConverter implements Converter<String, UUID> {
     @Override
     public UUID convert(String source) {
-        return StringUtils.hasLength(source) ? UUID.fromString(source.trim()) : null;
+        return StringUtils.isBlank(source) ?  null : UUID.fromString(source.trim());
     }
 }

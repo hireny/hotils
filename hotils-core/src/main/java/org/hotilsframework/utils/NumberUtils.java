@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * 数字工具类
@@ -344,7 +345,7 @@ public final class NumberUtils {
         Assert.notNull(targetClass, "Target class must not be null");
 
         // 剔除所有的空格
-        String trimmed = StringUtils.trimAllWhiteSpace(value);
+        String trimmed = StringUtils.trimAllWhitespace(value);
 
         if (Byte.class == targetClass) {
             return (T) (isHexNumber(trimmed) ? Byte.decode(trimmed) : Byte.valueOf(trimmed));
@@ -376,19 +377,13 @@ public final class NumberUtils {
      * @param value
      * @return
      */
-//    public static boolean isNumber(final String value) {
-//        if (StringUtils.isEmpty(value)) {
-//            return false;
-//        }
-//        final char[] chars = value.toCharArray();
-//        int length = chars.length;
-//        boolean hasExp = false;
-//        boolean hasDecPoint = false;
-//        boolean allowSigns = false;
-//        boolean foundDigit = false;
-//        // deal with any possible sign up front
-//        final int start = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
-//    }
+    public static boolean isNumeric(String value) {
+        if (StringUtils.isEmpty(value)) {
+            return false;
+        }
+        String regex = "-?[0-9]+.?[0-9]*";
+        return value.matches(regex);
+    }
 
     /**
      * 判断字符串是否16进制
