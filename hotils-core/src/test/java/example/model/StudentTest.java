@@ -1,6 +1,6 @@
 package example.model;
 
-import org.hotilsframework.lang.Gender;
+import org.hotilsframework.core.lang.Gender;
 
 import java.util.Objects;
 import java.util.StringJoiner;

@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.lang.Symbol;
+import org.hotilsframework.core.lang.Symbol;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;

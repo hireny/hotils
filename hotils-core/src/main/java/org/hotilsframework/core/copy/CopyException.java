@@ -1,6 +1,6 @@
 package org.hotilsframework.core.copy;
 
-import org.hotilsframework.lang.NestedRuntimeException;
+import org.hotilsframework.core.lang.NestedRuntimeException;
 
 /**
  * 复制异常

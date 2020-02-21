@@ -1,6 +1,6 @@
 package org.hotilsframework.core.serializer;
 
-import org.hotilsframework.lang.NestedRuntimeException;
+import org.hotilsframework.core.lang.NestedRuntimeException;
 
 /**
  * 序列化失败异常

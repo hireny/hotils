@@ -1,7 +1,7 @@
 package org.hotilsframework.core.beans;
 
 import org.hotilsframework.core.beans.copier.CopyOptions;
-import org.hotilsframework.lang.Copy;
+import org.hotilsframework.core.lang.Copy;
 import org.hotilsframework.utils.ObjectUtils;
 
 import java.io.Serializable;

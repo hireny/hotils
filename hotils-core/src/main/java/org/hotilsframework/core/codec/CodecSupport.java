@@ -1,6 +1,6 @@
 package org.hotilsframework.core.codec;
 
-import org.hotilsframework.lang.primitives.Bytes;
+import org.hotilsframework.core.lang.primitives.Bytes;
 
 import java.io.File;
 import java.io.InputStream;

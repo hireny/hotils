@@ -3,7 +3,7 @@ package org.hotilsframework.core.beans.copier;
 import org.hotilsframework.core.beans.BeanMap;
 import org.hotilsframework.core.beans.BeanUtils;
 import org.hotilsframework.core.beans.FatalBeansException;
-import org.hotilsframework.lang.Copy;
+import org.hotilsframework.core.lang.Copy;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.ClassUtils;
 

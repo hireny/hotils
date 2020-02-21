@@ -1,6 +1,6 @@
 package org.hotilsframework.core.collection;
 
-import org.hotilsframework.lang.NestedRuntimeException;
+import org.hotilsframework.core.lang.NestedRuntimeException;
 
 /**
  * 没有这样的集合类型异常
