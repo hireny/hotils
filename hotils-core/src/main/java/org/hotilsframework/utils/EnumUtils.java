@@ -1,13 +1,14 @@
-package org.hotilsframework.core.lang;
+package org.hotilsframework.utils;
 
 import java.lang.reflect.Field;
 
 /**
+ * 枚举工具测试类
  * @Author: hireny
  * @Date: Create in 2019/09/30 01:30
  */
-public final class Enums {
-    private Enums() {}
+public final class EnumUtils {
+    private EnumUtils() {}
 
     public static Field getField(Enum<?> enumValue) {
         Class<?> clazz = enumValue.getDeclaringClass();

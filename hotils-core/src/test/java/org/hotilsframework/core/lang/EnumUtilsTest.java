@@ -1,5 +1,6 @@
 package org.hotilsframework.core.lang;
 
+import org.hotilsframework.utils.EnumUtils;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -10,11 +11,11 @@ import java.lang.reflect.Field;
  * @Date: Created in 2020-01-30 13:36
  * @Version: 1.0
  */
-public class EnumsTest {
+public class EnumUtilsTest {
 
     @Test
     public void enumFieldTest() {
-        Field field = Enums.getField(Gender.Male);
+        Field field = EnumUtils.getField(Gender.Male);
         System.out.println(field);
     }
 }
