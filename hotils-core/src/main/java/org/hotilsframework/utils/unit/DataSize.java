@@ -119,6 +119,10 @@ public final class DataSize implements Comparable<DataSize> {
         return Long.hashCode(this.bytes);
     }
 
+    @Override
+    public String toString() {
+        return String.format("%dB", this.bytes);
+    }
 
     /**
      * 静态方法获取表示字节数的 {@link DataSize} 对象
