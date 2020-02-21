@@ -39,7 +39,7 @@ public class Assert {
      */
     public static void isTrue(boolean expression, String errorMessage, Object... args) throws IllegalArgumentException {
         if (!expression) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
     }
 
@@ -70,7 +70,7 @@ public class Assert {
      */
     public static void isNull(Object object, String errorMessage, Object... args) throws IllegalArgumentException {
         if (object != null) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
     }
 
@@ -109,7 +109,7 @@ public class Assert {
      */
     public static <T extends Object> T notNull(T reference, String errorMessage, Object... args) throws IllegalArgumentException {
         if (reference == null) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
         return reference;
     }
@@ -153,7 +153,7 @@ public class Assert {
      */
     public static <T extends CharSequence> T notEmpty(T reference, String errorMessage, Object... args) throws IllegalArgumentException {
         if (StringUtils.isEmpty(reference)) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
         return reference;
     }
@@ -188,7 +188,7 @@ public class Assert {
      */
     public static Object[] notEmpty(Object[] array, String errorMessage, Object... args) throws IllegalArgumentException {
         if (ArrayUtils.isEmpty(array)) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
         return array;
     }
@@ -225,7 +225,7 @@ public class Assert {
      */
     public static <T> Collection<T> notEmpty(Collection<T> collection, String errorMessage, Object... args) throws IllegalArgumentException {
         if (CollectionUtils.isEmpty(collection)) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
         return collection;
     }
@@ -264,7 +264,7 @@ public class Assert {
      */
     public static <K, V> Map<K, V> notEmpty(Map<K, V> map, String errorMessage, Object... args) throws IllegalArgumentException {
         if (CollectionUtils.isEmpty(map)) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
         return map;
     }
@@ -304,7 +304,7 @@ public class Assert {
      */
     public static <T extends CharSequence> T notBlank(T reference, String errorMessage, Object... args) throws IllegalArgumentException {
         if (StringUtils.isBlank(reference)) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
         return reference;
     }
@@ -350,7 +350,7 @@ public class Assert {
      */
     public static String doesNotContain(String textToSearch, String substring, String errorMessage, Object... args) throws IllegalArgumentException {
         if (!StringUtils.isEmpty(textToSearch) && !StringUtils.isEmpty(substring) && textToSearch.contains(substring)) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
         return substring;
     }
@@ -396,7 +396,7 @@ public class Assert {
      */
     public static <T> T[] noNullElements(T[] array, String errorMessage, Object... args) throws IllegalArgumentException {
         if (ArrayUtils.hasNull(array)) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
         return array;
     }
@@ -443,7 +443,7 @@ public class Assert {
     public static <T> T isInstanceOf(Class<?> type, T obj, String errorMessage, Object... args) throws IllegalArgumentException {
         notNull(type, "Type to check against must not be null.");
         if (false == type.isInstance(obj)) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
         return obj;
     }
@@ -487,7 +487,7 @@ public class Assert {
     public static void isAssignable(Class<?> superType, Class<?> subType, String errorMessage, Object... args) throws IllegalArgumentException {
         notNull(superType, "Type to check against must not be null.");
         if (subType == null || !superType.isAssignableFrom(subType)) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
     }
 
@@ -525,7 +525,7 @@ public class Assert {
      */
     public static void state(boolean expression, String errorMessage, Object... args) throws IllegalStateException {
         if (!expression) {
-            throw new IllegalStateException(StringUtils.lenientFormat(errorMessage, args));
+            throw new IllegalStateException(StringUtils.format(errorMessage, args));
         }
     }
 
@@ -585,7 +585,7 @@ public class Assert {
      */
     public static long checkBetween(long value, long min, long max) {
         if (value < min || value > max) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat("Length must be between {} and {}.", min, max));
+            throw new IllegalArgumentException(StringUtils.format("Length must be between {} and {}.", min, max));
         }
         return value;
     }
@@ -600,7 +600,7 @@ public class Assert {
      */
     public static double checkBetween(double value, double min, double max) {
         if (value < min || value > max) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat("Length must be between {} and {}.", min, max));
+            throw new IllegalArgumentException(StringUtils.format("Length must be between {} and {}.", min, max));
         }
         return value;
     }
@@ -621,7 +621,7 @@ public class Assert {
         double minDouble = min.doubleValue();
         double maxDouble = max.doubleValue();
         if (valueDouble < minDouble || valueDouble > maxDouble) {
-            throw new IllegalArgumentException(StringUtils.lenientFormat("Length must be between {} and {}.", min, max));
+            throw new IllegalArgumentException(StringUtils.format("Length must be between {} and {}.", min, max));
         }
         return value;
     }
@@ -640,12 +640,12 @@ public class Assert {
      */
     private static String badIndexMessage(int index, int size, String desc, Object... args) {
         if (index < 0) {
-            return StringUtils.lenientFormat("{} ({}) must not be negative", StringUtils.lenientFormat(desc, args), index);
+            return StringUtils.format("{} ({}) must not be negative", StringUtils.format(desc, args), index);
         } else if (size < 0) {
             throw new IllegalArgumentException("negative size: " + size);
         } else {
             // index >= size
-            return StringUtils.lenientFormat("{} ({}) must be less than size ({})", StringUtils.lenientFormat(desc, args), index, size);
+            return StringUtils.format("{} ({}) must be less than size ({})", StringUtils.format(desc, args), index, size);
         }
     }
 }

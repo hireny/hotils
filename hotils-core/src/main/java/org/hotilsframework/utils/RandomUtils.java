@@ -176,7 +176,7 @@ public final class RandomUtils {
      */
     public static byte[] randomBytes(int length) {
         byte[] bytes = new byte[length];
-        getRandom().nextBytes(bytes);
+        getThreadLocalRandom().nextBytes(bytes);
         return bytes;
     }
 

@@ -1,6 +1,10 @@
-package org.hotilsframework.utils;
+package org.hotilsframework.core.math;
+
+import org.hotilsframework.core.collection.Lists;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 数学工具类
@@ -9,9 +13,9 @@ import java.math.BigDecimal;
  * @author hireny
  * @create 2020-02-17 17:56
  */
-public final class MathUtils {
+public final class Maths {
 
-    private MathUtils() {}
+    private Maths() {}
 
     /**
      * 设置限制范围，确保不超出范围；如果超出，则取最小值或最大值
@@ -77,6 +81,55 @@ public final class MathUtils {
         return src;
     }
 
+    /**
+     * 统计一个数的所有因子
+     *
+     * 假设整数n除以m，结果是无余数的整数，那么我们称m就是n的因子。
+     * 需要注意的是，唯有被除数，除数，商皆为整数，余数为零时，此关系才成立。反过来说，我们称n为m的倍数。
+     * @param n
+     * @return
+     */
+    public static Integer[] factors(int n) {
+        if (0 >= n) {
+            return null;
+        }
+        List<Integer> factors = Lists.newArrayList();
+        int half = n / 2;
+        for (int i = 1; i <= half; i++) {
+            if (n % i == 0) {
+                factors.add(i);
+            }
+        }
+        Integer[] result = new Integer[factors.size()];
+        factors.toArray(result);
+        return result;
+    }
+
+    /**
+     * 求最大公约数
+     *
+     * 辗转相除法与因式分解法
+     *
+     * 使用辗转相除法实现
+     * @param num1  数字1
+     * @param num2  数字2
+     * @return      最大公约数
+     */
+    public static int gcd(int num1, int num2) {
+        return (0 == num1 % num2) ? num2 : gcd(num2, num1 % num2);
+    }
+
+    /**
+     * 最小公倍数
+     *
+     * 两数相乘除以最大公约数即为最小公倍数
+     * @param num1  数字1
+     * @param num2  数字2
+     * @return      最小公倍数
+     */
+    public static int lcm(int num1, int num2) {
+        return num1 * num2 / gcd(num1, num2);
+    }
 
     //================================================================//
     // 数值计算
