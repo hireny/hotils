@@ -1,7 +1,5 @@
 package org.hotilsframework.utils;
 
-import com.sun.deploy.util.ArrayUtil;
-
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
@@ -42,46 +40,24 @@ public class ObjectUtils {
         if (o == "") {
             return true;
         }
-        if (o instanceof String) {
-            return ((String) o).length() == 0;
-        } else if (o instanceof Optional) {
+
+        if (o instanceof Optional) {
+
             return !((Optional) o).isPresent();
         } else if (o instanceof CharSequence) {
+
             return ((CharSequence) o).length() == 0;
         } else if (o.getClass().isArray()) {
+
             return Array.getLength(o) == 0;
         } else if (o instanceof Collection) {
+
             return ((Collection) o).isEmpty();
         } else if (o instanceof Map) {
+
             return ((Map) o).isEmpty();
         }
         return false;
-    }
-
-    /**
-     * 获取对象的类型
-     * @param o
-     * @return
-     */
-    public static Class<?> getClass(Object o) {
-        if (o.getClass() == boolean.class) {
-            return boolean.class;
-        } else if (o.getClass() == char.class) {
-            return char.class;
-        } else if (o.getClass() == byte.class) {
-            return byte.class;
-        } else if (o.getClass() == short.class) {
-            return short.class;
-        } else if (o.getClass() == int.class) {
-            return int.class;
-        } else if (o.getClass() == long.class) {
-            return long.class;
-        } else if (o.getClass() == float.class) {
-            return float.class;
-        } else if (o.getClass() == double.class) {
-            return double.class;
-        }
-        return o.getClass();
     }
 
     /**
@@ -103,13 +79,13 @@ public class ObjectUtils {
             Assert.isTrue(!(result instanceof Optional), "Multi-level Optional usage not supported");
             return result;
         }
-        if (obj instanceof org.hotilsframework.core.lang.Optional) {
-            org.hotilsframework.core.lang.Optional<?> optional = (org.hotilsframework.core.lang.Optional<?>) obj;
+        if (obj instanceof org.hotilsframework.lang.Optional) {
+            org.hotilsframework.lang.Optional<?> optional = (org.hotilsframework.lang.Optional<?>) obj;
             if (!optional.isPresent()) {
                 return null;
             }
             Object result = optional.get();
-            Assert.isTrue(!(result instanceof org.hotilsframework.core.lang.Optional), "Multi-level Optional usage not supported");
+            Assert.isTrue(!(result instanceof org.hotilsframework.lang.Optional), "Multi-level Optional usage not supported");
             return result;
         }
         return obj;

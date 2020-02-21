@@ -3,8 +3,8 @@ package org.hotilsframework.core.logging.layout.pattern;
 import org.hotilsframework.core.collection.Lists;
 import org.hotilsframework.core.collection.Maps;
 import org.hotilsframework.core.convert.converter.Converter;
-import org.hotilsframework.core.lang.Symbol;
-import org.hotilsframework.core.lang.reflect.ReflectionException;
+import org.hotilsframework.lang.Symbol;
+import org.hotilsframework.lang.reflect.ReflectionException;
 import org.hotilsframework.core.logging.LoggingEvent;
 import org.hotilsframework.utils.ReflectionUtils;
 

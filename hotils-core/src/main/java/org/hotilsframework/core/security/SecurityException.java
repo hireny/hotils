@@ -1,6 +1,6 @@
 package org.hotilsframework.core.security;
 
-import org.hotilsframework.core.lang.NestedRuntimeException;
+import org.hotilsframework.lang.NestedRuntimeException;
 
 /**
  * 安全异常

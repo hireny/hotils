@@ -1,6 +1,6 @@
 package org.hotilsframework.web.utils;
 
-import org.hotilsframework.core.lang.Splitter;
+import org.hotilsframework.lang.Splitter;
 
 import java.util.List;
 

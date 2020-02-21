@@ -1,7 +1,7 @@
 package org.hotilsframework.web.utils;
 
 import org.hotilsframework.core.collection.Maps;
-import org.hotilsframework.core.lang.Symbol;
+import org.hotilsframework.lang.Symbol;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.StringUtils;
 import org.slf4j.Logger;

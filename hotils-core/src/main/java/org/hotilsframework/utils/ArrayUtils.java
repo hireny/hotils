@@ -1,8 +1,8 @@
 package org.hotilsframework.utils;
 
 import org.hotilsframework.core.collection.Lists;
-import org.hotilsframework.core.lang.Filter;
-import org.hotilsframework.core.lang.NestedRuntimeException;
+import org.hotilsframework.lang.Filter;
+import org.hotilsframework.lang.NestedRuntimeException;
 import org.hotilsframework.utils.comparator.Comparators;
 
 import java.lang.reflect.Array;

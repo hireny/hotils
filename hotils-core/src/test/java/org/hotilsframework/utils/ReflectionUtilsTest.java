@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.model.UserTestClass;
+import example.model.UserTestClass;
 import org.junit.Test;
 
 import java.lang.reflect.Field;

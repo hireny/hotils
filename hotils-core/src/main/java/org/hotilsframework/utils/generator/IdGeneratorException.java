@@ -1,6 +1,6 @@
 package org.hotilsframework.utils.generator;
 
-import org.hotilsframework.core.lang.NestedRuntimeException;
+import org.hotilsframework.lang.NestedRuntimeException;
 
 /**
  * ID生成异常

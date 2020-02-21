@@ -1,7 +1,7 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.lang.Gender;
-import org.hotilsframework.model.PersonTest;
+import org.hotilsframework.lang.Gender;
+import example.model.PersonTest;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,24 +18,9 @@ public class ObjectUtilsTest {
      * 测试对象的类型
      */
     @Test
-    public void getClassTest() {
-        int a = 2;
-        char b = 'b';
-        boolean c = true;
-        long d = 590892L;
-        String e = "12345abc";
-        Number f = 12345.5;
-        float g = 23493.093f;
-        double[] h = {2.1, 230.92, 23984.98};
-        System.out.println(ObjectUtils.getClass(a));
-        System.out.println(ObjectUtils.getClass(b));
-        System.out.println(ObjectUtils.getClass(c));
-        System.out.println(ObjectUtils.getClass(d));
-        System.out.println(ObjectUtils.getClass(e));
-        System.out.println(ObjectUtils.getClass(f));
-        System.out.println(ObjectUtils.getClass(g));
-        System.out.println(ObjectUtils.getClass(h));
-        System.out.println(int.class);
+    public void isEmptyTest() {
+        Object o1 = null;
+        System.out.println(ObjectUtils.isEmpty(o1));
     }
 
     /**
