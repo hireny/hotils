@@ -1,6 +1,5 @@
 package org.hotilsframework.core.lang.reflect;
 
-import org.hotilsframework.core.lang.NestedException;
 import org.hotilsframework.core.lang.NestedRuntimeException;
 
 /**

@@ -65,7 +65,7 @@ public final class StringUtils {
      * @return
      */
     public static boolean isEmpty(CharSequence cs) {
-        return cs == null || cs.length() == 0 || "".contentEquals(cs);
+        return cs == null || cs.length() == 0;
     }
 
     /**
@@ -253,17 +253,12 @@ public final class StringUtils {
      * @return
      */
     public static String decapitalize(String str) {
-        if (str != null && str.length() != 0) {
-            if (str.length() > 1 && Character.isLowerCase(str.charAt(0))) {
-                return str;
-            } else {
-                char[] chars = str.toCharArray();
-                chars[0] = Character.toLowerCase(chars[0]);
-                return new String(chars);
-            }
-        } else {
+        if (isBlank(str) || (str.length() > 1 && Character.isLowerCase(str.charAt(0)))) {
             return str;
         }
+        char[] chars = str.toCharArray();
+        chars[0] = Character.toLowerCase(chars[0]);
+        return String.valueOf(chars);
     }
 
     /**
@@ -272,13 +267,12 @@ public final class StringUtils {
      * @return
      */
     public static String capitalize(String str) {
-        if (str != null && str.length() != 0) {
-            char[] chars = str.toCharArray();
-            chars[0] = Character.toUpperCase(chars[0]);
-            return new String(chars);
-        } else {
+        if (isBlank(str) || (str.length() > 1 && Character.isUpperCase(str.charAt(0)))) {
             return str;
         }
+        char[] chars = str.toCharArray();
+        chars[0] = Character.toUpperCase(chars[0]);
+        return String.valueOf(chars);
     }
 
     /**

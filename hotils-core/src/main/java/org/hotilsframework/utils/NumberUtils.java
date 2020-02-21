@@ -318,11 +318,32 @@ public final class NumberUtils {
      * @return
      */
     public static short toShort(final String value, final short defaultValue) {
-        if (StringUtils.isEmpty(value)) {
+        if (StringUtils.isBlank(value)) {
             return defaultValue;
         }
         try {
             return Short.parseShort(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    public static boolean toBoolean(final String value) {
+        return toBoolean(value);
+    }
+
+    /**
+     * 将boolean类型的字符串转换为boolean类型
+     * @param value
+     * @param defaultValue
+     * @return
+     */
+    public static boolean toBoolean(final String value, final boolean defaultValue) {
+        if (StringUtils.isBlank(value)) {
+            return defaultValue;
+        }
+        try {
+            return Boolean.parseBoolean(value);
         } catch (NumberFormatException e) {
             return defaultValue;
         }

@@ -1,7 +1,5 @@
 package org.hotilsframework.core.logging;
 
-import org.hotilsframework.core.lang.Console;
-
 /**
  * 日志记录器
  * @author hireny

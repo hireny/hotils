@@ -1,6 +1,10 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.core.lang.Gender;
+import org.hotilsframework.model.PersonTest;
 import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * 对象工具类测试
@@ -61,5 +65,22 @@ public class ObjectUtilsTest {
         System.out.println(ObjectUtils.equals(new double[]{1.2, 1.324, 98.1023}, new double[]{1.2, 1.324, 98.1023}));
         System.out.println("判断 new double[]{1.2, 1.324, 98.1023} 与 new float[]{1.2f, 98.1023f, 1.324f}");
         System.out.println(ObjectUtils.equals(new double[]{1.2, 1.324, 98.1023}, new float[]{1.2f, 1.324f, 98.1023f}));
+    }
+
+    /**
+     * 克隆对象测试
+     */
+    @Test
+    public void cloneTest() throws IOException, ClassNotFoundException {
+        PersonTest person1 = new PersonTest();
+        person1.setName("小赵");
+        person1.setAge(18);
+        person1.setSex(Gender.Male);
+
+        PersonTest person2 = ObjectUtils.clone(person1);
+
+        System.out.println(person1 == person2);
+        System.out.println(person1.equals(person2));
+        System.out.println(person2);
     }
 }

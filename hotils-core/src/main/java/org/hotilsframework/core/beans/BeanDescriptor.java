@@ -2,7 +2,6 @@ package org.hotilsframework.core.beans;
 
 import org.hotilsframework.core.collection.Maps;
 import org.hotilsframework.core.lang.primitives.Booleans;
-import org.hotilsframework.utils.PrimitiveUtils;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.ModifierUtils;
 import org.hotilsframework.utils.ReflectionUtils;

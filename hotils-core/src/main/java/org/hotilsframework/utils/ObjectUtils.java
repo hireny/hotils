@@ -1,5 +1,8 @@
 package org.hotilsframework.utils;
 
+import com.sun.deploy.util.ArrayUtil;
+
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.logging.Level;
@@ -835,17 +838,21 @@ public class ObjectUtils {
      * @param <T>       对象类型
      * @return          克隆后的对象
      */
-//    public static <T> T clone(T object) {
-//        T result = ArrayUtil.clone(object);
-//        if (null == result) {
-//            if (object instanceof Cloneable) {
-//                result = ReflectUtil.invoke(obj, "clone");
-//            } else {
-//                result = cloneByStream(obj);
-//            }
-//        }
-//        return result;
-//    }
+    public static <T> T clone(T object) throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(bos));
+        oos.writeObject(object);
+        oos.flush();
+
+        ObjectInputStream ois=new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
+        @SuppressWarnings("unchecked")
+        T result=(T) ois.readObject();
+
+        ois.close();
+        oos.close();
+        bos.close();
+        return result;
+    }
 
     /**
      * 返回克隆后的对象，如果克隆失败，返回原对象
