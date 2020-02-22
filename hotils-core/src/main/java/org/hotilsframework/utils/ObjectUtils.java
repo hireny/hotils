@@ -37,13 +37,10 @@ public class ObjectUtils {
         if (o == null) {
             return true;
         }
-        if (o == "") {
-            return true;
-        }
 
         if (o instanceof Optional) {
 
-            return !((Optional) o).isPresent();
+            return !((Optional<?>) o).isPresent();
         } else if (o instanceof CharSequence) {
 
             return ((CharSequence) o).length() == 0;
@@ -52,12 +49,30 @@ public class ObjectUtils {
             return Array.getLength(o) == 0;
         } else if (o instanceof Collection) {
 
-            return ((Collection) o).isEmpty();
+            return ((Collection<?>) o).isEmpty();
         } else if (o instanceof Map) {
 
-            return ((Map) o).isEmpty();
+            return ((Map<?,?>) o).isEmpty();
         }
         return false;
+    }
+
+    /**
+     * 如果给定对象为{@code null} 返回默认值
+     *
+     * ObjectUtil.defaultIfNull(null, null)      = null
+     * ObjectUtil.defaultIfNull(null, "")        = ""
+     * ObjectUtil.defaultIfNull(null, "zz")      = "zz"
+     * ObjectUtil.defaultIfNull("abc", *)        = "abc"
+     * ObjectUtil.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
+     *
+     * @param obj               被检查对象，可能为{@code null}
+     * @param defaultValue      被检查对象为{@code null}返回的默认值，可以为{@code null}
+     * @param <T>               对象类型
+     * @return                  被检查对象为{@code null}返回默认值，否则返回原值
+     */
+    public static <T> T defaultIfNull(final T obj, final T defaultValue) {
+        return (null != obj) ? obj : defaultValue;
     }
 
     /**
@@ -105,25 +120,6 @@ public class ObjectUtils {
         // 先尝试判断是否为简单数据类型
 //        if ()
         return null;
-    }
-
-    /**
-     * 判断是否是JDK内部对象
-     * @param o     对象
-     * @return
-     */
-    public static boolean isJdkInnerObject(Object o) {
-        if (isEmpty(o)) {
-            return false;
-        }
-        if (o.getClass().isPrimitive()) {
-            return true;
-        }
-        String packageName = o.getClass().getName();
-        if (packageName.contains("java.")) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -316,7 +312,7 @@ public class ObjectUtils {
      * Return a hash code based on the contents of the specified array.
      * If {@code array} is {@code null}, this method returns 0.
      */
-    private static int arrayHashCode( byte[] array) {
+    private static int arrayHashCode(byte[] array) {
         if (array == null) {
             return 0;
         }
@@ -785,24 +781,6 @@ public class ObjectUtils {
         }
         sb.append(ARRAY_END);
         return sb.toString();
-    }
-
-    /**
-     * 如果给定对象为{@code null} 返回默认值
-     *
-     * ObjectUtil.defaultIfNull(null, null)      = null
-     * ObjectUtil.defaultIfNull(null, "")        = ""
-     * ObjectUtil.defaultIfNull(null, "zz")      = "zz"
-     * ObjectUtil.defaultIfNull("abc", *)        = "abc"
-     * ObjectUtil.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
-     *
-     * @param obj               被检查对象，可能为{@code null}
-     * @param defaultValue      被检查对象为{@code null}返回的默认值，可以为{@code null}
-     * @param <T>               对象类型
-     * @return                  被检查对象为{@code null}返回默认值，否则返回原值
-     */
-    public static <T> T defaultIfNull(final T obj, final T defaultValue) {
-        return (null != obj) ? obj : defaultValue;
     }
 
     /**

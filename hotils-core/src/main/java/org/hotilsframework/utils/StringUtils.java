@@ -360,6 +360,18 @@ public final class StringUtils {
     }
 
     /**
+     * 反转字符串
+     * @param value     待反转的字符串
+     * @return          返回反转后的字符串
+     */
+    public static String reverse(String value) {
+        if (isBlank(value)) {
+            return value;
+        }
+        return new StringBuilder(value).reverse().toString();
+    }
+
+    /**
      * 字符串是否以给定字符开头
      * @param cs    字符串
      * @param c     字符

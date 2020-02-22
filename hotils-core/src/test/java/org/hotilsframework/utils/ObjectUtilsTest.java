@@ -1,10 +1,16 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.core.collection.Lists;
+import org.hotilsframework.core.collection.Maps;
 import org.hotilsframework.core.lang.Gender;
 import example.model.PersonTest;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * 对象工具类测试
@@ -21,6 +27,20 @@ public class ObjectUtilsTest {
     public void isEmptyTest() {
         Object o1 = null;
         System.out.println(ObjectUtils.isEmpty(o1));
+        Collection<Object> c1 = Lists.newArrayList();
+        System.out.println(ObjectUtils.isEmpty(c1));
+        Map<String, Object> m1 = Maps.newHashMap();
+        System.out.println(ObjectUtils.isEmpty(m1));
+        int[] i1 = new int[0];
+        System.out.println(ObjectUtils.isEmpty(i1));
+        Optional<Object> op1 = Optional.ofNullable(2);
+        System.out.println(ObjectUtils.isEmpty(op1));
+    }
+
+    @Test
+    public void unwrapOptionalTest() {
+        Optional<Object> op1 = Optional.ofNullable(2);
+        System.out.println(ObjectUtils.unwrapOptional(op1));
     }
 
     /**

@@ -361,7 +361,7 @@ public final class NumberUtils {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static <T extends Number> T toNumber(String value, Class<T> targetClass) {
+    public static <T extends Number> T parseNumber(String value, Class<T> targetClass) {
         Assert.notNull(value, "Value must not be null");
         Assert.notNull(targetClass, "Target class must not be null");
 

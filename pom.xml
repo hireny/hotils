@@ -20,6 +20,7 @@
         <module>hotils-socket</module>
         <module>hotils-web</module>
         <module>hotils-nosql</module>
+        <module>hotils-db</module>
     </modules>
     <packaging>pom</packaging>
     <name>Hotils: Hotils Parent for Java</name>
