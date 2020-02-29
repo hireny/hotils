@@ -1,6 +1,6 @@
 package org.hotilsframework.web.http;
 
-import org.hotilsframework.core.lang.Symbol;
+import org.hotilsframework.lang.Symbol;
 import org.hotilsframework.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

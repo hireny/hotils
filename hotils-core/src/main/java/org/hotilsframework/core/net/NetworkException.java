@@ -1,6 +1,6 @@
 package org.hotilsframework.core.net;
 
-import org.hotilsframework.core.lang.NestedRuntimeException;
+import org.hotilsframework.lang.NestedRuntimeException;
 
 /**
  * @ClassName: NetworkException

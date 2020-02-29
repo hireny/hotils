@@ -94,13 +94,13 @@ public class ObjectUtils {
             Assert.isTrue(!(result instanceof Optional), "Multi-level Optional usage not supported");
             return result;
         }
-        if (obj instanceof org.hotilsframework.core.lang.Optional) {
-            org.hotilsframework.core.lang.Optional<?> optional = (org.hotilsframework.core.lang.Optional<?>) obj;
+        if (obj instanceof org.hotilsframework.lang.Optional) {
+            org.hotilsframework.lang.Optional<?> optional = (org.hotilsframework.lang.Optional<?>) obj;
             if (!optional.isPresent()) {
                 return null;
             }
             Object result = optional.get();
-            Assert.isTrue(!(result instanceof org.hotilsframework.core.lang.Optional), "Multi-level Optional usage not supported");
+            Assert.isTrue(!(result instanceof org.hotilsframework.lang.Optional), "Multi-level Optional usage not supported");
             return result;
         }
         return obj;

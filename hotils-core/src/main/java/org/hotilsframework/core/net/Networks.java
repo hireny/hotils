@@ -1,6 +1,6 @@
 package org.hotilsframework.core.net;
 
-import org.hotilsframework.core.lang.Filter;
+import org.hotilsframework.lang.Filter;
 import org.hotilsframework.utils.CollectionUtils;
 import org.hotilsframework.utils.StringUtils;
 

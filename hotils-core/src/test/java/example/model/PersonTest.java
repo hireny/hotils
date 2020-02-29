@@ -1,6 +1,6 @@
 package example.model;
 
-import org.hotilsframework.core.lang.Gender;
+import org.hotilsframework.lang.Gender;
 
 import java.io.Serializable;
 import java.util.Objects;

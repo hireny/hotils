@@ -1,6 +1,6 @@
 package org.hotilsframework.core.math;
 
-import org.hotilsframework.core.lang.NestedRuntimeException;
+import org.hotilsframework.lang.NestedRuntimeException;
 
 /**
  * 数学异常

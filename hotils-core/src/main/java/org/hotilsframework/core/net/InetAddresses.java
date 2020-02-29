@@ -1,7 +1,7 @@
 package org.hotilsframework.core.net;
 
 
-import org.hotilsframework.core.lang.Splitter;
+import org.hotilsframework.lang.Splitter;
 
 import java.net.Inet4Address;
 

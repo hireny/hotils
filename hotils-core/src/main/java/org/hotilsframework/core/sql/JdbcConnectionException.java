@@ -1,6 +1,6 @@
 package org.hotilsframework.core.sql;
 
-import org.hotilsframework.core.lang.NestedRuntimeException;
+import org.hotilsframework.lang.NestedRuntimeException;
 
 /**
  * @ClassName: JdbcConnectionException

@@ -2,13 +2,12 @@ package org.hotilsframework.utils;
 
 import org.hotilsframework.core.collection.Lists;
 import org.hotilsframework.core.collection.Maps;
-import org.hotilsframework.core.lang.Gender;
+import org.hotilsframework.lang.Gender;
 import example.model.PersonTest;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 

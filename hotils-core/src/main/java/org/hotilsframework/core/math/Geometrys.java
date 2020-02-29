@@ -1,6 +1,6 @@
 package org.hotilsframework.core.math;
 
-import org.hotilsframework.core.lang.FatalInstanceException;
+import org.hotilsframework.lang.FatalInstanceException;
 
 /**
  * 几何处理
