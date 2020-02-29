@@ -37,10 +37,6 @@ public final class BeanUtils {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-            propertyDescriptors = ArrayUtils.filter(propertyDescriptors, (Filter<PropertyDescriptor>) t -> {
-                // 过滤掉getClass方法
-                return true == "class".equals(t.getName());
-            });
             return propertyDescriptors;
         } catch (IntrospectionException e) {
             throw new BeansException(e);

@@ -175,6 +175,16 @@ public final class StringUtils {
     }
 
     /**
+     * 指定字符是否存在字符串中
+     * @param cs            字符串
+     * @param searchChar    被查找的字符
+     * @return              是否包含
+     */
+    public static boolean contains(CharSequence cs, char searchChar) {
+        return indexOf(cs, searchChar) > -1;
+    }
+
+    /**
      * null 转 空字符串
      *
      * @param obj 对象
@@ -204,6 +214,54 @@ public final class StringUtils {
             return defaultValue;
         }
         return cs.toString();
+    }
+
+    /**
+     * 指定范围内查找指定字符
+     * @param cs            字符串
+     * @param searchChar    被查找的字符
+     * @return              位置
+     */
+    public static int indexOf(final CharSequence cs, char searchChar) {
+        return indexOf(cs, searchChar, 0);
+    }
+
+    /**
+     * 指定范围内查找指定字符
+     * @param cs            字符串
+     * @param searchChar    被查找的字符
+     * @param start         起始位置，如果小于0，从0开始查找
+     * @return              位置
+     */
+    public static int indexOf(final CharSequence cs, char searchChar, int start) {
+        if (cs instanceof String) {
+            return ((String) cs).indexOf(searchChar, start);
+        }
+        return indexOf(cs, searchChar, start, -1);
+    }
+
+    /**
+     * 指定范围内查找指定字符
+     * @param cs            字符串
+     * @param searchChar    被查找的字符
+     * @param start         起始位置，如果小于0，从0开始查找
+     * @param end           终止位置，如果超过cs.length()则默认查找到字符串末尾
+     * @return              位置
+     */
+    public static int indexOf(final CharSequence cs, char searchChar, int start, int end) {
+        final int len = cs.length();
+        if (start < 0 || start > len) {
+            start = 0;
+        }
+        if (end > len || end < 0) {
+            end = len;
+        }
+        for (int i = start; i < end; i++) {
+            if (cs.charAt(i) == searchChar) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**

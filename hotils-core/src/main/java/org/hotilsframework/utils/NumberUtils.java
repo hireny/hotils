@@ -50,15 +50,15 @@ public final class NumberUtils {
      * 当str为空或非数字字符串时，返回0
      *
      * <pre>
-     *     NumberUtils.toInt(null) = 0
-     *     NumberUtils.toInt("")   = 0
-     *     NumberUtils.toInt("1")  = 1
+     *     NumberUtils.parseInt(null) = 0
+     *     NumberUtils.parseInt("")   = 0
+     *     NumberUtils.parseInt("1")  = 1
      * </pre>
      * @param value
      * @return
      */
-    public static int toInt(final String value) {
-        return toInt(value, 0);
+    public static int parseInt(final String value) {
+        return parseInt(value, 0);
     }
 
     /**
@@ -67,15 +67,15 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回default值。
      *
      * <pre>
-     *     NumberUtils.toInt(null, 1) = 1
-     *     NumberUtils.toInt("", 1)   = 1
-     *     NumberUtils.toInt("1", 0)  = 1
+     *     NumberUtils.parseInt(null, 1) = 1
+     *     NumberUtils.parseInt("", 1)   = 1
+     *     NumberUtils.parseInt("1", 0)  = 1
      * </pre>
      * @param value
      * @param defaultValue
      * @return
      */
-    public static int toInt(final String value, int defaultValue) {
+    public static int parseInt(final String value, int defaultValue) {
         if (StringUtils.isEmpty(value)) {
             return defaultValue;
         }
@@ -92,15 +92,15 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0
      *
      * <pre>
-     *     NumberUtils.toLong(null) = 0L
-     *     NumberUtils.toLong("")   = 0L
-     *     NumberUtils.toLong("1")  = 1L
+     *     NumberUtils.parseLong(null) = 0L
+     *     NumberUtils.parseLong("")   = 0L
+     *     NumberUtils.parseLong("1")  = 1L
      * </pre>
      * @param value
      * @return
      */
-    public static long toLong(final String value) {
-        return toLong(value, 0L);
+    public static long parseLong(final String value) {
+        return parseLong(value, 0L);
     }
 
     /**
@@ -109,15 +109,15 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0
      *
      * <pre>
-     *     NumberUtils.toLong(null, 1L) = 1L
-     *     NumberUtils.toLong("", 1L)   = 1L
-     *     NumberUtils.toLong("1", 0L)  = 1L
+     *     NumberUtils.parseLong(null, 1L) = 1L
+     *     NumberUtils.parseLong("", 1L)   = 1L
+     *     NumberUtils.parseLong("1", 0L)  = 1L
      * </pre>
      * @param value
      * @param defaultValue
      * @return
      */
-    public static long toLong(final String value, long defaultValue) {
+    public static long parseLong(final String value, long defaultValue) {
         if (StringUtils.isEmpty(value)) {
             return defaultValue;
         }
@@ -134,15 +134,15 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0
      *
      * <pre>
-     *     NumberUtils.toFloat(null) = 0.0f
-     *     NumberUtils.toFloat("")   = 0.0f
-     *     NumberUtils.toFloat("1.5")  = 1.5f
+     *     NumberUtils.parseFloat(null) = 0.0f
+     *     NumberUtils.parseFloat("")   = 0.0f
+     *     NumberUtils.parseFloat("1.5")  = 1.5f
      * </pre>
      * @param value
      * @return
      */
-    public static float toFloat(final String value) {
-        return toFloat(value, 0.0f);
+    public static float parseFloat(final String value) {
+        return parseFloat(value, 0.0f);
     }
 
     /**
@@ -151,15 +151,15 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0.0f
      *
      * <pre>
-     *     NumberUtils.toFloat(null, 1.1f) = 1.1f
-     *     NumberUtils.toFloat("", 1.1f)   = 1.1f
-     *     NumberUtils.toFloat("1.5", 0.0f)  = 1.5f
+     *     NumberUtils.parseFloat(null, 1.1f) = 1.1f
+     *     NumberUtils.parseFloat("", 1.1f)   = 1.1f
+     *     NumberUtils.parseFloat("1.5", 0.0f)  = 1.5f
      * </pre>
      * @param value
      * @param defaultValue
      * @return
      */
-    public static float toFloat(final String value, float defaultValue) {
+    public static float parseFloat(final String value, float defaultValue) {
         if (StringUtils.isEmpty(value)) {
             return defaultValue;
         }
@@ -176,32 +176,32 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0.0
      *
      * <pre>
-     *     NumberUtils.toDouble(null) = 0.0d
-     *     NumberUtils.toDouble("")   = 0.0d
-     *     NumberUtils.toDouble("1.5")  = 1.5d
+     *     NumberUtils.parseDouble(null) = 0.0d
+     *     NumberUtils.parseDouble("")   = 0.0d
+     *     NumberUtils.parseDouble("1.5")  = 1.5d
      * </pre>
      * @param value
      * @return
      */
-    public static double toDouble(final String value) {
-        return toDouble(value, 0.0d);
+    public static double parseDouble(final String value) {
+        return parseDouble(value, 0.0d);
     }
 
     /**
-     * 将10进制的String转换为float
+     * 将10进制的String转换为double
      *
      * 当value为空或非数字字符串时，返回0
      *
      * <pre>
-     *     NumberUtils.toDouble(null, 1.1d) = 1.1d
-     *     NumberUtils.toDouble("", 1.1d)   = 1.1d
-     *     NumberUtils.toDouble("1.5", 0.0d)  = 1.5d
+     *     NumberUtils.parseDouble(null, 1.1d) = 1.1d
+     *     NumberUtils.parseDouble("", 1.1d)   = 1.1d
+     *     NumberUtils.parseDouble("1.5", 0.0d)  = 1.5d
      * </pre>
      * @param value
      * @param defaultValue
      * @return
      */
-    public static double toDouble(final String value, double defaultValue) {
+    public static double parseDouble(final String value, double defaultValue) {
         if (StringUtils.isEmpty(value)) {
             return defaultValue;
         }
@@ -218,32 +218,32 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0.0
      *
      * <pre>
-     *     NumberUtils.toDouble(null) = 0.0d
-     *     NumberUtils.toDouble("")   = 0.0d
-     *     NumberUtils.toDouble("1.5")  = 1.5d
-     *     NumberUtils.toDouble(BigDecimal.valueOf(8.5d)) = 8.5d
+     *     NumberUtils.parseDouble(null) = 0.0d
+     *     NumberUtils.parseDouble("")   = 0.0d
+     *     NumberUtils.parseDouble("1.5")  = 1.5d
+     *     NumberUtils.parseDouble(BigDecimal.valueOf(8.5d)) = 8.5d
      * </pre>
      * @param value
      * @return
      */
-    public static double toDouble(final BigDecimal value) {
-        return toDouble(value, 0.0d);
+    public static double parseDouble(final BigDecimal value) {
+        return parseDouble(value, 0.0d);
     }
 
     /**
-     * 将10进制的String转换为float
+     * 将10进制的String转换为double
      *
      * 当value为空或非数字字符串时，返回0
      *
      * <pre>
-     *     NumberUtils.toDouble(null, 1.1d) = 1.1d
-     *     NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d)  = 8.5d
+     *     NumberUtils.parseDouble(null, 1.1d) = 1.1d
+     *     NumberUtils.parseDouble(BigDecimal.valueOf(8.5d), 1.1d)  = 8.5d
      * </pre>
      * @param value
      * @param defaultValue
      * @return
      */
-    public static double toDouble(final BigDecimal value, double defaultValue) {
+    public static double parseDouble(final BigDecimal value, double defaultValue) {
         return value == null ? defaultValue : value.doubleValue();
     }
 
@@ -252,15 +252,15 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0
      *
      * <pre>
-     *     NumberUtils.toByte(null) = 0
-     *     NumberUtils.toByte("")   = 0
-     *     NumberUtils.toByte("1")  = 1
+     *     NumberUtils.parseByte(null) = 0
+     *     NumberUtils.parseByte("")   = 0
+     *     NumberUtils.parseByte("1")  = 1
      * </pre>
      * @param value
      * @return
      */
-    public static byte toByte(final String value) {
-        return toByte(value, (byte) 0);
+    public static byte parseByte(final String value) {
+        return parseByte(value, (byte) 0);
     }
 
     /**
@@ -268,14 +268,14 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0
      *
      * <pre>
-     *     NumberUtils.toByte(null, 1) = 1
-     *     NumberUtils.toByte("", 1)   = 1
-     *     NumberUtils.toByte("1", 0)  = 1
+     *     NumberUtils.parseByte(null, 1) = 1
+     *     NumberUtils.parseByte("", 1)   = 1
+     *     NumberUtils.parseByte("1", 0)  = 1
      * </pre>
      * @param value
      * @return
      */
-    public static byte toByte(final String value, byte defaultValue) {
+    public static byte parseByte(final String value, byte defaultValue) {
         if (StringUtils.isEmpty(value)) {
             return defaultValue;
         }
@@ -291,16 +291,16 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0
      *
      * <pre>
-     *   NumberUtils.toShort(null) = 0
-     *   NumberUtils.toShort("")   = 0
-     *   NumberUtils.toShort("1")  = 1
+     *   NumberUtils.parseShort(null) = 0
+     *   NumberUtils.parseShort("")   = 0
+     *   NumberUtils.parseShort("1")  = 1
      * </pre>
      *
      * @param value
      * @return
      */
-    public static short toShort(final String value) {
-        return toShort(value, (short) 0);
+    public static short parseShort(final String value) {
+        return parseShort(value, (short) 0);
     }
 
     /**
@@ -308,16 +308,16 @@ public final class NumberUtils {
      * 当value为空或非数字字符串时，返回0
      *
      * <pre>
-     *   NumberUtils.toShort(null, 1) = 1
-     *   NumberUtils.toShort("", 1)   = 1
-     *   NumberUtils.toShort("1", 0)  = 1
+     *   NumberUtils.parseShort(null, 1) = 1
+     *   NumberUtils.parseShort("", 1)   = 1
+     *   NumberUtils.parseShort("1", 0)  = 1
      * </pre>
      *
      * @param value
      * @param defaultValue
      * @return
      */
-    public static short toShort(final String value, final short defaultValue) {
+    public static short parseShort(final String value, final short defaultValue) {
         if (StringUtils.isBlank(value)) {
             return defaultValue;
         }
@@ -328,8 +328,8 @@ public final class NumberUtils {
         }
     }
 
-    public static boolean toBoolean(final String value) {
-        return toBoolean(value);
+    public static boolean parseBoolean(final String value) {
+        return parseBoolean(value, false);
     }
 
     /**
@@ -338,7 +338,7 @@ public final class NumberUtils {
      * @param defaultValue
      * @return
      */
-    public static boolean toBoolean(final String value, final boolean defaultValue) {
+    public static boolean parseBoolean(final String value, final boolean defaultValue) {
         if (StringUtils.isBlank(value)) {
             return defaultValue;
         }
@@ -423,12 +423,142 @@ public final class NumberUtils {
     }
 
     /**
+     * 检查字符串是否是有效的数字
+     *
+     * <pre>
+     *     1、10进制
+     *     2、16进制数字（0x开头）
+     *     3、科学记数发形式（1234E3）
+     *     4、类型标识形式（123D）
+     *     5、正负数标识形式（+123、-234）
+     * </pre>
+     * @param value 要检查的 {@code String}
+     * @return  如果字符串是正确格式的数字，则为{@code true}
+     */
+    public static boolean isCreatable(final String value) {
+        if (StringUtils.isEmpty(value)) {
+            return false;
+        }
+        final char[] chars = value.toCharArray();
+        int sz = chars.length;
+        boolean hasExp = false;
+        boolean hasDecPoint = false;
+        boolean allowSigns = false;
+        boolean foundDigit = false;
+        // deal with any possible sign up front
+        final int start = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
+        if (sz > start + 1 && chars[start] == '0' && !StringUtils.contains(value, '.')) {
+            // leading 0, skip if is a decimal number
+            if (chars[start + 1] == 'x' || chars[start + 1] == 'X') {
+                // leading 0x/0X
+                int i = start + 2;
+                if (i == sz) {
+                    // str == "0x"
+                    return false;
+                }
+                // checking hex (it can't be anything else)
+                for (; i < chars.length; i++) {
+                    if ((chars[i] < '0' || chars[i] > '9')
+                            && (chars[i] < 'a' || chars[i] > 'f')
+                            && (chars[i] < 'A' || chars[i] > 'F')) {
+                        System.out.println(value);
+                        return false;
+                    }
+                }
+                return true;
+            } else if (Character.isDigit(chars[start + 1])) {
+                // leading 0, but not hex, must be octal
+                int i = start + 1;
+                for (; i < chars.length; i++) {
+                    if (chars[i] < '0' || chars[i] > '7') {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        sz--;   // don't want to loop to the last char, check it afterwords
+                // for type qualifiers
+        int i = start;
+        // loop to the next to last char or to the last char if we need another digit to
+        // make a valid number (e.g. chars[0..5] = "1234E")
+        while (i < sz || i < sz + 1 && allowSigns && !foundDigit) {
+            if (chars[i] >= '0' && chars[i] <= '9') {
+                foundDigit = true;
+                allowSigns = false;
+
+            } else if (chars[i] == '.') {
+                if (hasDecPoint || hasExp) {
+                    // two decimal points or dec in exponent
+                    return false;
+                }
+                hasDecPoint = true;
+            } else if (chars[i] == 'e' || chars[i] == 'E') {
+                // we've already taken care of hex.
+                if (hasExp) {
+                    // two E's
+                    return false;
+                }
+                if (!foundDigit) {
+                    return false;
+                }
+                hasExp = true;
+                allowSigns = true;
+            } else if (chars[i] == '+' || chars[i] == '-') {
+                if (!allowSigns) {
+                    return false;
+                }
+                allowSigns = false;
+                foundDigit = false; // we need a digit after the E
+            } else {
+                return false;
+            }
+            i++;
+        }
+        if (i < chars.length) {
+            if (chars[i] >= '0' && chars[i] <= '9') {
+                // no type qualifier, OK
+                return true;
+            }
+            if (chars[i] == 'e' || chars[i] == 'E') {
+                // can't have an E at the last byte
+                return false;
+            }
+            if (chars[i] == '.') {
+                if (hasDecPoint || hasExp) {
+                    // two decimal points or dec in exponent
+                    return false;
+                }
+                // single trailing decimal point after non-exponent is ok
+                return foundDigit;
+            }
+            if (!allowSigns
+                    && (chars[i] == 'd'
+                    || chars[i] == 'D'
+                    || chars[i] == 'f'
+                    || chars[i] == 'F')) {
+                return foundDigit;
+            }
+            if (chars[i] == 'l'
+                    || chars[i] == 'L') {
+                // not allowing L with an exponent or decimal point
+                return foundDigit && !hasExp && !hasDecPoint;
+            }
+            // last character is illegal
+            return false;
+        }
+        // allowSigns is true iff the val ends in 'E'
+        // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
+        return !allowSigns && foundDigit;
+    }
+
+    /**
      * 从 {@link String} 中解码出一个 {@link BigInteger}
      * <p> 支持 十进制、十六进制和八进制计数法
      * @param value
      * @return
      */
-    private static BigInteger decodeBigInteger(String value) {
+    private static BigInteger decodeBigInteger(final String value) {
         int radix = 10;
         int index = 0;
         boolean negative =false;

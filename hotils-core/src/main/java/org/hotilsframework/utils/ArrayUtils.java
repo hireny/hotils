@@ -316,25 +316,6 @@ public class ArrayUtils {
     }
 
     /**
-     * 过滤
-     * @param array
-     * @param filter
-     * @param <T>
-     * @return
-     */
-    public static <T> T[] filter(T[] array, Filter<T> filter) {
-        ArrayList<T> list = Lists.newArrayList(array.length);
-        boolean accept;
-        for (T t : array) {
-            accept = filter.accept(t);
-            if (!accept) {
-                list.add(t);
-            }
-        }
-        return list.toArray(Arrays.copyOf(array, list.size()));
-    }
-
-    /**
      * 数组去重
      *
      * 算法思路：该算法利用了差分来剔除重复值。首先对数组进行排序，

@@ -8,8 +8,8 @@ import java.time.temporal.TemporalUnit;
 import java.util.Date;
 
 /**
- * @Author: hireny
- * @Date: Create in 2019/10/11 01:33
+ * @author hireny
+ * @date Create in 2019/10/11 01:33
  */
 public final class LocalDateTimes {
 
