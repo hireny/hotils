@@ -111,6 +111,7 @@ public final class ReflectionUtils {
     // 对象处理(Object)
     //=====================================================
 
+    @SuppressWarnings("unchecked")
     public static <T> T newInstance(Class<?> clazz) {
         Assert.notNull(clazz, "Class must not be null.");
         if (clazz.isInterface()) {
@@ -118,10 +119,9 @@ public final class ReflectionUtils {
         }
         try {
             return (T) clazz.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (InstantiationException | IllegalAccessException e) {
+            // 异常处理
+            handleReflectionException(e);
         }
         return null;
     }
@@ -227,7 +227,6 @@ public final class ReflectionUtils {
     public static void setFieldValue(Field field,  Object target,  Object value) {
         Assert.notNull(field, "Field is not exist.");
         try {
-            field.setAccessible(true);
             field.set(target, value);
         } catch (IllegalAccessException e) {
             throw new IllegalStateException(
@@ -258,24 +257,13 @@ public final class ReflectionUtils {
      */
     public static void setFieldValue(Class<?> clazz, String fieldName, Object newValue) {
         Field field = findField(clazz, fieldName);
-        if (field != null) {
-            field.setAccessible(true);
-            if (ModifierUtils.isStatic(field)) {
-                if (!ModifierUtils.isFinal(field)) {
-                    try {
-                        field.set(null, newValue);
-                    } catch (IllegalAccessException e) {
-                        throw new IllegalStateException(
-                                "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
-                    }
-                } else {
-                    System.err.println("Field is final");
-                }
-            } else {
-                System.err.println("Field is not static");
-            }
-        } else {
-            System.err.println("Field is not exist");
+        Assert.notNull(field, "Field is not exist.");
+        try {
+            makeAccessible(field);
+            field.set(null, newValue);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(
+                    "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
         }
     }
 
