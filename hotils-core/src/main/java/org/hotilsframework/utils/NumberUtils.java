@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -387,6 +388,28 @@ public final class NumberUtils {
         }
         throw new IllegalArgumentException(
                 "Cannot convert String [" + value +"] to target class [" + targetClass.getName() + "]");
+    }
+
+    /**
+     * 提供数据类型转换为BigDecimal
+     *
+     * @param object    原始数据
+     * @return  BigDecimal
+     */
+    public static BigDecimal parseBigDecimal(Object object) {
+        if (object == null) {
+            throw new NullPointerException();
+        }
+        if (object instanceof BigDecimal) {
+            return (BigDecimal)object;
+        }
+        BigDecimal result;
+        try {
+            result = new BigDecimal(object.toString().replaceAll(",", ""));
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Please give me a numeral.Not " + object);
+        }
+        return result;
     }
 
     //========================================

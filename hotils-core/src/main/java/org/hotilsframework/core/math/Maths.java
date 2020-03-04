@@ -4,10 +4,13 @@ import com.sun.deploy.util.ArrayUtil;
 import org.hotilsframework.core.collection.Lists;
 import org.hotilsframework.utils.ArrayUtils;
 import org.hotilsframework.utils.Assert;
+import org.hotilsframework.utils.NumberUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 数学工具类
@@ -26,28 +29,6 @@ public final class Maths {
 
     /** 默认运算精度 */
     private static int DEFAULT_SCALE = 10;
-
-    /**
-     * 提供数据类型转换为BigDecimal
-     *
-     * @param object    原始数据
-     * @return  BigDecimal
-     */
-    public static BigDecimal bigDecimal(Object object) {
-        if (object == null) {
-            throw new NullPointerException();
-        }
-        if (object instanceof BigDecimal) {
-            return (BigDecimal)object;
-        }
-        BigDecimal result;
-        try {
-            result = new BigDecimal(object.toString().replaceAll(",", ""));
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Please give me a numeral.Not " + object);
-        }
-        return result;
-    }
 
     public static double add(float v1, float v2) {
         return add(Float.toString(v1), Float.toString(v2)).doubleValue();
@@ -79,8 +60,6 @@ public final class Maths {
         BigDecimal result = b1.add(b2);
         return result.doubleValue();
     }
-
-
 
     /**
      * 提供(相对)精确的加法运算。
@@ -424,34 +403,81 @@ public final class Maths {
     }
 
     /**
-     * 提供(相对)精确的除法运算，当发生除不尽的情况时，精度为10位，以后的数字四舍五入。
+     * 提供(相对)精确的除法运算。 当发生除不尽的情况时，由scale参数指定精度，以后的数字四舍五入。
      *
-     * @param num1 被除数
-     * @param num2 除数
+     * @param v1    被除数
+     * @param v2    除数
+     * @param scale 表示表示需要精确到小数点以后几位。
+     * @param roundingMode 保留小数的模式
      * @return 两个参数的商
      */
-    public static BigDecimal divide(Number num1, Number num2) {
-        return divide(num1, num2, DEFAULT_SCALE);
+    public static double divide(float v1, float v2, int scale, RoundingMode roundingMode) {
+        return divide(Float.toString(v1), Float.toString(v2), scale, roundingMode).doubleValue();
     }
 
     /**
      * 提供(相对)精确的除法运算。 当发生除不尽的情况时，由scale参数指定精度，以后的数字四舍五入。
      *
-     * @param num1 被除数
-     * @param num2 除数
+     * @param v1    被除数
+     * @param v2    除数
      * @param scale 表示表示需要精确到小数点以后几位。
+     * @param roundingMode 保留小数的模式
      * @return 两个参数的商
      */
-    public static BigDecimal divide(Number num1, Number num2, Integer scale) {
-        if (scale == null) {
-            scale = DEFAULT_SCALE;
-        }
-        num2 = num2 == null || Math.abs(new Double(num2.toString())) == 0 ? 1 : num2;
-        if (scale < 0) {
-            throw new IllegalArgumentException("The scale must be a positive integer or zero");
-        }
-        BigDecimal result = bigDecimal(num1).divide(bigDecimal(num2), scale, BigDecimal.ROUND_HALF_UP);
-        return result;
+    public static double divide(float v1, double v2, int scale, RoundingMode roundingMode) {
+        return divide(Float.toString(v1), Double.toString(v2), scale, roundingMode).doubleValue();
+    }
+
+    /**
+     * 提供(相对)精确的除法运算。 当发生除不尽的情况时，由scale参数指定精度，以后的数字四舍五入。
+     *
+     * @param v1    被除数
+     * @param v2    除数
+     * @param scale 表示表示需要精确到小数点以后几位。
+     * @param roundingMode 保留小数的模式
+     * @return 两个参数的商
+     */
+    public static double divide(double v1, float v2, int scale, RoundingMode roundingMode) {
+        return divide(Double.toString(v1), Float.toString(v2), scale, roundingMode).doubleValue();
+    }
+
+    /**
+     * 提供(相对)精确的除法运算。 当发生除不尽的情况时，由scale参数指定精度，以后的数字四舍五入。
+     *
+     * @param v1    被除数
+     * @param v2    除数
+     * @param scale 表示表示需要精确到小数点以后几位。
+     * @param roundingMode 保留小数的模式
+     * @return 两个参数的商
+     */
+    public static double divide(double v1, double v2, int scale, RoundingMode roundingMode) {
+        return divide(Double.toString(v1), Double.toString(v2), scale, roundingMode).doubleValue();
+    }
+
+    /**
+     * 提供(相对)精确的除法运算。 当发生除不尽的情况时，由scale参数指定精度，以后的数字四舍五入。
+     *
+     * @param v1    被除数
+     * @param v2    除数
+     * @param scale 表示表示需要精确到小数点以后几位。
+     * @param roundingMode 保留小数的模式
+     * @return 两个参数的商
+     */
+    public static double divide(Double v1, Double v2, int scale, RoundingMode roundingMode) {
+        return divide((Number) v1, (Number) v2, scale, roundingMode).doubleValue();
+    }
+
+    /**
+     * 提供(相对)精确的除法运算。 当发生除不尽的情况时，由scale参数指定精度，以后的数字四舍五入。
+     *
+     * @param v1    被除数
+     * @param v2    除数
+     * @param scale 表示表示需要精确到小数点以后几位。
+     * @param roundingMode 保留小数的模式
+     * @return 两个参数的商
+     */
+    public static BigDecimal divide(Number v1, Number v2, int scale, RoundingMode roundingMode) {
+        return divide(v1.toString(), v2.toString(), scale, roundingMode);
     }
 
     /**
@@ -489,18 +515,67 @@ public final class Maths {
     }
 
     /**
-     * 提供精确的小数位四舍五入处理。
-     *
-     * @param num 需要四舍五入的数字
-     * @param scale 小数点后保留几位
-     * @return 四舍五入后的结果
+     * 保留固定位数小数
+     * @param value         数字值的字符串表现形式
+     * @param scale         保留小数位数，如果传入小于0，则默认0
+     * @return              新值
      */
-    public static BigDecimal round(Number num, int scale) {
-        if (scale < 0) {
-            throw new IllegalArgumentException("The scale must be a positive integer or zero");
+    public static BigDecimal round(String value, int scale) {
+        return round(value, scale, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * 保留固定位数小数
+     * @param value         数字值
+     * @param scale         保留小数位数，如果传入小于0，则默认0
+     * @return              新值
+     */
+    public static BigDecimal round(BigDecimal value, int scale) {
+        return round(value, scale, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * 保留固定位数小数
+     * @param v             值
+     * @param scale         保留小数位数，如果传入小于0，则默认0
+     * @param roundingMode  保留小数的模式 {@link RoundingMode}    如果传入null则默认四舍五入
+     * @return              新值
+     */
+    public static BigDecimal round(double v, int scale, RoundingMode roundingMode) {
+        return round(Double.toString(v), scale, roundingMode);
+    }
+
+    /**
+     * 保留固定位数小数
+     * @param value         数字值的字符串表现形式
+     * @param scale         保留小数位数，如果传入小于0，则默认0
+     * @param roundingMode  保留小数的模式 {@link RoundingMode}    如果传入null则默认四舍五入
+     * @return              新值
+     */
+    public static BigDecimal round(String value, int scale, RoundingMode roundingMode) {
+        Assert.notBlank(value);
+        return round(NumberUtils.parseNumber(value, BigDecimal.class), scale, roundingMode);
+    }
+
+    /**
+     * 保留固定位数小数
+     * @param value         数字值
+     * @param scale         保留小数位数，如果传入小于0，则默认0
+     * @param roundingMode  保留小数的模式 {@link RoundingMode}    如果传入null则默认四舍五入
+     * @return              新值
+     */
+    public static BigDecimal round(BigDecimal value, int scale, RoundingMode roundingMode) {
+        if (Objects.isNull(value)) {
+            value = BigDecimal.ZERO;
         }
-        BigDecimal result = bigDecimal(num).divide(bigDecimal("1"), scale, BigDecimal.ROUND_HALF_UP);
-        return result;
+        if (scale < 0) {
+            scale = 0;
+        }
+        if (Objects.isNull(roundingMode)) {
+            roundingMode = RoundingMode.HALF_UP;
+        }
+
+        return value.setScale(scale, roundingMode);
     }
 
     /**
@@ -510,7 +585,7 @@ public final class Maths {
      * @param end
      * @return
      */
-    public static BigDecimal getRandom(double start, double end) {
+    public static BigDecimal random(double start, double end) {
         return new BigDecimal(start + Math.random() * (end - start));
     }
 
@@ -581,6 +656,82 @@ public final class Maths {
         return src;
     }
 
+
+    //=================================================
+    //  数学计算公式
+    //=================================================
+
+    //=================================================
+    //  对素数(质数)进行处理
+    //  质数是指在大于1的自然数中，除了1和它本身以外不在有其它因数的自然数。
+    //  质数又称素数。一个大于1的自然数，除了1和它自身外，不能被其它自然数整除的树叫做质数；否则称为合数。
+    //=================================================
+
+    /**
+     * 检查一个数是否是素数
+     * @param value     整型数值
+     * @return          是否是素数
+     */
+    public static boolean isPrime(int value) {
+        if (value < 2) {
+            return false;
+        }
+        int i;
+        // Math.sqrt(long a)
+        // 返回正确舍入的一个double值的正平方根。
+        // Math.sqrt(9) = 3.0   Math.sqrt(25) = 5.0
+        double legalBoundary = Math.sqrt(value);
+        for (i = 2; i < legalBoundary; i++) {
+            if (value % 2 == 0) {
+                break;
+            }
+        }
+        return i > legalBoundary;
+    }
+
+    /**
+     * 带边界的质数数组
+     * @param start
+     * @param end
+     * @return
+     */
+    public static int[] primesByBoundary(int start, int end) {
+        int[] primeNumbers = new int[1];
+        int primeIndex = 0;
+
+        for (int num = start; num <= end; num++) {
+            if (isPrime(num)) {
+                if (primeIndex >= primeNumbers.length) {
+                    primeNumbers = Arrays.copyOf(primeNumbers, primeIndex + 1);
+                }
+                primeNumbers[primeIndex++] = num;
+            }
+        }
+        return primeNumbers;
+    }
+
+    /**
+     * 输出指定个数的素数
+     * @param count     素数个数
+     * @return          素数数组
+     */
+    public static int[] primesByCount(int count) {
+        int[] primeNumbers = new int[count];
+        int primeIndex = 0;
+
+        int num = 2;
+        while (primeIndex < count) {
+            if (isPrime(num)) {
+                if (primeIndex >= primeNumbers.length) {
+                    primeNumbers = Arrays.copyOf(primeNumbers, primeIndex + 1);
+                }
+                primeNumbers[primeIndex++] = num;
+            }
+            num++;
+        }
+        return primeNumbers;
+    }
+
     /**
      * 统计一个数的所有因子
      *
@@ -604,6 +755,10 @@ public final class Maths {
         factors.toArray(result);
         return result;
     }
+
+    //=================================================
+    //  公约数与公倍数
+    //=================================================
 
     /**
      * 求最大公约数
