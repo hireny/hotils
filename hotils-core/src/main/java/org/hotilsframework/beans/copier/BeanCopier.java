@@ -1,8 +1,8 @@
-package org.hotilsframework.core.beans.copier;
+package org.hotilsframework.beans.copier;
 
-import org.hotilsframework.core.beans.BeanMap;
-import org.hotilsframework.core.beans.BeanUtils;
-import org.hotilsframework.core.beans.FatalBeansException;
+import org.hotilsframework.beans.BeanMap;
+import org.hotilsframework.beans.BeanUtils;
+import org.hotilsframework.beans.FatalBeansException;
 import org.hotilsframework.lang.Copy;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.ClassUtils;

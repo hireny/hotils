@@ -1,4 +1,4 @@
-package org.hotilsframework.core.beans;
+package org.hotilsframework.beans;
 
 /**
  * 默认Bean描述器

@@ -1,4 +1,4 @@
-package org.hotilsframework.core.beans;
+package org.hotilsframework.beans;
 
 /**
  * Java Bean的工厂类

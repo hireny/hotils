@@ -1,4 +1,4 @@
-package org.hotilsframework.core.beans;
+package org.hotilsframework.beans;
 
 /**
  * Bean内省的缓存类

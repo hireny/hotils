@@ -1,4 +1,4 @@
-package org.hotilsframework.core.beans.copier;
+package org.hotilsframework.beans.copier;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package org.hotilsframework.core.beans;
+package org.hotilsframework.beans;
 
 /**
  * 验证属性异常

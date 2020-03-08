@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.beans.BeanInstantiationException;
+import org.hotilsframework.beans.BeanInstantiationException;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;

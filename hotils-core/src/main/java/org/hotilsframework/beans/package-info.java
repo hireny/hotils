@@ -4,4 +4,4 @@
  * @author hireny
  */
 
-package org.hotilsframework.core.beans;
+package org.hotilsframework.beans;

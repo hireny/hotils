@@ -722,9 +722,6 @@ public final class Maths {
         int num = 2;
         while (primeIndex < count) {
             if (isPrime(num)) {
-                if (primeIndex >= primeNumbers.length) {
-                    primeNumbers = Arrays.copyOf(primeNumbers, primeIndex + 1);
-                }
                 primeNumbers[primeIndex++] = num;
             }
             num++;
