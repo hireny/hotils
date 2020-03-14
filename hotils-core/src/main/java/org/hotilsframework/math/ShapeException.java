@@ -1,4 +1,4 @@
-package org.hotilsframework.core.math;
+package org.hotilsframework.math;
 
 /**
  * 几何形状异常

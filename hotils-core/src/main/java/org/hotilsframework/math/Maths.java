@@ -1,6 +1,5 @@
-package org.hotilsframework.core.math;
+package org.hotilsframework.math;
 
-import com.sun.deploy.util.ArrayUtil;
 import org.hotilsframework.core.collection.Lists;
 import org.hotilsframework.utils.ArrayUtils;
 import org.hotilsframework.utils.Assert;
@@ -781,5 +780,22 @@ public final class Maths {
      */
     public static int lcm(int num1, int num2) {
         return num1 * num2 / gcd(num1, num2);
+    }
+
+
+    //=================================================
+    //  斐波那契数列
+    //=================================================
+
+    /**
+     * 斐波那契数列
+     * @param n
+     * @return
+     */
+    public static int fibonacci(int n) {
+        if (n < 2) {
+            return 1;
+        }
+        return fibonacci(n - 1) + fibonacci(n - 2);
     }
 }

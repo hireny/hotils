@@ -1,4 +1,4 @@
-package org.hotilsframework.core.math;
+package org.hotilsframework.math;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package org.hotilsframework.core.math;
+package org.hotilsframework.math;
 
 /**
  * 模型的工厂创建方法

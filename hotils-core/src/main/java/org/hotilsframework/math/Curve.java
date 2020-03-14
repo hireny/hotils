@@ -1,4 +1,4 @@
-package org.hotilsframework.core.math;
+package org.hotilsframework.math;
 
 /**
  * 有弧形的

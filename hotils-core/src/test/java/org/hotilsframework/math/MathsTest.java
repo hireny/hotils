@@ -1,4 +1,4 @@
-package org.hotilsframework.core.math;
+package org.hotilsframework.math;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ public class MathsTest {
      */
     @Test
     public void subtractOfNumberTest() {
-        BigDecimal bigDecimal = Maths.subtract(41, 20.2078);
-        System.out.println(bigDecimal);
+        double sub = Maths.subtract(41, 20.2078);
+        System.out.println(sub);
     }
 }

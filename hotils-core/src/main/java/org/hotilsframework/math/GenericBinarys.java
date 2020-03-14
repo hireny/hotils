@@ -1,4 +1,4 @@
-package org.hotilsframework.core.math;
+package org.hotilsframework.math;
 
 import org.hotilsframework.core.collection.Lists;
 import org.hotilsframework.utils.Assert;

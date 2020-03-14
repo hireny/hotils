@@ -250,4 +250,28 @@ public final class ClassUtils {
         }
         return Modifier.isAbstract(clazz.getModifiers());
     }
+
+    /**
+     * 判断类是否是枚举类
+     * @param clazz     类
+     * @return          是否为枚举类，如果为 {@code null} 返回false
+     */
+    public static boolean isEnumClass(Class<?> clazz) {
+        if (null == clazz) {
+            return false;
+        }
+        return clazz.isEnum();
+    }
+
+    /**
+     * 判断是否是注解类
+     * @param clazz     类
+     * @return          是否为注解类，如果为 {@code null} 返回false
+     */
+    public static boolean isAnnotationClass(Class<?> clazz) {
+        if (null == clazz) {
+            return false;
+        }
+        return clazz.isAnnotation();
+    }
 }
