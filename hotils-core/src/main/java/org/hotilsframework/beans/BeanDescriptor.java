@@ -71,7 +71,7 @@ public interface BeanDescriptor {
          * @return
          */
         private DefaultBeanDescriptor init() {
-            for (Field field : ReflectionUtils.getInheritFields(targetClass)) {
+            for (Field field : ReflectionUtils.getFields(targetClass)) {
                 if (false == ModifierUtils.isStatic(field)) {
                     // 只针对非static属性
                     this.propDescriptorMap.put(field.getName(), createPropDescriptor(field));

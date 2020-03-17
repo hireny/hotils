@@ -2,6 +2,7 @@ package org.hotilsframework.utils;
 
 import org.hotilsframework.lang.Symbol;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Objects;
@@ -903,6 +904,24 @@ public final class StringUtils {
      */
     public static String toString(CharSequence cs) {
         return null == cs ? null : cs.toString();
+    }
+
+
+    //==========================================================
+    // toBytes 方法
+    //==========================================================
+
+    public static byte[] toBytes(String s) {
+        return toBytes(s, "UTF-8");
+    }
+
+    public static byte[] toBytes(String s, String encoding) {
+        try {
+            return s.getBytes(encoding);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**

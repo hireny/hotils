@@ -1,6 +1,9 @@
 package org.hotilsframework.utils;
 
+import example.model.ArrayModelTest;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 /**
  * @ClassName: ArrayUtilsTest
@@ -27,5 +30,43 @@ public class ArrayUtilsTest {
             System.out.print(s + ", ");
         }
         System.out.println();
+    }
+
+    /**
+     * 新键数组
+     */
+    @Test
+    public void newArrayTest() {
+        ArrayModelTest[] models = ArrayUtils.newArray(ArrayModelTest.class, 12);
+        System.out.println(models);
+        System.out.println("数组个数="+models.length);
+    }
+
+    @Test
+    public void appendTest() {
+        Integer[] a = {1,8,3,54,61,901, 235, 85};
+        Integer[] b = {2, 6, 989, 32124, 542};
+        Integer[] c = ArrayUtils.append(a, 2);
+        System.out.println(Arrays.toString(a));
+        System.out.println("新数组="+ Arrays.toString(c));
+    }
+
+    /**
+     * 数组中插入元素
+     */
+    @Test
+    public void insertTest() {
+        System.out.println(-9%5 + 5);
+        Integer[] a = {1,8,3,54,61,901, 235, 85};
+        Integer[] b = {2, 6, 989, 32124, 542};
+        Integer[] c = ArrayUtils.insert(a, -9, b);
+        System.out.println(Arrays.toString(a));
+        System.out.println("新数组="+ Arrays.toString(c));
+    }
+
+    @Test
+    public void getComponentTypeTest() {
+        Integer[] a = {1,8,3,54,61,901, 235, 85};
+        System.out.println(ArrayUtils.getComponentType(a.getClass()));
     }
 }

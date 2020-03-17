@@ -210,151 +210,6 @@ public class ArrayUtils {
         throw new NestedRuntimeException(StringUtils.lenientFormat("[{}] is not Array!", o.getClass()));
     }
 
-
-    //================================================================
-    //  创建数组
-    //================================================================
-
-    /**
-     * 新键一个空数组
-     * @param clazz 元素类型
-     * @param size  大小
-     * @param <T>   数组元素类型
-     * @return
-     */
-    public static <T> T[] newArray(Class<?> clazz, int size) {
-        return (T[]) Array.newInstance(clazz, size);
-    }
-
-    /**
-     * 添加元素到数组
-     * @param arrays
-     * @param obj
-     * @param <A>
-     * @param <O>
-     * @return
-     */
-    public static <A, O extends A> A[] add(A[] arrays, O obj) {
-        Class<?> compType = Object.class;
-        if (arrays != null) {
-            compType = arrays.getClass().getComponentType();
-        } else if (obj != null) {
-            compType = obj.getClass();
-        }
-        int newArrayLength = (arrays != null ? arrays.length + 1 : 1);
-        A[] newArray = (A[]) Array.newInstance(compType, newArrayLength);
-        if (!isEmpty(arrays)) {
-            System.arraycopy(arrays, 0, newArray, 0, arrays.length);
-        }
-        newArray[newArray.length - 1] = obj;
-        return newArray;
-    }
-
-    public static <A, O extends A> A[] add(A[] array, O... objs) {
-        return null;
-    }
-
-    /**
-     * 插入元素
-     * @param array
-     * @param index
-     * @param newElements
-     * @param <A>
-     * @param <O>
-     * @return
-     */
-    public static <A, O extends A> A[] insert(A[] array, int index, O... newElements) {
-        if (isEmpty(newElements)) {
-            return array;
-        }
-        if (isEmpty(array)) {
-            return newElements;
-        }
-        Class<?> compType = Object.class;
-        if (array != null) {
-            compType = array.getClass().getComponentType();
-        } else if (newElements != null) {
-            compType = newElements[0].getClass();
-        }
-        int newArrayLength = (array != null ? array.length + newElements.length : newElements.length);
-        A[] newArray = (A[]) Array.newInstance(compType, newArrayLength);
-        if (!isEmpty(array)) {
-            System.arraycopy(array, 0, newArray, 0, Math.min(newArrayLength, index));
-        }
-        return newArray;
-    }
-
-    /**
-     * 将给定的对象转换为数组
-     * @param source
-     * @return
-     */
-    public static Object[] toObjectArray(Object source) {
-        if (source instanceof Object[]) {
-            return (Object[]) source;
-        }
-        if (source == null) {
-            return EMPTY_OBJECT_ARRAY;
-        }
-        if (!source.getClass().isArray()) {
-            // 非数组的情况下
-            throw new IllegalArgumentException("Source is not an array: " + source);
-        }
-        int length = Array.getLength(source);
-        if (length == 0) {
-            return EMPTY_OBJECT_ARRAY;
-        }
-        // 获取包装类型
-        Class<?> wrapperType = Array.get(source, 0).getClass();
-        Object[] newArray = (Object[]) Array.newInstance(wrapperType, length);
-        for (int i = 0; i < length; i++) {
-            newArray[i] = Array.get(source, i);
-        }
-        return newArray;
-    }
-
-    /**
-     * 数组去重
-     *
-     * 算法思路：该算法利用了差分来剔除重复值。首先对数组进行排序，
-     *          初始化长度为数组长度的boolean数组diff来保存数据的差分信息，
-     *          如果差分等于0，说明该值重复，diff数组在此记作false，不等于零则记作true。
-     *          最后遍历diff数组，将为true值下标的值添加到unique数组。
-     *          再把第一个数添加其中(第一个数肯定与前面不重复)，
-     *          最后为了让结果好看，排序unique数组即可。
-     *
-     * @param arrays    要去重的数组
-     * @param <T>
-     * @return          去重后的数组
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T[] unique(T[] arrays) {
-        int len = -1;
-        if (arrays == null || (len = arrays.length) < 2) {
-            return len == -1 ? null : Arrays.copyOf(arrays, len);
-        }
-        // Avoid polluting the original array
-        // 避免污染原始数组
-        arrays = Arrays.copyOf(arrays, len);
-        Arrays.sort(arrays);
-        boolean[] diffs = new boolean[len];
-        diffs[0] = true;
-        int uCount = 1;
-        for (int i = 1; i < len; i++) {
-            if (arrays[i] != arrays[i - 1]) {
-                uCount++;
-                diffs[i] = true;
-            }
-        }
-        T[] uniqueAray = (T[]) new Object[uCount];
-        for (int i = 0, index = 0; i < len; i++) {
-            if (diffs[i]) {
-                uniqueAray[index++] = arrays[i];
-            }
-        }
-        return uniqueAray;
-    }
-
     /**
      * 将两个下标的值进行交换
      * @param array
@@ -458,9 +313,6 @@ public class ArrayUtils {
         array[i] = array[i]^array[j];
         array[j] = array[i]^array[j];
         array[i] = array[i]^array[j];
-//        int temp = array[i];
-//        array[i] = array[j];
-//        array[j] = temp;
     }
 
     /**
@@ -604,5 +456,180 @@ public class ArrayUtils {
         }
 
         return true;
+    }
+
+
+    //================================================================
+    //  ArrayAccessor 数组访问器
+    //================================================================
+
+    /**
+     * 新键一个空数组
+     * @param clazz 元素类型
+     * @param size  大小
+     * @param <T>   数组元素类型
+     * @return
+     */
+    public static <T> T[] newArray(Class<?> clazz, int size) {
+        return (T[]) Array.newInstance(clazz, size);
+    }
+
+    /**
+     * 添加数组元素到数组中
+     * @param array
+     * @param args
+     * @param <A>
+     * @param <O>
+     * @return
+     */
+    public static <A, O extends A> A[] append(A[] array, O... args) {
+        if (isEmpty(array)) {
+            return args;
+        }
+        return insert(array, length(array), args);
+    }
+
+    /**
+     * 将新元素插入到已有数组中的某个位置 <br>
+     * 添加新元素会生成一个新的数组，不影响原数组 <br>
+     * 如果插入位置为负数，从原数组从后向前计数，若大于原数组长度，则空白处用 null 填充
+     *
+     * @param array     已有数组
+     * @param index     插入位置，此位置为对应此位置之前的空档
+     * @param args      新元素
+     * @param <A>       数组类型
+     * @param <O>       插入新元素的类型是数组类型的子类
+     * @return          新数组
+     */
+    @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
+    public static <A, O extends A> A[] insert(A[] array, int index, O... args) {
+        if (isEmpty(args)) {
+            return array;
+        }
+        if (isEmpty(array)) {
+            return args;
+        }
+        Class<?> compType = Object.class;
+        if (!isEmpty(array)) {
+            compType = array.getClass().getComponentType();
+        } else if (!isEmpty(args)) {
+            compType = args[0].getClass();
+        }
+        final int oldArrayLength = length(array);
+        if (index < 0) {
+            index = (index & oldArrayLength) + oldArrayLength;
+        }
+        final A[] result = newArray(compType, Math.max(oldArrayLength, index) + args.length);
+        System.arraycopy(array, 0, result, 0, Math.min(array.length, index));
+        System.arraycopy(args, 0, result, Math.min(array.length, index), args.length);
+        if (index < oldArrayLength) {
+            System.arraycopy(array, Math.min(array.length, index), result, Math.min(array.length, index) + args.length, oldArrayLength - Math.min(array.length, index));
+        }
+        return result;
+    }
+
+
+    /**
+     * 获取数组长度 <br>
+     * 如果参数为 {@code null}，返回0
+     *
+     * <pre>
+     *     ArrayUtils.length(null)              = 0
+     *     ArrayUtils.length([])                = 0
+     *     ArrayUtils.length([null])            = 1
+     *     ArrayUtils.length([true, false])     = 2
+     *     ArrayUtils.length([1, 2, 3])         = 3
+     *     ArrayUtils.length(["a", "b", "c"])   = 3
+     * </pre>
+     *
+     * @param array     数组对象
+     * @return          数组长度
+     * @throws IllegalArgumentException 如果参数不为数组，抛出此异常
+     */
+    public static int length(Object array) throws IllegalArgumentException {
+        if (null == array) {
+            return 0;
+        }
+        return Array.getLength(array);
+    }
+
+    /**
+     * 获取数组对象的元素类型
+     * @param clazz     数组类
+     * @return          元素类型
+     */
+    public static Class<?> getComponentType(Class<?> clazz) {
+        return null == clazz ? null : clazz.getComponentType();
+    }
+
+    /**
+     * 将给定的对象转换为数组
+     * @param source
+     * @return
+     */
+    public static Object[] toObjectArray(Object source) {
+        if (source instanceof Object[]) {
+            return (Object[]) source;
+        }
+        if (source == null) {
+            return EMPTY_OBJECT_ARRAY;
+        }
+        if (!source.getClass().isArray()) {
+            // 非数组的情况下
+            throw new IllegalArgumentException("Source is not an array: " + source);
+        }
+        int length = Array.getLength(source);
+        if (length == 0) {
+            return EMPTY_OBJECT_ARRAY;
+        }
+        // 获取包装类型
+        Class<?> wrapperType = Array.get(source, 0).getClass();
+        Object[] newArray = (Object[]) Array.newInstance(wrapperType, length);
+        for (int i = 0; i < length; i++) {
+            newArray[i] = Array.get(source, i);
+        }
+        return newArray;
+    }
+
+    /**
+     * 数组去重
+     *
+     * 算法思路：该算法利用了差分来剔除重复值。首先对数组进行排序，
+     *          初始化长度为数组长度的boolean数组diff来保存数据的差分信息，
+     *          如果差分等于0，说明该值重复，diff数组在此记作false，不等于零则记作true。
+     *          最后遍历diff数组，将为true值下标的值添加到unique数组。
+     *          再把第一个数添加其中(第一个数肯定与前面不重复)，
+     *          最后为了让结果好看，排序unique数组即可。
+     *
+     * @param arrays    要去重的数组
+     * @param <T>
+     * @return          去重后的数组
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] unique(T[] arrays) {
+        int len = -1;
+        if (arrays == null || (len = arrays.length) < 2) {
+            return len == -1 ? null : Arrays.copyOf(arrays, len);
+        }
+        // Avoid polluting the original array
+        // 避免污染原始数组
+        arrays = Arrays.copyOf(arrays, len);
+        Arrays.sort(arrays);
+        boolean[] diffs = new boolean[len];
+        diffs[0] = true;
+        int uCount = 1;
+        for (int i = 1; i < len; i++) {
+            if (arrays[i] != arrays[i - 1]) {
+                uCount++;
+                diffs[i] = true;
+            }
+        }
+        T[] uniqueAray = (T[]) new Object[uCount];
+        for (int i = 0, index = 0; i < len; i++) {
+            if (diffs[i]) {
+                uniqueAray[index++] = arrays[i];
+            }
+        }
+        return uniqueAray;
     }
 }

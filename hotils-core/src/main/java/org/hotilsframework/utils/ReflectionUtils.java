@@ -140,15 +140,22 @@ public final class ReflectionUtils {
     }
 
     /**
-     * 获取类属性(包含私有以及受保护的，父类也会检索)
+     * 获取类中的字段信息(包含私有以及受保护的，父类也会检索)
      * @param clazz             类
-     * @param fieldName         属性名称
+     * @param name              属性名称
      * @return                  属性
      */
-    public static Field findField(Class<?> clazz, String fieldName) {
-        return findField(clazz, fieldName, null);
+    public static Field findField(Class<?> clazz, String name) {
+        return findField(clazz, name, null);
     }
 
+    /**
+     * 获取类中的字段信息(包含私有以及受保护的，父类也会检索)
+     * @param clazz             类
+     * @param name              属性名称
+     * @param type              属性类型
+     * @return
+     */
     public static Field findField(Class<?> clazz,  String name,  Class<?> type) {
         Assert.notNull(clazz, "Class must not be null");
         Assert.isTrue(name != null || type != null, "Either name or type of the field must be specified");
@@ -293,8 +300,8 @@ public final class ReflectionUtils {
      * @param clazz
      * @return
      */
-    public static Field[] getInheritFields(Class<?> clazz) {
-        Field[] fields = getInheritFields(clazz, true);
+    public static Field[] getFields(Class<?> clazz) {
+        Field[] fields = getFields(clazz, true);
         return fields;
     }
 
@@ -304,23 +311,23 @@ public final class ReflectionUtils {
      * @param withSuperClassFields      是否包括父类的字段列表
      * @return
      */
-    public static Field[] getInheritFields(Class<?> clazz, boolean withSuperClassFields) {
+    public static Field[] getFields(Class<?> clazz, boolean withSuperClassFields) {
         Assert.notNull(clazz);
 
-        Field[] fields = null;
+        Field[] allFields = null;
         Class<?> searchType = clazz;
         Field[] declaredFields;
         while (searchType != null) {
             // 获取所有字段
             declaredFields = searchType.getDeclaredFields();
-            if (null == fields) {
-                fields = declaredFields;
+            if (null == allFields) {
+                allFields = declaredFields;
             } else {
-                fields = ArrayUtils.add(fields, declaredFields);
+                allFields = ArrayUtils.append(allFields, declaredFields);
             }
             searchType = withSuperClassFields ? searchType.getSuperclass() : null;
         }
-        return fields;
+        return allFields;
     }
 
     //======================================================
