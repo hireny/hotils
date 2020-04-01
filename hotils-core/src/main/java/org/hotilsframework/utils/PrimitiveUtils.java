@@ -134,7 +134,10 @@ public final class PrimitiveUtils {
      * @return
      */
     public static boolean isWrapperType(Class<?> type) {
-        return WRAPPER_TO_PRIMITIVE_TYPE.containsKey(Assert.notNull(type));
+        if (null == type) {
+            return false;
+        }
+        return WRAPPER_TO_PRIMITIVE_TYPE.containsKey(type);
     }
 
     /**
@@ -143,7 +146,10 @@ public final class PrimitiveUtils {
      * @return
      */
     public static boolean isPrimitiveType(Class<?> type) {
-        return type.isPrimitive() || PRIMITIVE_TO_WRAPPER_TYPE.containsKey(Assert.notNull(type));
+        if (null == type) {
+            return false;
+        }
+        return type.isPrimitive() || PRIMITIVE_TO_WRAPPER_TYPE.containsKey(type);
     }
 
     //=============================================

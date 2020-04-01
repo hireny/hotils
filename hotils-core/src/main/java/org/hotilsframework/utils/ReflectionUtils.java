@@ -106,27 +106,6 @@ public final class ReflectionUtils {
         throw new UndeclaredThrowableException(e);
     }
 
-
-    //=====================================================
-    // 对象处理(Object)
-    //=====================================================
-
-    @SuppressWarnings("unchecked")
-    public static <T> T newInstance(Class<?> clazz) {
-        Assert.notNull(clazz, "Class must not be null.");
-        if (clazz.isInterface()) {
-            throw new BeanInstantiationException(clazz, "Specified class is an interface");
-        }
-        try {
-            return (T) clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            // 异常处理
-            handleReflectionException(e);
-        }
-        return null;
-    }
-
-
     //=====================================================
     // 属性处理(Field)
     //=====================================================
@@ -331,29 +310,42 @@ public final class ReflectionUtils {
 
     /**
      * 获取某个 Constructor
-     * @param clazz
-     * @param parameterTypes
-     * @return
+     * @param clazz             类
+     * @param parameterTypes    参数类型，只要任何一个参数是指定参数的父类或接口或相等即可，此参数可以不传
+     * @param <T>               对象类型
+     * @return                  构造方法，如果未找到返回null
      */
-    public static Constructor<?> findConstructor(Class<?> clazz, Class<?>... parameterTypes) {
-        Constructor<?> constructor = null;
-        try {
-            constructor = clazz.getDeclaredConstructor(parameterTypes);
-        } catch (NoSuchMethodException e) {
-            throw new IllegalStateException(
-                    "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
+    @SuppressWarnings("unchecked")
+    public static <T>  Constructor<T> getConstructor(Class<T> clazz, Class<?>... parameterTypes) {
+        if (null == clazz) {
+            return null;
         }
-        return constructor;
+
+        final Constructor<?>[] constructors = getConstructors(clazz);
+        Class<?>[] pts;
+        for (Constructor<?> constructor : constructors) {
+            pts = constructor.getParameterTypes();
+            if (ClassUtils.isAssignableFrom(pts, parameterTypes)) {
+                // 构造可访问
+                makeAccessible(constructor);
+                return (Constructor<T>) constructor;
+            }
+
+        }
+        return null;
     }
 
     /**
-     * 查找所有的 Constructor
-     * @param clazz
-     * @return
+     * 获取一个类中所有构造方法
+     * @param clazz     类
+     * @param <T>       构造的对象类型
+     * @return          构造方法数组
      */
-    public static Constructor<?>[] findConstructors(Class<?> clazz) {
+    @SuppressWarnings("unchecked")
+    public static <T> Constructor<T>[] getConstructors(Class<T> clazz) {
+        Assert.notNull(clazz);
         Constructor<?>[] constructors = clazz.getDeclaredConstructors();
-        return constructors;
+        return (Constructor<T>[]) constructors;
     }
 
 
@@ -554,6 +546,70 @@ public final class ReflectionUtils {
         return accessibleObject;
     }
 
+
+    //=====================================================
+    // 实例化
+    //=====================================================
+
+    /**
+     * 实例化对象
+     * @param clazz 类名
+     * @param <T>   对象类型
+     * @return      对象
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T newInstance(Class<?> clazz) {
+        Assert.notNull(clazz, "Class must not be null.");
+        if (clazz.isInterface()) {
+            throw new BeanInstantiationException(clazz, "Specified class is an interface");
+        }
+        if (Modifier.isAbstract(clazz.getModifiers())) {
+            throw new BeanInstantiationException(clazz, "Specified class is an abstract class");
+        }
+        try {
+            return (T) clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            // 异常处理
+            handleReflectionException(e);
+        }
+        return null;
+    }
+
+    /**
+     * 实例化对象
+     * @param clazz     类
+     * @param args      构造函数参数
+     * @param <T>       对象类型
+     * @return          对象
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T newInstance(Class<T> clazz, Object... args) {
+        if (ArrayUtils.isEmpty(args)) {
+            final Constructor<T> constructor = getConstructor(clazz);
+            try {
+                return constructor.newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                handleReflectionException(e);
+            }
+
+        }
+        final Class<?>[] parameterTypes = ClassUtils.getClasses(args);
+        final Constructor<T> constructor = getConstructor(clazz, parameterTypes);
+
+        if (null == constructor) {
+
+            throw new IllegalArgumentException(
+                    StringUtils.format("No Constructor matched for parameter types: [{}]", parameterTypes));
+        }
+
+        try {
+            return constructor.newInstance(args);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            handleReflectionException(e);
+        }
+        return null;
+    }
+
     //======================================================
     //  清除缓存的方法
     //======================================================
@@ -563,7 +619,6 @@ public final class ReflectionUtils {
      * @since 4.2.4
      */
     public static void clearCache() {
-        declaredMethodsCache.clear();
-        declaredFieldsCache.clear();
+
     }
 }

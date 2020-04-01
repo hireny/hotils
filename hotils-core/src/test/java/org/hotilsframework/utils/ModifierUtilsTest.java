@@ -30,7 +30,7 @@ public class ModifierUtilsTest {
         System.out.println(ModifierUtils.isPrivate(method));
 
         System.out.println("测试构造器 Constructor：");
-        Constructor constructor = ReflectionUtils.findConstructor(ModifierTestClass.class, int.class);
+        Constructor constructor = ReflectionUtils.getConstructor(ModifierTestClass.class, int.class);
         System.out.println(ModifierUtils.isPublic(constructor));
         System.out.println(ModifierUtils.isProtected(constructor));
         System.out.println(ModifierUtils.isPrivate(constructor));

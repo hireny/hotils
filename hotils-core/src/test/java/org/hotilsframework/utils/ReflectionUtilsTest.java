@@ -7,6 +7,7 @@ import example.reflect.ReflectExample;
 import org.hotilsframework.lang.enums.Sex;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -150,6 +151,30 @@ public class ReflectionUtilsTest {
 
     // 使用反射设置构造方法
 
+    /**
+     * 获取构造方法
+     */
+    @Test
+    public void getConstructorTest() {
+        Constructor<?> constructor1 = ReflectionUtils.getConstructor(ReflectExample.class);
+        System.out.println("获取到的构造方法=" + constructor1);
+        Constructor<?> constructor2 = ReflectionUtils.getConstructor(ReflectExample.class, Integer.class);
+        System.out.println("获取到的构造方法="+ constructor2);
+        Constructor<?> constructor3 = ReflectionUtils.getConstructor(
+                ReflectExample.class, int.class, Object.class, Double.class, char.class, String.class);
+        System.out.println("获取到的构造方法=" + constructor3);
+    }
+
+    /**
+     * 获取所有构造方法
+     */
+    @Test
+    public void getConstructorsTest() {
+        Constructor<?>[] constructors = ReflectionUtils.getConstructors(ReflectExample.class);
+        System.out.println("获取到的所有构造方法：");
+        System.out.println(Arrays.toString(constructors));
+        System.out.println("获取到的构造方法的数量="+constructors.length);
+    }
 
     // 使用反射设置方法
 
@@ -187,5 +212,50 @@ public class ReflectionUtilsTest {
     public void invokeStaticMethodTest() {
         Object staticMethodValue = ReflectionUtils.invokeMethod(UserTestClass.class, "staticMethodTest", "小静态", "小静态的年龄：22");
         System.out.println(staticMethodValue);
+    }
+
+
+    // 实例化操作
+
+    /**
+     * 实例化
+     */
+    @Test
+    public void newInstanceTest() {
+        ReflectExample example1 = ReflectionUtils.newInstance(ReflectExample.class);
+        System.out.println(example1);
+
+        ReflectExample example2 = ReflectionUtils.newInstance(ReflectExample.class);
+        System.out.println(example2);
+
+        ReflectExample example3 = ReflectionUtils.newInstance(ReflectExample.class);
+        System.out.println(example3);
+
+        ReflectExample example4 = ReflectionUtils.newInstance(ReflectExample.class);
+        System.out.println(example4);
+
+        ReflectExample example5 = ReflectionUtils.newInstance(ReflectExample.class);
+        System.out.println(example5);
+    }
+
+    /**
+     * 实例化带参数的类
+     */
+    @Test
+    public void newInstanceWithParametersTest() {
+        ReflectExample example1 = ReflectionUtils.newInstance(ReflectExample.class, 1);
+        System.out.println(example1);
+
+        ReflectExample example2 = ReflectionUtils.newInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
+        System.out.println(example2);
+
+        ReflectExample example3 = ReflectionUtils.newInstance(ReflectExample.class, 1);
+        System.out.println(example3);
+
+        ReflectExample example4 = ReflectionUtils.newInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
+        System.out.println(example4);
+
+        ReflectExample example5 = ReflectionUtils.newInstance(ReflectExample.class, 1);
+        System.out.println(example5);
     }
 }

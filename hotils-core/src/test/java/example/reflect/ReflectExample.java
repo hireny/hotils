@@ -5,7 +5,9 @@ package example.reflect;
  * @className ReflectExample
  * @create 2020-03-31 15:07
  */
-public abstract class ReflectExample implements ReflectInterface {
+public  class ReflectExample extends ReflectAbstract {
+
+    private static int counter = 0;
 
     public static int getStaticIntField() {
         return staticIntField;
@@ -18,13 +20,15 @@ public abstract class ReflectExample implements ReflectInterface {
     public Double doubleField;
     protected Character characterField;
     public String stringField;
+    public String parameter;
 
-    private ReflectExample() {
+    public ReflectExample() {
 
     }
 
     protected ReflectExample(int intField) {
         this.intField = intField;
+        this.parameter = "带一个参数";
     }
 
     public ReflectExample(int intField,
@@ -37,6 +41,7 @@ public abstract class ReflectExample implements ReflectInterface {
         this.doubleField = doubleField;
         this.characterField = characterField;
         this.stringField = stringField;
+        this.parameter = "带五个参数";
     }
 
     public int getIntField() {
@@ -95,5 +100,25 @@ public abstract class ReflectExample implements ReflectInterface {
 
     public static void staticReflectMethod(String name) {
         System.out.println("static reflect method :" + name);
+    }
+
+    @Override
+    public String toString() {
+        return "ReflectExample object " + ++counter + " " + parameter;
+    }
+
+    @Override
+    public void methodInterface() {
+
+    }
+
+    @Override
+    public void methodInterface(String arg1, String arg2, String... args) {
+
+    }
+
+    @Override
+    public Object methodInterface2(String arg1, String... args) {
+        return null;
     }
 }

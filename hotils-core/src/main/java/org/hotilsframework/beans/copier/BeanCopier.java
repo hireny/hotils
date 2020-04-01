@@ -103,7 +103,7 @@ public class BeanCopier<T> implements Copy<T>, Serializable {
                 PropertyDescriptor sourcePd = BeanUtils.getPropertyDescriptor(source.getClass(), targetPd.getName());
                 if (sourcePd != null) {
                     Method readMethod = sourcePd.getReadMethod();
-                    if (readMethod != null && ClassUtils.isAssignable(writeMethod.getParameterTypes()[0], readMethod.getReturnType())) {
+                    if (readMethod != null && ClassUtils.isAssignableFrom(writeMethod.getParameterTypes()[0], readMethod.getReturnType())) {
                         try {
                             if (!Modifier.isPublic(readMethod.getDeclaringClass().getModifiers())) {
                                 readMethod.setAccessible(true);

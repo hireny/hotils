@@ -177,7 +177,7 @@ public final class ClassUtils {
      * @param targetType        目标的类型
      * @return
      */
-    public static boolean isAssignable(Class<?> sourceType, Class<?> targetType) {
+    public static boolean isAssignableFrom(Class<?> sourceType, Class<?> targetType) {
         Assert.notNull(sourceType, "Left-hand side type must not be null");
         Assert.notNull(targetType, "Right-hand side type must not be null");
         if (sourceType.isAssignableFrom(targetType)) {
@@ -202,6 +202,59 @@ public final class ClassUtils {
         }
         return false;
     }
+
+    /**
+     * 比较判断sourceType和targetType两数组，如果sourceType中所有的类都与targetType对应位置的类相同，或者是其父类或接口，则返回 true
+     *
+     * @param sourceTypes       来源类数组
+     * @param targetTypes       目标类数组
+     * @return                  是否相同、父类或接口
+     */
+    public static boolean isAssignableFrom(Class<?>[] sourceTypes, Class<?>[] targetTypes) {
+        if (ArrayUtils.isEmpty(sourceTypes) && ArrayUtils.isEmpty(targetTypes)) {
+            return true;
+        }
+        if (null == sourceTypes || null == targetTypes) {
+            // 任何一个为null不相等（之前已判断两个都为null的情况）
+            return false;
+        }
+        if (sourceTypes.length != targetTypes.length) {
+            return false;
+        }
+
+        Class<?> sourceType;
+        Class<?> targetType;
+        for (int i = 0; i < sourceTypes.length; i++) {
+            sourceType = sourceTypes[i];
+            targetType = targetTypes[i];
+            if ((PrimitiveUtils.isPrimitiveType(sourceType) || PrimitiveUtils.isWrapperType(sourceType))
+                    && (PrimitiveUtils.isPrimitiveType(targetType) || PrimitiveUtils.isWrapperType(targetType))) {
+                // 原始类型和包装类型存在不一致情况
+                if (PrimitiveUtils.unwrap(sourceType) != PrimitiveUtils.unwrap(targetType)) {
+                    return false;
+                }
+            } else if (false == sourceType.isAssignableFrom(targetType)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 获得对象数组的类数组
+     * @param args      对象数组，如果数组中存在{@code null}元素，则此元素被认为是Object类型
+     * @return          类数组
+     */
+    public static Class<?>[] getClasses(Object... args) {
+        Class<?>[] classes = new Class[args.length];
+        Object o;
+        for (int i = 0; i < args.length; i++) {
+            o = args[i];
+            classes[i] = (null == o) ? Object.class : o.getClass();
+        }
+        return classes;
+    }
+
 
     /**
      * 判断类型是否是基本类型
