@@ -1,6 +1,6 @@
 package org.hotilsframework.web.utils;
 
-import org.hotilsframework.core.collection.Maps;
+import org.hotilsframework.collection.Maps;
 import org.hotilsframework.lang.Symbol;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.StringUtils;

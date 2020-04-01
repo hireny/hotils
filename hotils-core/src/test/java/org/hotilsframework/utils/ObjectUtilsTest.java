@@ -1,9 +1,9 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.collection.Lists;
-import org.hotilsframework.core.collection.Maps;
-import org.hotilsframework.lang.Gender;
-import example.model.PersonTest;
+import org.hotilsframework.collection.Lists;
+import org.hotilsframework.collection.Maps;
+import org.hotilsframework.lang.enums.Sex;
+import example.model.PersonModel;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -76,12 +76,12 @@ public class ObjectUtilsTest {
      */
     @Test
     public void cloneTest() throws IOException, ClassNotFoundException {
-        PersonTest person1 = new PersonTest();
+        PersonModel person1 = new PersonModel();
         person1.setName("小赵");
         person1.setAge(18);
-        person1.setSex(Gender.Male);
+        person1.setSex(Sex.Male);
 
-        PersonTest person2 = ObjectUtils.clone(person1);
+        PersonModel person2 = ObjectUtils.clone(person1);
 
         System.out.println(person1 == person2);
         System.out.println(person1.equals(person2));

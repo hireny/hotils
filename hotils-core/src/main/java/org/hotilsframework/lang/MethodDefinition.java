@@ -1,6 +1,6 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.core.collection.ImmutableList;
+import org.hotilsframework.collection.ImmutableList;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

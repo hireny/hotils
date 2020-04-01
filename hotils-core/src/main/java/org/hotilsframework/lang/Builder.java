@@ -1,6 +1,6 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.core.collection.Lists;
+import org.hotilsframework.collection.Lists;
 
 import java.util.List;
 import java.util.function.Consumer;

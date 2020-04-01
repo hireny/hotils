@@ -1,6 +1,6 @@
 package org.hotilsframework.lang.primitives;
 
-import org.hotilsframework.lang.Gender;
+import org.hotilsframework.lang.enums.Sex;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -142,7 +142,7 @@ public class CharsTest {
         System.out.println(Chars.isCharClass(Float.class));
         System.out.println(Chars.isCharClass(char.class));
         System.out.println(Chars.isCharClass(Character.class));
-        System.out.println(Chars.isCharClass(Gender.class));
+        System.out.println(Chars.isCharClass(Sex.class));
     }
 
     @Test

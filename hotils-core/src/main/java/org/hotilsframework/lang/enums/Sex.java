@@ -1,4 +1,4 @@
-package org.hotilsframework.lang;
+package org.hotilsframework.lang.enums;
 
 /**
  * @ClassName: Gender
@@ -7,7 +7,7 @@ package org.hotilsframework.lang;
  * @Date: Created in 2020-01-09 15:30
  * @Version: 1.0
  */
-public enum Gender {
+public enum Sex {
     /**
      * 未知
      */
@@ -24,7 +24,7 @@ public enum Gender {
     private String name;
     private Integer value;
 
-    Gender(String name, Integer value) {
+    Sex(String name, Integer value) {
         this.name = name;
         this.value = value;
     }

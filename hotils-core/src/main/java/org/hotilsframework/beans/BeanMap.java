@@ -1,6 +1,6 @@
 package org.hotilsframework.beans;
 
-import org.hotilsframework.core.collection.Maps;
+import org.hotilsframework.collection.Maps;
 import org.hotilsframework.utils.ReflectionUtils;
 
 import java.util.*;

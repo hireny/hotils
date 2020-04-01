@@ -1,5 +1,6 @@
 package org.hotilsframework.lang;
 
+import org.hotilsframework.lang.enums.Sex;
 import org.hotilsframework.utils.EnumUtils;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class EnumUtilsTest {
 
     @Test
     public void enumFieldTest() {
-        Field field = EnumUtils.getField(Gender.Male);
+        Field field = EnumUtils.getField(Sex.Male);
         System.out.println(field);
     }
 }

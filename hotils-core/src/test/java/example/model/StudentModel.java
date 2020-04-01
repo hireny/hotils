@@ -1,6 +1,6 @@
 package example.model;
 
-import org.hotilsframework.lang.Gender;
+import org.hotilsframework.lang.enums.Sex;
 
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  * @className StudentTest
  * @create 2020-02-21 19:43
  */
-public class StudentTest extends PersonTest {
+public class StudentModel extends PersonModel {
     // 学号
     private Integer studentId;
     // 年级
@@ -21,11 +21,11 @@ public class StudentTest extends PersonTest {
     // 学校
     private String school;
 
-    public StudentTest() {
+    public StudentModel() {
         super();
     }
 
-    public StudentTest(String name, int age, Gender sex, Integer studentId, String grade, String clazz, String school) {
+    public StudentModel(String name, int age, Sex sex, Integer studentId, String grade, String clazz, String school) {
         super(name, age, sex);
         this.studentId = studentId;
         this.grade = grade;
@@ -70,7 +70,7 @@ public class StudentTest extends PersonTest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        StudentTest that = (StudentTest) o;
+        StudentModel that = (StudentModel) o;
         return studentId.equals(that.studentId) &&
                 grade.equals(that.grade) &&
                 clazz.equals(that.clazz) &&
@@ -84,7 +84,7 @@ public class StudentTest extends PersonTest {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", StudentTest.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", StudentModel.class.getSimpleName() + "[", "]")
                 .add("studentId=" + studentId)
                 .add("grade='" + grade + "'")
                 .add("clazz='" + clazz + "'")

@@ -131,22 +131,14 @@ public final class ReflectionUtils {
     // 属性处理(Field)
     //=====================================================
 
-    public static void makeAccessible(Field field) {
-        if ((!Modifier.isPublic(field.getModifiers()) ||
-                !Modifier.isPublic(field.getDeclaringClass().getModifiers()) ||
-                Modifier.isFinal(field.getModifiers())) && !field.isAccessible()) {
-            field.setAccessible(true);
-        }
-    }
-
     /**
      * 获取类中的字段信息(包含私有以及受保护的，父类也会检索)
      * @param clazz             类
      * @param name              属性名称
      * @return                  属性
      */
-    public static Field findField(Class<?> clazz, String name) {
-        return findField(clazz, name, null);
+    public static Field getField(Class<?> clazz, String name) {
+        return getField(clazz, name, null);
     }
 
     /**
@@ -156,15 +148,15 @@ public final class ReflectionUtils {
      * @param type              属性类型
      * @return
      */
-    public static Field findField(Class<?> clazz,  String name,  Class<?> type) {
+    public static Field getField(Class<?> clazz,  String name,  Class<?> type) {
         Assert.notNull(clazz, "Class must not be null");
         Assert.isTrue(name != null || type != null, "Either name or type of the field must be specified");
         Class<?> searchType = clazz;
         while (Object.class != searchType && searchType != null) {
-            Field[] fields = getDeclaredFields(searchType);
+            Field[] fields = getFields(searchType);
             for (Field field : fields) {
                 if ( (name == null || name.equals(field.getName())) &&
-                        (type == null || type.equals(field.getType())) ) {
+                        (type == null || type.equals(field.getType())) ) {  // 判断字段名称与字段类型
                     return field;
                 }
             }
@@ -176,127 +168,7 @@ public final class ReflectionUtils {
     }
 
     /**
-     * 获取属性的值
-     * @param object        对象
-     * @param fieldName     属性名
-     * @return              属性值
-     */
-    public static Object findFieldValue(Object object, String fieldName) {
-        Object value = null;
-        if (object != null) {
-            Field field = findField(object.getClass(), fieldName);
-            if (field != null) {
-                field.setAccessible(true);
-                try {
-                    value = field.get(object);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.err.println("Field is not exist.");
-            }
-        }
-        return value;
-    }
-
-    /**
-     * 获取静态属性值
-     * @param sourceClass   类
-     * @param fieldName     属性名
-     * @return              属性值
-     */
-    public static Object findFieldValue(Class<?> sourceClass, String fieldName) {
-        Field field = findField(sourceClass, fieldName);
-        Object value = null;
-        if (field != null) {
-            field.setAccessible(true);
-            if (ModifierUtils.isStatic(field)) {
-                try {
-                    value = field.get(null);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.err.println("Field is not static");
-            }
-        } else {
-            System.err.println("Field is not exist");
-        }
-        return value;
-    }
-
-    /**
-     * 设置属性值
-     * @param field     字段
-     * @param target    目标对象
-     * @param value     值
-     */
-    public static void setFieldValue(Field field,  Object target,  Object value) {
-        Assert.notNull(field, "Field is not exist.");
-        try {
-            field.set(target, value);
-        } catch (IllegalAccessException e) {
-            throw new IllegalStateException(
-                    "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
-        }
-    }
-
-    /**
-     * 设置属性值
-     * @param object        对象
-     * @param fieldName     属性名
-     * @param newValue      新值
-     */
-    public static void setFieldValue(Object object, String fieldName, Object newValue) {
-        Assert.notNull(object, "Object can not be empty.");
-        Field field = findField(object.getClass(), fieldName);
-
-        Assert.state(!ModifierUtils.isFinal(field), "Field is final.");
-
-        setFieldValue(field, object, newValue);
-    }
-
-    /**
-     * 设置静态属性值
-     * @param clazz         类
-     * @param fieldName     属性名
-     * @param newValue      新值
-     */
-    public static void setFieldValue(Class<?> clazz, String fieldName, Object newValue) {
-        Field field = findField(clazz, fieldName);
-        Assert.notNull(field, "Field is not exist.");
-        try {
-            makeAccessible(field);
-            field.set(null, newValue);
-        } catch (IllegalAccessException e) {
-            throw new IllegalStateException(
-                    "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
-        }
-    }
-
-
-    /**
-     * 获取当前类的所有字段（不包括父类）
-     * @param clazz
-     * @return
-     */
-    private static Field[] getDeclaredFields(Class<?> clazz) {
-        Assert.notNull(clazz, "Class must not be null");
-        Field[] result = declaredFieldsCache.get(clazz);
-        if (result == null) {
-            try {
-                result = clazz.getDeclaredFields();
-                declaredFieldsCache.put(clazz, (result.length == 0 ? EMPTY_FIELD_ARRAY : result));
-            } catch (Throwable t) {
-                throw new IllegalStateException("Failed to introspect Class [" + clazz.getName() +
-                        "] from ClassLoader [" + clazz.getClassLoader() + "]", t);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 获取一个类中所有字段列表，包括父类
+     * 获取一个类中所有字段列表，括父类
      * @param clazz
      * @return
      */
@@ -330,16 +202,132 @@ public final class ReflectionUtils {
         return allFields;
     }
 
+    /**
+     * 获取静态属性值
+     * @param clazz         类
+     * @param fieldName     属性名
+     * @return              属性值
+     */
+    public static Object getFieldValue(Class<?> clazz, String fieldName) {
+        if (null == clazz || StringUtils.isBlank(fieldName)) {
+            return null;
+        }
+        return getFieldValue(clazz, getField(clazz, fieldName));
+    }
+
+    /**
+     * 获取静态字段值
+     * @param clazz
+     * @param field
+     * @return
+     */
+    public static Object getFieldValue(Class<?> clazz, Field field) {
+        if (null == clazz || null == field) {
+            return null;
+        }
+        makeAccessible(field);
+        Object result = null;
+        try {
+            result = field.get(null);
+        } catch (IllegalAccessException e) {
+            handleReflectionException(e);
+        }
+        return result;
+    }
+
+    /**
+     * 获取属性的值
+     * @param object        对象
+     * @param fieldName     属性名
+     * @return              属性值
+     */
+    public static Object getFieldValue(Object object, String fieldName) {
+        if (null == object || StringUtils.isBlank(fieldName)) {
+            return null;
+        }
+        return getFieldValue(object, getField(object.getClass(), fieldName));
+    }
+
+    /**
+     * 获取属性值
+     * @param object    对象
+     * @param field     字段
+     * @return          字段值
+     */
+    public static Object getFieldValue(Object object, Field field) {
+        if (null == object || null == field) {
+            return null;
+        }
+        makeAccessible(field);
+        Object result = null;
+        try {
+            result = field.get(object);
+        } catch (IllegalAccessException e) {
+            handleReflectionException(e);
+        }
+        return result;
+    }
+
+    /**
+     * 设置属性值
+     *
+     * @param target    目标对象
+     * @param field     字段
+     * @param value     值
+     */
+    public static void setFieldValue(Object target, Field field,  Object value) {
+        Assert.notNull(target);
+        Assert.notNull(field, "Field in [{}] not exist !", target.getClass().getName());
+
+        // 可以添加类型转换，将 value 转换为 field 字段的类型
+
+        try {
+            makeAccessible(field);
+            field.set(target, value);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(
+                    "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
+    /**
+     * 设置属性值
+     * @param object        对象
+     * @param fieldName     属性名
+     * @param newValue      新值
+     */
+    public static void setFieldValue(Object object, String fieldName, Object newValue) {
+        Assert.notNull(object);
+        Assert.notBlank(fieldName);
+
+        final Field field = getField(object.getClass(), fieldName);
+        setFieldValue(object, field, newValue);
+    }
+
+    /**
+     * 设置静态属性值
+     * @param clazz         类
+     * @param fieldName     属性名
+     * @param newValue      新值
+     */
+    public static void setFieldValue(Class<?> clazz, String fieldName, Object newValue) {
+        Assert.notNull(clazz);
+        Assert.notBlank(fieldName);
+
+
+        Field field = getField(clazz, fieldName);
+        try {
+            makeAccessible(field);
+            field.set(null, newValue);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(
+                    "Unexpected reflection exception(意想不到的反射异常) - " + e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
     //======================================================
     //  构造器处理 start
     //======================================================
-
-    public static void makeAccessible(Constructor<?> constructor) {
-        if ((!Modifier.isPublic(constructor.getModifiers()) ||
-                !Modifier.isPublic(constructor.getDeclaringClass().getModifiers())) && !constructor.isAccessible() ) {
-            constructor.setAccessible(true);
-        }
-    }
 
     /**
      * 获取某个 Constructor
@@ -378,12 +366,6 @@ public final class ReflectionUtils {
     //  方法处理
     //======================================================
 
-    public static void makeAccessible(Method method) {
-        if ((!Modifier.isPublic(method.getModifiers()) ||
-                !Modifier.isPublic(method.getDeclaringClass().getModifiers())) && !method.isAccessible()) {
-            method.setAccessible(true);
-        }
-    }
 
     /**
      * Attempt to find a {@link Method} on the supplied class with the supplied name
@@ -558,6 +540,19 @@ public final class ReflectionUtils {
         return (method != null && method.getName().equals("hashCode") && method.getParameterCount() == 0);
     }
 
+
+    /**
+     * 设置方法为可访问（私有方法可以被外部调用）
+     * @param accessibleObject      可设置访问权限的对象，比如Class、Method、Field、Constructor等
+     * @param <T>                   AccessibleObject的子类，比如Class、Method、Field、Constructor等
+     * @return                      被设置可访问的对象
+     */
+    public static <T extends AccessibleObject> T makeAccessible(T accessibleObject) {
+        if (null != accessibleObject && false == accessibleObject.isAccessible()) {
+            accessibleObject.setAccessible(true);
+        }
+        return accessibleObject;
+    }
 
     //======================================================
     //  清除缓存的方法

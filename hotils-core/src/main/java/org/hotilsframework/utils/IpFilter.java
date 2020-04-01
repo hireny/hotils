@@ -1,7 +1,7 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.collection.Lists;
-import org.hotilsframework.core.collection.Sets;
+import org.hotilsframework.collection.Lists;
+import org.hotilsframework.collection.Sets;
 
 import java.util.ArrayList;
 import java.util.List;

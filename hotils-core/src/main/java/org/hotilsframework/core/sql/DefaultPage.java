@@ -1,10 +1,9 @@
 package org.hotilsframework.core.sql;
 
 
-import org.hotilsframework.core.collection.Lists;
+import org.hotilsframework.collection.Lists;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

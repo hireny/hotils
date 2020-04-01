@@ -1,16 +1,11 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.collection.Sets;
+import org.hotilsframework.collection.Sets;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Collections;
-import java.util.Objects;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 /**
  * 数字工具类

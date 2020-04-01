@@ -1,4 +1,4 @@
-package org.hotilsframework.core.tuple;
+package org.hotilsframework.tuple;
 
 /**
  * @ClassName: Pair

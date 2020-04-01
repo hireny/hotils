@@ -2,7 +2,7 @@ package org.hotilsframework.beans;
 
 import org.hotilsframework.beans.copier.BeanCopier;
 import org.hotilsframework.beans.copier.CopyOptions;
-import org.hotilsframework.core.collection.CaseInsensitiveMap;
+import org.hotilsframework.collection.CaseInsensitiveMap;
 import org.hotilsframework.utils.*;
 
 import java.beans.BeanInfo;

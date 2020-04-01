@@ -18,7 +18,7 @@ public class ModifierUtilsTest {
     @Test
     public void isPublicTest() {
         System.out.println("测试字段 Field：");
-        Field field = ReflectionUtils.findField(ModifierTestClass.class, "isSex");
+        Field field = ReflectionUtils.getField(ModifierTestClass.class, "isSex");
         System.out.println(ModifierUtils.isPublic(field));
         System.out.println(ModifierUtils.isPrivate(field));
         System.out.println(ModifierUtils.isProtected(field));
@@ -46,7 +46,7 @@ public class ModifierUtilsTest {
 
     @Test
     public void isFinalTest() {
-        Field field = ReflectionUtils.findField(ModifierTestClass.class, "username");
+        Field field = ReflectionUtils.getField(ModifierTestClass.class, "username");
         System.out.println(ModifierUtils.isFinal(field));
     }
 

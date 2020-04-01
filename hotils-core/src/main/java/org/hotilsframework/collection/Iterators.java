@@ -1,6 +1,4 @@
-package org.hotilsframework.core.collection;
-
-import org.hotilsframework.utils.ArrayUtils;
+package org.hotilsframework.collection;
 
 import java.util.Iterator;
 

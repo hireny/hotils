@@ -1,6 +1,6 @@
 package org.hotilsframework.beans;
 
-import org.hotilsframework.core.collection.Lists;
+import org.hotilsframework.collection.Lists;
 
 import java.util.List;
 

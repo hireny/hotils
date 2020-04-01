@@ -1,6 +1,6 @@
 package org.hotilsframework.core.logging;
 
-import org.hotilsframework.core.collection.Lists;
+import org.hotilsframework.collection.Lists;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package example.model;
 
-import org.hotilsframework.lang.Gender;
+import org.hotilsframework.lang.enums.Sex;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,15 +12,15 @@ import java.util.StringJoiner;
  * @className PersonTest
  * @create 2020-02-21 19:43
  */
-public class PersonTest implements Serializable {
+public class PersonModel implements Serializable {
     private String name;
-    private int    age;
-    private Gender sex;
+    private int age;
+    private Sex sex;
 
-    public PersonTest() {
+    public PersonModel() {
     }
 
-    public PersonTest(String name, int age, Gender sex) {
+    public PersonModel(String name, int age, Sex sex) {
         this.name = name;
         this.age = age;
         this.sex = sex;
@@ -42,11 +42,11 @@ public class PersonTest implements Serializable {
         this.age = age;
     }
 
-    public Gender getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(Gender sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -54,7 +54,7 @@ public class PersonTest implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonTest that = (PersonTest) o;
+        PersonModel that = (PersonModel) o;
         return age == that.age &&
                 Objects.equals(name, that.name) &&
                 sex == that.sex;
@@ -67,7 +67,7 @@ public class PersonTest implements Serializable {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", PersonTest.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", PersonModel.class.getSimpleName() + "[", "]")
                 .add("name='" + name + "'")
                 .add("age=" + age)
                 .add("sex=" + sex)

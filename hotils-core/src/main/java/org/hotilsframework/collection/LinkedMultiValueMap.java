@@ -1,4 +1,4 @@
-package org.hotilsframework.core.collection;
+package org.hotilsframework.collection;
 
 import java.io.Serializable;
 import java.util.*;
