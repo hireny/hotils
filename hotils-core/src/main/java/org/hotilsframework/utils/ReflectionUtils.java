@@ -3,10 +3,7 @@ package org.hotilsframework.utils;
 import org.hotilsframework.beans.BeanInstantiationException;
 
 import java.lang.reflect.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -358,142 +355,90 @@ public final class ReflectionUtils {
     //  方法处理
     //======================================================
 
-
     /**
-     * Attempt to find a {@link Method} on the supplied class with the supplied name
-     * and no parameters. Searches all superclasses up to {@code Object}.
-     * <p>Returns {@code null} if no {@link Method} can be found.
-     * @param clazz the class to introspect
-     * @param name the name of the method
-     * @return the Method object, or {@code null} if none found
+     * 查找指定类中的方法，包括父类
+     * @param clazz         累
+     * @param methodName    方法名称
+     * @return              方法
      */
-    /**
-     * 通过反射技术找到方法
-     * @param clazz
-     * @param methodName
-     * @return
-     */
-    public static Method findMethod(Class<?> clazz, String methodName) {
-        return findMethod(clazz, methodName, EMPTY_CLASS_ARRAY);
+    public static Method getMethod(Class<?> clazz, String methodName) {
+        return getMethod(clazz, methodName, EMPTY_CLASS_ARRAY);
     }
     /**
-     * 使用反射技术找到方法
+     * 查找指定类中的方法，包括父类
      * @param clazz         类
      * @param methodName    方法名称
      * @param paramTypes    参数类型
-     * @return
+     * @return              方法
      */
-    public static Method findMethod(Class<?> clazz, String methodName, Class<?>... paramTypes) {
+    public static Method getMethod(Class<?> clazz, String methodName, Class<?>... paramTypes) {
         Assert.notNull(clazz, "Class must not be null");
         Assert.notNull(methodName, "Method name must not be null");
-        Class<?> searchType = clazz;
-        while (searchType != null) {
-            Method[] methods = searchType.isInterface() ?
-                    searchType.getMethods() :
-                    getDeclaredMethods(searchType, false);
-            for (Method method : methods) {
-                if (methodName.equals(method.getName()) &&
-                        (paramTypes == null || Arrays.equals(paramTypes, method.getParameterTypes()))) {
-                    return method;
-                }
+
+        Method[] allMethods = getMethods(clazz);
+
+        for (Method method : allMethods) {
+            if (methodName.equals(method.getName()) &&
+                    (paramTypes == null || Arrays.equals(paramTypes, method.getParameterTypes()))) {
+                return method;
             }
-            searchType = searchType.getSuperclass();
         }
         return null;
     }
 
     /**
-     * 调用方法
-     * @param source        类对象
-     * @param methodName    方法名
-     * @param args          参数数组
-     * @return              执行结果
+     * 获取一个类中所有方法列表，包括其父类中的方法
+     * @param clazz     类
+     * @return          方法列表
      */
-    public static Object invokeMethod(Object source, String methodName, Object... args) {
-        Class<?>[] classes = null;
-        if (args != null) {
-            classes = new Class[args.length];
-            for (int i = 0; i < args.length; i++) {
-                classes[i] = args[i].getClass();
-            }
-        }
-        Method method = findMethod(source.getClass(), methodName, classes);
-        Object result = null;
-        if (method != null) {
-            method.setAccessible(true);
-            result = invokeMethod(method, source, args);
-        } else {
-            System.err.println("Method is not exist");
-        }
-        return result;
+    public static Method[] getMethods(Class<?> clazz) {
+        return getMethods(clazz, true);
     }
 
     /**
-     * 调用方法
-     * @param method
-     * @param target
-     * @return
+     * 获取一个类中所有方法列表
+     * @param clazz                     类
+     * @param withSuperClassMethods     是否包括父类的方法列表
+     * @return                          方法列表
      */
-    public static Object invokeMethod(Method method,  Object target) {
-        return invokeMethod(method, target, EMPTY_OBJECT_ARRAY);
+    public static Method[] getMethods(Class<?> clazz, boolean withSuperClassMethods) {
+        Assert.notNull(clazz, "class must not be null");
+
+        Method[] allMethods = null;
+        Class<?> searchType = clazz;
+        Method[] declaredMethods;
+        List<Method> defaultMethodLists;
+        while (searchType != null) {
+            declaredMethods = searchType.getDeclaredMethods();
+            defaultMethodLists = getConcreteMethodsOnInterfaces(searchType);
+
+            if (null != defaultMethodLists) {
+
+                // 将 List 转为 数组
+                Method[] defaultMethods = new Method[defaultMethodLists.size()];
+
+                defaultMethodLists.toArray(defaultMethods);
+
+                declaredMethods = ArrayUtils.append(declaredMethods, defaultMethods);
+            }
+
+            if (null == allMethods) {
+                allMethods = declaredMethods;
+            } else {
+                allMethods = ArrayUtils.append(allMethods, declaredMethods);
+            }
+            searchType = withSuperClassMethods ? searchType.getSuperclass() : null;
+        }
+        return allMethods;
     }
 
     /**
-     * 调用方法
-     * @param method
-     * @param target
-     * @param args
+     * 获取接口中具体的方法
+     * @param clazz     类
      * @return
      */
-    public static Object invokeMethod(Method method,  Object target,  Object... args) {
-        try {
-            return method.invoke(target, args);
-        } catch (Exception e) {
-            handleReflectionException(e);
-        }
-        throw new IllegalStateException("Should never get here.(永远也到不了这)");
-    }
+    private static List<Method> getConcreteMethodsOnInterfaces(Class<?> clazz) {
 
-    /**
-     * 获取当前类中所有方法
-     * @param clazz
-     * @return
-     */
-    public static Method[] getDeclaredMethods(Class<?> clazz) {
-        return getDeclaredMethods(clazz, true);
-    }
-
-    private static Method[] getDeclaredMethods(Class<?> clazz, boolean defensive) {
-        Assert.notNull(clazz, "Class must not be null");
-        Method[] result = declaredMethodsCache.get(clazz);
-        if (result == null) {
-            try {
-                Method[] declaredMethods = clazz.getDeclaredMethods();
-                List<Method> defaultMethods = findConcreteMethodsOnInterfaces(clazz);
-                if (defaultMethods != null) {
-                    result = new Method[declaredMethods.length + defaultMethods.size()];
-                    System.arraycopy(declaredMethods, 0, result, 0, declaredMethods.length);
-                    int index = declaredMethods.length;
-                    for (Method defaultMethod : defaultMethods) {
-                        result[index] = defaultMethod;
-                        index++;
-                    }
-                }
-                else {
-                    result = declaredMethods;
-                }
-                declaredMethodsCache.put(clazz, (result.length == 0 ? EMPTY_METHOD_ARRAY : result));
-            }
-            catch (Throwable ex) {
-                throw new IllegalStateException("Failed to introspect Class [" + clazz.getName() +
-                        "] from ClassLoader [" + clazz.getClassLoader() + "]", ex);
-            }
-        }
-        return (result.length == 0 || !defensive) ? result : result.clone();
-    }
-
-
-    private static List<Method> findConcreteMethodsOnInterfaces(Class<?> clazz) {
         List<Method> result = null;
         for (Class<?> ifc : clazz.getInterfaces()) {
             for (Method ifcMethod : ifc.getMethods()) {
@@ -509,13 +454,52 @@ public final class ReflectionUtils {
     }
 
     /**
-     * Determine whether the given method is an "equals" method.
+     * 执行对象中指定方法
+     * @param target        类对象
+     * @param methodName    方法名
+     * @param args          参数数组
+     * @return              执行结果
+     * @throws IllegalAccessException   异常
+     */
+    public static Object invoke(Object target, String methodName, Object... args) throws IllegalAccessException {
+        Class<?>[] classes = ClassUtils.getClasses(args);
+
+        Method method = getMethod(target.getClass(), methodName, classes);
+
+        if (null == method) {
+            throw new IllegalAccessException(StringUtils.format("No such method: [{}]", methodName));
+        }
+
+        return invoke(target, method, args);
+    }
+
+    /**
      *
+     * 执行方法
+     * @param method    方法（对象方法或static方法都可以）
+     * @param target    对象，如果执行静态方法，此值为 {@code null}
+     * @param args      参数对象
+     * @return          结果
+     */
+    public static Object invoke(Object target, Method method,  Object... args) {
+        makeAccessible(method);
+        try {
+            return method.invoke(target, args);
+        } catch (Exception e) {
+            handleReflectionException(e);
+        }
+        throw new IllegalStateException("Should never get here.(永远也到不了这)");
+    }
+
+    /**
      * 确定给定的方法是否是 一个 "equals" 方法
+     *
+     * @param method            类中方法
+     * @return  如果是则返回true，否则返回false
      * @see Object#equals(Object)
      */
     public static boolean isEqualsMethod(Method method) {
-        if (method == null || !method.getName().equals("equals")) {
+        if (method == null || !"equals".equals(method.getName())) {
             return false;
         }
         Class<?>[] paramTypes = method.getParameterTypes();
@@ -523,13 +507,14 @@ public final class ReflectionUtils {
     }
 
     /**
-     * Determine whether the given method is a "hashCode" method.
-     *
      * 确定给定的方法是否是一个 "hashCode" 方法
+     *
+     * @param method            给定类中的方法
+     * @return      如果是则返回true，否则返回false
      * @see Object#hashCode()
      */
     public static boolean isHashCodeMethod( Method method) {
-        return (method != null && method.getName().equals("hashCode") && method.getParameterCount() == 0);
+        return (method != null && "hashCode".equals(method.getName()) && method.getParameterCount() == 0);
     }
 
 
@@ -606,6 +591,39 @@ public final class ReflectionUtils {
             return constructor.newInstance(args);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             handleReflectionException(e);
+        }
+        return null;
+    }
+
+    /**
+     * 尝试遍历并调用此类的所有构造方法，直到构造成功并返回
+     *
+     * @param clazz     被构造的类
+     * @param <T>       对象类型
+     * @return          构造后的对象
+     */
+    public static <T> T newInstanceIfPossible(Class<T> clazz) {
+        Assert.notNull(clazz);
+        try {
+            return newInstance(clazz);
+        } catch (Exception e) {
+            // ignore
+            // 默认构造不存在的情况下查找其它构造
+        }
+
+        final Constructor<T>[] constructors = getConstructors(clazz);
+        Class<?>[] parameterTypes;
+        for (Constructor<T> constructor : constructors) {
+            parameterTypes = constructor.getParameterTypes();
+            if (0 == parameterTypes.length) {
+                continue;
+            }
+            makeAccessible(constructor);
+            try {
+                return constructor.newInstance(ClassUtils.defaultValues(parameterTypes));
+            } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                // 构造出错时继续尝试下一种构造方法
+            }
         }
         return null;
     }

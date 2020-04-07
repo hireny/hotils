@@ -22,7 +22,7 @@ public  class ReflectExample extends ReflectAbstract {
     public String stringField;
     public String parameter;
 
-    public ReflectExample() {
+    private ReflectExample() {
 
     }
 
@@ -98,8 +98,9 @@ public  class ReflectExample extends ReflectAbstract {
         return "reflectMethod2 parameter";
     }
 
-    public static void staticReflectMethod(String name) {
+    public static String staticReflectMethod(String name) {
         System.out.println("static reflect method :" + name);
+        return "static reflect method : " + name;
     }
 
     @Override

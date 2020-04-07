@@ -24,7 +24,7 @@ public class ModifierUtilsTest {
         System.out.println(ModifierUtils.isProtected(field));
 
         System.out.println("测试方法 Method：");
-        Method method = ReflectionUtils.findMethod(ModifierTestClass.class, "test3");
+        Method method = ReflectionUtils.getMethod(ModifierTestClass.class, "test3");
         System.out.println(ModifierUtils.isPublic(method));
         System.out.println(ModifierUtils.isProtected(method));
         System.out.println(ModifierUtils.isPrivate(method));

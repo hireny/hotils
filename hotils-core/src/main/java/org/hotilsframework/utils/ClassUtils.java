@@ -246,6 +246,11 @@ public final class ClassUtils {
      * @return          类数组
      */
     public static Class<?>[] getClasses(Object... args) {
+
+        if (null == args) {
+            return null;
+        }
+
         Class<?>[] classes = new Class[args.length];
         Object o;
         for (int i = 0; i < args.length; i++) {
@@ -253,6 +258,59 @@ public final class ClassUtils {
             classes[i] = (null == o) ? Object.class : o.getClass();
         }
         return classes;
+    }
+
+
+    /**
+     * Double 默认值
+     */
+    private static final Double DOUBLE_DEFAULT = 0D;
+    /**
+     * Float 默认值
+     */
+    private static final Float FLOAT_DEFAULT = 0F;
+
+    /**
+     * 返回默认值
+     * @param type
+     * @param <T>
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T defaultValue(Class<T> type) {
+        Assert.notNull(type);
+        if (type == boolean.class) {
+            return (T) Boolean.FALSE;
+        } else if (type == char.class) {
+            return (T) Character.valueOf('\0');
+        } else if (type == byte.class) {
+            return (T) Byte.valueOf((byte) 0);
+        } else if (type == short.class) {
+            return (T) Short.valueOf((short) 0);
+        } else if (type == int.class) {
+            return (T) Integer.valueOf(0);
+        } else if (type == long.class) {
+            return (T) Long.valueOf(0L);
+        } else if (type == float.class) {
+            return (T) FLOAT_DEFAULT;
+        } else if (type == double.class) {
+            return (T) DOUBLE_DEFAULT;
+        }
+        return null;
+    }
+
+    /**
+     * 获得默认值列表
+     *
+     * @param classes       值类型
+     * @return              默认值列表
+     */
+    public static Object[] defaultValues(Class<?>... classes) {
+        final Object[] values = new Object[classes.length];
+        for (int i = 0; i < classes.length; i++) {
+            values[i] = defaultValue(classes[i]);
+        }
+        return values;
     }
 
 
@@ -302,6 +360,18 @@ public final class ClassUtils {
             return false;
         }
         return Modifier.isAbstract(clazz.getModifiers());
+    }
+
+    /**
+     * 判断类是否是系统内部类
+     * @param clazz     类
+     * @return
+     */
+    public static boolean isAnonymousClass(Class<?> clazz) {
+        if (null == clazz) {
+            return false;
+        }
+        return clazz.isAnonymousClass();
     }
 
     /**

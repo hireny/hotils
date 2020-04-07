@@ -2,33 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>hotils-parent</artifactId>
+        <groupId>me.hireny.hotils</groupId>
+        <version>0.0.1</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.hireny.hotils</groupId>
-    <artifactId>hotils-parent</artifactId>
-    <version>0.0.1</version>
-    <modules>
-        <module>hotils</module>
-        <module>hotils-algos</module>
-        <module>hotils-aop</module>
-        <module>hotils-bom</module>
-        <module>hotils-cache</module>
-        <module>hotils-context</module>
-        <module>hotils-core</module>
-        <module>hotils-crypto</module>
-        <module>hotils-http</module>
-        <module>hotils-jdbc</module>
-        <module>hotils-json</module>
-        <module>hotils-socket</module>
-        <module>hotils-web</module>
-        <module>hotils-nosql</module>
-        <module>hotils-orm</module>
-        <module>hotils-test</module>
-    </modules>
+    <artifactId>hotils-bom</artifactId>
     <packaging>pom</packaging>
-    <name>Hotils: Hotils Parent for Java</name>
-    <description>该框架实现JVM语言的工具类，就是封装平常用的方法，不需要重复造轮子，提高开发效率。</description>
-    <url>https://github.com/hireny/hotils</url>
+    <name>Hotils：Hotils Bom for Java</name>
+
 
     <properties>
         <java.version>1.8</java.version>
@@ -41,61 +25,8 @@
         <!--打包跳过单元测试-->
         <skip-tests>true</skip-tests>
     </properties>
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/hireny/hotils/issues</url>
-    </issueManagement>
-    <inceptionYear>2019</inceptionYear>
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
 
-    <organization>
-        <name>Hiaven个人库</name>
-    </organization>
 
-    <!--开发人员-->
-    <developers>
-        <developer>
-            <id>hiaven</id>
-            <name>hireny</name>
-            <email>hx910502500@gmail.com</email>
-        </developer>
-    </developers>
-
-    <!--配置插件-->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <!-- Javadoc -->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                <version>3.1.1</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>jar</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-        </plugins>
-    </build>
 
     <!--Jar包依赖-->
     <dependencyManagement>
@@ -203,5 +134,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
 
 </project>

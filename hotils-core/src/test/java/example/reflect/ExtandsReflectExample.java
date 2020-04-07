@@ -18,19 +18,23 @@ public class ExtandsReflectExample extends ReflectExample {
         super(intField, objectField, doubleField, characterField, stringField);
     }
 
-    @Override
-    public void methodInterface() {
-        System.out.println("method interface");
-    }
+//    @Override
+//    public void methodInterface() {
+//        System.out.println("method interface");
+//    }
+//
+//    @Override
+//    public void methodInterface(String arg1, String arg2, String... args) {
+//        System.out.println("method interface parameter: arg1-" + arg1 + ", arg2-" + arg2 + ", args-" + args);
+//    }
+//
+//    @Override
+//    public Object methodInterface2(String arg1, String... args) {
+//        System.out.println("method interface parameter: arg1-" + arg1+ ", args-" + args);
+//        return "method interface 2";
+//    }
 
-    @Override
-    public void methodInterface(String arg1, String arg2, String... args) {
-        System.out.println("method interface parameter: arg1-" + arg1 + ", arg2-" + arg2 + ", args-" + args);
-    }
-
-    @Override
-    public Object methodInterface2(String arg1, String... args) {
-        System.out.println("method interface parameter: arg1-" + arg1+ ", args-" + args);
-        return "method interface 2";
+    public Object currentMethod() {
+        return "current method";
     }
 }

@@ -1,7 +1,6 @@
 package org.hotilsframework.utils;
 
 import example.model.PersonModel;
-import example.model.UserTestClass;
 import example.reflect.ExtandsReflectExample;
 import example.reflect.ReflectExample;
 import org.hotilsframework.lang.enums.Sex;
@@ -149,7 +148,7 @@ public class ReflectionUtilsTest {
         System.out.println("修改后的内容=" + ReflectExample.getStaticIntField());
     }
 
-    // 使用反射设置构造方法
+    // 使用反射获取构造方法
 
     /**
      * 获取构造方法
@@ -179,8 +178,8 @@ public class ReflectionUtilsTest {
     // 使用反射设置方法
 
     @Test
-    public void findMethodTest() {
-        Method method = ReflectionUtils.findMethod(UserTestClass.class, "methodTest2");
+    public void getMethodTest() {
+        Method method = ReflectionUtils.getMethod(ReflectExample.class, "methodInterface2");
         System.out.println(method);
     }
 
@@ -188,21 +187,37 @@ public class ReflectionUtilsTest {
      * 获取方法测试
      */
     @Test
-    public void findMethodWithParamsTest() {
-        Method method = ReflectionUtils.findMethod(UserTestClass.class, "methodTest", String.class, String.class);
+    public void getMethodWithParamsTest() {
+        Method method = ReflectionUtils.getMethod(ReflectExample.class, "methodInterface", String.class, String.class, String[].class);
         System.out.println(method);
     }
 
     /**
-     * 执行方法测试
+     * 获取静态方法
      */
     @Test
-    public void invokeMethodTest() {
-        Object methodValue = ReflectionUtils.invokeMethod(new UserTestClass(), "methodTest", "小华", "小华的年龄：23");
-        System.out.println(methodValue);
+    public void getStaticMethodTest() {
+        Method method = ReflectionUtils.getMethod(ReflectExample.class, "getStaticIntField");
+        System.out.println(method);
+    }
 
-        methodValue = ReflectionUtils.invokeMethod(new UserTestClass(), "methodTest1", "小华", "小华的年龄：23");
-        System.out.println(methodValue);
+    @Test
+    public void getMethodsTest() {
+        Method[] allMethods = ReflectionUtils.getMethods(ExtandsReflectExample.class);
+        System.out.println("获取的当前类中的所有方法（包括父类）：");
+        for (Method method : allMethods) {
+            System.out.println(method);
+        }
+        System.out.println("方法数量：" + allMethods.length);
+    }
+
+    /**
+     * 获取当前类中所有方法
+     */
+    @Test
+    public void getCurrentMethodsTest() {
+        Method[] currentMethods = ReflectionUtils.getMethods(ExtandsReflectExample.class, false);
+        System.out.println("获取的当前类中的所有方法：" + Arrays.toString(currentMethods));
     }
 
     /**
@@ -210,10 +225,55 @@ public class ReflectionUtilsTest {
      */
     @Test
     public void invokeStaticMethodTest() {
-        Object staticMethodValue = ReflectionUtils.invokeMethod(UserTestClass.class, "staticMethodTest", "小静态", "小静态的年龄：22");
-        System.out.println(staticMethodValue);
+        Object staticMethodValue1 = ReflectionUtils.invoke(null, ReflectionUtils.getMethod(ReflectExample.class, "getStaticIntField"));
+        System.out.println("执行静态方法：getStaticIntField()");
+        System.out.println(staticMethodValue1);
+
+        Object staticMethodValue2 = ReflectionUtils.invoke(null, ReflectionUtils.getMethod(ReflectExample.class, "staticReflectMethod", String.class), "小王");
+        System.out.println("执行静态方法：staticReflectMethod(String name)");
+        System.out.println(staticMethodValue2);
     }
 
+    /**
+     * 执行方法测试
+     */
+    @Test
+    public void invokeMethodTest() {
+
+        ReflectExample example = new ReflectExample(2, new Object(), 3.1415926, 'c', "reflect string");
+        try {
+            System.out.println("执行无参数方法：reflectMethod2");
+            Object methodValue1 = ReflectionUtils.invoke(example, "reflectMethod2");
+            System.out.println(methodValue1);
+
+            System.out.println("执行方法：reflectMethod2");
+            Object methodValue2 = ReflectionUtils.invoke(example, ReflectionUtils.getMethod(ReflectExample.class, "reflectMethod2", String.class), "小王");
+            System.out.println(methodValue2);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 判断方法是否是 equals
+
+    @Test
+    public void isEqualsTest() {
+        boolean isEquals = ReflectionUtils.isEqualsMethod(ReflectionUtils.getMethod(ReflectExample.class, "equals", Object.class));
+        System.out.println(isEquals);
+        boolean isEquals2 = ReflectionUtils.isEqualsMethod(ReflectionUtils.getMethod(ReflectExample.class, "getStaticIntField"));
+        System.out.println(isEquals2);
+    }
+
+
+    // 判断方法是否是 hashCode
+
+    @Test
+    public void isHashCodeTest() {
+        boolean isHashCode = ReflectionUtils.isHashCodeMethod(ReflectionUtils.getMethod(ReflectExample.class, "hashCode"));
+        System.out.println(isHashCode);
+        boolean isHashCode2 = ReflectionUtils.isHashCodeMethod(ReflectionUtils.getMethod(ReflectExample.class, "getStaticIntField"));
+        System.out.println(isHashCode2);
+    }
 
     // 实例化操作
 
@@ -257,5 +317,15 @@ public class ReflectionUtilsTest {
 
         ReflectExample example5 = ReflectionUtils.newInstance(ReflectExample.class, 1);
         System.out.println(example5);
+    }
+
+    /**
+     * 尝试遍历并调用此类的所有构造方法测试
+     */
+    @Test
+    public void newInstanceIfPossibleTest() {
+        ReflectExample e1 = ReflectionUtils.newInstanceIfPossible(ReflectExample.class);
+
+        System.out.println(e1);
     }
 }
