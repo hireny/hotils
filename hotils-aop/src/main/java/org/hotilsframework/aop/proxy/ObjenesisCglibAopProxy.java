@@ -1,4 +1,4 @@
-package org.hotilsframework.aop;
+package org.hotilsframework.aop.proxy;
 
 /**
  * @ClassName: CglibProxy

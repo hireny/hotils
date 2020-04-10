@@ -1,4 +1,4 @@
-package org.hotilsframework.aop;
+package org.hotilsframework.aop.proxy;
 
 import org.hotilsframework.utils.Assert;
 
@@ -124,7 +124,7 @@ public class ProxyConfig implements Serializable {
      * @param other object to copy configuration from
      */
     public void copyFrom(ProxyConfig other) {
-        Assert.checkNotNull(other, "Other ProxyConfig object must not be null");
+        Assert.notNull(other, "Other ProxyConfig object must not be null");
         this.proxyTargetClass = other.proxyTargetClass;
         this.optimize = other.optimize;
         this.exposeProxy = other.exposeProxy;
