@@ -5,6 +5,7 @@ import org.hotilsframework.utils.comparator.Comparators;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * ArrayUtils
@@ -464,6 +465,16 @@ public class ArrayUtils {
     //================================================================
 
     /**
+     * 新键一个大小为 0 的空数组
+     * @param clazz     元素类型
+     * @param <T>       数组元素类型
+     * @return
+     */
+    public static <T> T[] newArray(Class<?> clazz) {
+        return newArray(clazz, 0);
+    }
+
+    /**
      * 新键一个空数组
      * @param clazz 元素类型
      * @param size  大小
@@ -473,6 +484,37 @@ public class ArrayUtils {
     public static <T> T[] newArray(Class<?> clazz, int size) {
         return (T[]) Array.newInstance(clazz, size);
     }
+
+
+    /**
+     * 数组类型强制转换 <br>
+     * 强制转换的前提是数组元素类型可被强制转换 <br>
+     * 强制转换后会生成一个新数组
+     *
+     * @param o         原数组
+     * @param type      数组类型或数组元素类型
+     * @return          转换后的数组类型
+     * @throws NullPointerException 参数为空异常
+     * @throws IllegalArgumentException 参数 array 不是数组
+     */
+    public static Object[] cast(Object o, Class<?> type) throws NullPointerException, IllegalArgumentException {
+        if (null == o) {
+            throw new NullPointerException("Argument [array] is null!");
+        }
+        if (!isArray(o)) {
+            throw new IllegalArgumentException("Argument [array] is not array !");
+        }
+        if (null == type) {
+            return (Object[]) o;
+        }
+
+        final Class<?> componentType = type.isArray() ? type.getComponentType() : type;
+        final Object[] array = (Object[]) o;
+        final Object[] result = ArrayUtils.newArray(componentType, array.length);
+        System.arraycopy(array, 0, result, 0, array.length);
+        return result;
+    }
+
 
     /**
      * 添加数组元素到数组中

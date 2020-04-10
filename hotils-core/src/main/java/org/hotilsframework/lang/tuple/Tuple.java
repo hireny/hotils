@@ -1,4 +1,4 @@
-package org.hotilsframework.tuple;
+package org.hotilsframework.lang.tuple;
 
 import java.io.Serializable;
 import java.util.*;

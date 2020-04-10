@@ -1,9 +1,8 @@
 package org.hotilsframework.utils;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import org.hotilsframework.lang.Nullable;
+
+import java.util.*;
 
 /**
  * Collections
@@ -12,6 +11,7 @@ import java.util.Map;
  * @Date: Create in 2019/10/05 22:46
  */
 public class CollectionUtils {
+
     private CollectionUtils() {}
 
     /**
@@ -71,5 +71,31 @@ public class CollectionUtils {
             }
         }
         return null;
+    }
+
+
+    //------------------------------------------------------
+    // Convenience methods for working with arrays
+    // 方便处理数组的方法
+    //------------------------------------------------------
+
+    /**
+     * 将集合转换为指定的数组
+     * @param collection
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T[] toArray(@Nullable Collection<T> collection, Class<T> clazz) {
+        ;
+        return (!isEmpty(collection) ?
+                collection.toArray(ArrayUtils.newArray(clazz, collection.size()))
+                : ArrayUtils.newArray(clazz, 0));
+    }
+
+    public static <T> T[] toArray(@Nullable Enumeration<T> enumeration, Class<T> clazz) {
+        return (enumeration != null ?
+                toArray(Collections.list(enumeration), clazz)
+                : ArrayUtils.newArray(clazz, 0));
     }
 }

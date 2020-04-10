@@ -1,4 +1,4 @@
-package org.hotilsframework.core.pools;
+package org.hotilsframework.core.objects;
 
 import java.io.Closeable;
 
