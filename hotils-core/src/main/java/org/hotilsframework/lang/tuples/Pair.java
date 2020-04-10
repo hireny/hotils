@@ -1,4 +1,4 @@
-package org.hotilsframework.lang.tuple;
+package org.hotilsframework.lang.tuples;
 
 /**
  * @ClassName: Pair
@@ -7,6 +7,8 @@ package org.hotilsframework.lang.tuple;
  * @Version: 1.0
  */
 public class Pair<A, B> extends Tuple {
+    private static final long serialVersionUID = 5246276620136848321L;
+    private static final int SIZE = 2;
     private A first;
     private B second;
 
@@ -21,6 +23,11 @@ public class Pair<A, B> extends Tuple {
 
     public B getSecond() {
         return this.second;
+    }
+
+    @Override
+    public int size() {
+        return SIZE;
     }
 
     @Override
@@ -50,8 +57,8 @@ public class Pair<A, B> extends Tuple {
     @Override
     public String toString() {
         return "Pair{" +
-                "first=" + first +
-                ", second=" + second +
+                "value1=" + first +
+                ", value2=" + second +
                 '}';
     }
 }

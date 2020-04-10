@@ -1,4 +1,4 @@
-package org.hotilsframework.lang.tuple;
+package org.hotilsframework.lang.tuples;
 
 import java.io.Serializable;
 import java.util.*;
@@ -38,10 +38,10 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
      */
     @SuppressWarnings("unchecked")
     public <T> T get(int index) {
-        if (index >= getSize()) {
+        if (index >= size()) {
             throw new IllegalArgumentException(
                     "Cannot retrieve position " + index + " in " + this.getClass().getSimpleName() +
-                    ". Positions for this class start with 0 and end with " + (getSize() - 1));
+                    ". Positions for this class start with 0 and end with " + (size() - 1));
         }
         return (T) args[index];
     }
@@ -70,7 +70,7 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
         return true;
     }
 
-    public final boolean contains(final Object... values) {
+    public final boolean containsAll(final Object... values) {
         if (values == null) {
             throw new IllegalArgumentException("Values array cannot be null");
         }
@@ -100,6 +100,18 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
         return -1;
     }
 
+    public final int lastIndexOf(final Object value) {
+        for (int i = size()-1; i >= 0; i--) {
+            final Object val = args[i];
+            if (val == null && value == null) {
+                return i;
+            } else if (val.equals(value)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
      * 获取所有元素
      * @return  获取所有元素
@@ -108,7 +120,7 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
         return this.args;
     }
 
-    public int getSize() {
+    public int size() {
         return this.size;
     }
 
@@ -185,6 +197,7 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
     }
 
     @Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public int compareTo(Tuple o) {
         final Object[] thatValues = o.args;
         final int thatLength = o.size;

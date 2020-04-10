@@ -1,4 +1,4 @@
-package org.hotilsframework.lang.tuple;
+package org.hotilsframework.lang.tuples;
 
 /**
  * @ClassName: Unit
@@ -7,15 +7,25 @@ package org.hotilsframework.lang.tuple;
  * @Version: 1.0
  */
 public class Unit<T> extends Tuple {
-
+    private static final long serialVersionUID = -4287309813869102196L;
+    private static final int SIZE = 1;
     private T first;
 
-    public Unit(T t) {
-        this.first = t;
+    public Unit(T value) {
+        this.first = value;
     }
 
     public T getFirst() {
         return this.first;
+    }
+
+    @Override
+    public int size() {
+        return SIZE;
+    }
+
+    public T getValue() {
+        return first;
     }
 
     @Override
@@ -40,7 +50,7 @@ public class Unit<T> extends Tuple {
     @Override
     public String toString() {
         return "Unit{" +
-                "first=" + first +
+                "value=" + first +
                 '}';
     }
 }
