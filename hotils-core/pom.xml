@@ -14,6 +14,13 @@
     <description>Java核心模块，封装一些常用的工具</description>
 
     <dependencies>
+        <!--代理框架-->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
         <!--日志框架-->
         <dependency>
             <groupId>org.slf4j</groupId>

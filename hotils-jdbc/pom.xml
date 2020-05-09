@@ -17,6 +17,12 @@
             <groupId>me.hireny.hotils</groupId>
             <artifactId>hotils-core</artifactId>
         </dependency>
+        <!--测试框架-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
