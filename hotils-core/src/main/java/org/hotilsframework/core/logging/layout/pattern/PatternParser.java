@@ -1,7 +1,7 @@
 package org.hotilsframework.core.logging.layout.pattern;
 
-import org.hotilsframework.collection.Lists;
-import org.hotilsframework.collection.Maps;
+import org.hotilsframework.core.collect.Lists;
+import org.hotilsframework.core.collect.Maps;
 import org.hotilsframework.core.convert.converter.Converter;
 import org.hotilsframework.lang.Symbol;
 import org.hotilsframework.lang.reflect.ReflectionException;

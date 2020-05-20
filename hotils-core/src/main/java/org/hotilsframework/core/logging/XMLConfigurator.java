@@ -1,7 +1,7 @@
 package org.hotilsframework.core.logging;
 
-import org.hotilsframework.collection.Lists;
-import org.hotilsframework.collection.Maps;
+import org.hotilsframework.core.collect.Lists;
+import org.hotilsframework.core.collect.Maps;
 import org.hotilsframework.core.logging.layout.Layout;
 import org.hotilsframework.utils.ReflectionUtils;
 import org.hotilsframework.utils.StringUtils;

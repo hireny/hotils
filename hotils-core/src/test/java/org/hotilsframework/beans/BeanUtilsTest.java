@@ -1,7 +1,7 @@
 package org.hotilsframework.beans;
 
 import org.hotilsframework.beans.copier.CopyOptions;
-import org.hotilsframework.collection.Maps;
+import org.hotilsframework.core.collect.Maps;
 import org.junit.Test;
 
 import java.beans.IntrospectionException;

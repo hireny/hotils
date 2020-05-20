@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
  * @className ObjectWrapper
  * @create 2020-03-29 22:58
  */
-public class ObjectWrapper implements Wrapper {
+public class ObjectWrapper implements Element {
     private static final long serialVersionUID = 8941048882956912133L;
 
     private Object           target;
@@ -36,12 +36,12 @@ public class ObjectWrapper implements Wrapper {
 
 
     @Override
-    public Object getTarget() {
+    public Object getSource() {
         return this.target;
     }
 
     @Override
-    public Class<?> getTargetClass() {
+    public Class<?> getSourceType() {
         return this.targetClass;
     }
 

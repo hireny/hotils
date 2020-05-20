@@ -1,13 +1,13 @@
 package org.hotilsframework.aop.proxy;
 
 /**
- * 代理对象
+ * 代理目标
  * @ClassName: ProxyObject
  * @Author: hireny
  * @Date: Created in 2020-01-31 0:05
  * @Version: 1.0
  */
-public interface ProxyObject {
+public interface ProxyTarget {
 
     /**
      * 判断是否是代理的目标类

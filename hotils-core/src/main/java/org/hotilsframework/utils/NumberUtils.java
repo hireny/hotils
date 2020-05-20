@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.collection.Sets;
+import org.hotilsframework.core.collect.Sets;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

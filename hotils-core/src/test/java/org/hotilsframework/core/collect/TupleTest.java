@@ -1,4 +1,4 @@
-package org.hotilsframework.collection;
+package org.hotilsframework.core.collect;
 
 import example.model.UserTestClass;
 import org.hotilsframework.lang.tuples.Tuple;

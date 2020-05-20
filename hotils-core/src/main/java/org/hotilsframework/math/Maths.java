@@ -1,6 +1,6 @@
 package org.hotilsframework.math;
 
-import org.hotilsframework.collection.Lists;
+import org.hotilsframework.core.collect.Lists;
 import org.hotilsframework.utils.ArrayUtils;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.NumberUtils;

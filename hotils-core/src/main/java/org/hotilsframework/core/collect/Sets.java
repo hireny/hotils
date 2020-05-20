@@ -1,4 +1,4 @@
-package org.hotilsframework.collection;
+package org.hotilsframework.core.collect;
 
 import org.hotilsframework.utils.ArrayUtils;
 
