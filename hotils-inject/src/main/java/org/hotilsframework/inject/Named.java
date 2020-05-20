@@ -1,4 +1,4 @@
-package org.hotilsframework.context;
+package org.hotilsframework.inject;
 
 /**
  * Named注解相当于Spring中的@Component注解

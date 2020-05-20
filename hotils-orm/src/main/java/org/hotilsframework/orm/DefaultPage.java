@@ -1,7 +1,7 @@
 package org.hotilsframework.orm;
 
 
-import org.hotilsframework.collection.Lists;
+import org.hotilsframework.core.collect.Lists;
 
 import java.io.Serializable;
 import java.util.List;

@@ -9,14 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hotils-crypto</artifactId>
-    <name>Hotils：Hotils Crypto for Java</name>
-    <description>加密解密工具，提供对称、非对称和摘要算法封装</description>
+    <artifactId>hotils-inject</artifactId>
+    <name>Hotils: Hotils Inject for Java</name>
+    <description>IoC容器与DI控制反转</description>
 
     <dependencies>
         <dependency>
             <groupId>me.hireny.hotils</groupId>
             <artifactId>hotils-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
         </dependency>
     </dependencies>
 

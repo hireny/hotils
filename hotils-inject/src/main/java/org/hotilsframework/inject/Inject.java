@@ -1,4 +1,4 @@
-package org.hotilsframework.context;
+package org.hotilsframework.inject;
 
 /**
  * Inject注解，相当于Spring的@Autowired

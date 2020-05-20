@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hotils-context</artifactId>
-    <name>Hotils: Hotils Context for Java</name>
-    <description>IoC容器与DI控制反转</description>
+    <artifactId>hotils-beans</artifactId>
+    <name>Hotils：Hotils Beans for Java</name>
+    <description>Bean的操作</description>
 
     <dependencies>
         <dependency>
