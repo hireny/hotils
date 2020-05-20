@@ -1,5 +1,6 @@
 package org.hotilsframework.jdbc;
 
+import javax.sql.DataSource;
 import java.util.Map;
 
 /**
@@ -8,7 +9,14 @@ import java.util.Map;
  * @Date: Create in 2019/12/11 14:00
  * @Description: TODO   JDBC操作模板
  */
-public class JdbcTemplate implements JdbcOptions {
+public class JdbcTemplate extends JdbcAccessor implements JdbcOptions {
+
+    public JdbcTemplate() {}
+
+    public JdbcTemplate(DataSource dataSource) {
+        setDataSource(dataSource);
+    }
+
     @Override
     public <T> T execute(ConnectionCallback<T> action) throws DataAccessException {
         return null;
