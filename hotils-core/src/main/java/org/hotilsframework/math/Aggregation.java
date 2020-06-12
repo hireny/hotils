@@ -5,11 +5,11 @@ import org.hotilsframework.utils.ArrayUtils;
 import java.util.Arrays;
 
 /**
- * @ClassName: Aggregate
- * @Description: TODO   数学集合
- * @Author: hireny
- * @Date: Created in 2020-01-08 23:07
- * @Version: 1.0
+ * @className Aggregate
+ * @description TODO   数学集合
+ * @author hireny
+ * @date Created in 2020-01-08 23:07
+ * @version 1.0
  */
 public class Aggregation {
 

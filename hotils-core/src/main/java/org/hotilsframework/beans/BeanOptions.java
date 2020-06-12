@@ -1,7 +1,7 @@
 package org.hotilsframework.beans;
 
 import org.hotilsframework.beans.copier.CopyOptions;
-import org.hotilsframework.lang.Copy;
+import org.hotilsframework.lang.Copyable;
 import org.hotilsframework.utils.ObjectUtils;
 
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import java.util.Map;
  * @Date: Create in 2019/12/09 01:30
  * @Description: TODO   Bean对象操作
  */
-public final class BeanOptions<T> implements Copy<T>, Serializable {
+public final class BeanOptions<T> implements Copyable<T>, Serializable {
     private static final long serialVersionUID = -2558120262295127413L;
 
     /** 源对象 */

@@ -8,7 +8,7 @@ package org.hotilsframework.lang;
  * @Version: 1.0
  */
 @FunctionalInterface
-public interface Copy<T> {
+public interface Copyable<T> {
     /**
      * 执行拷贝
      * @return  拷贝的目标

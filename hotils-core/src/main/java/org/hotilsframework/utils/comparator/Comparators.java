@@ -3,10 +3,11 @@ package org.hotilsframework.utils.comparator;
 import java.util.Comparator;
 
 /**
- * @ClassName: Comparators
- * @Author: hireny
- * @Date: Created in 2020-02-06 23:01
- * @Version: 1.0
+ * 比较器的封装
+ * @className Comparators
+ * @author hireny
+ * @date Created in 2020-02-06 23:01
+ * @version 1.0
  */
 public class Comparators {
 

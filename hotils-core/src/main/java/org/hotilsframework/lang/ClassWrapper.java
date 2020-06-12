@@ -11,22 +11,22 @@ import java.lang.reflect.Type;
  * @className ClassWrapper
  * @create 2020-03-29 23:01
  */
-public class ClassWrapper implements Wrapper {
-    private static final long serialVersionUID = -6340641087585689243L;
-
-    private Class<?>         targetClass;
-    private Type             targetType;
-    private Field[]          fields;
-    private Method[]         methods;
-    private Class<?>         extendsClass;
-
-    @Override
-    public Object getTarget() {
-        return null;
-    }
-
-    @Override
-    public Class<?> getTargetClass() {
-        return null;
-    }
-}
+//public class ClassWrapper implements Wrapper {
+//    private static final long serialVersionUID = -6340641087585689243L;
+//
+//    private Class<?>         targetClass;
+//    private Type             targetType;
+//    private Field[]          fields;
+//    private Method[]         methods;
+//    private Class<?>         extendsClass;
+//
+//    @Override
+//    public Object getTarget() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Class<?> getTargetClass() {
+//        return null;
+//    }
+//}

@@ -1,4 +1,4 @@
-package org.hotilsframework.utils.generator;
+package org.hotilsframework.core.generator;
 
 import org.hotilsframework.utils.StringUtils;
 import org.hotilsframework.core.time.SystemClock;

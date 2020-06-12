@@ -50,6 +50,11 @@ public class Base64Utils {
         return Base64.getUrlDecoder().decode(src);
     }
 
+    /**
+     * 将byte数组加密并转化为字符串
+     * @param src
+     * @return
+     */
     public static String encodeToString(byte[] src) {
         if (src.length == 0) {
             return "";

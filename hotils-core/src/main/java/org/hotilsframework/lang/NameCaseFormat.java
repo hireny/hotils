@@ -13,5 +13,9 @@ public enum NameCaseFormat {
      * Java variable naming convention, e.g., "lowerCamel".
      * Java中的变量命名约定，例如："lowerCamel"。
      */
-    LOWER_CAMEL;
+    LOWER_CAMEL,
+    /**
+     * Java中的变量命名约定，例如："UpperCamel".
+     */
+    UPPER_CAMEL;
 }

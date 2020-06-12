@@ -1,4 +1,4 @@
-package org.hotilsframework.utils.generator;
+package org.hotilsframework.core.generator;
 
 import java.util.UUID;
 

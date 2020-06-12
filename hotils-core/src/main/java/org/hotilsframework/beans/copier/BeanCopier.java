@@ -3,7 +3,7 @@ package org.hotilsframework.beans.copier;
 import org.hotilsframework.beans.BeanMap;
 import org.hotilsframework.beans.BeanUtils;
 import org.hotilsframework.beans.FatalBeansException;
-import org.hotilsframework.lang.Copy;
+import org.hotilsframework.lang.Copyable;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.ClassUtils;
 
@@ -23,7 +23,7 @@ import java.util.Map;
  * @Date: Created in 2020-02-05 22:16
  * @Version: 1.0
  */
-public class BeanCopier<T> implements Copy<T>, Serializable {
+public class BeanCopier<T> implements Copyable<T>, Serializable {
     private static final long serialVersionUID = -5885126118175946991L;
     /**
      * 源对象
