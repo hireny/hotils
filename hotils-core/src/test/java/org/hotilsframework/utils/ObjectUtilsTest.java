@@ -1,7 +1,7 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.collect.Lists;
-import org.hotilsframework.core.collect.Maps;
+import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.Maps;
 import org.hotilsframework.lang.enums.Sex;
 import example.model.PersonModel;
 import org.junit.Test;

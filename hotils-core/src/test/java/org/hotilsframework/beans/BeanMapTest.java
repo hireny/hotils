@@ -1,7 +1,7 @@
 package org.hotilsframework.beans;
 
-import org.hotilsframework.core.collect.Lists;
-import org.hotilsframework.core.collect.Maps;
+import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.Maps;
 import org.junit.Test;
 
 import java.sql.Timestamp;

@@ -1,7 +1,7 @@
 package org.hotilsframework.web.servlet;
 
 import org.hotilsframework.utils.StringUtils;
-import org.hotilsframework.web.utils.WebUtils;
+import org.hotilsframework.web.WebUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

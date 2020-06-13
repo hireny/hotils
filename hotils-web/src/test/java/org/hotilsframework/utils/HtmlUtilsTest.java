@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.web.utils.HtmlUtils;
+import org.hotilsframework.web.HtmlUtils;
 import org.junit.Test;
 
 import java.io.BufferedReader;

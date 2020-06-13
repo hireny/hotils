@@ -1,6 +1,6 @@
 package org.hotilsframework.http;
 
-import org.hotilsframework.core.collect.CaseInsensitiveMap;
+import org.hotilsframework.collect.CaseInsensitiveMap;
 import org.hotilsframework.core.io.Charsets;
 import org.hotilsframework.utils.CollectionUtils;
 import org.hotilsframework.utils.StringUtils;

@@ -1,6 +1,6 @@
 package org.hotilsframework.core.logging;
 
-import org.hotilsframework.core.collect.Maps;
+import org.hotilsframework.collect.Maps;
 
 import java.util.Map;
 import java.util.StringJoiner;

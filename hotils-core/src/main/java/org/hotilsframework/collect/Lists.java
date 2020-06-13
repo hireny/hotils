@@ -1,4 +1,4 @@
-package org.hotilsframework.core.collect;
+package org.hotilsframework.collect;
 
 import org.hotilsframework.utils.ArrayUtils;
 import org.hotilsframework.utils.Assert;

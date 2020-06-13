@@ -1,4 +1,4 @@
-package org.hotilsframework.utils.comparator;
+package org.hotilsframework.utils;
 
 import java.util.Comparator;
 

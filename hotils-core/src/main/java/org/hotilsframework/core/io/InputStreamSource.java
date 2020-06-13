@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @Author: hireny
- * @Date: Create in 2019/07/23 23:56
+ * @author hireny
+ * @date Create in 2019/07/23 23:56
  */
 public interface InputStreamSource {
 

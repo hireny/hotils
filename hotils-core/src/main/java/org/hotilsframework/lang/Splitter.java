@@ -1,6 +1,6 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.core.collect.Lists;
+import org.hotilsframework.collect.Lists;
 import org.hotilsframework.utils.Assert;
 
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package org.hotilsframework.web.utils;
+package org.hotilsframework.web;
 
 /**
  * 设备工具类

@@ -1,8 +1,7 @@
 package org.hotilsframework.algos.sort;
 
 import org.hotilsframework.utils.ArrayUtils;
-import org.hotilsframework.utils.ObjectUtils;
-import org.hotilsframework.utils.comparator.Comparators;
+import org.hotilsframework.utils.Comparators;
 
 /**
  * BubbleSort

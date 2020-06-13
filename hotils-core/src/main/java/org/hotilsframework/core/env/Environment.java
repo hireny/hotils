@@ -1,4 +1,4 @@
-package org.hotilsframework.core.environment;
+package org.hotilsframework.core.env;
 
 /**
  * @ClassName: Environment
