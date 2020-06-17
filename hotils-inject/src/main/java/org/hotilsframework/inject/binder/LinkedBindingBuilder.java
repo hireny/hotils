@@ -8,4 +8,10 @@ package org.hotilsframework.inject.binder;
 public interface LinkedBindingBuilder<T> extends ScopedBindingBuilder {
 
     ScopedBindingBuilder to(Class<? extends T> implementation);
+
+    /**
+     *
+     * @param instance
+     */
+    void toInstance(T instance);
 }

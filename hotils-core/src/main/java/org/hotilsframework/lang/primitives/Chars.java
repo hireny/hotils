@@ -148,7 +148,7 @@ public final class Chars {
         if (this == o) {
             return true;
         }
-        if (isCharClass(o.getClass())) {
+        if (isChar(o.getClass())) {
             char oc = (char) o;
             return value == oc;
         }
@@ -171,7 +171,7 @@ public final class Chars {
         if (this == o) {
             return true;
         }
-        if (isCharClass(o.getClass())) {
+        if (isChar(o.getClass())) {
             char oc = (char) o;
             return value == oc;
         }
@@ -263,7 +263,7 @@ public final class Chars {
      * @param clazz
      * @return
      */
-    public static boolean isCharClass(Class<?> clazz) {
+    public static boolean isChar(Class<?> clazz) {
         return clazz == char.class || clazz == Character.class;
     }
 }

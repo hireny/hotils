@@ -13,7 +13,6 @@
     <name>Hotils: Hotils for Java</name>
 
     <dependencies>
-
         <dependency>
             <groupId>me.hireny.hotils</groupId>
             <artifactId>hotils-algos</artifactId>
@@ -21,10 +20,6 @@
         <dependency>
             <groupId>me.hireny.hotils</groupId>
             <artifactId>hotils-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>me.hireny.hotils</groupId>
-            <artifactId>hotils-beans</artifactId>
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>

@@ -1,4 +1,4 @@
-package org.hotilsframework.math;
+package org.hotilsframework.math.geometry;
 
 import java.util.Objects;
 

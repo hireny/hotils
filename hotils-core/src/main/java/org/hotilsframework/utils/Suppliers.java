@@ -5,10 +5,10 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * @ClassName: Suppliers
- * @Author: hireny
- * @Date: Created in 2020-01-13 19:40
- * @Version: 1.0
+ * @className Suppliers
+ * @author hireny
+ * @date Created in 2020-01-13 19:40
+ * @version 1.0
  */
 public final class Suppliers {
     private Suppliers() {}
@@ -54,9 +54,7 @@ public final class Suppliers {
 
         @Override
         public String toString() {
-            return "SupplierOfInstance{" +
-                    "instance=" + instance +
-                    '}';
+            return "SupplierOfInstance{" + "instance=" + instance + '}';
         }
     }
 }

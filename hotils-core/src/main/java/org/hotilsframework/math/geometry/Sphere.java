@@ -1,4 +1,4 @@
-package org.hotilsframework.math;
+package org.hotilsframework.math.geometry;
 
 import java.util.Objects;
 
@@ -13,7 +13,7 @@ public class Sphere implements Curve {
     /**
      * 半径
      */
-    private double radius;
+    private double     radius;
     /**
      * 中心点
      */

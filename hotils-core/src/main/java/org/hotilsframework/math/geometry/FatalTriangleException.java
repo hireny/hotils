@@ -1,4 +1,4 @@
-package org.hotilsframework.math;
+package org.hotilsframework.math.geometry;
 
 /**
  * 三角形构建失败异常

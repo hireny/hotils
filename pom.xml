@@ -11,7 +11,6 @@
         <module>hotils</module>
         <module>hotils-algos</module>
         <module>hotils-aop</module>
-        <module>hotils-beans</module>
         <module>hotils-bom</module>
         <module>hotils-cache</module>
         <module>hotils-core</module>
@@ -67,35 +66,6 @@
         </developer>
     </developers>
 
-    <!--配置插件-->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <!-- Javadoc -->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                <version>3.1.1</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>jar</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-        </plugins>
-    </build>
 
     <!--Jar包依赖-->
     <dependencyManagement>
@@ -112,17 +82,22 @@
             </dependency>
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-beans</artifactId>
-                <version>${hotils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-cache</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
+                <artifactId>hotils-context</artifactId>
+                <version>${hotils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-core</artifactId>
+                <version>${hotils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.hireny.hotils</groupId>
+                <artifactId>hotils-crypto</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>
@@ -179,11 +154,11 @@
             </dependency>
 
             <!--代理框架-->
-<!--            <dependency>-->
-<!--                <groupId>cglib</groupId>-->
-<!--                <artifactId>cglib</artifactId>-->
-<!--                <version>3.3.0</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>cglib</groupId>-->
+            <!--                <artifactId>cglib</artifactId>-->
+            <!--                <version>3.3.0</version>-->
+            <!--            </dependency>-->
 
             <!--日志框架-->
             <dependency>
@@ -210,5 +185,22 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!--配置插件-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>

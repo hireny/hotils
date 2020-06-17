@@ -1,5 +1,6 @@
 package org.hotilsframework.inject;
 
+
 /**
  * Bean的提供者
  * @author hireny

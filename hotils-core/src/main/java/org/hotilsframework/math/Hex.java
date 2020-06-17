@@ -1,7 +1,7 @@
-package org.hotilsframework.core.codec;
+package org.hotilsframework.math;
 
 /**
- * 字节转换
+ * 十六进制转换
  * @Author: hireny
  * @Date: Create in 2019/10/13 19:50
  */

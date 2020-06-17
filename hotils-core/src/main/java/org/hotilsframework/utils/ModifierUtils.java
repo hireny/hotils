@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.lang.reflect.ModifierType;
+import org.hotilsframework.lang.reflects.ModifierType;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

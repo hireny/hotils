@@ -1,6 +1,6 @@
 package org.hotilsframework.core.security.crypto;
 
-import org.hotilsframework.core.codec.Hex;
+import org.hotilsframework.math.Hex;
 
 import java.io.*;
 import java.nio.ByteBuffer;

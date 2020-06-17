@@ -31,7 +31,7 @@ public final class Bytes {
         if (this == o) {
             return true;
         }
-        if (isByteClass(o.getClass())) {
+        if (isByte(o.getClass())) {
             byte ob = (Byte) o;
             return value == ob;
         }
@@ -91,7 +91,7 @@ public final class Bytes {
      * @param clazz
      * @return
      */
-    public static boolean isByteClass(Class<?> clazz) {
+    public static boolean isByte(Class<?> clazz) {
         return clazz == byte.class || clazz == Byte.class;
     }
 }

@@ -1,4 +1,6 @@
-package org.hotilsframework.math;
+package org.hotilsframework.math.geometry;
+
+import org.hotilsframework.math.MathsException;
 
 /**
  * 几何形状异常

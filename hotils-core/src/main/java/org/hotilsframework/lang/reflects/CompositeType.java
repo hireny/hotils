@@ -1,4 +1,4 @@
-package org.hotilsframework.lang.reflect;
+package org.hotilsframework.lang.reflects;
 
 /**
  * 复合型类型

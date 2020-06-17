@@ -7,4 +7,8 @@ package org.hotilsframework.inject;
  * @create 2020-05-17 23:12
  */
 public class InjectTest {
+
+    public void injectTest() {
+
+    }
 }

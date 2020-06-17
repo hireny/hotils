@@ -1,4 +1,4 @@
-package org.hotilsframework.math;
+package org.hotilsframework.math.geometry;
 
 /**
  * 有弧线的图形创建器

@@ -2,8 +2,6 @@ package org.hotilsframework.inject;
 
 import org.hotilsframework.utils.ObjectUtils;
 
-import java.util.Objects;
-
 /**
  * 对Bean实例的注册操作
  * @author hireny
