@@ -9,8 +9,22 @@ package org.hotilsframework.lang;
  */
 public class CharMatcher implements Matcher<Character> {
 
+    private Character c;
+
+    public CharMatcher(Character c) {
+        this.c = c;
+    }
+
     @Override
     public boolean match(Character c) {
         return false;
+    }
+
+    public static CharMatcher is(Character c) {
+        return new CharMatcher(c);
+    }
+
+    public static CharMatcher range(Character c1, Character c2) {
+        return null;
     }
 }

@@ -35,14 +35,14 @@ public interface JdbcOptions {
 //    <T> T queryForObject(String sql, RowMapper<T> rowMapper) throws DataAccessException;
 
     /**
-     * 查询
+     * 查询对象
      * @param sql
      * @param requiredType
      * @param <T>
      * @return
      * @throws DataAccessException
      */
-    <T> T queryForObject(String sql, Class<T> requiredType) throws DataAccessException;
+    <T> T query(String sql, Class<T> requiredType) throws DataAccessException;
 
     /**
      * 查询

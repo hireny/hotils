@@ -1,7 +1,5 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.lang.enums.Sex;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -130,10 +128,10 @@ public final class IdentityCardUtils {
      * @return 性别代码
      * @throws Throwable 无效的身份证号码
      */
-    public static final Sex getGenderFromPersonIDCode(String identity) throws Throwable {
+    public static final char getGenderFromPersonIDCode(String identity) throws Throwable {
         String id = getIDCode(identity);
-        char sex = id.charAt(16);
-        return sex % 2 == 0 ? Sex.Female : Sex.Male;
+        char gender = id.charAt(16);
+        return gender;
     }
 
     /**

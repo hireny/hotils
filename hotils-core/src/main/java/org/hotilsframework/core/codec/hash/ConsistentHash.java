@@ -39,6 +39,16 @@ public class ConsistentHash<T> {
         this.numberOfReplicas = numberOfReplicas;
         this.hashFunc = new HashFunc() {
             @Override
+            public Hasher newHasher() {
+                return null;
+            }
+
+            @Override
+            public Hasher newHasher(int expectedInputSize) {
+                return null;
+            }
+
+            @Override
             public Long hash(Object key) {
                 return md5HashingAlg(key.toString());
             }
@@ -93,8 +103,9 @@ public class ConsistentHash<T> {
     private static long fnv1HashingAlg(String key) {
         final int p = 16777619;
         int hash = (int) 2166136261L;
-        for (int i = 0; i < key.length(); i++)
+        for (int i = 0; i < key.length(); i++) {
             hash = (hash ^ key.charAt(i)) * p;
+        }
         hash += hash << 13;
         hash ^= hash >> 7;
         hash += hash << 3;
@@ -140,18 +151,11 @@ public class ConsistentHash<T> {
         }
         long hash = hashFunc.hash(key);
         if (!circle.containsKey(hash)) {
-            SortedMap<Long, T> tailMap = circle.tailMap(hash); //返回此映射的部分视图，其键大于等于 hash
+            // 返回此映射的部分视图，其键大于等于 hash
+            SortedMap<Long, T> tailMap = circle.tailMap(hash);
             hash = tailMap.isEmpty() ? circle.firstKey() : tailMap.firstKey();
         }
         //正好命中
         return circle.get(hash);
-    }
-
-
-    /**
-     * Hash算法对象，用于自定义hash算法
-     */
-    public interface HashFunc {
-        public Long hash(Object key);
     }
 }

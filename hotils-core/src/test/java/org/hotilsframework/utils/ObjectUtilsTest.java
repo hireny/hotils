@@ -1,8 +1,8 @@
 package org.hotilsframework.utils;
 
+import example.model.Gender;
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.collect.Maps;
-import org.hotilsframework.lang.enums.Sex;
 import example.model.PersonModel;
 import org.junit.Test;
 
@@ -79,7 +79,7 @@ public class ObjectUtilsTest {
         PersonModel person1 = new PersonModel();
         person1.setName("小赵");
         person1.setAge(18);
-        person1.setSex(Sex.Male);
+        person1.setSex(Gender.Male);
 
         PersonModel person2 = ObjectUtils.clone(person1);
 

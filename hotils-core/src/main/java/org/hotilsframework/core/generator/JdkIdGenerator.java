@@ -11,7 +11,7 @@ import java.util.UUID;
 public class JdkIdGenerator implements IdGenerator {
     @Override
     public long nextId() {
-        throw new IdGeneratorException("Id generator exception");
+        throw new FailedIdGeneratorException("Id generator exception");
     }
 
     @Override

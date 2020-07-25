@@ -1,7 +1,5 @@
 package example.model;
 
-import org.hotilsframework.lang.enums.Sex;
-
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -13,12 +11,12 @@ import java.util.StringJoiner;
 public class ArrayModelTest {
     private String name;
     private int age;
-    private Sex sex;
+    private Gender sex;
 
     public ArrayModelTest() {
     }
 
-    public ArrayModelTest(String name, int age, Sex sex) {
+    public ArrayModelTest(String name, int age, Gender sex) {
         this.name = name;
         this.age = age;
         this.sex = sex;
@@ -40,11 +38,11 @@ public class ArrayModelTest {
         this.age = age;
     }
 
-    public Sex getSex() {
+    public Gender getSex() {
         return sex;
     }
 
-    public void setSex(Sex sex) {
+    public void setSex(Gender sex) {
         this.sex = sex;
     }
 

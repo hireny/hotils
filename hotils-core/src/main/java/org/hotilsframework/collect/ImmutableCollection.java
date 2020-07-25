@@ -14,6 +14,5 @@ public class ImmutableCollection {
     public abstract static class Builder<E> {
         static final int DEFAULT_INITIAL_CAPACITY = 4;
 
-
     }
 }

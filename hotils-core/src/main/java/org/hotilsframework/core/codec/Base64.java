@@ -12,7 +12,16 @@ import java.util.regex.Pattern;
  */
 public class Base64 {
 
-    // 根据rfc 4648 和 rfc 2045 base64编码字符数组
+
+    /**
+     * Base64规则匹配
+     */
+    String BASE64_PATTERN = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
+
+
+    /**
+     * 根据rfc 4648 和 rfc 2045 base64编码字符数组
+     */
     private static final char[] base64EncodeChars = new char[]{'A', 'B', 'C', 'D',
             'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
             'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd',
@@ -52,7 +61,7 @@ public class Base64 {
         if (encoder.length() % 4 != 0) {
             return false;
         }
-        return Pattern.matches(CodecConstants.BASE64_PATTERN, encoder);
+        return Pattern.matches(BASE64_PATTERN, encoder);
     }
 
 //    /**
@@ -148,7 +157,7 @@ public class Base64 {
 //    }
 
 
-    public static class Encoder implements Codec.Encoder {
+    public static class Base64Encoder implements Encoder {
 
         public String encoder(String str) {
             return new String(this.encoder(str.getBytes()));
@@ -174,6 +183,11 @@ public class Base64 {
 //        public static byte[] encodeByte(byte[] b) {
 //            return encode(b).getBytes();
 //        }
+
+        @Override
+        public Encoder getEncoder() {
+            return null;
+        }
 
         /**
          * Base 64 编码规则:
@@ -222,7 +236,7 @@ public class Base64 {
         }
     }
 
-    public static class Decoder implements Codec.Decoder {
+    public static class Base64Decoder implements Decoder {
 
         public byte[] decoder(String str) throws UnsupportedEncodingException {
             return this.decoder(str.getBytes(StandardCharsets.US_ASCII));
@@ -269,6 +283,11 @@ public class Base64 {
 //          */
 
         @Override
+        public Decoder getDecoder() {
+            return null;
+        }
+
+        @Override
         public byte[] decoder(byte[] data) throws UnsupportedEncodingException {
             StringBuffer sb = new StringBuffer();
 //            byte[] data =  str.getBytes(StandardCharsets.US_ASCII);
@@ -280,34 +299,40 @@ public class Base64 {
                 do {
                     b1 = base64DecodeChars[data[i++]];
                 } while (i < len && b1 == -1);
-                if (b1 == -1)
+                if (b1 == -1) {
                     break;
+                }
 
                 do {
                     b2 = base64DecodeChars[data[i++]];
                 } while (i < len && b2 == -1);
-                if (b2 == -1)
+                if (b2 == -1) {
                     break;
+                }
                 sb.append((char) ((b1 << 2) | ((b2 & 0x30) >>> 4)));
 
                 do {
                     b3 = data[i++];
-                    if (b3 == 61)
+                    if (b3 == 61) {
                         return sb.toString().getBytes("iso8859-1");
+                    }
                     b3 = base64DecodeChars[b3];
                 } while (i < len && b3 == -1);
-                if (b3 == -1)
+                if (b3 == -1) {
                     break;
+                }
                 sb.append((char) (((b2 & 0x0f) << 4) | ((b3 & 0x3c) >>> 2)));
 
                 do {
                     b4 = data[i++];
-                    if (b4 == 61)
+                    if (b4 == 61) {
                         return sb.toString().getBytes("iso8859-1");
+                    }
                     b4 = base64DecodeChars[b4];
                 } while (i < len && b4 == -1);
-                if (b4 == -1)
+                if (b4 == -1) {
                     break;
+                }
                 sb.append((char) (((b3 & 0x03) << 6) | b4));
             }
             return sb.toString().getBytes("iso8859-1");

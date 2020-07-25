@@ -1,6 +1,6 @@
 package org.hotilsframework.lang.primitives;
 
-import org.hotilsframework.lang.enums.Sex;
+import example.model.Gender;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -138,11 +138,11 @@ public class CharsTest {
     @Test
     public void isCharClassTest() {
         System.out.println("测试类名是否为字符类：");
-        System.out.println(Chars.isCharClass(int.class));
-        System.out.println(Chars.isCharClass(Float.class));
-        System.out.println(Chars.isCharClass(char.class));
-        System.out.println(Chars.isCharClass(Character.class));
-        System.out.println(Chars.isCharClass(Sex.class));
+        System.out.println(Chars.isChar(int.class));
+        System.out.println(Chars.isChar(Float.class));
+        System.out.println(Chars.isChar(char.class));
+        System.out.println(Chars.isChar(Character.class));
+        System.out.println(Chars.isChar(Gender.class));
     }
 
     @Test

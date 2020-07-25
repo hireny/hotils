@@ -1,5 +1,7 @@
 package org.hotilsframework.jdbc;
 
+import org.junit.Test;
+
 /**
  * @ClassName: JdbcTemplateTest
  * @Author: hireny
@@ -11,7 +13,8 @@ public class JdbcTemplateTest {
     /**
      * JDBC模板测试
      */
-    public void jdbcTemplateTest1() {
+    @Test
+    public void queryForObject() {
 
     }
 }

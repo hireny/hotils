@@ -12,12 +12,12 @@ public final class Escapers {
 
     private Escapers() {}
 
-    public static Escaper nullEscaper() {
-        return NULL_ESCAPER;
+    public static AbstractEscaper nullEscaper() {
+        return NULL_ABSTRACT_ESCAPER;
     }
 
-    private static final Escaper NULL_ESCAPER =
-            new CharEscaper() {
+    private static final AbstractEscaper NULL_ABSTRACT_ESCAPER =
+            new CharAbstractEscaper() {
                 @Override
                 public String escape(String string) {
                     return Assert.notNull(string);

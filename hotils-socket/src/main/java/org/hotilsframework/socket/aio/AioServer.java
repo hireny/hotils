@@ -1,11 +1,9 @@
 package org.hotilsframework.socket.aio;
 
-import org.hotilsframework.core.io.ResourceException;
+import org.hotilsframework.io.ResourceException;
 import org.hotilsframework.socket.SocketConfiguration;
 import org.hotilsframework.utils.concurrent.ThreadFactoryBuilder;
 import org.hotilsframework.utils.concurrent.ThreadPoolUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -22,8 +20,6 @@ import java.nio.channels.AsynchronousServerSocketChannel;
  * @Description: TODO   基于AIO的Socket服务端实现
  */
 public class AioServer implements Closeable {
-
-    private static final Logger log = LoggerFactory.getLogger(AioServer.class);
 
     private static final AcceptHandler ACCEPT_HANDLER = new AcceptHandler();
 
@@ -171,7 +167,6 @@ public class AioServer implements Closeable {
      * @throws IOException IO异常
      */
     private void doStart(boolean sync) throws IOException {
-        log.debug("Aio Server started, waiting for accept.");
 
         // 接收客户端连接
         accept();

@@ -1,8 +1,6 @@
 package org.hotilsframework.core.os;
 
-import org.hotilsframework.core.net.Networks;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hotilsframework.net.Networks;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,8 +17,6 @@ import java.net.UnknownHostException;
  */
 public class HostInfo implements Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(HostInfo.class);
-
     private static final long serialVersionUID = 98250111724703039L;
 
 //    private final String HOST_NAME;
@@ -36,7 +32,6 @@ public class HostInfo implements Serializable {
         try {
             hostName = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            logger.error(e.getMessage(), e);
         }
         return hostName;
     }

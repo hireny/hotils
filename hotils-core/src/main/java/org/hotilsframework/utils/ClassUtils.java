@@ -1,5 +1,7 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.lang.primitives.Primitives;
+
 import java.io.Closeable;
 import java.io.Externalizable;
 import java.io.Serializable;
@@ -57,7 +59,7 @@ public final class ClassUtils {
     static {
         Map<String, Class<?>> tempCommonClassCache = new LinkedHashMap<>(16);
 
-        for (Class<?> wrapperType : PrimitiveUtils.allWrapperTypes()) {
+        for (Class<?> wrapperType : Primitives.allWrapperTypes()) {
             // 注册常用类型
             registerCommonClasses(tempCommonClassCache, wrapperType);
         }
@@ -187,7 +189,7 @@ public final class ClassUtils {
             // 判断类型是否是基本类型，例如：int，float
 
             // 如果类型是基本类型，则我们要从缓存包装对应基本的映射集合中，使用targetType，从中获取对应的基本类型
-            Class<?> resolvedPrimitive = PrimitiveUtils.getWrapperToPrimitiveType().get(targetType);
+            Class<?> resolvedPrimitive = Primitives.getWrapperToPrimitiveType().get(targetType);
             if (sourceType == resolvedPrimitive) {
                 return true;
             }
@@ -195,7 +197,7 @@ public final class ClassUtils {
             // 如果不是基本类型，就是包装类型，例如：Integer，Float
 
             // 如果sourceType是不是基本类型，则我们要从缓存基本对应包装的映射集合中，使用targetType，从中获取对应的包装类型
-            Class<?> resolvedWrapper = PrimitiveUtils.getPrimitiveToWrapperType().get(targetType);
+            Class<?> resolvedWrapper = Primitives.getPrimitiveToWrapperType().get(targetType);
             if (resolvedWrapper != null && sourceType.isAssignableFrom(resolvedWrapper)) {
                 return true;
             }
@@ -227,10 +229,10 @@ public final class ClassUtils {
         for (int i = 0; i < sourceTypes.length; i++) {
             sourceType = sourceTypes[i];
             targetType = targetTypes[i];
-            if ((PrimitiveUtils.isPrimitiveType(sourceType) || PrimitiveUtils.isWrapperType(sourceType))
-                    && (PrimitiveUtils.isPrimitiveType(targetType) || PrimitiveUtils.isWrapperType(targetType))) {
+            if ((Primitives.isPrimitiveType(sourceType) || Primitives.isWrapperType(sourceType))
+                    && (Primitives.isPrimitiveType(targetType) || Primitives.isWrapperType(targetType))) {
                 // 原始类型和包装类型存在不一致情况
-                if (PrimitiveUtils.unwrap(sourceType) != PrimitiveUtils.unwrap(targetType)) {
+                if (Primitives.unwrap(sourceType) != Primitives.unwrap(targetType)) {
                     return false;
                 }
             } else if (false == sourceType.isAssignableFrom(targetType)) {

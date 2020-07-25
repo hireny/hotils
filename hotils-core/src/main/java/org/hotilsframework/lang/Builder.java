@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @className Builder
  * @create 2020-02-26 23:23
  */
-public class Builder<T> {
+public class Builder<T> implements Buildable<T> {
 
     private final Supplier<T> instantiator;
     private List<Consumer<T>> modifiers = Lists.newArrayList();
@@ -39,6 +39,7 @@ public class Builder<T> {
         return this;
     }
 
+    @Override
     public T build() {
         T value = instantiator.get();
         modifiers.forEach(modifier -> modifier.accept(value));

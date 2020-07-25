@@ -1,7 +1,5 @@
 package org.hotilsframework.lang.reflects;
 
-import org.hotilsframework.lang.reflects.CompositeType;
-
 import java.lang.reflect.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;

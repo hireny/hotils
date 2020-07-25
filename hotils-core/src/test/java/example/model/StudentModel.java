@@ -1,7 +1,5 @@
 package example.model;
 
-import org.hotilsframework.lang.enums.Sex;
-
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -25,7 +23,7 @@ public class StudentModel extends PersonModel {
         super();
     }
 
-    public StudentModel(String name, int age, Sex sex, Integer studentId, String grade, String clazz, String school) {
+    public StudentModel(String name, int age, Gender sex, Integer studentId, String grade, String clazz, String school) {
         super(name, age, sex);
         this.studentId = studentId;
         this.grade = grade;

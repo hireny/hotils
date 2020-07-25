@@ -28,7 +28,7 @@ public class JdbcTemplate extends JdbcAccessor implements JdbcOptions {
     }
 
     @Override
-    public <T> T queryForObject(String sql, Class<T> requiredType) throws DataAccessException {
+    public <T> T query(String sql, Class<T> requiredType) throws DataAccessException {
         return null;
     }
 

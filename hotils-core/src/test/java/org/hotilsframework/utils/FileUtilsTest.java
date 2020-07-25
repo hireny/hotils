@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.core.io.FileResource;
+import org.hotilsframework.io.FileResource;
 import org.junit.Test;
 
 import java.io.File;

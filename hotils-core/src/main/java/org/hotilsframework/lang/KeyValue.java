@@ -1,6 +1,7 @@
 package org.hotilsframework.lang;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @ClassName: KeyValuePair
@@ -51,10 +52,10 @@ public class KeyValue<K, V> implements Serializable {
 
         KeyValue<?, ?> that = (KeyValue<?, ?>) o;
 
-        if (key != null ? !key.equals(that.key) : that.key != null) {
+        if (!Objects.equals(key, that.key)) {
             return false;
         }
-        return value != null ? value.equals(that.value) : that.value == null;
+        return Objects.equals(value, that.value);
     }
 
     @Override

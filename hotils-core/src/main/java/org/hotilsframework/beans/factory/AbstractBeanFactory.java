@@ -30,7 +30,7 @@ public class AbstractBeanFactory implements BeanFactory {
     @Override
     public Object getBean(String name, Object... args) throws BeansException {
         Assert.notNull(name);
-        Assert.noNullElements(args);
+        Assert.notNullElements(args);
         return doGetBean(name, null, args, false);
     }
 
@@ -50,7 +50,7 @@ public class AbstractBeanFactory implements BeanFactory {
     @Override
     public Object getBean(Class<?> clazz, Object... args) throws BeansException {
         Assert.notNull(clazz);
-        Assert.noNullElements(args);
+        Assert.notNullElements(args);
         return doGetBean(null, clazz, args, false);
     }
 

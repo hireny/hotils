@@ -1,9 +1,7 @@
 package org.hotilsframework.utils;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * Assert
@@ -359,6 +357,22 @@ public class Assert {
     //  check not contain end.
     //=======================================================
 
+    //=======================================================
+    //  check entry start.
+    //=======================================================
+
+    public static void notNullEntry(Object key, Object value) {
+        if (key == null) {
+            throw new NullPointerException("null key in entry: null=" + value);
+        } else if (value == null) {
+            throw new NullPointerException("null value in entry: " + key + "=null");
+        }
+    }
+
+    //=======================================================
+    //  check entry start.
+    //=======================================================
+
 
     //=======================================================
     //  check elements start.
@@ -376,8 +390,8 @@ public class Assert {
      * @return          被检查的数组
      * @throws IllegalArgumentException if the object array contains a {@code null} element.
      */
-    public static <T> T[] noNullElements(T[] array) throws IllegalArgumentException {
-        return noNullElements(array, "[Assertion failed] - this array must not contain any null elements.");
+    public static <T> T[] notNullElements(T[] array) throws IllegalArgumentException {
+        return notNullElements(array, "[Assertion failed] - this array must not contain any null elements.");
     }
 
     /**
@@ -394,7 +408,7 @@ public class Assert {
      * @return                  被检查的数组
      * @throws IllegalArgumentException if the object array contains a {@code null} element
      */
-    public static <T> T[] noNullElements(T[] array, String errorMessage, Object... args) throws IllegalArgumentException {
+    public static <T> T[] notNullElements(T[] array, String errorMessage, Object... args) throws IllegalArgumentException {
         if (ArrayUtils.hasNull(array)) {
             throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }

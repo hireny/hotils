@@ -1,9 +1,9 @@
 package org.hotilsframework.utils;
 
+import example.model.Gender;
 import example.model.PersonModel;
 import example.reflect.ExtandsReflectExample;
 import example.reflect.ReflectExample;
-import org.hotilsframework.lang.enums.Sex;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -79,7 +79,7 @@ public class ReflectionUtilsTest {
         PersonModel model = new PersonModel();
         model.setName("小静");
         model.setAge(18);
-        model.setSex(Sex.Female);
+        model.setSex(Gender.Female);
         Object fieldValue1 = ReflectionUtils.getFieldValue(model, "name");
         System.out.println("字段值=" + fieldValue1 + ", 字段类型=" + fieldValue1.getClass());
         Object fieldValue2 = ReflectionUtils.getFieldValue(model, "age");
@@ -96,7 +96,7 @@ public class ReflectionUtilsTest {
         PersonModel model = new PersonModel();
         model.setName("小黄");
         model.setAge(23);
-        model.setSex(Sex.Male);
+        model.setSex(Gender.Male);
         Object fieldValue1 = ReflectionUtils.getFieldValue(model, ReflectionUtils.getField(model.getClass(), "name"));
         System.out.println("字段值=" + fieldValue1 + ", 字段类型=" + fieldValue1.getClass());
         Object fieldValue2 = ReflectionUtils.getFieldValue(model, ReflectionUtils.getField(model.getClass(), "age"));
@@ -113,7 +113,7 @@ public class ReflectionUtilsTest {
         PersonModel model = new PersonModel();
         model.setName("小安");
         model.setAge(30);
-        model.setSex(Sex.Female);
+        model.setSex(Gender.Female);
         System.out.println("修改前的对象内容=" + model.toString());
         ReflectionUtils.setFieldValue(model, ReflectionUtils.getField(model.getClass(), "name"), "小安2号");
         System.out.println("修改后的对象内容=" + model.toString());
@@ -127,7 +127,7 @@ public class ReflectionUtilsTest {
         PersonModel model = new PersonModel();
         model.setName("小刘");
         model.setAge(30);
-        model.setSex(Sex.Other);
+        model.setSex(Gender.Unknown);
         System.out.println("修改前的对象内容=" + model.toString());
         ReflectionUtils.setFieldValue(model, "name", "小刘2号");
         System.out.println("修改后的对象=" + model.toString());

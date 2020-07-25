@@ -128,7 +128,7 @@ public final class Doubles {
      * @return
      */
     public static boolean isDouble(Object o) {
-        return o instanceof Float || o.getClass() == double.class;
+        return o instanceof Double;
     }
 
     /**

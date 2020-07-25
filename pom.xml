@@ -14,7 +14,7 @@
         <module>hotils-bom</module>
         <module>hotils-cache</module>
         <module>hotils-core</module>
-        <module>hotils-http</module>
+        <module>hotils-dbcp</module>
         <module>hotils-inject</module>
         <module>hotils-jdbc</module>
         <module>hotils-json</module>
@@ -22,7 +22,9 @@
         <module>hotils-web</module>
         <module>hotils-nosql</module>
         <module>hotils-orm</module>
+        <module>hotils-scheduling</module>
         <module>hotils-test</module>
+        <module>hotils-webservlet</module>
     </modules>
     <packaging>pom</packaging>
     <name>Hotils: Hotils Parent for Java</name>
@@ -97,12 +99,7 @@
             </dependency>
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-crypto</artifactId>
-                <version>${hotils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-http</artifactId>
+                <artifactId>hotils-dbcp</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>
@@ -133,6 +130,11 @@
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-web</artifactId>
+                <version>${hotils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.hireny.hotils</groupId>
+                <artifactId>hotils-webservlet</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
 

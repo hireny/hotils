@@ -17,10 +17,10 @@ import java.util.List;
  * <p>
  * 需要注意的是，在构造此对象时需要保证原子性（原对象不被修改），最好加锁构造此对象，构造完毕后解锁。
  *
- * @ClassName: CopiedIterator
- * @Author: hireny
- * @Date: Created in 2020-01-11 7:46
- * @Version: 1.0
+ * @className CopiedIterator
+ * @author hireny
+ * @date Created in 2020-01-11 7:46
+ * @version 1.0
  */
 public class CopiedIterator<E> implements Iterator<E>, Iterable<E>, Serializable {
     private static final long serialVersionUID = -2583498257753538119L;

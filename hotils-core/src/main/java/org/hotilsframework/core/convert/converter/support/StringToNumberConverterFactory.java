@@ -11,6 +11,12 @@ import org.hotilsframework.utils.NumberUtils;
  */
 public class StringToNumberConverterFactory implements ConverterFactory<String, Number> {
 
+    /**
+     * 获取一个转换目标为 {@code targetType} 类型的转换器
+     * @param targetType
+     * @param <T>
+     * @return
+     */
     @Override
     public <T extends Number> Converter<String, T> getConverter(Class<T> targetType) {
         return new StringToNumberConverter<>(targetType);
