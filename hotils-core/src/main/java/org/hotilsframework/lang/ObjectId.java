@@ -1,5 +1,6 @@
 package org.hotilsframework.lang;
 
+import org.hotilsframework.core.classes.ClassLoaders;
 import org.hotilsframework.utils.ClassUtils;
 import org.hotilsframework.utils.RandomUtils;
 import org.hotilsframework.utils.StringUtils;
@@ -164,7 +165,7 @@ public class ObjectId {
             processId = RandomUtils.randomInt();
         }
 
-        final ClassLoader loader = ClassUtils.getDefaultClassLoader();
+        final ClassLoader loader = ClassLoaders.getDefaultClassLoader();
         // 返回对象哈希码,无论是否重写hashCode方法
         int loaderId = (loader != null) ? System.identityHashCode(loader) : 0;
 

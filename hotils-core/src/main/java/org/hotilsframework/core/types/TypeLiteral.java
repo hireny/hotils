@@ -2,8 +2,7 @@ package org.hotilsframework.core.types;
 
 import org.hotilsframework.collect.ImmutableList;
 import org.hotilsframework.lang.NestedRuntimeException;
-import org.hotilsframework.lang.reflects.MoreTypes;
-import org.hotilsframework.lang.reflects.Types;
+import org.hotilsframework.core.reflects.Types;
 
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;

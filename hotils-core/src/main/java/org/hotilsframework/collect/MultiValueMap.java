@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName: MultiMap
- * @Author: hireny
- * @Date: Create in 2019/12/22 00:25
- * @Description: TODO   多Map容器
+ * MultiMap
+ *
+ * 多重映射
+ *
+ * @author hireny
+ * @date Create in 2019/12/22 00:25
  */
 public interface MultiValueMap<K, V> extends Map<K,List<V>> {
 

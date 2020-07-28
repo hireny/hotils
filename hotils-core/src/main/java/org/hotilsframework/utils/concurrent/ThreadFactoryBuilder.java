@@ -1,6 +1,5 @@
 package org.hotilsframework.utils.concurrent;
 
-import org.hotilsframework.lang.Buildable;
 import org.hotilsframework.utils.StringUtils;
 
 import java.lang.Thread.UncaughtExceptionHandler;
@@ -14,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @Date: Create in 2019/12/07 01:28
  * @Description: TODO   线程工厂构建器
  */
-public class ThreadFactoryBuilder implements Buildable<ThreadFactory> {
+public class ThreadFactoryBuilder {
 
     private static final long serialVersionUID = 3577074391894348201L;
     /**
@@ -114,7 +113,6 @@ public class ThreadFactoryBuilder implements Buildable<ThreadFactory> {
      * 构建对象
      * @return
      */
-    @Override
     public ThreadFactory build() {
         return build(this);
     }

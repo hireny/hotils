@@ -1,6 +1,7 @@
 package org.hotilsframework.utils;
 
 import org.hotilsframework.beans.BeanInstantiationException;
+import org.hotilsframework.core.classes.Classes;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -462,7 +463,7 @@ public final class ReflectionUtils {
      * @throws IllegalAccessException   异常
      */
     public static Object invoke(Object target, String methodName, Object... args) throws IllegalAccessException {
-        Class<?>[] classes = ClassUtils.getClasses(args);
+        Class<?>[] classes = Classes.getClasses(args);
 
         Method method = getMethod(target.getClass(), methodName, classes);
 
@@ -513,7 +514,7 @@ public final class ReflectionUtils {
      * @return      如果是则返回true，否则返回false
      * @see Object#hashCode()
      */
-    public static boolean isHashCodeMethod( Method method) {
+    public static boolean isHashCodeMethod(Method method) {
         return (method != null && "hashCode".equals(method.getName()) && method.getParameterCount() == 0);
     }
 
@@ -578,7 +579,7 @@ public final class ReflectionUtils {
             }
 
         }
-        final Class<?>[] parameterTypes = ClassUtils.getClasses(args);
+        final Class<?>[] parameterTypes = Classes.getClasses(args);
         final Constructor<T> constructor = getConstructor(clazz, parameterTypes);
 
         if (null == constructor) {
@@ -620,7 +621,7 @@ public final class ReflectionUtils {
             }
             makeAccessible(constructor);
             try {
-                return constructor.newInstance(ClassUtils.defaultValues(parameterTypes));
+                return constructor.newInstance(Classes.defaultValues(parameterTypes));
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 // 构造出错时继续尝试下一种构造方法
             }

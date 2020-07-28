@@ -1,7 +1,7 @@
 package org.hotilsframework.beans;
 
 import org.hotilsframework.collect.Maps;
-import org.hotilsframework.lang.primitives.Booleans;
+import org.hotilsframework.core.primitives.Booleans;
 import org.hotilsframework.utils.Assert;
 import org.hotilsframework.utils.ModifierUtils;
 import org.hotilsframework.utils.ReflectionUtils;

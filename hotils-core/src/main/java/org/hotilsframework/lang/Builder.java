@@ -2,6 +2,7 @@ package org.hotilsframework.lang;
 
 import org.hotilsframework.collect.Lists;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -12,8 +13,9 @@ import java.util.function.Supplier;
  * @className Builder
  * @create 2020-02-26 23:23
  */
-public class Builder<T> implements Buildable<T> {
+public class Builder<T> implements Serializable {
 
+    private static final long serialVersionUID = -2074704018805998201L;
     private final Supplier<T> instantiator;
     private List<Consumer<T>> modifiers = Lists.newArrayList();
 
@@ -39,7 +41,6 @@ public class Builder<T> implements Buildable<T> {
         return this;
     }
 
-    @Override
     public T build() {
         T value = instantiator.get();
         modifiers.forEach(modifier -> modifier.accept(value));

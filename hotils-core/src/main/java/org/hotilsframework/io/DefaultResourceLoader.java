@@ -1,5 +1,6 @@
 package org.hotilsframework.io;
 
+import org.hotilsframework.core.classes.ClassLoaders;
 import org.hotilsframework.utils.ClassUtils;
 
 import java.net.URL;
@@ -13,7 +14,7 @@ public class DefaultResourceLoader implements ResourceLoader {
     private ClassLoader classLoader;
 
     public DefaultResourceLoader() {
-        this.classLoader = ClassUtils.getDefaultClassLoader();
+        this.classLoader = ClassLoaders.getDefaultClassLoader();
     }
 
     @Override

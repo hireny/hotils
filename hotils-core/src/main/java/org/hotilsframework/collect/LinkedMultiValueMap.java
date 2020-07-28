@@ -163,4 +163,8 @@ public class LinkedMultiValueMap<K, V> implements MultiValueMap<K, V>, Serializa
     public String toString() {
         return this.targetMap.toString();
     }
+
+    public static <K, V> LinkedMultiValueMap<K, V> create() {
+        return new LinkedMultiValueMap<>();
+    }
 }

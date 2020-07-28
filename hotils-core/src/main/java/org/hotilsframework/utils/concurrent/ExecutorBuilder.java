@@ -1,6 +1,5 @@
 package org.hotilsframework.utils.concurrent;
 
-import org.hotilsframework.lang.Buildable;
 import org.hotilsframework.utils.ObjectUtils;
 
 import java.util.concurrent.*;
@@ -12,7 +11,7 @@ import java.util.concurrent.*;
  * @Description: TODO   {@link java.util.concurrent.ThreadPoolExecutor} 建造者
  * 线程池构建器
  */
-public class ExecutorBuilder implements Buildable<ThreadPoolExecutor> {
+public class ExecutorBuilder {
     private static final long serialVersionUID = 7952461880877764828L;
 
     /** 初始池大小 */
@@ -164,7 +163,6 @@ public class ExecutorBuilder implements Buildable<ThreadPoolExecutor> {
      * 构建ThreadPoolExecutor
      * @return
      */
-    @Override
     public ThreadPoolExecutor build() {
         return build(this);
     }
