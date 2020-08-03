@@ -1,5 +1,9 @@
 package org.hotilsframework.inject;
 
+import org.hotilsframework.inject.internal.InjectorCreator;
+
+import java.util.Arrays;
+
 /**
  * @author hireny
  * @className Injectors
@@ -15,6 +19,15 @@ public class Injectors {
      * @return
      */
     public static Injector createInjector(Module... modules) {
-        return null;
+        return createInjector(Arrays.asList(modules));
+    }
+
+    /**
+     * 创建注入对象
+     * @param modules
+     * @return
+     */
+    public static Injector createInjector(Iterable<Module> modules) {
+        return new InjectorCreator().addModules(modules).build();
     }
 }

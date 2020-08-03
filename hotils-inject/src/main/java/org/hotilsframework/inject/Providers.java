@@ -1,5 +1,6 @@
 package org.hotilsframework.inject;
 
+import org.hotilsframework.core.reflects.Instancer;
 import org.hotilsframework.utils.ObjectUtils;
 
 /**
@@ -9,11 +10,33 @@ import org.hotilsframework.utils.ObjectUtils;
  * @create 2020-05-12 22:00
  */
 public class Providers {
+    /**
+     * 未知资源 用于父资源提供者
+     */
+    public static final Object UNKNOWN_SOURCE = "[unknown source]";
 
     private Providers() {}
 
     public static <T> Provider<T> of(final T instance) {
         return new ConstantProvider<T> (instance);
+    }
+
+    public static <T> Provider<T> of(final Class<T> type) {
+        return new TypeProvider<>(type);
+    }
+
+    private static final class TypeProvider<T> implements Provider<T> {
+
+        private final Class<T> type;
+
+        private TypeProvider(Class<T> type) {
+            this.type = type;
+        }
+
+        @Override
+        public T get() {
+            return Instancer.tryInstance(type);
+        }
     }
 
     private static final class ConstantProvider<T> implements Provider<T> {

@@ -7,6 +7,7 @@ package org.hotilsframework.inject;
  * @create 2020-05-15 21:10
  */
 public interface Module {
+
     /**
      * 配置
      * @param binder

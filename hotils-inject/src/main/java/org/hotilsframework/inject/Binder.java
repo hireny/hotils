@@ -1,6 +1,8 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.inject.binder.AnnotatedBindingBuilder;
+import org.hotilsframework.inject.binder.BindingBuilder;
+
+import java.lang.annotation.Annotation;
 
 /**
  * 用于一个接口和实现的绑定
@@ -10,5 +12,27 @@ import org.hotilsframework.inject.binder.AnnotatedBindingBuilder;
  */
 public interface Binder {
 
-    <T> AnnotatedBindingBuilder<T> bind(Class<T> type);
+    <T> BindingBuilder<T> bind(Key<T> key);
+
+    <T> BindingBuilder<T> bind(Class<T> type);
+
+    /**
+     * 绑定范围
+     * @param annotationType
+     * @param scope
+     */
+    void bindScope(Class<? extends Annotation> annotationType, Scope scope);
+
+    /**
+     * 将配置信息绑定
+     * @param module
+     */
+    void install(Module module);
+
+//    /**
+//     * 将资源绑定
+//     * @param source
+//     * @return
+//     */
+//    Binder withSource(Object source);
 }

@@ -14,8 +14,12 @@ public interface Scope {
      * @param <T>
      * @return
      */
-    <T> Provider<T> scope(Key<T> key, Provider<T> unscoped);
+    <T> Provider<T> scope(Class<?> key, Provider<T> unscoped);
 
+    /**
+     * 返回字符串
+     * @return
+     */
     @Override
     String toString();
 }

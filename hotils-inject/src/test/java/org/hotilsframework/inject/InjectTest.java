@@ -1,5 +1,7 @@
 package org.hotilsframework.inject;
 
+import org.junit.Test;
+
 /**
  * 注入框架测试
  * @author hireny
@@ -8,7 +10,18 @@ package org.hotilsframework.inject;
  */
 public class InjectTest {
 
+    @Test
     public void injectTest() {
-
+        // 这步就是我们向Injectors去要对象
+        final Injector injector = Injectors.createInjector(new SimpleModule());
+        System.out.println(injector.getClass());
+        System.out.println("绑定信息");
+        System.out.println(injector.getBindings());
+        LogService logService = injector.getInstance(LogService.class);
+        LogService logService1 = injector.getInstance(LogService.class);
+        System.out.println(logService);
+        logService.log("简单测试");
+        System.out.println(logService1);
+        logService1.log("第二次测试");
     }
 }

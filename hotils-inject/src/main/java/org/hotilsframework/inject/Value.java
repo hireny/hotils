@@ -3,19 +3,19 @@ package org.hotilsframework.inject;
 import java.util.Objects;
 
 /**
- * Key
+ * Value
  *
- * 用以描述Bean键的类
+ * 用以描述Bean值的类
  *
  * @author hireny
- * @create 2020-07-28 22:32
+ * @create 2020-08-03 0:51
  */
-public class Key<T> {
+public class Value<T> {
+
     private final Class<T> type;
-//    private final Qualifier<? extends Annotation> qualifier;
     private final int hashCode;
 
-    public Key(Class<T> type) {
+    public Value(Class<T> type) {
         this.type = type;
         this.hashCode = computeHashCode();
     }
@@ -36,9 +36,9 @@ public class Key<T> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Key<?> key = (Key<?>) o;
-        return hashCode == key.hashCode &&
-                Objects.equals(type, key.type);
+        Value<?> value = (Value<?>) o;
+        return hashCode == value.hashCode &&
+                Objects.equals(type, value.type);
     }
 
     @Override
@@ -48,14 +48,14 @@ public class Key<T> {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Key{");
+        final StringBuilder sb = new StringBuilder("Value{");
         sb.append("type=").append(type);
         sb.append(", hashCode=").append(hashCode);
         sb.append('}');
         return sb.toString();
     }
 
-    public static <T> Key<T> get(Class<T> type) {
-        return new Key<>(type);
+    public static <T> Value<T> get(Class<T> type) {
+        return new Value<>(type);
     }
 }
