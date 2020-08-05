@@ -1,34 +1,34 @@
-package org.hotilsframework.core.objects;
+package org.hotilsframework.core.factory;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * @ClassName: LocalObjectPools
- * @Author: hireny
- * @Date: Create in 2019/12/08 14:18
- * @Description: TODO   这个是线程私有对象池实现
+ * LocalObjects
+ * 本地对象工厂
+ *
+ * @author hireny
+ * @create 2020-08-06 0:01
  */
-public class LocalObjectPools<T> extends AbstractObjectPools<T> {
-
-    private ThreadLocal<Deque<T>> objects = null;
-    private ObjectFactory<T> objectFactory = null;
+public class LocalObjectFactory extends AbstractObjectFactory {
+    private ThreadLocal<Deque<Object>> objects       = null;
+    private ObjectFactory              objectFactory = null;
     /**
      * 这个是每个线程私有对象池的大小，而不是整个对象池的大小
      */
-    private int localSize;
+    private int                   localSize;
 
     /**
      * 构造私有对象池
      * @param objectFactory
      * @param size
      */
-    public LocalObjectPools(ObjectFactory<T> objectFactory, int size) {
-        this(objectFactory, size, new DefaultValidator<T>());
+    public LocalObjectFactory(ObjectFactory objectFactory, int size) {
+        this(objectFactory, size, new DefaultValidator());
     }
 
-    public LocalObjectPools(ObjectFactory<T> objectFactory, int size, Validator<T> validator) {
+    public LocalObjectFactory(ObjectFactory objectFactory, int size, Validator validator) {
         super();
         this.objectFactory = objectFactory;
         this.validator = validator;
@@ -41,22 +41,22 @@ public class LocalObjectPools<T> extends AbstractObjectPools<T> {
      * @return
      */
     @Override
-    public T get() {
+    public Object get() {
         // 检查对象池是否已经被关闭
         checkClose();
-        Deque<T> localObjects = objects.get();
+        Deque<Object> localObjects = objects.get();
         if (null == localObjects) {
             localObjects = new ArrayDeque<>(localSize);
             objects.set(localObjects);
-            return create();
+            return register();
         }
-        T object = localObjects.pollFirst();
-        return null == object ? create() : object;
+        Object object = localObjects.pollFirst();
+        return null == object ? register() : object;
     }
 
     @Override
-    protected void returnPool(T t) {
-        Deque<T> localObjects = objects.get();
+    protected void returnObject(Object t) {
+        Deque<Object> localObjects = objects.get();
         if (null == localObjects) {
             localObjects = new ArrayDeque<>(localSize);
             objects.set(localObjects);
@@ -72,16 +72,8 @@ public class LocalObjectPools<T> extends AbstractObjectPools<T> {
         return localSize;
     }
 
-    protected void abandonObject(T t) {
+    protected void abandonObject(Object o) {
 
-    }
-
-    /**
-     * 创建对象资源
-     * @return
-     */
-    protected T create() {
-        return objectFactory.create();
     }
 
     /**
@@ -93,5 +85,14 @@ public class LocalObjectPools<T> extends AbstractObjectPools<T> {
         super.closeResource();
         objects = null;
         objectFactory = null;
+    }
+
+    /**
+     * 创建对象资源
+     * @return
+     */
+    @Override
+    public Object register() {
+        return objectFactory.get();
     }
 }

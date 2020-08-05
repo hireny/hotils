@@ -1,4 +1,4 @@
-package org.hotilsframework.core.objects;
+package org.hotilsframework.core.factory;
 
 /**
  * @ClassName: Validator
@@ -6,17 +6,17 @@ package org.hotilsframework.core.objects;
  * @Date: Create in 2019/12/08 14:08
  * @Description: TODO   对象的验证器
  */
-public interface Validator<T> {
+public interface Validator {
     /**
      * 对象是否有效
-     * @param t
+     * @param o
      * @return
      */
-    boolean isValid(T t);
+    boolean isValid(Object o);
 
     /**
      * 使对象无效
-     * @param t     需要无效的对象
+     * @param o     需要无效的对象
      */
-    void invalidate(T t);
+    void invalidate(Object o);
 }

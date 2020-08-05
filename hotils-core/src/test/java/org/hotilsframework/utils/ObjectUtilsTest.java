@@ -19,22 +19,6 @@ import java.util.Optional;
  * @Version: 1.0
  */
 public class ObjectUtilsTest {
-    /**
-     * 测试对象的类型
-     */
-    @Test
-    public void isEmptyTest() {
-        Object o1 = null;
-        System.out.println(ObjectUtils.isEmpty(o1));
-        Collection<Object> c1 = Lists.newArrayList();
-        System.out.println(ObjectUtils.isEmpty(c1));
-        Map<String, Object> m1 = Maps.newHashMap();
-        System.out.println(ObjectUtils.isEmpty(m1));
-        int[] i1 = new int[0];
-        System.out.println(ObjectUtils.isEmpty(i1));
-        Optional<Object> op1 = Optional.ofNullable(2);
-        System.out.println(ObjectUtils.isEmpty(op1));
-    }
 
     @Test
     public void unwrapOptionalTest() {

@@ -1,5 +1,6 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.core.MoreObjects;
 import org.hotilsframework.lang.NestedRuntimeException;
 import org.hotilsframework.core.primitives.Primitives;
 
@@ -384,7 +385,7 @@ public class ArrayUtils {
      * @return
      */
     public static boolean hasLength(Object o) {
-        if (ObjectUtils.isEmpty(o)) {
+        if (MoreObjects.isEmpty(o)) {
             return false;
         }
         if (o instanceof Object[] && ((Object[]) o).length > 0) {

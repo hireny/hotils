@@ -28,36 +28,6 @@ public class ObjectUtils {
     private static final String ARRAY_ELEMENT_SEPARATOR = ", ";
 
     /**
-     * 判断对象是否为Empty(null 或元素为 0)
-     * 适用于对如下对象做判断：String Collection及其子类 Map及其子类
-     * @param o     待检查的对象
-     * @return
-     */
-    public static boolean isEmpty(Object o) {
-        if (o == null) {
-            return true;
-        }
-
-        if (o instanceof Optional) {
-
-            return !((Optional<?>) o).isPresent();
-        } else if (o instanceof CharSequence) {
-
-            return ((CharSequence) o).length() == 0;
-        } else if (o.getClass().isArray()) {
-
-            return Array.getLength(o) == 0;
-        } else if (o instanceof Collection) {
-
-            return ((Collection<?>) o).isEmpty();
-        } else if (o instanceof Map) {
-
-            return ((Map<?,?>) o).isEmpty();
-        }
-        return false;
-    }
-
-    /**
      * 如果给定对象为{@code null} 返回默认值
      *
      * ObjectUtil.defaultIfNull(null, null)      = null

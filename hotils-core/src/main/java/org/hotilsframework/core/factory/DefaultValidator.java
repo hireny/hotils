@@ -1,4 +1,4 @@
-package org.hotilsframework.core.objects;
+package org.hotilsframework.core.factory;
 
 /**
  * @ClassName: DefaultValidator
@@ -6,14 +6,14 @@ package org.hotilsframework.core.objects;
  * @Date: Create in 2019/12/08 14:22
  * @Description: TODO   这个是默认的对象验证器
  */
-public class DefaultValidator<T> implements Validator<T> {
+public class DefaultValidator implements Validator {
     @Override
-    public boolean isValid(T t) {
+    public boolean isValid(Object o) {
         return true;
     }
 
     @Override
-    public void invalidate(T t) {
+    public void invalidate(Object o) {
 
     }
 }

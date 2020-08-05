@@ -1,36 +1,40 @@
-package org.hotilsframework.core.objects;
+package org.hotilsframework.core.factory;
 
 import java.io.IOException;
 
 /**
- * @ClassName: AbstractObjectPools
- * @Author: hireny
- * @Date: Create in 2019/12/08 14:10
- * @Description: TODO   基础对象池的实现
+ * AbstractObjectFactory
+ *
+ * 抽象对象工厂
+ *
+ * @author hireny
+ * @create 2020-08-06 0:01
  */
-public abstract class AbstractObjectPools<T> implements ObjectPools<T> {
+public abstract class AbstractObjectFactory implements ObjectFactory, ObjectRegistry {
+
     /**
      * 验证器
      */
-    protected Validator<T> validator = null;
+    protected        Validator validator = null;
     /**
      * 是否关闭
      */
-    private volatile boolean closed = false;
+    private volatile boolean      closed    = false;
+
 
     /**
      * 释放对象
-     * @param t     需要释放的对象资源
+     * @param o     需要释放的对象资源
      */
     @Override
-    public void release(T t) {
+    public void release(Object o) {
         if (isClosed()) {
             return;
         }
-        if (validator.isValid(t)) {
-            returnPool(t);
+        if (validator.isValid(o)) {
+            returnObject(o);
         } else {
-            validator.invalidate(t);
+            validator.invalidate(o);
         }
     }
 
@@ -46,9 +50,9 @@ public abstract class AbstractObjectPools<T> implements ObjectPools<T> {
 
     /**
      * 返回一个对象
-     * @param t
+     * @param o
      */
-    protected abstract void returnPool(T t);
+    protected abstract void returnObject(Object o);
 
     protected boolean isClosed() {
         return closed;

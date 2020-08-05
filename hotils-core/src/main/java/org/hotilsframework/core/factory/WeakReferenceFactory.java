@@ -1,4 +1,5 @@
-package org.hotilsframework.core.objects;
+package org.hotilsframework.core.factory;
+
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -19,21 +20,21 @@ import java.util.concurrent.locks.ReentrantLock;
  * 经过试验,WeakReference只能被回收一次,但是如果null == referent,就不会被回收
  * 搞得太复杂,算了
  */
-public class WeakReferencePools<T> extends AbstractObjectPools<T> implements ObjectPools<T> {
+public class WeakReferenceFactory<T> extends AbstractObjectFactory implements ObjectRegistry {
 
     private int size;
 
-    private Entry<T>[] objects = null;
+    private Entry[] objects = null;
 
     //cpu核数,用于自旋
     static final int MAX_SCAN_RETRIES =
             Runtime.getRuntime().availableProcessors();
 
-    public WeakReferencePools(int size) {
-        this(size, new DefaultValidator<>());
+    public WeakReferenceFactory(int size) {
+        this(size, new DefaultValidator());
     }
 
-    public WeakReferencePools(int size, Validator<T> validator) {
+    public WeakReferenceFactory(int size, Validator validator) {
         super();
         this.size = size;
         this.validator = validator;
@@ -41,9 +42,9 @@ public class WeakReferencePools<T> extends AbstractObjectPools<T> implements Obj
     }
 
     private void initObjects() {
-        objects = (Entry<T>[]) new Entry[size];
+        objects = (Entry[]) new Entry[size];
         for (int i = 0, len = objects.length; i < len; i++) {
-            objects[i] = new Entry<>();
+            objects[i] = new Entry();
         }
     }
 
@@ -52,14 +53,14 @@ public class WeakReferencePools<T> extends AbstractObjectPools<T> implements Obj
      * @return
      */
     @Override
-    public T get() {
+    public Object get() {
         checkClose();
         return objects[getIndex()].get();
     }
 
     @Override
-    protected void returnPool(T t) {
-        objects[getIndex()].set(t);
+    protected void returnObject(Object o) {
+        objects[getIndex()].set(o);
     }
 
     @Override
@@ -72,16 +73,21 @@ public class WeakReferencePools<T> extends AbstractObjectPools<T> implements Obj
         return ThreadLocalRandom.current().nextInt(size);
     }
 
-    @SuppressWarnings({"serial"})
-    static class Entry<T> extends ReentrantLock {
-        WeakReference<T> reference = new WeakReference<>(null);
+    @Override
+    public Object register() {
+        return null;
+    }
 
-        void set(T t) {
+    @SuppressWarnings({"serial"})
+    static class Entry extends ReentrantLock {
+        WeakReference<Object> reference = new WeakReference<>(null);
+
+        void set(Object o) {
             int count = MAX_SCAN_RETRIES;
             while (--count >= 0) {
                 if (tryLock()) {
                     try {
-                        setReference(t);
+                        setReference(o);
                         return;
                     } finally {
                         unlock();
@@ -90,13 +96,13 @@ public class WeakReferencePools<T> extends AbstractObjectPools<T> implements Obj
             }
         }
 
-        T get() {
+        Object get() {
             int count = MAX_SCAN_RETRIES;
             while (--count >= 0) {
                 if (tryLock()) {
                     try {
-                        T t = getReference();
-                        return t;
+                        Object o = getReference();
+                        return o;
                     } finally {
                         unlock();
                     }
@@ -105,15 +111,15 @@ public class WeakReferencePools<T> extends AbstractObjectPools<T> implements Obj
             return null;
         }
 
-        private T getReference() {
-            T t = reference.get();
+        private Object getReference() {
+            Object o = reference.get();
             reference.clear();
-            return t;
+            return o;
         }
 
-        private void setReference(T t) {
+        private void setReference(Object o) {
             reference = null == reference.get() ?
-                    new WeakReference<>(t) : reference;
+                    new WeakReference<>(o) : reference;
         }
     }
 }

@@ -1,12 +1,12 @@
 package org.hotilsframework.collect;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @ClassName: Maps
  * @Author: hireny
  * @Date: Create in 2019/11/05 14:38
- * @Description: TODO
  */
 public final class Maps {
 
@@ -52,8 +52,6 @@ public final class Maps {
         return new TreeMap<>();
     }
 
-
-
     /**
      * 创建WeakHashMap
      * @param <K>
@@ -62,5 +60,9 @@ public final class Maps {
      */
     public static <K, V> WeakHashMap<K, V> newWeakHashMap() {
         return new WeakHashMap<>();
+    }
+
+    public static <K, V>ConcurrentHashMap<K, V> newConcurrentHashMap() {
+        return new ConcurrentHashMap<>();
     }
 }

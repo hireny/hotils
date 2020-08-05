@@ -4,6 +4,7 @@ import example.model.Gender;
 import example.model.PersonModel;
 import example.reflect.ExtandsReflectExample;
 import example.reflect.ReflectExample;
+import org.hotilsframework.core.reflects.Instancer;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -282,19 +283,19 @@ public class ReflectionUtilsTest {
      */
     @Test
     public void newInstanceTest() {
-        ReflectExample example1 = ReflectionUtils.newInstance(ReflectExample.class);
+        ReflectExample example1 = Instancer.tryInstance(ReflectExample.class);
         System.out.println(example1);
 
-        ReflectExample example2 = ReflectionUtils.newInstance(ReflectExample.class);
+        ReflectExample example2 = Instancer.tryInstance(ReflectExample.class);
         System.out.println(example2);
 
-        ReflectExample example3 = ReflectionUtils.newInstance(ReflectExample.class);
+        ReflectExample example3 = Instancer.tryInstance(ReflectExample.class);
         System.out.println(example3);
 
-        ReflectExample example4 = ReflectionUtils.newInstance(ReflectExample.class);
+        ReflectExample example4 = Instancer.tryInstance(ReflectExample.class);
         System.out.println(example4);
 
-        ReflectExample example5 = ReflectionUtils.newInstance(ReflectExample.class);
+        ReflectExample example5 = Instancer.tryInstance(ReflectExample.class);
         System.out.println(example5);
     }
 
@@ -303,19 +304,19 @@ public class ReflectionUtilsTest {
      */
     @Test
     public void newInstanceWithParametersTest() {
-        ReflectExample example1 = ReflectionUtils.newInstance(ReflectExample.class, 1);
+        ReflectExample example1 = Instancer.tryInstance(ReflectExample.class, 1);
         System.out.println(example1);
 
-        ReflectExample example2 = ReflectionUtils.newInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
+        ReflectExample example2 = Instancer.tryInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
         System.out.println(example2);
 
-        ReflectExample example3 = ReflectionUtils.newInstance(ReflectExample.class, 1);
+        ReflectExample example3 = Instancer.tryInstance(ReflectExample.class, 1);
         System.out.println(example3);
 
-        ReflectExample example4 = ReflectionUtils.newInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
+        ReflectExample example4 = Instancer.tryInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
         System.out.println(example4);
 
-        ReflectExample example5 = ReflectionUtils.newInstance(ReflectExample.class, 1);
+        ReflectExample example5 = Instancer.tryInstance(ReflectExample.class, 1);
         System.out.println(example5);
     }
 
@@ -324,7 +325,7 @@ public class ReflectionUtilsTest {
      */
     @Test
     public void newInstanceIfPossibleTest() {
-        ReflectExample e1 = ReflectionUtils.newInstanceIfPossible(ReflectExample.class);
+        ReflectExample e1 = Instancer.tryInstanceIfPossible(ReflectExample.class);
 
         System.out.println(e1);
     }

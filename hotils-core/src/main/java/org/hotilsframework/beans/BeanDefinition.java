@@ -9,7 +9,7 @@ import org.hotilsframework.lang.Nullable;
  * @className BeanDefinition
  * @create 2020-04-08 12:16
  */
-public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
+public interface BeanDefinition<T> extends AttributeAccessor, BeanMetadataElement {
 
     /**
      * 设置父类名称

@@ -3,6 +3,7 @@ package org.hotilsframework.core.logging.layout.pattern;
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.collect.Maps;
 import org.hotilsframework.core.convert.converter.Converter;
+import org.hotilsframework.core.reflects.Instancer;
 import org.hotilsframework.lang.Symbol;
 import org.hotilsframework.core.reflects.ReflectionException;
 import org.hotilsframework.core.logging.LoggingEvent;
@@ -112,7 +113,7 @@ public class PatternParser {
                     throw new NullPointerException("pattern [%" + keyword + "] illegal!");
                 }
                 try {
-                    converter = ReflectionUtils.newInstance(clazz);
+                    converter = Instancer.tryInstance(clazz);
                 } catch (Exception e) {
                     // 反射异常
                     throw new ReflectionException(e);

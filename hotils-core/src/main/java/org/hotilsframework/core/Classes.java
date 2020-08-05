@@ -1,7 +1,8 @@
-package org.hotilsframework.core.classes;
+package org.hotilsframework.core;
 
 import org.hotilsframework.utils.Assert;
 
+import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 
 /**
@@ -13,6 +14,17 @@ import java.lang.reflect.Modifier;
  * @create 2020-07-26 10:12
  */
 public class Classes {
+
+    /**
+     * 判断是否是具体的类型，即不是接口或抽象类
+     * @param clazz
+     * @return
+     */
+    public static boolean isConcrete(Class<?> clazz) {
+        Assert.notNull(clazz, "class is not null.");
+        int modifiers = clazz.getModifiers();
+        return !clazz.isInterface() && !Modifier.isAbstract(modifiers);
+    }
 
     /**
      * 获得对象数组的类数组
