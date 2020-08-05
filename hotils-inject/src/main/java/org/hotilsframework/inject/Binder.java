@@ -28,11 +28,4 @@ public interface Binder {
      * @param module
      */
     void install(Module module);
-
-//    /**
-//     * 将资源绑定
-//     * @param source
-//     * @return
-//     */
-//    Binder withSource(Object source);
 }

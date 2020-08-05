@@ -11,6 +11,26 @@ import java.lang.annotation.Annotation;
  */
 public class Scopes {
     /**
+     * 原型作用域，代表每次请求都会获得一个新的实例。
+     */
+    public static final Scope PROTOTYPE = new Scope() {
+        @Override
+        public <T> Provider<T> scope(Class<?> key, Provider<T> unscoped) {
+            return unscoped;
+        }
+
+        @Override
+        public Class<? extends Annotation> getScopeAnnotation() {
+            return Prototype.class;
+        }
+
+        @Override
+        public String toString() {
+            return "Scopes.PROTOTYPE";
+        }
+    };
+
+    /**
      * 每个 {@link Injector} 有一个实例。请参见 {@code @}{@link Singleton}
      */
     public static final Scope SINGLETON = new Scope() {
@@ -44,27 +64,23 @@ public class Scopes {
         }
 
         @Override
+        public Class<? extends Annotation> getScopeAnnotation() {
+            return Singleton.class;
+        }
+
+        @Override
         public String toString() {
             return "Scopes.SINGLETON";
         }
     };
 
     /**
-     * 判断该注解是否是@Scope注解
-     * @param annotation
+     * 查询绑定类型是否是单例模式
+     * @param binding
      * @return
      */
-    static boolean isScopeAnnotation(Annotation annotation) {
-        return isScopeAnnotation(annotation.annotationType());
-    }
-
-    /**
-     * 判断该类是否是@Scope注解
-     * @param annotationType
-     * @return
-     */
-    static boolean isScopeAnnotation(Class<? extends Annotation> annotationType) {
-        return annotationType.isAnnotationPresent(ScopeAnnotation.class);
+    public static boolean isSingleton(Binding<?> binding) {
+        return false;
     }
 
 }

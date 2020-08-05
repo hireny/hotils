@@ -13,6 +13,6 @@ public class SimpleModule extends AbstractModule {
     public void configure() {
         // 表明：当需要 Communicator 这个变量时，我们注入 DefaultCommunicatorImpl 的实例作为依赖
         bind(LogService.class).to(LogServiceImpl1.class);
-        bind(LogService.class).to(LogServiceImpl2.class);
+//        bind(LogService.class).to(LogServiceImpl2.class);
     }
 }

@@ -23,5 +23,7 @@ public class InjectTest {
         logService.log("简单测试");
         System.out.println(logService1);
         logService1.log("第二次测试");
+
+        System.out.println("两个对象是否相等 = " + (logService == logService1));
     }
 }

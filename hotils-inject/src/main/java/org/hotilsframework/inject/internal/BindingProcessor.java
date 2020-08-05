@@ -52,16 +52,4 @@ public class BindingProcessor {
         // 在存进bean context 之前，要对 binding 进行处理
         injector.beanContext.putBinding(key, binding);
     }
-
-    /**
-     * 对绑定的元素基础
-     * @param binding
-     * @param <T>
-     * @return
-     */
-    public <T> Boolean visit(Binding<T> binding) {
-        // 可以先判断
-//        return new Processor<T, Boolean>(binding) {};
-        return true;
-    }
 }

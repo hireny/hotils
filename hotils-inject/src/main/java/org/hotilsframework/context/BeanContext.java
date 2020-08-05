@@ -36,11 +36,6 @@ public interface BeanContext {
         }
 
         @Override
-        public <T> T createBean(Class<T> type, Qualifier<T> qualifier, Object... args) {
-            return null;
-        }
-
-        @Override
         public Object lock() {
             return null;
         }
@@ -72,16 +67,6 @@ public interface BeanContext {
      * @param binding
      */
     void putBinding(Key<?> key,  Binding<?> binding);
-
-    /**
-     * 创建Bean
-     * @param type
-     * @param qualifier
-     * @param args
-     * @param <T>
-     * @return
-     */
-    <T> T createBean(Class<T> type, Qualifier<T> qualifier, Object... args);
 
     /**
      * 锁对象

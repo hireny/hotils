@@ -68,49 +68,10 @@ public class DefaultBeanContext implements BeanContext {
     }
 
     @Override
-    public <T> T createBean(Class<T> type, Qualifier<T> qualifier, Object... args) {
-        Assert.notNull(type, "type is not null.");
-        // 先查找是否存在
-        Optional<T> o = doGetBeanFromCache(type, qualifier);
-        if (o.isPresent()) {
-            return o.get();
-        }
-        // 不存在，就创建
-        return null;
-    }
-
-    @Override
     public Object lock() {
         return this.lock;
     }
 
-    private <T> Optional<T> doGetBeanFromCache(Class<T> type, Qualifier<T> qualifier) {
-        Key key = new Key(type);
-        // 可以根据键从缓存中获取Bean对象
-        Optional beanDefinition = Optional.empty();
-        if (beanDefinition == null) {
-            beanDefinition = doGetBean(type, qualifier);
-            // 然后存放进缓存中
-        }
-        return beanDefinition;
-    }
-
-    private <T> Optional<T> doGetBean(Class<T> type, Qualifier<T> qualifier) {
-//        Collection<BeanDefinition<T>> candidates = new ArrayList<Collection<T>>(findBeanCandidates(type));
-//        if (candidates.isEmpty()) {
-//            return Optional.empty();
-//        }
-//
-//        int size = candidates.size();
-//        BeanDefinition<T> definition = null;
-//        if (size > 0) {
-//            if (qualifier != null) {
-//
-//                qualifier.reduce(type, )
-//            }
-//        }
-        return Optional.empty();
-    }
 
     /**
      * 查找所有符合条件的Bean候选人

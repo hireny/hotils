@@ -1,6 +1,6 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.lang.Element;
+import org.hotilsframework.core.Element;
 
 /**
  * BeanElement
@@ -12,11 +12,4 @@ import org.hotilsframework.lang.Element;
  */
 public interface BeanElement extends Element {
 
-    /**
-     * Writes this module element to the given binder (optional operation).
-     *
-     * 将此模块元素写入绑定器
-     * @param binder
-     */
-    void applyTo(Binder binder);
 }

@@ -18,7 +18,7 @@ public class Providers {
     private Providers() {}
 
     public static <T> Provider<T> of(final T instance) {
-        return new ConstantProvider<T> (instance);
+        return new ConstantProvider<> (instance);
     }
 
     public static <T> Provider<T> of(final Class<T> type) {

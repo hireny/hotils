@@ -1,9 +1,7 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.lang.Element;
-
 /**
- * 将Bean元素通过键值进行绑定
+ * 将键值进行绑定的绑定元素
  * @author hireny
  * @className Binding
  * @create 2020-05-15 22:40
@@ -26,6 +24,19 @@ public interface Binding<T> extends BeanElement {
      * @return
      */
     Provider<T> getProvider();
+
+    /**
+     * 获取作用域
+     * @return
+     */
+    Scope getScope();
+
+    /**
+     * 绑定注解
+     * @param scope
+     * @return
+     */
+    Binding<T> withScope(Scope scope);
 
     /**
      * 绑定目标访问

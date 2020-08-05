@@ -5,8 +5,10 @@ import org.hotilsframework.inject.internal.InjectorCreator;
 import java.util.Arrays;
 
 /**
+ * Injectors
+ *
+ * 该方法就相当于注入器的工厂类，用于生产注入器的
  * @author hireny
- * @className Injectors
  * @create 2020-05-15 22:19
  */
 public class Injectors {

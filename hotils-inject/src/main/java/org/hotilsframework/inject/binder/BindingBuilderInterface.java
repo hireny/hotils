@@ -24,7 +24,9 @@ public interface BindingBuilderInterface<T> {
      */
     void toInstance(T instance);
 
-    void in(Class<? extends Annotation> scopeAnnotation);
-
-    void in(Scope scope);
+    /**
+     * 绑定Scope作用域
+     * @param scopeType
+     */
+    void in(Class<? extends Annotation> scopeType);
 }

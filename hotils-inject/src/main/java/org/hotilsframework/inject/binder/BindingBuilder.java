@@ -3,6 +3,7 @@ package org.hotilsframework.inject.binder;
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.internal.KeyBinding;
 import org.hotilsframework.inject.internal.ValueBinding;
+import org.hotilsframework.utils.Assert;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -20,13 +21,13 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
     protected List<Binding<?>> elements;
     protected int position;
     protected final Binder        binder;
-    private         Binding<T> binding;
+    private         KeyBinding<T> binding;
 
     public BindingBuilder(Binder binder, List<Binding<?>> elements, Key<T> key) {
         this.binder = binder;
         this.elements = elements;
         this.position = elements.size();
-        this.binding = new KeyBinding<>(key);
+        this.binding = new KeyBinding<>(key, BeanElements.EMPTY,Scopes.SINGLETON);
         elements.add(position, this.binding);
     }
 
@@ -34,14 +35,14 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
      * 获取绑定信息
      * @return
      */
-    protected Binding<T> getBinding() {
+    protected KeyBinding<T> getBinding() {
         return binding;
     }
 
     /**
      * 设置绑定信息
      */
-    protected Binding<T> setBinding(Binding<T> binding) {
+    protected KeyBinding<T> setBinding(KeyBinding<T> binding) {
         this.binding = binding;
         elements.set(position, binding);
         return binding;
@@ -53,15 +54,17 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
     }
 
     /**
-     * 使用该方法实现绑定，默认使用单例模式
+     * 使用该方法实现绑定，默认使用单例作用域
      * @param implementation
      * @return
      */
     @Override
     public BindingBuilder<T> to(Class<? extends T> implementation) {
         Value<? extends T> value = Value.get(implementation);
-        Binding<T> binding = getBinding();
-        setBinding(new ValueBinding<T>(binding.getKey(), value));
+        KeyBinding<T> binding = getBinding();
+        System.out.println(binding.getScope());
+        // 默认使用单例作用域
+        setBinding(new ValueBinding<T>(binding.getKey(), value, new Singletons(), binding.getScope()));
         return this;
     }
 
@@ -76,14 +79,16 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
         }
     }
 
+    /**
+     * 绑定作用域范围
+     * @param scopeType
+     */
     @Override
-    public void in(Class<? extends Annotation> scopeAnnotation) {
-
-    }
-
-    @Override
-    public void in(Scope scope) {
-
+    public void in(Class<? extends Annotation> scopeType) {
+        System.out.println("绑定作用域=" + scopeType);
+        Assert.notNull(scopeType, "scope annotation is not null.");
+        System.out.println("绑定Binding=" + getBinding());
+        setBinding(getBinding().withScope(Scope.forAnnotation(scopeType)));
     }
 
     void registerInstanceForInjection(final Object o) {

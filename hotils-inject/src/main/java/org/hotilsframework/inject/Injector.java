@@ -53,10 +53,11 @@ public interface Injector {
 
     /**
      * 获取Bean
-     * @param type     bean类
+     * @param type      bean类
+     * @param <T>
      * @return          获取Bean对象
      */
-    <T> T getInstance(Class<T> type) throws BeansException;
+    <T> T getInstance(Class<T> type);
 
 //    /**
 //     * 获取对象实例

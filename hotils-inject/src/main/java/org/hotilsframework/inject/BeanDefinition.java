@@ -1,5 +1,9 @@
 package org.hotilsframework.inject;
 
+import org.hotilsframework.lang.Optional;
+
+import java.lang.annotation.Annotation;
+
 /**
  * BeanDefinition
  *
@@ -10,13 +14,13 @@ package org.hotilsframework.inject;
  */
 public interface BeanDefinition {
     /**
-     * 获取Bean定义的类型
+     * 获取定义的类型
      * @return
      */
     Class<?> getType();
 
     /**
-     * 获取名称
+     * 获取类的名称
      * @return
      */
     String getName();
@@ -32,4 +36,16 @@ public interface BeanDefinition {
      * @return
      */
     boolean isSingleton();
+
+    /**
+     * 是否是原型模式(每次请求都新创建)
+     * @return
+     */
+    boolean isPrototype();
+
+    /**
+     * 获取Bean的作用域
+     * @return
+     */
+    Optional<Class<? extends Annotation>> getScope();
 }
