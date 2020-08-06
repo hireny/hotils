@@ -14,6 +14,11 @@ import java.lang.annotation.Annotation;
  */
 public interface BeanDefinition {
     /**
+     * 获取该Bean定义的父Bean定义
+     * @return
+     */
+    BeanDefinition getParent();
+    /**
      * 获取定义的类型
      * @return
      */
@@ -44,8 +49,20 @@ public interface BeanDefinition {
     boolean isPrototype();
 
     /**
+     * 返回该Bean是否是抽象的，也意味着该Bean是否不用被实例化
+     * @return
+     */
+    boolean isAbstract();
+
+    /**
+     * 是否懒加载，即不在启动时急于实例化，只适用于类似于单例作用域的。
+     * @return
+     */
+    boolean islazyInit();
+
+    /**
      * 获取Bean的作用域
      * @return
      */
-    Optional<Class<? extends Annotation>> getScope();
+    Class<? extends Annotation> getScope();
 }

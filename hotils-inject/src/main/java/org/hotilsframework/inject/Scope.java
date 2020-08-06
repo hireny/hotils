@@ -16,7 +16,7 @@ public interface Scope {
      * @param <T>
      * @return
      */
-    <T> Provider<T> scope(Class<?> key, Provider<T> unscoped);
+    <T> Provider<T> scope(Key<T> key, Provider<T> unscoped);
 
     /**
      * 获取作用域注解
@@ -47,7 +47,7 @@ public interface Scope {
         }
         return new Scope() {
             @Override
-            public <T> Provider<T> scope(Class<?> key, Provider<T> unscoped) {
+            public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
                 return unscoped;
             }
 

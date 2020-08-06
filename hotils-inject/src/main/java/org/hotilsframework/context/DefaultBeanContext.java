@@ -1,8 +1,8 @@
 package org.hotilsframework.context;
 
-import org.hotilsframework.beans.BeanDefinition;
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.collect.Maps;
+import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.Binding;
 import org.hotilsframework.inject.Key;
 import org.hotilsframework.utils.Assert;
@@ -27,6 +27,10 @@ public class DefaultBeanContext implements BeanContext {
      */
     private final Map<Key<?>, Binding<?>> explicitBindings = Maps.newConcurrentHashMap();
     /**
+     * 明确的绑定院系容器
+     */
+    private final Map<Key<?>, BeanDefinition> explicitBindingsMuable = Maps.newConcurrentHashMap();
+    /**
      * 用于上锁该类元素的锁对象
      */
     private final Object lock;
@@ -50,6 +54,11 @@ public class DefaultBeanContext implements BeanContext {
         return Collections.unmodifiableMap(explicitBindings);
     }
 
+    @Override
+    public Map<Key<?>, BeanDefinition> getBeanDefinitions() {
+        return Collections.unmodifiableMap(explicitBindingsMuable);
+    }
+
     /**
      * 获取键对应的绑定元素
      * @param key
@@ -60,6 +69,17 @@ public class DefaultBeanContext implements BeanContext {
     public <T> Binding<T> getBinding(Key<T> key) {
         Binding<?> binding = getBindings().get(key);
         return binding != null ? (Binding<T>) binding : parent.getBinding(key);
+    }
+
+    @Override
+    public BeanDefinition get(Key<?> key) {
+        BeanDefinition beanDefinition = getBeanDefinitions().get(key);
+        return beanDefinition != null ? beanDefinition : parent.get(key);
+    }
+
+    @Override
+    public void putBinding(Key<?> key, BeanDefinition beanDefinition) {
+        explicitBindingsMuable.put(key, beanDefinition);
     }
 
     @Override
@@ -80,6 +100,7 @@ public class DefaultBeanContext implements BeanContext {
      * @return
      */
     protected <T> Collection<T> findBeanCandidates(Class<T> type) {
-        return null;
+
+        return Collections.emptyList();
     }
 }

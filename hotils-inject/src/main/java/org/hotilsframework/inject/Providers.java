@@ -1,6 +1,6 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.core.reflects.Instancer;
+import org.hotilsframework.core.reflects.Instantiator;
 import org.hotilsframework.utils.ObjectUtils;
 
 /**
@@ -35,7 +35,7 @@ public class Providers {
 
         @Override
         public T get() {
-            return Instancer.tryInstance(type);
+            return Instantiator.tryInstance(type);
         }
     }
 

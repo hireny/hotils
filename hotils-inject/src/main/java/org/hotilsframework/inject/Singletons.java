@@ -2,11 +2,11 @@ package org.hotilsframework.inject;
 
 import org.hotilsframework.beans.BeansException;
 import org.hotilsframework.collect.Maps;
-import org.hotilsframework.core.reflects.Instancer;
+import org.hotilsframework.core.reflects.Instantiator;
 import org.hotilsframework.utils.Assert;
 
+import java.lang.annotation.Annotation;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Singletons
@@ -16,7 +16,7 @@ import java.util.Objects;
  * @author hireny
  * @create 2020-08-05 0:48
  */
-public class Singletons implements BeanElements {
+public class Singletons implements BeanElements, Scope {
     /**
      * 单例元素的关系映射存储
      */
@@ -46,7 +46,7 @@ public class Singletons implements BeanElements {
      */
     private <T> T doCreateElement(Key<?> key) {
         // 创建对象
-        return Instancer.tryInstance(key.getType());
+        return Instantiator.tryInstance(key.getType());
     }
 
     @Override
@@ -55,5 +55,15 @@ public class Singletons implements BeanElements {
         Assert.notNull(key, "key is not null.");
         Object element = getElement(key);
         return (Provider<T>) Providers.of(element);
+    }
+
+    @Override
+    public <T> Provider<T> scope(Key<T> key, Provider<T> creator) {
+        return null;
+    }
+
+    @Override
+    public Class<? extends Annotation> getScopeAnnotation() {
+        return null;
     }
 }

@@ -62,6 +62,7 @@ public class InternalInjector implements Injector {
     public <T> Provider<T> getProvider(Key<T> key) {
         Assert.notNull(key, "key is not null.");
         Binding<T> binding = getBinding(key);
+        System.out.println("注入器中绑定关系=" + binding);
         return binding.getProvider();
     }
 

@@ -15,7 +15,7 @@ public class Scopes {
      */
     public static final Scope PROTOTYPE = new Scope() {
         @Override
-        public <T> Provider<T> scope(Class<?> key, Provider<T> unscoped) {
+        public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
             return unscoped;
         }
 
@@ -35,7 +35,7 @@ public class Scopes {
      */
     public static final Scope SINGLETON = new Scope() {
         @Override
-        public <T> Provider<T> scope(Class<?> key, Provider<T> creator) {
+        public <T> Provider<T> scope(Key<T> key, Provider<T> creator) {
             return new Provider<T>() {
                 /**
                  * 实例
