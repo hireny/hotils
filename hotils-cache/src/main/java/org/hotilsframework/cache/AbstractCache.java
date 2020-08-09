@@ -1,6 +1,6 @@
 package org.hotilsframework.cache;
 
-import org.hotilsframework.core.collect.CopiedIterator;
+import org.hotilsframework.collect.CopiedIterator;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -21,7 +21,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
 
     private static final long serialVersionUID = 2327950817706048562L;
 
-    protected Map<K, CacheObject<K,V>> cacheMap;
+    protected Map<K, CacheElement<K,V>> cacheMap;
 
     private final ReentrantReadWriteLock cacheLock = new ReentrantReadWriteLock();
     private final ReadLock readLock = cacheLock.readLock();
@@ -65,14 +65,14 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
      * @param timeout   超时时间
      */
     private void putWithoutLock(K key, V value, long timeout) {
-        CacheObject<K, V> cacheObject = new CacheObject<>(key, value, timeout);
+        CacheElement<K, V> cacheElement = new CacheElement<>(key, value, timeout);
         if (timeout != 0) {
             existCustomTimeout = true;
         }
         if (isFull()) {
             pruneCache();
         }
-        cacheMap.put(key, cacheObject);
+        cacheMap.put(key, cacheElement);
     }
 
     @Override
@@ -80,11 +80,11 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
         readLock.lock();
         try {
             // 不存在或已移除
-            final CacheObject<K, V> cacheObject = cacheMap.get(key);
-            if (cacheObject == null) {
+            final CacheElement<K, V> cacheElement = cacheMap.get(key);
+            if (cacheElement == null) {
                 return false;
             }
-            if (false == cacheObject.isExpired()) {
+            if (false == cacheElement.isExpired()) {
                 // 命中
                 return true;
             }
@@ -108,8 +108,8 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
             writeLock.lock();
             try {
                 // 双重检查类
-                final CacheObject<K, V> cacheObject = cacheMap.get(key);
-                if (null == cacheObject || cacheObject.isExpired() || null == cacheObject.getValue()) {
+                final CacheElement<K, V> cacheElement = cacheMap.get(key);
+                if (null == cacheElement || cacheElement.isExpired() || null == cacheElement.getValue()) {
                     try {
                         value = callable.call();
                     } catch (Exception e) {
@@ -117,7 +117,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
                     }
                     putWithoutLock(key, value, this.timeout);
                 } else {
-                    value = cacheObject.get(true);
+                    value = cacheElement.get(true);
                 }
             } finally {
                 writeLock.unlock();
@@ -131,16 +131,16 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
         readLock.lock();
         try {
             // 不存在或已移除
-            final CacheObject<K, V> cacheObject = cacheMap.get(key);
-            if (cacheObject == null) {
+            final CacheElement<K, V> cacheElement = cacheMap.get(key);
+            if (cacheElement == null) {
                 missCount++;
                 return null;
             }
 
-            if (false == cacheObject.isExpired()) {
+            if (false == cacheElement.isExpired()) {
                 // 命中
                 hitCount++;
-                return cacheObject.get(isUpdateLastAccess);
+                return cacheElement.get(isUpdateLastAccess);
             }
         } finally {
             readLock.unlock();
@@ -157,7 +157,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
      */
     @Override
     public Iterator<V> iterator() {
-        Iterator<CacheObject<K, V>> iterator = cacheObjectIterator();
+        Iterator<CacheElement<K, V>> iterator = cacheObjectIterator();
         return new Iterator<V>() {
             @Override
             public boolean hasNext() {
@@ -181,21 +181,21 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
      * @return
      */
     @Override
-    public Iterator<CacheObject<K, V>> cacheObjectIterator() {
-        CopiedIterator<CacheObject<K, V>> copiedIterator;
+    public Iterator<CacheElement<K, V>> cacheObjectIterator() {
+        CopiedIterator<CacheElement<K, V>> copiedIterator;
         readLock.lock();
         try {
             copiedIterator = CopiedIterator.copyOf(this.cacheMap.values().iterator());
         } finally {
             readLock.unlock();
         }
-        return new Iterator<CacheObject<K, V>>() {
+        return new Iterator<CacheElement<K, V>>() {
             @Override
             public boolean hasNext() {
                 return copiedIterator.hasNext();
             }
             @Override
-            public CacheObject<K, V> next() {
+            public CacheElement<K, V> next() {
                 return copiedIterator.next();
             }
 
@@ -311,24 +311,24 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
      */
     private void remove(K key, boolean withMissCount) {
         writeLock.lock();
-        CacheObject<K, V> cacheObject;
+        CacheElement<K, V> cacheElement;
         try {
-            cacheObject = removeWithoutLock(key, withMissCount);
+            cacheElement = removeWithoutLock(key, withMissCount);
         } finally {
             writeLock.unlock();
         }
-        if (null != cacheObject) {
-            onRemove(cacheObject.key, cacheObject.value);
+        if (null != cacheElement) {
+            onRemove(cacheElement.key, cacheElement.value);
         }
     }
 
-    private CacheObject<K, V> removeWithoutLock(K key, boolean withMissCount) {
-        final CacheObject<K, V> cacheObject = cacheMap.remove(key);
+    private CacheElement<K, V> removeWithoutLock(K key, boolean withMissCount) {
+        final CacheElement<K, V> cacheElement = cacheMap.remove(key);
         if (withMissCount) {
             // 在丢失计数有效的情况下，移除一般为get时的超时操作，此处应该丢失数+1
             this.missCount++;
         }
-        return cacheObject;
+        return cacheElement;
     }
 
     /**

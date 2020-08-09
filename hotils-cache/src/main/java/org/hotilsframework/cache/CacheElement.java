@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 /**
  * 缓存对象
- * @ClassName: CacheObject
- * @Author: hireny
- * @Date: Created in 2020-01-13 10:43
- * @Version: 1.0
+ * @className CacheElement
+ * @author hireny
+ * @date Created in 2020-01-13 10:43
+ * @version 1.0
  */
-public class CacheObject<K, V> implements Serializable {
+public class CacheElement<K, V> implements Serializable {
 
     private static final long serialVersionUID = 5891608134274306455L;
 
@@ -35,7 +35,7 @@ public class CacheObject<K, V> implements Serializable {
      * @param value     值
      * @param ttl       超时时长
      */
-    protected CacheObject(K key, V value, long ttl) {
+    protected CacheElement(K key, V value, long ttl) {
         this.key = key;
         this.value = value;
         this.ttl = ttl;

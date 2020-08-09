@@ -76,7 +76,7 @@ public interface Cache<K,V> extends Iterable<V>, Serializable {
      * 返回包含键和值的迭代器
      * @return  缓存对象迭代器
      */
-    Iterator<CacheObject<K, V>> cacheObjectIterator();
+    Iterator<CacheElement<K, V>> cacheObjectIterator();
 
     /**
      * 从缓存中清理过期对象，清理策略取决于具体实现
