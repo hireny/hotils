@@ -19,6 +19,10 @@
             <artifactId>hotils-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-cache</artifactId>
+        </dependency>
+        <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
         </dependency>

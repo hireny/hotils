@@ -24,7 +24,6 @@
         <module>hotils-orm</module>
         <module>hotils-scheduling</module>
         <module>hotils-test</module>
-        <module>hotils-webservlet</module>
     </modules>
     <packaging>pom</packaging>
     <name>Hotils: Hotils Parent for Java</name>
@@ -130,11 +129,6 @@
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-web</artifactId>
-                <version>${hotils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-webservlet</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
 

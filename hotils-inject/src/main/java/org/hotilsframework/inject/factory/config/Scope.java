@@ -1,4 +1,9 @@
-package org.hotilsframework.inject;
+package org.hotilsframework.inject.factory.config;
+
+import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.Prototype;
+import org.hotilsframework.inject.Provider;
+import org.hotilsframework.inject.Singleton;
 
 import java.lang.annotation.Annotation;
 
@@ -9,16 +14,36 @@ import java.lang.annotation.Annotation;
  * @create 2020-04-01 20:18
  */
 public interface Scope {
+
     /**
-     * 范围提供者，根据Key与Provider返回该Key的范围的对象
+     * 注册Bean元素
      * @param key
-     * @param unscoped
-     * @param <T>
+     * @param element
+     */
+    void register(Key<?> key, Object element);
+
+    /**
+     * 根据指定的键来获取该作用域的提供者
+     * @param key       键，用来获取该作用域下的提供者
+     * @param unscoped  没有作用域的使用该提供者为默认值
+     * @param <T>       泛型
      * @return
      */
-    <T> Provider<T> scope(Key<T> key, Provider<T> unscoped);
-
     <T> Provider<T> get(Key<T> key, Provider<T> unscoped);
+
+    /**
+     * 移除作用域中关于键的元素
+     * @param key
+     * @return
+     */
+    Object remove(Key<?> key);
+
+    /**
+     * 判断该key是否存在
+     * @param key
+     * @return
+     */
+    boolean contains(Key<?> key);
 
     /**
      * 获取作用域注解
@@ -49,13 +74,22 @@ public interface Scope {
         }
         return new Scope() {
             @Override
-            public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
-                return unscoped;
+            public void register(Key<?> key, Object element) {
             }
 
             @Override
             public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
+                return unscoped;
+            }
+
+            @Override
+            public Object remove(Key<?> key) {
                 return null;
+            }
+
+            @Override
+            public boolean contains(Key<?> key) {
+                return false;
             }
 
             @Override

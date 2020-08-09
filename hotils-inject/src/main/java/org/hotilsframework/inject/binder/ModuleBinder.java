@@ -1,13 +1,11 @@
 package org.hotilsframework.inject.binder;
 
 import org.hotilsframework.collect.Lists;
-import org.hotilsframework.collect.Maps;
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.factory.config.Scope;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * ModuleBinder

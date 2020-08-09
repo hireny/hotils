@@ -5,8 +5,8 @@ import org.hotilsframework.collect.LinkedMultiValueMap;
 import org.hotilsframework.collect.MultiValueMap;
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.InternalFactory;
-import org.hotilsframework.inject.factory.Singletons;
 import org.hotilsframework.utils.Assert;
 
 import java.util.Map;

@@ -17,6 +17,7 @@ import java.util.Map;
  * @create 2020-07-27 23:04
  */
 public interface BeanContext {
+
     BeanContext NONE = new BeanContext() {
         @Override
         public BeanContext parent() {

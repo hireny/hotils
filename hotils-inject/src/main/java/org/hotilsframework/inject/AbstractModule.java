@@ -1,6 +1,7 @@
 package org.hotilsframework.inject;
 
 import org.hotilsframework.inject.binder.BindingBuilder;
+import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.utils.Assert;
 
 import java.lang.annotation.Annotation;

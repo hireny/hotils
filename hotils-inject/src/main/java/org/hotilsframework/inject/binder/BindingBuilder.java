@@ -1,6 +1,8 @@
 package org.hotilsframework.inject.binder;
 
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scopes;
 import org.hotilsframework.inject.internal.LinkedBinding;
 import org.hotilsframework.inject.internal.SampleBinding;
 import org.hotilsframework.utils.Assert;
@@ -26,7 +28,7 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
         this.binder = binder;
         this.elements = elements;
         this.position = elements.size();
-        this.binding = new SampleBinding<>(key,Scopes.SINGLETON);
+        this.binding = new SampleBinding<>(key, Scopes.SINGLETON);
         elements.add(position, this.binding);
     }
 

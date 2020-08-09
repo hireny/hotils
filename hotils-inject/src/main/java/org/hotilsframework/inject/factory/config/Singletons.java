@@ -1,9 +1,10 @@
-package org.hotilsframework.inject.factory;
+package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.beans.BeansException;
 import org.hotilsframework.collect.Maps;
 import org.hotilsframework.core.reflects.Instantiator;
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.utils.Assert;
 
 import java.lang.annotation.Annotation;
@@ -17,7 +18,7 @@ import java.util.Map;
  * @author hireny
  * @create 2020-08-05 0:48
  */
-public class Singletons extends AliasFactory implements SingletonRegistry {
+public class Singletons implements Scope {
     /**
      * 单例元素的关系映射存储
      */
@@ -29,7 +30,7 @@ public class Singletons extends AliasFactory implements SingletonRegistry {
      * @param element
      */
     @Override
-    public void registerSingleton(Key<?> key, Object element) {
+    public void register(Key<?> key, Object element) {
         Assert.notNull(key, "key must not be null.");
         Assert.notNull(element, "Singleton object must be null.");
         synchronized (this.singletons) {
@@ -48,12 +49,17 @@ public class Singletons extends AliasFactory implements SingletonRegistry {
     }
 
     @Override
-    public Object getSingleton(Key<?> key) {
+    @SuppressWarnings("unchecked")
+    public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
+        if (key == null) {
+            return unscoped;
+        }
         Assert.notNull(key, "key is not null.");
-        return doGetElement(key);
+        Object element = doGetSingleton(key);
+        return (Provider<T>) Providers.of(element);
     }
 
-    private Object doGetElement(Key<?> key) {
+    private Object doGetSingleton(Key<?> key) {
         Object element = singletons.get(key);
         if (element == null) {
             // 单例对象不存在，则创建
@@ -62,11 +68,6 @@ public class Singletons extends AliasFactory implements SingletonRegistry {
             singletons.put(key, element);
         }
         return element;
-    }
-
-    @Override
-    public boolean containsSingleton(Key<?> key) {
-        return this.singletons.containsKey(key);
     }
 
     /**
@@ -80,10 +81,24 @@ public class Singletons extends AliasFactory implements SingletonRegistry {
         return Instantiator.tryInstance(key.getType());
     }
 
-    @SuppressWarnings("unchecked")
-    public  <T> Provider<T> getProvider(Key<T> key) {
+    @Override
+    public boolean contains(Key<?> key) {
+        return this.singletons.containsKey(key);
+    }
+
+    @Override
+    public Object remove(Key<?> key) {
         Assert.notNull(key, "key is not null.");
-        Object element = getSingleton(key);
-        return (Provider<T>) Providers.of(element);
+        return this.singletons.remove(key);
+    }
+
+    @Override
+    public Class<? extends Annotation> getScopeAnnotation() {
+        return Singleton.class;
+    }
+
+    @Override
+    public String toString() {
+        return "Scopes.SINGLETON";
     }
 }

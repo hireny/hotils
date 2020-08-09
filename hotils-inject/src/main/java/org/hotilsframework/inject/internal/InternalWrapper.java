@@ -7,12 +7,9 @@ import org.hotilsframework.inject.*;
 import org.hotilsframework.utils.Assert;
 
 import javax.inject.Singleton;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
-import static org.hotilsframework.inject.Scopes.SINGLETON;
+import static org.hotilsframework.inject.factory.config.Scopes.SINGLETON;
 
 /**
  * InternalInjectors

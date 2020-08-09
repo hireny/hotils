@@ -1,5 +1,7 @@
 package org.hotilsframework.inject;
 
+import org.hotilsframework.inject.factory.config.Scope;
+
 /**
  * 将键值进行绑定的绑定元素
  * @author hireny

@@ -1,11 +1,10 @@
 package org.hotilsframework.context;
 
-import org.hotilsframework.collect.Lists;
 import org.hotilsframework.collect.Maps;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.Binding;
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.factory.Singletons;
+import org.hotilsframework.inject.factory.config.Singletons;
 import org.hotilsframework.inject.internal.SampleBinding;
 import org.hotilsframework.utils.Assert;
 

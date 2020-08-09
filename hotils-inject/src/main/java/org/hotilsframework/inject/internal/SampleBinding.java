@@ -3,8 +3,9 @@ package org.hotilsframework.inject.internal;
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.core.reflects.Instantiator;
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scopes;
 import org.hotilsframework.inject.factory.InternalFactory;
-import org.hotilsframework.inject.factory.Singletons;
 import org.hotilsframework.inject.spi.InstanceBinding;
 
 /**
@@ -21,7 +22,7 @@ public class SampleBinding<T> implements Binding<T> {
      * 该绑定关系所注入的注入器
      */
     private final InternalInjector injector;
-    private final Key<T> key;
+    private final Key<T>                       key;
     /**
      * 作用域
      */
@@ -123,8 +124,6 @@ public class SampleBinding<T> implements Binding<T> {
             // 可以先从单例中获取
             T t = null;
             SampleBinding<T> binding = beanContext.getBinding(key);
-
-            System.out.println();
 
             // 可以先从容器中获取实例
 

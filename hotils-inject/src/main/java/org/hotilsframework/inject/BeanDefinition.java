@@ -31,12 +31,6 @@ public interface BeanDefinition {
     String getName();
 
     /**
-     * 获取实例
-     * @return
-     */
-    Object get();
-
-    /**
      * 是否是单例模式
      * @return
      */

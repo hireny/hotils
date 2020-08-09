@@ -1,6 +1,7 @@
 package org.hotilsframework.inject.internal;
 
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.InternalFactory;
 
 /**

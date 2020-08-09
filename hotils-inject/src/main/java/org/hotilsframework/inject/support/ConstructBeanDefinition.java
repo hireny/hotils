@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.support;
 
 import org.hotilsframework.inject.BeanDefinition;
-import org.hotilsframework.inject.Scope;
+import org.hotilsframework.inject.factory.config.Scope;
 
 /**
  * GenericBeanDefinition
