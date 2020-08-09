@@ -7,6 +7,8 @@ import org.hotilsframework.inject.*;
 import org.hotilsframework.utils.Assert;
 
 import javax.inject.Singleton;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -83,12 +85,13 @@ public class InternalWrapper {
             Assert.state(beanContext != null, "no bean context. Did you remember to lock() ?");
             // 通过模块信息获取所有的绑定信息并存储在集合中
             elements.addAll(Bindings.getBindings(modules));
-            System.out.println(beanContext);
+            System.out.println("绑定元素曝光=" + elements.toString());
             // 创建注入器
             InternalInjector injector = new InternalInjector(parent, beanContext);
 
             // 如果parent是顶级注入器，可以添加默认的类型转换器，本人没有实现
 
+            // 绑定处理器处理注入器与绑定元素
             new BindingProcessor().process(injector, elements);
 
             InternalWrapper wrapper = new InternalWrapper(elements, injector);
@@ -96,6 +99,7 @@ public class InternalWrapper {
             return wrapper;
         }
 
+        // 获取Bean上下文
         private BeanContext getBeanContext() {
             if (beanContext == null) {
                 beanContext = new DefaultBeanContext(BeanContext.NONE);

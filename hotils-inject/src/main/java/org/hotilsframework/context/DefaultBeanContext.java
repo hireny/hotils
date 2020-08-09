@@ -5,6 +5,8 @@ import org.hotilsframework.collect.Maps;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.Binding;
 import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.factory.Singletons;
+import org.hotilsframework.inject.internal.SampleBinding;
 import org.hotilsframework.utils.Assert;
 
 import java.util.*;
@@ -30,6 +32,10 @@ public class DefaultBeanContext implements BeanContext {
      * 明确的绑定院系容器
      */
     private final Map<Key<?>, BeanDefinition> explicitBindingsMuable = Maps.newConcurrentHashMap();
+    /**
+     * 单例Bean的容器
+     */
+    private final Singletons singletons = new Singletons();
     /**
      * 用于上锁该类元素的锁对象
      */
@@ -66,9 +72,9 @@ public class DefaultBeanContext implements BeanContext {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <T> Binding<T> getBinding(Key<T> key) {
+    public <T> SampleBinding<T> getBinding(Key<T> key) {
         Binding<?> binding = getBindings().get(key);
-        return binding != null ? (Binding<T>) binding : parent.getBinding(key);
+        return binding != null ? (SampleBinding<T>) binding : parent.getBinding(key);
     }
 
     @Override
@@ -78,12 +84,17 @@ public class DefaultBeanContext implements BeanContext {
     }
 
     @Override
-    public void putBinding(Key<?> key, BeanDefinition beanDefinition) {
+    public <T> T getSingleton(Key<T> key) {
+        return (T) singletons.getSingleton(key);
+    }
+
+    @Override
+    public void putBeanDefinition(Key<?> key, BeanDefinition beanDefinition) {
         explicitBindingsMuable.put(key, beanDefinition);
     }
 
     @Override
-    public void putBinding(Key<?> key, Binding<?> binding) {
+    public void putBinding(Key<?> key, SampleBinding<?> binding) {
         explicitBindings.put(key, binding);
     }
 

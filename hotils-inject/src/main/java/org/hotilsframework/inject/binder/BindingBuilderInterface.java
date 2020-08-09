@@ -1,7 +1,6 @@
 package org.hotilsframework.inject.binder;
 
-import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.Scope;
+import org.hotilsframework.inject.Qualifier;
 
 import java.lang.annotation.Annotation;
 
@@ -13,6 +12,8 @@ import java.lang.annotation.Annotation;
  * @create 2020-08-02 19:42
  */
 public interface BindingBuilderInterface<T> {
+
+    BindingBuilder<T> annotatedWith(Qualifier qualifier);
 
     BindingBuilder<T> annotatedWith(Class<? extends Annotation> annotationType);
 

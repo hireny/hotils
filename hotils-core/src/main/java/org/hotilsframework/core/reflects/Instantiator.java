@@ -11,19 +11,23 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
+import static org.hotilsframework.core.Exceptions.RuntimeExceptionHandler.handleReflectionException;
 import static org.hotilsframework.utils.ReflectionUtils.getConstructor;
-import static org.hotilsframework.utils.ReflectionUtils.handleReflectionException;
 
 /**
  * Instanter
  *
- * 实例化操作
+ * 实例化器
+ *
+ * <p>
+ *     主要用于对类的实例化操作
+ * </p>
  *
  * @author hireny
  * @create 2020-08-03 19:58
  */
-public final class Instancer {
-    private Instancer() {
+public final class Instantiator {
+    private Instantiator() {
         throw new AssertionError("不允许创建");
     }
 

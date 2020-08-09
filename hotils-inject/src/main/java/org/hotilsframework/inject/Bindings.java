@@ -3,6 +3,7 @@ package org.hotilsframework.inject;
 import org.hotilsframework.inject.binder.ModuleBinder;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +23,6 @@ public class Bindings {
     public static List<Binding<?>> getBindings(Iterable<? extends Module> modules) {
         ModuleBinder binder = new ModuleBinder();
         modules.forEach(binder::install);
-        return binder.getElements();
+        return Collections.unmodifiableList(binder.getElements());
     }
 }

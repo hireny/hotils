@@ -1,5 +1,7 @@
 package org.hotilsframework.inject;
 
+import org.hotilsframework.inject.factory.Singletons;
+
 import javax.inject.Singleton;
 import java.lang.annotation.Annotation;
 
@@ -17,6 +19,11 @@ public class Scopes {
         @Override
         public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
             return unscoped;
+        }
+
+        @Override
+        public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
+            return null;
         }
 
         @Override
@@ -64,6 +71,11 @@ public class Scopes {
         }
 
         @Override
+        public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
+            return null;
+        }
+
+        @Override
         public Class<? extends Annotation> getScopeAnnotation() {
             return Singleton.class;
         }
@@ -74,13 +86,62 @@ public class Scopes {
         }
     };
 
-    /**
-     * 查询绑定类型是否是单例模式
-     * @param binding
-     * @return
-     */
-    public static boolean isSingleton(Binding<?> binding) {
-        return false;
-    }
 
+    private static class SingletonScope implements Scope {
+
+        private final Singletons singletons;
+
+        SingletonScope(Singletons singletons) {
+            this.singletons = singletons;
+        }
+
+        @Override
+        public <T> Provider<T> scope(Key<T> key, Provider<T> creator) {
+            return new Provider<T>() {
+                /**
+                 * 实例
+                 */
+                private T instance;
+
+                @Override
+                public T get() {
+
+                    if (instance == null) {
+                        // 加锁
+                        synchronized (Injector.class) {
+                            if (instance == null) {
+                                instance = creator.get();
+                            }
+                        }
+                    }
+                    return instance;
+                }
+
+                @Override
+                public String toString() {
+                    return creator.toString();
+                }
+            };
+        }
+
+        @Override
+        public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
+
+            if (this.singletons == null) {
+                return unscoped;
+            }
+
+            return this.singletons.getProvider(key);
+        }
+
+        @Override
+        public Class<? extends Annotation> getScopeAnnotation() {
+            return Singleton.class;
+        }
+
+        @Override
+        public String toString() {
+            return "Scopes.SINGLETON";
+        }
+    }
 }

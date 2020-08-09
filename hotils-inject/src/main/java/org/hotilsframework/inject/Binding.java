@@ -6,7 +6,7 @@ package org.hotilsframework.inject;
  * @className Binding
  * @create 2020-05-15 22:40
  */
-public interface Binding<T> extends BeanElement {
+public interface Binding<T> {
     /**
      * 获取绑定元素的Key
      * @return
@@ -14,13 +14,7 @@ public interface Binding<T> extends BeanElement {
     Key<T> getKey();
 
     /**
-     * 获取绑定元素的Value
-     * @return
-     */
-    Value<? extends T> getValue();
-
-    /**
-     * 获取绑定的Bean
+     * 获取提供者
      * @return
      */
     Provider<T> getProvider();
@@ -39,16 +33,17 @@ public interface Binding<T> extends BeanElement {
     Binding<T> withScope(Scope scope);
 
     /**
-     * 绑定目标访问
-     * @param <V>
+     * 绑定Key键
+     * @param key
      * @return
      */
-    <V> V acceptTargetVisitor();
+    Binding<T> withKey(Key<T> key);
 
     /**
-     * 绑定范围访问
-     * @param <V>
+     * 是否常量绑定，就是常量绑定或者 toInstance()绑定，该方法都返回true。
      * @return
      */
-    <V> V acceptScopingVisitor();
+    boolean isConstant();
+
+//    <T> T acceptVisitor()
 }

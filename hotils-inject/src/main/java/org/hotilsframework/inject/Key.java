@@ -1,6 +1,6 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.context.Qualifier;
+import org.hotilsframework.inject.qualifier.Qualifiers;
 
 import java.lang.annotation.Annotation;
 import java.util.Objects;
@@ -21,19 +21,21 @@ public class Key<T> {
     /**
      * 限定符，用于描述键的另外信息
      */
-    private final Qualifier<? extends Annotation> qualifier;
+    private final Qualifier                       qualifier;
     /**
      * hash值
      */
     private final int                             hashCode;
 
     public Key(Class<T> type) {
-        this.type = type;
-        this.qualifier = null;
-        this.hashCode = computeHashCode();
+        this(type, Qualifiers.byAnnotation(Qualifiers.typed(type)));
     }
 
-    public Key(Class<T> type, Qualifier<? extends Annotation> qualifier) {
+    public Key(Class<T> type, Annotation annotation) {
+        this(type, Qualifiers.byAnnotation(Qualifiers.typed(type)));
+    }
+
+    public Key(Class<T> type, Qualifier qualifier) {
         this.type = type;
         this.qualifier = qualifier;
         this.hashCode = computeHashCode();
@@ -44,7 +46,7 @@ public class Key<T> {
     }
 
     private int computeHashCode() {
-        return type.hashCode() * 31;
+        return type.hashCode() * 31 + qualifier.hashCode();
     }
 
     @Override
@@ -69,6 +71,7 @@ public class Key<T> {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Key{");
         sb.append("type=").append(type);
+        sb.append(", quailfier=").append(qualifier);
         sb.append(", hashCode=").append(hashCode);
         sb.append('}');
         return sb.toString();

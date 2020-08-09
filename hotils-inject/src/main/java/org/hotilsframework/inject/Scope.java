@@ -18,6 +18,8 @@ public interface Scope {
      */
     <T> Provider<T> scope(Key<T> key, Provider<T> unscoped);
 
+    <T> Provider<T> get(Key<T> key, Provider<T> unscoped);
+
     /**
      * 获取作用域注解
      * @return
@@ -49,6 +51,11 @@ public interface Scope {
             @Override
             public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
                 return unscoped;
+            }
+
+            @Override
+            public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
+                return null;
             }
 
             @Override

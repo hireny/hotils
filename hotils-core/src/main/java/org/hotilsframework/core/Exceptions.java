@@ -1,7 +1,11 @@
-package org.hotilsframework.utils;
+package org.hotilsframework.core;
+
+import org.hotilsframework.utils.StringUtils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.UndeclaredThrowableException;
 
 /**
  * 异常处理工具
@@ -9,9 +13,9 @@ import java.io.StringWriter;
  * @className ExceptionUtils
  * @create 2020-05-12 9:44
  */
-public class ExceptionUtils {
+public class Exceptions {
 
-    private ExceptionUtils() {
+    private Exceptions() {
 
     }
 
@@ -91,5 +95,49 @@ public class ExceptionUtils {
         StringWriter stringWriter = new StringWriter();
         throwable.printStackTrace(new PrintWriter(stringWriter));
         return stringWriter.toString();
+    }
+
+    /**
+     * 运行时异常处理器
+     */
+    public static class RuntimeExceptionHandler {
+
+        public static void handleReflectionException(Exception e) {
+            if (e instanceof NoSuchMethodException) {
+                throw new IllegalStateException("Method not found: " + e.getMessage());
+            }
+            if (e instanceof IllegalAccessException) {
+                throw new IllegalStateException("Could not access method(无法访问方法): " + e.getMessage());
+            }
+            if (e instanceof InvocationTargetException) {
+                handleInvocationTargetException((InvocationTargetException) e);
+            }
+            if (e instanceof RuntimeException) {
+                throw (RuntimeException) e;
+            }
+            throw new UndeclaredThrowableException(e);
+        }
+
+        /**
+         * 处理调用目标异常
+         * @param ex
+         */
+        public static void handleInvocationTargetException(InvocationTargetException ex) {
+            rethrowRuntimeException(ex.getTargetException());
+        }
+
+        /**
+         * 将异常包裹，并返回根异常
+         * @param e
+         */
+        public static void rethrowRuntimeException(Throwable e) {
+            if (e instanceof RuntimeException) {
+                throw (RuntimeException) e;
+            }
+            if (e instanceof Error) {
+                throw (Error) e;
+            }
+            throw new UndeclaredThrowableException(e);
+        }
     }
 }

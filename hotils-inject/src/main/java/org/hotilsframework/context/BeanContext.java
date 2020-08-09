@@ -3,6 +3,8 @@ package org.hotilsframework.context;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.Binding;
 import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.Provider;
+import org.hotilsframework.inject.internal.SampleBinding;
 
 import java.util.Map;
 
@@ -32,7 +34,7 @@ public interface BeanContext {
         }
 
         @Override
-        public <T> Binding<T> getBinding(Key<T> key) {
+        public <T> SampleBinding<T> getBinding(Key<T> key) {
             return null;
         }
 
@@ -42,12 +44,17 @@ public interface BeanContext {
         }
 
         @Override
-        public void putBinding(Key<?> key, BeanDefinition beanDefinition) {
+        public <T> T getSingleton(Key<T> key) {
+            throw new UnsupportedOperationException("不支持获取操作");
+        }
+
+        @Override
+        public void putBeanDefinition(Key<?> key, BeanDefinition beanDefinition) {
             throw new UnsupportedOperationException("不支持存储操作");
         }
 
         @Override
-        public void putBinding(Key<?> key, Binding<?> binding) {
+        public void putBinding(Key<?> key, SampleBinding<?> binding) {
             throw new UnsupportedOperationException("不支持存储操作");
         }
 
@@ -81,7 +88,7 @@ public interface BeanContext {
      * @param <T>
      * @return
      */
-    <T> Binding<T> getBinding(Key<T> key);
+    <T> SampleBinding<T> getBinding(Key<T> key);
 
     /**
      * 根据键获取BeanDefinition对象
@@ -92,11 +99,19 @@ public interface BeanContext {
     BeanDefinition get(Key<?> key);
 
     /**
+     * 获取单例Bean
+     * @param key
+     * @param <T>
+     * @return
+     */
+    <T> T getSingleton(Key<T> key);
+
+    /**
      * 存储键与对应的BeanDefinition的绑定关系
      * @param key
      * @param beanDefinition
      */
-    void putBinding(Key<?> key, BeanDefinition beanDefinition);
+    void putBeanDefinition(Key<?> key, BeanDefinition beanDefinition);
 
 
     /**
@@ -104,7 +119,7 @@ public interface BeanContext {
      * @param key
      * @param binding
      */
-    void putBinding(Key<?> key,  Binding<?> binding);
+    void putBinding(Key<?> key,  SampleBinding<?> binding);
 
     /**
      * 锁对象

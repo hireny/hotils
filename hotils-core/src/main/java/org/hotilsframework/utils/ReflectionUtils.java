@@ -6,6 +6,8 @@ import java.lang.reflect.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static org.hotilsframework.core.Exceptions.RuntimeExceptionHandler.handleReflectionException;
+
 /**
  * @ClassName: ReflectUtils
  * @Description: TODO   对反射进行增强的工具类
@@ -69,39 +71,6 @@ public final class ReflectionUtils {
      */
     private static final Map<Class<?>, Field[]> declaredFieldsCache = new ConcurrentHashMap<>(256);
 
-    //======================================================
-    //  异常处理
-    //======================================================
-
-    public static void handleReflectionException(Exception e) {
-        if (e instanceof NoSuchMethodException) {
-            throw new IllegalStateException("Method not found: " + e.getMessage());
-        }
-        if (e instanceof IllegalAccessException) {
-            throw new IllegalStateException("Could not access method(无法访问方法): " + e.getMessage());
-        }
-        if (e instanceof InvocationTargetException) {
-            handleInvocationTargetException((InvocationTargetException) e);
-        }
-        if (e instanceof RuntimeException) {
-            throw (RuntimeException) e;
-        }
-        throw new UndeclaredThrowableException(e);
-    }
-
-    public static void handleInvocationTargetException(InvocationTargetException ex) {
-        rethrowRuntimeException(ex.getTargetException());
-    }
-
-    public static void rethrowRuntimeException(Throwable e) {
-        if (e instanceof RuntimeException) {
-            throw (RuntimeException) e;
-        }
-        if (e instanceof Error) {
-            throw (Error) e;
-        }
-        throw new UndeclaredThrowableException(e);
-    }
 
     //=====================================================
     // 属性处理(Field)

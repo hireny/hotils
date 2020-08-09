@@ -5,6 +5,8 @@ import org.hotilsframework.collect.LinkedMultiValueMap;
 import org.hotilsframework.collect.MultiValueMap;
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.factory.InternalFactory;
+import org.hotilsframework.inject.factory.Singletons;
 import org.hotilsframework.utils.Assert;
 
 import java.util.Map;
@@ -45,8 +47,9 @@ public class InternalInjector implements Injector {
     }
 
     @Override
-    public <T> Binding<T> getBinding(Key<T> key) {
-        Binding<T> binding = beanContext.getBinding(key);
+    public <T> SampleBinding<T> getBinding(Key<T> key) {
+        SampleBinding<T> binding = beanContext.getBinding(key);
+        System.out.println("绑定的关系11=" + binding);
         if (binding != null) {
             return binding;
         }
@@ -61,9 +64,17 @@ public class InternalInjector implements Injector {
      */
     public <T> Provider<T> getProvider(Key<T> key) {
         Assert.notNull(key, "key is not null.");
-        Binding<T> binding = getBinding(key);
+        System.out.println("getProvider提供的键=" + key);
+        SampleBinding<? extends T> binding = getBinding(key);
         System.out.println("注入器中绑定关系=" + binding);
-        return binding.getProvider();
+        System.out.println("Bean上下文=" + beanContext);
+        final InternalFactory<? extends T> internalFactory = binding.getInternalFactory();
+        System.out.println("内部工厂=" + internalFactory);
+
+        return () -> {
+            T t = internalFactory.get(beanContext);
+            return t;
+        };
     }
 
     public <T> T getInstance(Key<T> key) {
@@ -78,5 +89,36 @@ public class InternalInjector implements Injector {
     @Override
     public Injector getParent() {
         return parent;
+    }
+
+
+    // 以后可以实现，必要时使用上下文时，查找本地上下文，或创建一个新线程。
+
+
+    // 创建一个绑定关系
+
+    /**
+     * 根据键创建绑定关系
+     * @param key
+     * @param <T>
+     * @return
+     */
+    private <T> SampleBinding<T> createSampleBinding(Key<T> key) {
+        return null;
+    }
+
+    /**
+     * 创建绑定关系
+     * @param injector
+     * @param key
+     * @param scope
+     * @param <T>
+     * @return
+     */
+    static <T> SampleBinding<T> create(
+            InternalInjector injector,
+            Key<T> key,
+            Scope scope) {
+        return null;
     }
 }

@@ -28,10 +28,12 @@ public class BindingProcessor {
      */
     public void process(InternalInjector injector, List<Binding<?>> elements) {
         this.injector = injector;
+        System.out.println("处理绑定关系中的注入器=" + this.injector);
         for (Iterator<Binding<?>> i = elements.iterator(); i.hasNext(); ) {
             Binding<?> binding = i.next();
             // 要处理绑定关系
             // 将绑定处理对象传入绑定对象中，交给元素处理
+//            boolean allDone = binding.acceptVisitor(this);
             putBinding(binding);
         }
     }
@@ -40,16 +42,21 @@ public class BindingProcessor {
      * 存放Binding信息
      * @param binding
      */
-    protected void putBinding(Binding<?> binding) {
-        Key<?> key = binding.getKey();
+    protected <T> void putBinding(Binding<T> binding) {
+        Key<T> key = binding.getKey();
 
-        Binding<?> original = injector.getBinding(key);
+        SampleBinding<?> original = injector.getBinding(key);
         System.out.println("原生=" + original);
         if (original != null) {
             // 存在以key为键的绑定信息
             return;
         }
+        if (binding instanceof LinkedBinding) {
+
+            binding = new LinkedBinding<T>(injector, binding.getKey(), ((LinkedBinding) binding).getInternalFactory(), binding.getScope(),((LinkedBinding) binding).targetKey);
+        }
+
         // 在存进bean context 之前，要对 binding 进行处理
-        injector.beanContext.putBinding(key, binding);
+        injector.beanContext.putBinding(key, (SampleBinding<?>) binding);
     }
 }
