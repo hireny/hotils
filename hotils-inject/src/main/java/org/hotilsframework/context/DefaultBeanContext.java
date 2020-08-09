@@ -83,8 +83,9 @@ public class DefaultBeanContext implements BeanContext {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T getSingleton(Key<T> key) {
-        return (T) singletons.getSingleton(key);
+        return (T) singletons.get(key, null);
     }
 
     @Override
