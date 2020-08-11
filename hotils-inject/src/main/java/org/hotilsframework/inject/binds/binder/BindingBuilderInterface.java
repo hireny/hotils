@@ -1,4 +1,4 @@
-package org.hotilsframework.inject.binder;
+package org.hotilsframework.inject.binds.binder;
 
 import org.hotilsframework.inject.qualifier.Qualifier;
 

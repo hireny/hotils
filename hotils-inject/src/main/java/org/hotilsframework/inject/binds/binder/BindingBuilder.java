@@ -1,10 +1,10 @@
-package org.hotilsframework.inject.binder;
+package org.hotilsframework.inject.binds.binder;
 
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.config.Scopes;
-import org.hotilsframework.inject.internal.LinkedBinding;
-import org.hotilsframework.inject.internal.SampleBinding;
+import org.hotilsframework.inject.binds.LinkedBinding;
+import org.hotilsframework.inject.binds.SampleBinding;
 import org.hotilsframework.inject.qualifier.Qualifier;
 import org.hotilsframework.utils.Assert;
 

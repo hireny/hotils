@@ -3,8 +3,7 @@ package org.hotilsframework.context;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.Binding;
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.Provider;
-import org.hotilsframework.inject.internal.SampleBinding;
+import org.hotilsframework.inject.binds.SampleBinding;
 
 import java.util.Map;
 

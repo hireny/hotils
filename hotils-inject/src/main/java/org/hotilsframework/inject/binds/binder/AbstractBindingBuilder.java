@@ -1,8 +1,4 @@
-package org.hotilsframework.inject.binder;
-
-import org.hotilsframework.utils.Assert;
-
-import java.lang.annotation.Annotation;
+package org.hotilsframework.inject.binds.binder;
 
 /**
  * AbstractBindingBuilder

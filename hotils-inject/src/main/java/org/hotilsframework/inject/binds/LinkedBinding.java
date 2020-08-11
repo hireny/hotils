@@ -1,8 +1,9 @@
-package org.hotilsframework.inject.internal;
+package org.hotilsframework.inject.binds;
 
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.InternalFactory;
+import org.hotilsframework.inject.internal.InternalInjector;
 
 /**
  * ValueBinding

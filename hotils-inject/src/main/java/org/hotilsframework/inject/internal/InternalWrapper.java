@@ -4,6 +4,7 @@ import org.hotilsframework.collect.Lists;
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.context.DefaultBeanContext;
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.binds.Bindings;
 import org.hotilsframework.utils.Assert;
 
 import javax.inject.Singleton;

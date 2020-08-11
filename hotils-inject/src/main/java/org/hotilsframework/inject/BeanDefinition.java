@@ -1,7 +1,5 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.lang.Optional;
-
 import java.lang.annotation.Annotation;
 
 /**
@@ -53,6 +51,12 @@ public interface BeanDefinition {
      * @return
      */
     boolean islazyInit();
+
+    /**
+     * 是否常量绑定，就是常量绑定或者 toInstance()绑定，该方法都返回true。
+     * @return
+     */
+    boolean isConstant();
 
     /**
      * 获取Bean的作用域

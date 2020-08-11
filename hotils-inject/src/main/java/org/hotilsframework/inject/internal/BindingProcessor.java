@@ -2,7 +2,8 @@ package org.hotilsframework.inject.internal;
 
 import org.hotilsframework.inject.Binding;
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.internal.InternalInjector;
+import org.hotilsframework.inject.binds.LinkedBinding;
+import org.hotilsframework.inject.binds.SampleBinding;
 
 import java.util.Iterator;
 import java.util.List;
@@ -53,7 +54,7 @@ public class BindingProcessor {
         }
         if (binding instanceof LinkedBinding) {
 
-            binding = new LinkedBinding<T>(injector, binding.getKey(), ((LinkedBinding) binding).getInternalFactory(), binding.getScope(),((LinkedBinding) binding).targetKey);
+            binding = new LinkedBinding<T>(injector, binding.getKey(), ((LinkedBinding) binding).getInternalFactory(), binding.getScope(),((LinkedBinding) binding).getTargetKey());
         }
 
         // 在存进bean context 之前，要对 binding 进行处理

@@ -1,11 +1,12 @@
-package org.hotilsframework.inject.internal;
+package org.hotilsframework.inject.binds;
 
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.core.reflects.Instantiator;
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.factory.InternalFactory;
 import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.config.Scopes;
-import org.hotilsframework.inject.factory.InternalFactory;
+import org.hotilsframework.inject.internal.InternalInjector;
 import org.hotilsframework.inject.spi.InstanceBinding;
 
 /**
@@ -22,7 +23,7 @@ public class SampleBinding<T> implements Binding<T> {
      * 该绑定关系所注入的注入器
      */
     private final InternalInjector injector;
-    private final Key<T>                       key;
+    private final Key<T>           key;
     /**
      * 作用域
      */
@@ -138,7 +139,7 @@ public class SampleBinding<T> implements Binding<T> {
 
                 // 判断是否为单例
                 if (Scopes.SINGLETON.equals(binding.scope)) {
-                    t = beanContext.get(c.targetKey);
+                    t = beanContext.get(c.getTargetKey());
                     System.out.println("单例对象查看=" + t);
                 }
 
