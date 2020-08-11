@@ -1,6 +1,6 @@
-package org.hotilsframework.web.servlet.mvc.annotation;
+package org.hotilsframework.web.annotation;
 
-import org.hotilsframework.core.net.http.RequestMethod;
+import org.hotilsframework.http.RequestMethod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

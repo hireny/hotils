@@ -1,4 +1,4 @@
-package org.hotilsframework.core.net.http;
+package org.hotilsframework.http;
 
 /**
  * MediaType

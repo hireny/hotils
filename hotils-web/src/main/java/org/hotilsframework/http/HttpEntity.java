@@ -1,4 +1,4 @@
-package org.hotilsframework.core.net.http;
+package org.hotilsframework.http;
 
 import java.util.Map;
 
@@ -17,11 +17,11 @@ public class HttpEntity<T> {
     /**
      * 请求头
      */
-    private final HttpHeaders headers;
+    private final       HttpHeaders   headers;
     /**
      * 请求体
      */
-    private final T body;
+    private final       T             body;
 
     /**
      * 无参构造器

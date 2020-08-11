@@ -1,5 +1,5 @@
 /**
- * web工具包
+ * web框架模块
  */
 
 package org.hotilsframework.web;

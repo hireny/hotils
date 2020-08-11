@@ -11,12 +11,13 @@
 
     <artifactId>hotils-web</artifactId>
     <name>Hotils: Hotils Web for Java</name>
+    <description>Web框架</description>
 
     <dependencies>
         <dependency>
-        <groupId>me.hireny.hotils</groupId>
-        <artifactId>hotils-core</artifactId>
-    </dependency>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
