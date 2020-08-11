@@ -1,7 +1,6 @@
 package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.Provider;
 
 import java.lang.annotation.Annotation;
 
@@ -12,14 +11,15 @@ import java.lang.annotation.Annotation;
  * @author hireny
  * @create 2020-08-10 0:17
  */
-public abstract class AbstractScope implements Scope, ScopeRegistry {
+public abstract class AbstractScope implements Scope {
+
+
     @Override
     public void register(Key<?> key, Object element) {
-
     }
 
     @Override
-    public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
+    public <T> T get(Key<T> key) {
         return null;
     }
 
@@ -36,20 +36,5 @@ public abstract class AbstractScope implements Scope, ScopeRegistry {
     @Override
     public Class<? extends Annotation> getScopeAnnotation() {
         return null;
-    }
-
-    @Override
-    public void registerScope(Class<? extends Scope> type, Scope scope) {
-
-    }
-
-    @Override
-    public Scope getScope(Class<? extends Scope> type) {
-        return null;
-    }
-
-    @Override
-    public boolean containsScope(Class<? extends Scope> type) {
-        return false;
     }
 }

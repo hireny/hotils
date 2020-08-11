@@ -1,25 +1,26 @@
 package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.Provider;
+import org.hotilsframework.inject.annotation.Prototype;
 
 import java.lang.annotation.Annotation;
 
 /**
  * Prototypes
- * 类描述
+ *
+ * 原型作用域的对象获取类
  *
  * @author hireny
  * @create 2020-08-09 23:36
  */
-public class Prototypes implements Scope {
+public class Prototypes extends AbstractScope {
     @Override
     public void register(Key<?> key, Object element) {
     }
 
     @Override
-    public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
-        return unscoped;
+    public <T> T get(Key<T> key) {
+        return null;
     }
     @Override
     public Object remove(Key<?> key) {
@@ -31,6 +32,6 @@ public class Prototypes implements Scope {
     }
     @Override
     public Class<? extends Annotation> getScopeAnnotation() {
-        return null;
+        return Prototype.class;
     }
 }

@@ -4,6 +4,8 @@ import org.hotilsframework.collect.Maps;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.Binding;
 import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.factory.AbstractBeanFactory;
+import org.hotilsframework.inject.factory.BeanFactory;
 import org.hotilsframework.inject.factory.config.Singletons;
 import org.hotilsframework.inject.internal.SampleBinding;
 import org.hotilsframework.utils.Assert;
@@ -17,7 +19,7 @@ import java.util.*;
  * @author hireny
  * @create 2020-07-27 23:15
  */
-public class DefaultBeanContext implements BeanContext {
+public class DefaultBeanContext extends AbstractBeanFactory implements BeanContext {
 
     /**
      * 父Bean上下文
@@ -31,10 +33,7 @@ public class DefaultBeanContext implements BeanContext {
      * 明确的绑定院系容器
      */
     private final Map<Key<?>, BeanDefinition> explicitBindingsMuable = Maps.newConcurrentHashMap();
-    /**
-     * 单例Bean的容器
-     */
-    private final Singletons singletons = new Singletons();
+
     /**
      * 用于上锁该类元素的锁对象
      */
@@ -77,15 +76,23 @@ public class DefaultBeanContext implements BeanContext {
     }
 
     @Override
-    public BeanDefinition get(Key<?> key) {
+    public BeanDefinition getBeanDefinition(Key<?> key) {
         BeanDefinition beanDefinition = getBeanDefinitions().get(key);
-        return beanDefinition != null ? beanDefinition : parent.get(key);
+        return beanDefinition != null ? beanDefinition : parent.getBeanDefinition(key);
+    }
+
+    @Override
+    public <T> T get(Key<?> key) {
+        Object t = getBean(key, Singletons.class);
+        System.out.println("单例对象123456=" + t);
+
+        return (T) t;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getSingleton(Key<T> key) {
-        return (T) singletons.get(key, null);
+        return (T) getBean(key, null);
     }
 
     @Override

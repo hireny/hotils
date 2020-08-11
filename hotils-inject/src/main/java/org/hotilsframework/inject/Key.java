@@ -1,5 +1,6 @@
 package org.hotilsframework.inject;
 
+import org.hotilsframework.inject.qualifier.Qualifier;
 import org.hotilsframework.inject.qualifier.Qualifiers;
 
 import java.lang.annotation.Annotation;
@@ -17,15 +18,15 @@ public class Key<T> {
     /**
      * 键的类型
      */
-    private final Class<T>                        type;
+    private final Class<T>  type;
     /**
      * 限定符，用于描述键的另外信息
      */
-    private final Qualifier                       qualifier;
+    private final Qualifier qualifier;
     /**
      * hash值
      */
-    private final int                             hashCode;
+    private final int       hashCode;
 
     public Key(Class<T> type) {
         this(type, Qualifiers.byAnnotation(Qualifiers.typed(type)));

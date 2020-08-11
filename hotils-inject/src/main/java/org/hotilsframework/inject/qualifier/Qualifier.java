@@ -1,7 +1,4 @@
-package org.hotilsframework.inject;
-
-import java.util.Optional;
-import java.util.stream.Stream;
+package org.hotilsframework.inject.qualifier;
 
 /**
  * Qualifier

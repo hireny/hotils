@@ -1,9 +1,9 @@
 package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.Prototype;
+import org.hotilsframework.inject.annotation.Prototype;
 import org.hotilsframework.inject.Provider;
-import org.hotilsframework.inject.Singleton;
+import org.hotilsframework.inject.annotation.Singleton;
 
 import java.lang.annotation.Annotation;
 
@@ -23,13 +23,12 @@ public interface Scope {
     void register(Key<?> key, Object element);
 
     /**
-     * 根据指定的键来获取该作用域的提供者
+     * 根据指定的键来获取该作用域的对象
      * @param key       键，用来获取该作用域下的提供者
-     * @param unscoped  没有作用域的使用该提供者为默认值
      * @param <T>       泛型
      * @return
      */
-    <T> Provider<T> get(Key<T> key, Provider<T> unscoped);
+    <T> T get(Key<T> key);
 
     /**
      * 移除作用域中关于键的元素
@@ -78,8 +77,8 @@ public interface Scope {
             }
 
             @Override
-            public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
-                return unscoped;
+            public <T> T get(Key<T> key) {
+                return null;
             }
 
             @Override

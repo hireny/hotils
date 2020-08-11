@@ -3,6 +3,8 @@ package org.hotilsframework.inject.support;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.factory.config.Scope;
 
+import java.util.Vector;
+
 /**
  * BeanDefinitionBuilder
  *
@@ -15,7 +17,7 @@ public class BeanDefinitionBuilder {
     /**
      * 用于 {@code BeanDefinition} 的实例化创建
      */
-    private final AbstractBeanDefinition beanDefinition;
+//    private final AbstractBeanDefinition beanDefinition;
 
     /**
      * 父关系的BeanDefinition
@@ -38,10 +40,16 @@ public class BeanDefinitionBuilder {
      */
     private       boolean lazyInit;
 
-    private BeanDefinitionBuilder(AbstractBeanDefinition beanDefinition) {
-        this.beanDefinition = beanDefinition;
-    }
+    private BeanDefinitionBuilder() {}
 
+//    private BeanDefinitionBuilder(AbstractBeanDefinition beanDefinition) {
+//        this.beanDefinition = beanDefinition;
+//    }
+//
+//
+//    BeanDefinitionBuilder beanDefinition(AbstractBeanDefinition beanDefinition) {
+//        this.beanDefinition = beanDefinition;
+//    }
 
     BeanDefinitionBuilder parent(BeanDefinition parent) {
         this.parent = parent;

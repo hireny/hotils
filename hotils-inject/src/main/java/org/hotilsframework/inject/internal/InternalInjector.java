@@ -71,14 +71,23 @@ public class InternalInjector implements Injector {
         final InternalFactory<? extends T> internalFactory = binding.getInternalFactory();
         System.out.println("内部工厂=" + internalFactory);
 
-        return () -> {
-            T t = internalFactory.get(beanContext);
-            return t;
-        };
+        T t = internalFactory.get(beanContext);
+        System.out.println("获取的对象```=" + t);
+
+        return Providers.of(internalFactory.get(beanContext));
+//        return new Provider<T>() {
+//            @Override
+//            public T get() {
+//                T t = internalFactory.get(beanContext);
+//                return t;
+//            }
+//        };
     }
 
     public <T> T getInstance(Key<T> key) {
-        return getProvider(key).get();
+        Provider<T> provider = getProvider(key);
+        System.out.println("提供者1=" + provider.get());
+        return provider.get();
     }
 
     @Override

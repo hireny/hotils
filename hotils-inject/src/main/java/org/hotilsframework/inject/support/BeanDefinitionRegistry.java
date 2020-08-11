@@ -18,4 +18,10 @@ public interface BeanDefinitionRegistry {
      * @param beanDefinition
      */
     void registerBeanDefinition(Key<?> key, BeanDefinition beanDefinition);
+
+    /**
+     * 根据键来删除指定的Bean定义信息
+     * @param key
+     */
+    void removeBeanDefinition(Key<?> key);
 }

@@ -13,7 +13,7 @@ import org.hotilsframework.inject.factory.InternalFactory;
  * @create 2020-08-03 1:08
  */
 public class LinkedBinding<T> extends SampleBinding<T> {
-    private static final long serialVersionUID = 5835941052389145655L;
+
     /**
      * 目标键，是需要实例化的类的关键信息
      */

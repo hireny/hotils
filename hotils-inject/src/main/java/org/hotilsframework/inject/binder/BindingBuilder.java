@@ -5,6 +5,7 @@ import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.config.Scopes;
 import org.hotilsframework.inject.internal.LinkedBinding;
 import org.hotilsframework.inject.internal.SampleBinding;
+import org.hotilsframework.inject.qualifier.Qualifier;
 import org.hotilsframework.utils.Assert;
 
 import java.lang.annotation.Annotation;

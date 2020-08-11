@@ -1,13 +1,13 @@
 package org.hotilsframework.inject.qualifier;
 
-import org.hotilsframework.inject.Qualifier;
-import org.hotilsframework.inject.Typed;
+import org.hotilsframework.inject.annotation.Typed;
 
 import java.util.*;
 
 /**
  * TypeAnnotationQualifier
- * 类描述
+ *
+ * 类型注解限定
  *
  * @author hireny
  * @create 2020-08-08 0:05
@@ -41,7 +41,7 @@ public class TypeAnnotationQualifier implements Qualifier {
             return false;
         }
         TypeAnnotationQualifier that = (TypeAnnotationQualifier) o;
-        return Objects.equals(types, that.types);
+        return types.equals(that.types);
     }
 
     @Override

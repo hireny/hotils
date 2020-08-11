@@ -121,6 +121,8 @@ public class SampleBinding<T> implements Binding<T> {
         @Override
         public T get(BeanContext beanContext) {
 
+            System.out.println("进入工厂");
+
             // 可以先从单例中获取
             T t = null;
             SampleBinding<T> binding = beanContext.getBinding(key);
@@ -130,14 +132,18 @@ public class SampleBinding<T> implements Binding<T> {
             // 进行实例化
             if (binding instanceof LinkedBinding) {
 
+                System.out.println("binding=" + binding);
+
                 LinkedBinding<T> c = (LinkedBinding<T>) binding;
 
                 // 判断是否为单例
                 if (Scopes.SINGLETON.equals(binding.scope)) {
-                    t = beanContext.getSingleton(c.targetKey);
+                    t = beanContext.get(c.targetKey);
+                    System.out.println("单例对象查看=" + t);
                 }
 
                 if (t == null) {
+                    System.out.println("开始实例化");
                     t = Instantiator.tryInstance(((LinkedBinding) binding).getTargetKey().getType());
                 }
             }

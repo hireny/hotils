@@ -46,6 +46,4 @@ public interface Binding<T> {
      * @return
      */
     boolean isConstant();
-
-//    <T> T acceptVisitor()
 }

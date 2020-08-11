@@ -1,8 +1,8 @@
 package org.hotilsframework.inject.qualifier;
 
-import org.hotilsframework.inject.Named;
-import org.hotilsframework.inject.Qualifier;
-import org.hotilsframework.inject.Typed;
+import org.hotilsframework.inject.annotation.Named;
+import org.hotilsframework.inject.annotation.Scope;
+import org.hotilsframework.inject.annotation.Typed;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;

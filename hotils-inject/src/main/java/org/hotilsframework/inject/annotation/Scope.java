@@ -1,19 +1,17 @@
-package org.hotilsframework.inject;
+package org.hotilsframework.inject.annotation;
 
-import javax.inject.Scope;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Singleton
- * 但离作用于
+ * Scope
+ * 作用域注解
  *
  * @author hireny
- * @create 2020-08-04 23:56
+ * @create 2020-08-10 23:19
  */
-@Scope
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Singleton {
+public @interface Scope {
 }

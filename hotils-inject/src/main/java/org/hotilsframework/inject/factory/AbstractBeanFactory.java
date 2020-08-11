@@ -1,23 +1,12 @@
 package org.hotilsframework.inject.factory;
 
 import org.hotilsframework.cache.TypeCache;
-import org.hotilsframework.collect.Sets;
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.Prototype;
-import org.hotilsframework.inject.factory.config.Prototypes;
-import org.hotilsframework.inject.factory.config.Scope;
-import org.hotilsframework.inject.factory.config.ScopeRegistry;
-import org.hotilsframework.inject.factory.config.Singletons;
+import org.hotilsframework.inject.factory.config.*;
 import org.hotilsframework.utils.Assert;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * AbstractBeanFactory
@@ -36,21 +25,23 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
     }
 
     protected AbstractBeanFactory(Scope... scopes) {
-        initScopes(Sets.newHashSet(scopes));
+        this(Arrays.asList(scopes));
     }
 
-    protected AbstractBeanFactory(Set<Scope> scopes) {
+    protected AbstractBeanFactory(List<Scope> scopes) {
         initScopes(scopes);
     }
 
     /**
      * 作用域初始化
      */
-    void initScopes(Set<Scope> scopes) {
-        // 当scopes为空时
-        if (scopes == null || scopes.isEmpty()) {
-            addScopes();
-        } else {
+    void initScopes(List<Scope> scopes) {
+
+        // 初始化
+        addScopes();
+
+        if (scopes != null) {
+            // 添加自定义的作用域
             addScopes(scopes);
         }
     }
@@ -60,17 +51,20 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
         registerScope(Prototypes.class, new Prototypes());
     }
 
-    void addScopes(Set<Scope> scopes) {
+    void addScopes(List<Scope> scopes) {
         Assert.notNull(scopes, "scope objects is not null.");
         for (Scope scope : scopes) {
+            if (Scopes.getScopeTypes().contains(scope.getClass())) {
+                continue;
+            }
             registerScope(scope.getClass(), scope);
         }
     }
 
     @Override
-    public Object getBean(Key<?> key, Class<?> scopeType) {
+    public <T> T getBean(Key<T> key, Class<?> scopeType) {
         Scope scope = this.scopes.get(scopeType);
-        return scope.get(key, null);
+        return scope.get(key);
     }
 
     @Override

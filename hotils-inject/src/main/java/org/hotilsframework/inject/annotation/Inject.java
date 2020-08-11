@@ -1,4 +1,4 @@
-package org.hotilsframework.inject;
+package org.hotilsframework.inject.annotation;
 
 /**
  * Inject注解，相当于Spring的@Autowired

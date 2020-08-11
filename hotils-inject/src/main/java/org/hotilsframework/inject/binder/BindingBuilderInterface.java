@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.binder;
 
-import org.hotilsframework.inject.Qualifier;
+import org.hotilsframework.inject.qualifier.Qualifier;
 
 import java.lang.annotation.Annotation;
 

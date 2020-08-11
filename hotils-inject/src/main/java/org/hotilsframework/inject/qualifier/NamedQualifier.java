@@ -1,7 +1,5 @@
 package org.hotilsframework.inject.qualifier;
 
-import org.hotilsframework.inject.Qualifier;
-
 import java.util.Objects;
 
 /**
@@ -24,8 +22,12 @@ public class NamedQualifier implements Qualifier {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         NamedQualifier that = (NamedQualifier) o;
         return Objects.equals(value, that.value);
     }

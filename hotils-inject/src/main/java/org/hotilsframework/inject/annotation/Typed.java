@@ -1,4 +1,4 @@
-package org.hotilsframework.inject;
+package org.hotilsframework.inject.annotation;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Documented;

@@ -40,8 +40,13 @@ public interface BeanContext {
         }
 
         @Override
-        public BeanDefinition get(Key<?> key) {
-            return null;
+        public BeanDefinition getBeanDefinition(Key<?> key) {
+            throw new UnsupportedOperationException("不支持该操作");
+        }
+
+        @Override
+        public <T> T get(Key<?> key) {
+            throw new UnsupportedOperationException("不支持获取操作");
         }
 
         @Override
@@ -91,13 +96,15 @@ public interface BeanContext {
      */
     <T> SampleBinding<T> getBinding(Key<T> key);
 
+    BeanDefinition getBeanDefinition(Key<?> key);
+
     /**
      * 根据键获取BeanDefinition对象
      *
      * @param key
      * @return
      */
-    BeanDefinition get(Key<?> key);
+    <T> T get(Key<?> key);
 
     /**
      * 获取单例Bean

@@ -1,10 +1,9 @@
 package org.hotilsframework.inject.factory.config;
 
-import org.hotilsframework.beans.BeansException;
 import org.hotilsframework.collect.Maps;
 import org.hotilsframework.core.reflects.Instantiator;
 import org.hotilsframework.inject.*;
-import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.annotation.Singleton;
 import org.hotilsframework.utils.Assert;
 
 import java.lang.annotation.Annotation;
@@ -18,7 +17,7 @@ import java.util.Map;
  * @author hireny
  * @create 2020-08-05 0:48
  */
-public class Singletons implements Scope {
+public class Singletons extends AbstractScope {
     /**
      * 单例元素的关系映射存储
      */
@@ -50,13 +49,10 @@ public class Singletons implements Scope {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> Provider<T> get(Key<T> key, Provider<T> unscoped) {
-        if (key == null) {
-            return unscoped;
-        }
+    public <T> T get(Key<T> key) {
         Assert.notNull(key, "key is not null.");
         Object element = doGetSingleton(key);
-        return (Provider<T>) Providers.of(element);
+        return (T) element;
     }
 
     private Object doGetSingleton(Key<?> key) {

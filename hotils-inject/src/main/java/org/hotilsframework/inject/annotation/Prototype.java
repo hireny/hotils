@@ -1,4 +1,4 @@
-package org.hotilsframework.inject;
+package org.hotilsframework.inject.annotation;
 
 import javax.inject.Scope;
 import java.lang.annotation.*;
