@@ -10,7 +10,7 @@ import java.lang.annotation.Annotation;
  * @author hireny
  * @create 2020-08-01 20:01
  */
-public interface BeanDefinition {
+public interface BeanDefinition extends BeanIdentifier {
     /**
      * 获取该Bean定义的父Bean定义
      * @return
@@ -26,6 +26,7 @@ public interface BeanDefinition {
      * 获取类的名称
      * @return
      */
+    @Override
     String getName();
 
     /**

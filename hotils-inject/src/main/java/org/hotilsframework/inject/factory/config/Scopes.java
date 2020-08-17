@@ -8,7 +8,10 @@ import org.hotilsframework.inject.Provider;
 
 import javax.inject.Singleton;
 import java.lang.annotation.Annotation;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * provider作用域
@@ -17,14 +20,6 @@ import java.util.List;
  * @create 2020-05-17 23:14
  */
 public class Scopes {
-    /**
-     * 获取框架中实现了 `Scope` 接口的实现类
-     * @return
-     */
-    public static List<Class<?>> getScopeTypes() {
-        return Lists.newArrayList(Singletons.class, Prototypes.class);
-    }
-
 
     // 下列变量用来描述每个Bean的作用域
 
@@ -85,33 +80,52 @@ public class Scopes {
             return "Scopes.SINGLETON";
         }
     };
-    /**
-     * 没有作用域，代表你还没有设置作用域
-     */
-    public static final Scope NO_SCOPE = new Scope() {
-        @Override
-        public void register(Key<?> key, Object element) {
-        }
-        @Override
-        public <T> T get(Key<T> key) {
-            return null;
-        }
-        @Override
-        public Object remove(Key<?> key) {
-            return null;
-        }
-        @Override
-        public boolean contains(Key<?> key) {
-            return false;
-        }
-        @Override
-        public Class<? extends Annotation> getScopeAnnotation() {
-            return null;
-        }
+//    /**
+//     * 没有作用域，代表你还没有设置作用域
+//     */
+//    public static final Scope NO_SCOPE = new Scope() {
+//        @Override
+//        public void register(Key<?> key, Object element) {
+//        }
+//        @Override
+//        public <T> T get(Key<T> key) {
+//            return null;
+//        }
+//        @Override
+//        public Object remove(Key<?> key) {
+//            return null;
+//        }
+//        @Override
+//        public boolean contains(Key<?> key) {
+//            return false;
+//        }
+//        @Override
+//        public Class<? extends Annotation> getScopeAnnotation() {
+//            return null;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "Scopes.NO_SCOPE";
+//        }
+//    };
 
-        @Override
-        public String toString() {
-            return "Scopes.NO_SCOPE";
-        }
-    };
+    private static final Map<Scope, Class<?>> SCOPE_TYPES = new ConcurrentHashMap<>();
+
+    static {
+        Map<Scope, Class<?>> tempScopeTypes = new ConcurrentHashMap<>();
+        tempScopeTypes.put(PROTOTYPE, Prototypes.class);
+        tempScopeTypes.put(SINGLETON, Singletons.class);
+        SCOPE_TYPES.putAll(tempScopeTypes);
+    }
+
+    public static Collection<Class<?>> getScopeCLasses() {
+        return SCOPE_TYPES.values();
+    }
+
+    public static Map<Scope, Class<?>> getScopeTypes() {
+        return SCOPE_TYPES;
+    }
+
+
 }

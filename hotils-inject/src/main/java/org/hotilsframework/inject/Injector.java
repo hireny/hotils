@@ -1,6 +1,6 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.beans.BeansException;
+import org.hotilsframework.inject.binds.Binding;
 
 import java.util.Map;
 
@@ -25,30 +25,29 @@ public interface Injector {
      */
     <T> Binding<T> getBinding(Key<T> key);
 
-//    /**
-//     * 获取对象实例
-//     * @param name      bean名称
-//     * @return          获取Bean对象
-//     */
-//    Object getInstance(String name) throws BeansException;
-//
-//    /**
-//     * 获取对象实例
-//     * @param name              Bean名称
-//     * @param args              参数
-//     * @return                  获取Bean对象
-//     * @throws BeansException
-//     */
-//    Object getInstance(String name, Object... args) throws BeansException;
-//
-//    /**
-//     * 获取对象实例
-//     * @param name              Bean名称
-//     * @param beanClass         Bean类
-//     * @return                  获取Bean对象
-//     * @throws BeansException
-//     */
-//    Object getInstance(String name, Class<?> beanClass) throws BeansException;
+    /**
+     * 根据键获取实例的提供者
+     * @param key       Bean键
+     * @param <T>       泛型类型
+     * @return          返回的是实例的提供者
+     */
+    <T> Provider<T> getProvider(Key<T> key);
+
+    /**
+     * 根据类型获取实例的提供者
+     * @param type      Bean的类型
+     * @param <T>       泛型类型
+     * @return          返回的是实例的提供者
+     */
+    <T> Provider<T> getProvider(Class<T> type);
+
+    /**
+     * 获取Bean实例
+     * @param key       Bean的键
+     * @param <T>       泛型类型
+     * @return          返回的Bean的实例
+     */
+    <T> T getInstance(Key<T> key);
 
 
     /**

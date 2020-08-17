@@ -2,7 +2,6 @@ package org.hotilsframework.inject.binds;
 
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.inject.*;
-import org.hotilsframework.inject.binds.binder.BindingBuilder;
 import org.hotilsframework.inject.factory.config.Scope;
 
 import java.lang.annotation.Annotation;
@@ -39,12 +38,6 @@ public class Bindings {
          * 绑定的元素列表
          */
         private final List<Binding<?>> elements;
-        /**
-         * The current modules stack
-         *
-         * 当前模块的堆栈信息
-         */
-        private       ModuleSource     moduleSource = null;
 
 
         public RecordBinder() {
@@ -87,15 +80,6 @@ public class Bindings {
          */
         public List<Binding<?>> getElements() {
             return elements;
-        }
-
-        private ModuleSource getModules(Class<?> module) {
-            // 用于存储模块的调用堆栈信息
-            StackTraceElement[] partialCallStack = new StackTraceElement[0];
-            if (moduleSource == null) {
-                return new ModuleSource(module, partialCallStack);
-            }
-            return null;
         }
     }
 }

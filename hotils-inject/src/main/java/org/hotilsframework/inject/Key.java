@@ -33,7 +33,7 @@ public class Key<T> {
     }
 
     public Key(Class<T> type, Annotation annotation) {
-        this(type, Qualifiers.byAnnotation(Qualifiers.typed(type)));
+        this(type, Qualifiers.byAnnotation(annotation));
     }
 
     public Key(Class<T> type, Qualifier qualifier) {
@@ -72,7 +72,7 @@ public class Key<T> {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Key{");
         sb.append("type=").append(type);
-        sb.append(", quailfier=").append(qualifier);
+        sb.append(", qualifier=").append(qualifier);
         sb.append(", hashCode=").append(hashCode);
         sb.append('}');
         return sb.toString();
@@ -80,5 +80,9 @@ public class Key<T> {
 
     public static <T> Key<T> get(Class<T> type) {
         return new Key<>(type);
+    }
+
+    public static <T> Key<T> get(Class<T> type, Qualifier qualifier) {
+        return new Key<>(type, qualifier);
     }
 }

@@ -1,4 +1,4 @@
-package org.hotilsframework.lang;
+package org.hotilsframework.core;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;

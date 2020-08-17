@@ -19,5 +19,5 @@ public interface BeanFactory {
      * @param scopeType     作用域，根据作用域获取对象
      * @return
      */
-    <T> T getBean(Key<T> key, Class<?> scopeType);
+    <T> T get(Key<T> key, Class<?> scopeType);
 }

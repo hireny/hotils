@@ -1,5 +1,6 @@
 package org.hotilsframework.inject;
 
+import org.hotilsframework.inject.qualifier.Qualifiers;
 import org.junit.Test;
 
 /**
@@ -17,10 +18,13 @@ public class InjectTest {
         System.out.println(injector.getClass());
         System.out.println("绑定信息");
         System.out.println(injector.getBindings());
-        LogService logService = injector.getInstance(LogService.class);
+        Key<LogService> key = Key.get(LogService.class, Qualifiers.byName("logService"));
+//        LogService logService = injector.getInstance(LogService.class);
+        LogService logService = injector.getInstance(key);
         System.out.println(logService);
         logService.log("简单测试");
-        LogService logService1 = injector.getInstance(LogService.class);
+//        LogService logService1 = injector.getInstance(LogService.class);
+        LogService logService1 = injector.getInstance(key);
         System.out.println(logService1);
         logService1.log("第二次测试");
 

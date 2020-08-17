@@ -1,10 +1,12 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.inject.binds.binder.BindingBuilder;
+import org.hotilsframework.inject.binds.Binder;
+import org.hotilsframework.inject.binds.BindingBuilder;
 import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.utils.Assert;
 
 import java.lang.annotation.Annotation;
+import java.util.TreeSet;
 
 /**
  * @author hireny

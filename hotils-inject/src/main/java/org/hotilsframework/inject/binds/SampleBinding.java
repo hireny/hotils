@@ -7,7 +7,8 @@ import org.hotilsframework.inject.factory.InternalFactory;
 import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.config.Scopes;
 import org.hotilsframework.inject.internal.InternalInjector;
-import org.hotilsframework.inject.spi.InstanceBinding;
+
+import java.util.ArrayDeque;
 
 /**
  * SampleBinding
@@ -33,15 +34,15 @@ public class SampleBinding<T> implements Binding<T> {
      */
     private final InternalFactory<? extends T> internalFactory;
 
-    public SampleBinding(InternalInjector injector, Key<T> key,InternalFactory<? extends T> internalFactory, Scope scope) {
+    public SampleBinding(InternalInjector injector, Key<T> key, Scope scope) {
         this.injector = injector;
         this.key = key;
         this.scope = scope;
-        this.internalFactory = internalFactory == null ? new Factory<>(key) : internalFactory;
+        this.internalFactory = new Factory<>(key);
     }
 
     public SampleBinding(Key<T> key, Scope scope) {
-        this(null, key, null,scope);
+        this(null, key,scope);
     }
 
     @Override
@@ -85,12 +86,12 @@ public class SampleBinding<T> implements Binding<T> {
 
     @Override
     public SampleBinding<T> withScope(Scope scope) {
-        throw new AssertionError("不支持该操作");
+        return new SampleBinding<>(getInjector(), getKey(), scope);
     }
 
     @Override
     public SampleBinding<T> withKey(Key<T> key) {
-        throw new AssertionError("不支持该操作");
+        return new SampleBinding<T>(getInjector(), key, getScope());
     }
 
     @Override
@@ -122,11 +123,12 @@ public class SampleBinding<T> implements Binding<T> {
         @Override
         public T get(BeanContext beanContext) {
 
-            System.out.println("进入工厂");
+            System.out.println("进入工厂1111=" + key);
 
             // 可以先从单例中获取
             T t = null;
             SampleBinding<T> binding = beanContext.getBinding(key);
+            System.out.println("获取的信息=" + binding);
 
             // 可以先从容器中获取实例
 
@@ -137,16 +139,8 @@ public class SampleBinding<T> implements Binding<T> {
 
                 LinkedBinding<T> c = (LinkedBinding<T>) binding;
 
-                // 判断是否为单例
-                if (Scopes.SINGLETON.equals(binding.scope)) {
-                    t = beanContext.get(c.getTargetKey());
-                    System.out.println("单例对象查看=" + t);
-                }
 
-                if (t == null) {
-                    System.out.println("开始实例化");
-                    t = Instantiator.tryInstance(((LinkedBinding) binding).getTargetKey().getType());
-                }
+                t = beanContext.get(c.getTargetKey(), Scopes.getScopeTypes().get(binding.scope));
             }
 
             return t;

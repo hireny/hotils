@@ -1,4 +1,4 @@
-package org.hotilsframework.inject.binds.binder;
+package org.hotilsframework.inject.binds;
 
 import org.hotilsframework.inject.qualifier.Qualifier;
 
@@ -15,7 +15,7 @@ public interface BindingBuilderInterface<T> {
 
     BindingBuilder<T> annotatedWith(Qualifier qualifier);
 
-    BindingBuilder<T> annotatedWith(Class<? extends Annotation> annotationType);
+    BindingBuilder<T> annotatedWith(Annotation annotation);
 
     BindingBuilder<T> to(Class<? extends T> implementation);
 

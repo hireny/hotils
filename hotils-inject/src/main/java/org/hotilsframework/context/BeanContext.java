@@ -1,7 +1,8 @@
 package org.hotilsframework.context;
 
 import org.hotilsframework.inject.BeanDefinition;
-import org.hotilsframework.inject.Binding;
+import org.hotilsframework.inject.annotation.Scope;
+import org.hotilsframework.inject.binds.Binding;
 import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.binds.SampleBinding;
 
@@ -44,13 +45,8 @@ public interface BeanContext {
         }
 
         @Override
-        public <T> T get(Key<?> key) {
-            throw new UnsupportedOperationException("不支持获取操作");
-        }
-
-        @Override
-        public <T> T getSingleton(Key<T> key) {
-            throw new UnsupportedOperationException("不支持获取操作");
+        public <T> T get(Key<?> key, Class<?> scopeType) {
+            throw new UnsupportedOperationException("不支持该操作");
         }
 
         @Override
@@ -100,18 +96,11 @@ public interface BeanContext {
     /**
      * 根据键获取BeanDefinition对象
      *
-     * @param key
+     * @param key       键
+     * @param scopeType 该键属于作用域
      * @return
      */
-    <T> T get(Key<?> key);
-
-    /**
-     * 获取单例Bean
-     * @param key
-     * @param <T>
-     * @return
-     */
-    <T> T getSingleton(Key<T> key);
+    <T> T get(Key<?> key, Class<?> scopeType);
 
     /**
      * 存储键与对应的BeanDefinition的绑定关系

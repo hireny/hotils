@@ -1,5 +1,7 @@
-package org.hotilsframework.inject;
+package org.hotilsframework.inject.binds;
 
+import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.Provider;
 import org.hotilsframework.inject.factory.config.Scope;
 
 /**

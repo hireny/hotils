@@ -5,12 +5,13 @@ import org.hotilsframework.collect.LinkedMultiValueMap;
 import org.hotilsframework.collect.MultiValueMap;
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.inject.*;
+import org.hotilsframework.inject.binds.Binding;
 import org.hotilsframework.inject.binds.SampleBinding;
 import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.InternalFactory;
 import org.hotilsframework.utils.Assert;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * InjectorBuilder
@@ -27,10 +28,6 @@ public class InternalInjector implements Injector {
      * 指向父类
      */
     final Injector                          parent;
-    /**
-     * 绑定的链式元素
-     */
-    final MultiValueMap<Key<?>, Binding<?>> bindingMultiValueMap = LinkedMultiValueMap.create();
 
     InternalInjector(Injector parent, BeanContext beanContext) {
         this.parent = parent;
@@ -50,11 +47,7 @@ public class InternalInjector implements Injector {
     @Override
     public <T> SampleBinding<T> getBinding(Key<T> key) {
         SampleBinding<T> binding = beanContext.getBinding(key);
-        System.out.println("绑定的关系11=" + binding);
-        if (binding != null) {
-            return binding;
-        }
-        return null;
+        return binding;
     }
 
     /**
@@ -63,37 +56,31 @@ public class InternalInjector implements Injector {
      * @param <T>
      * @return
      */
+    @Override
     public <T> Provider<T> getProvider(Key<T> key) {
+        System.out.println("提供的键=" + key);
         Assert.notNull(key, "key is not null.");
-        System.out.println("getProvider提供的键=" + key);
         SampleBinding<? extends T> binding = getBinding(key);
-        System.out.println("注入器中绑定关系=" + binding);
-        System.out.println("Bean上下文=" + beanContext);
+
+        System.out.println("获取的绑定信息=" + binding);
         final InternalFactory<? extends T> internalFactory = binding.getInternalFactory();
-        System.out.println("内部工厂=" + internalFactory);
 
-        T t = internalFactory.get(beanContext);
-        System.out.println("获取的对象```=" + t);
-
-        return Providers.of(internalFactory.get(beanContext));
-//        return new Provider<T>() {
-//            @Override
-//            public T get() {
-//                T t = internalFactory.get(beanContext);
-//                return t;
-//            }
-//        };
+        return () -> internalFactory.get(beanContext);
     }
 
+    @Override
+    public  <T> Provider<T> getProvider(Class<T> type) {
+        return getProvider(Key.get(type));
+    }
+
+    @Override
     public <T> T getInstance(Key<T> key) {
-        Provider<T> provider = getProvider(key);
-        System.out.println("提供者1=" + provider.get());
-        return provider.get();
+        return getProvider(key).get();
     }
 
     @Override
     public <T> T getInstance(Class<T> type) throws BeansException {
-        return getInstance(Key.get(type));
+        return getProvider(type).get();
     }
 
     @Override

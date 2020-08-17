@@ -1,11 +1,10 @@
-package org.hotilsframework.inject.binds.binder;
+package org.hotilsframework.inject.binds;
 
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.config.Scopes;
-import org.hotilsframework.inject.binds.LinkedBinding;
-import org.hotilsframework.inject.binds.SampleBinding;
 import org.hotilsframework.inject.qualifier.Qualifier;
+import org.hotilsframework.inject.qualifier.Qualifiers;
 import org.hotilsframework.utils.Assert;
 
 import java.lang.annotation.Annotation;
@@ -20,8 +19,8 @@ import java.util.List;
  */
 public class BindingBuilder<T> implements BindingBuilderInterface<T> {
 
-    protected List<Binding<?>> elements;
-    protected int position;
+    protected       List<Binding<?>> elements;
+    protected       int              position;
     protected final Binder           binder;
     private         SampleBinding<T> binding;
 
@@ -29,7 +28,8 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
         this.binder = binder;
         this.elements = elements;
         this.position = elements.size();
-        this.binding = new SampleBinding<>(key, Scopes.SINGLETON);
+        // 创建绑定信息 /默认原型作用域
+        this.binding = new SampleBinding<>(key, Scopes.PROTOTYPE);
         elements.add(position, this.binding);
     }
 
@@ -52,12 +52,14 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
 
     @Override
     public BindingBuilder<T> annotatedWith(Qualifier qualifier) {
-        return null;
+        Assert.notNull(qualifier, "qualifier is not null.");
+        setBinding(binding.withKey(Key.get(this.binding.getKey().getType(), qualifier)));
+        return this;
     }
 
     @Override
-    public BindingBuilder<T> annotatedWith(Class<? extends Annotation> annotationType) {
-        return null;
+    public BindingBuilder<T> annotatedWith(Annotation annotation) {
+        return annotatedWith(Qualifiers.byAnnotation(annotation));
     }
 
     /**
@@ -67,11 +69,12 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
      */
     @Override
     public BindingBuilder<T> to(Class<? extends T> implementation) {
+        Assert.notNull(implementation, "implementation is not null.");
         Key<? extends T> targetKey = Key.get(implementation);
         SampleBinding<T> binding = getBinding();
         System.out.println(binding.getScope());
         // 默认使用单例作用域
-        setBinding(new LinkedBinding<T>(binding.getInjector(),binding.getKey(), binding.getInternalFactory(), binding.getScope(), targetKey));
+        setBinding(new LinkedBinding<T>(binding.getInjector(),binding.getKey(), binding.getScope(), targetKey));
         return this;
     }
 
@@ -92,13 +95,7 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
      */
     @Override
     public void in(Class<? extends Annotation> scopeType) {
-        System.out.println("绑定作用域=" + scopeType);
         Assert.notNull(scopeType, "scope annotation is not null.");
-        System.out.println("绑定Binding=" + getBinding());
         setBinding(getBinding().withScope(Scope.forAnnotation(scopeType)));
-    }
-
-    void registerInstanceForInjection(final Object o) {
-
     }
 }

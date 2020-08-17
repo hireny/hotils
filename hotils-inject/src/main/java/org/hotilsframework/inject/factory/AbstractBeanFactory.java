@@ -54,7 +54,7 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
     void addScopes(List<Scope> scopes) {
         Assert.notNull(scopes, "scope objects is not null.");
         for (Scope scope : scopes) {
-            if (Scopes.getScopeTypes().contains(scope.getClass())) {
+            if (Scopes.getScopeCLasses().contains(scope.getClass())) {
                 continue;
             }
             registerScope(scope.getClass(), scope);
@@ -62,7 +62,7 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
     }
 
     @Override
-    public <T> T getBean(Key<T> key, Class<?> scopeType) {
+    public <T> T get(Key<T> key, Class<?> scopeType) {
         Scope scope = this.scopes.get(scopeType);
         return scope.get(key);
     }

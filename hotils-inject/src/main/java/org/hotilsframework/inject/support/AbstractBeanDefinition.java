@@ -15,6 +15,7 @@ import java.lang.reflect.Modifier;
  * @create 2020-08-06 18:05
  */
 public abstract class AbstractBeanDefinition implements BeanDefinition {
+    private static final long serialVersionUID = -388034840993663377L;
     /**
      * 父关系的BeanDefinition
      */
@@ -92,5 +93,25 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
     @Override
     public Class<? extends Annotation> getScope() {
         return this.scope.getScopeAnnotation();
+    }
+
+    @Override
+    public boolean isConstant() {
+        return false;
+    }
+
+    @Override
+    public int length() {
+        return getName().length();
+    }
+
+    @Override
+    public char charAt(int index) {
+        return getName().charAt(index);
+    }
+
+    @Override
+    public CharSequence subSequence(int start, int end) {
+        return getName().subSequence(start, end);
     }
 }

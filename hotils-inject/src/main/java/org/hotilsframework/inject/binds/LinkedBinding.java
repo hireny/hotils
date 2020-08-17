@@ -23,10 +23,9 @@ public class LinkedBinding<T> extends SampleBinding<T> {
     public LinkedBinding(
             InternalInjector injector,
             Key<T> key,
-            InternalFactory<? extends T> internalFactory,
             Scope scope,
             Key<? extends T> targetKey) {
-        super(injector, key, internalFactory, scope);
+        super(injector, key, scope);
         this.targetKey = targetKey;
     }
 
@@ -36,7 +35,7 @@ public class LinkedBinding<T> extends SampleBinding<T> {
 
     @Override
     public LinkedBinding<T> withScope(Scope scope) {
-        return new LinkedBinding<>(getInjector(),getKey(), getInternalFactory(), scope, targetKey);
+        return new LinkedBinding<>(getInjector(),getKey(), scope, targetKey);
     }
 
     @Override

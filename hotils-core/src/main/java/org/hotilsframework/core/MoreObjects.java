@@ -51,4 +51,34 @@ public final class MoreObjects {
         }
         return false;
     }
+
+    /**
+     * 比较两个对象是否相等
+     * @param o1
+     * @param o2
+     * @return
+     */
+    public static boolean equals(Object o1, Object o2) {
+        // 两个对象的引用相等，即两个对象相等
+        if (o1 == o2) {
+            return true;
+        }
+
+        // 如果两个对象中有一个为空，即两个对象不相等
+        if (o1 == null || o2 == null) {
+            return false;
+        }
+
+        // 如果两个类不相等，即两个对象不相等
+        if (o1.getClass() != o2.getClass()) {
+            return false;
+        }
+
+        if (o1.getClass().isPrimitive() || o1 instanceof String) {
+            // 如果是基本类型或是字符串类型
+            return o1.equals(o2);
+        }
+
+        return Objects.equals(o1, o2);
+    }
 }

@@ -13,7 +13,7 @@ import java.lang.annotation.Annotation;
  * @author hireny
  * @create 2020-08-09 23:36
  */
-public class Prototypes extends AbstractScope {
+public class Prototypes extends AbstractScope implements Scope {
     @Override
     public void register(Key<?> key, Object element) {
     }

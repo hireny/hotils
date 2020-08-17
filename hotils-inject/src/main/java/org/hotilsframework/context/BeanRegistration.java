@@ -7,17 +7,19 @@ import java.util.Objects;
 /**
  * BeanBinding
  *
- * Bean的绑定关系
+ * Bean的的注册信息
+ *
+ * 注册的Bean定义与实体Bean
  *
  * @author hireny
  * @create 2020-08-11 23:58
  */
-public class BeanBinding<T> {
+public class BeanRegistration<T> {
 
     final BeanDefinition beanDefinition;
     final T bean;
 
-    public BeanBinding(BeanDefinition beanDefinition, T bean) {
+    public BeanRegistration(BeanDefinition beanDefinition, T bean) {
         this.beanDefinition = beanDefinition;
         this.bean = bean;
     }
@@ -47,7 +49,7 @@ public class BeanBinding<T> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BeanBinding<?> that = (BeanBinding<?>) o;
+        BeanRegistration<?> that = (BeanRegistration<?>) o;
         return Objects.equals(beanDefinition, that.beanDefinition) &&
                 Objects.equals(bean, that.bean);
     }

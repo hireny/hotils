@@ -1,4 +1,4 @@
-package org.hotilsframework.inject.binds.binder;
+package org.hotilsframework.inject.binds;
 
 /**
  * AbstractBindingBuilder

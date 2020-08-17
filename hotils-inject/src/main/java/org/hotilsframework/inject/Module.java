@@ -1,5 +1,7 @@
 package org.hotilsframework.inject;
 
+import org.hotilsframework.inject.binds.Binder;
+
 /**
  * 一组Binder
  * @author hireny

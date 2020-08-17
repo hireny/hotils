@@ -1,7 +1,5 @@
-package org.hotilsframework.inject.spi;
+package org.hotilsframework.inject.binds;
 
-
-import org.hotilsframework.inject.Binding;
 
 /**
  * InstanceBinding
