@@ -70,12 +70,8 @@ public class Key<T> {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Key{");
-        sb.append("type=").append(type);
-        sb.append(", qualifier=").append(qualifier);
-        sb.append(", hashCode=").append(hashCode);
-        sb.append('}');
-        return sb.toString();
+        // Key 用来描述唯一性
+        return String.valueOf(qualifier);
     }
 
     public static <T> Key<T> get(Class<T> type) {

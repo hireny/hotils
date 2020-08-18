@@ -1,7 +1,6 @@
 package org.hotilsframework.inject.factory;
 
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.factory.config.Scope;
 
 /**
  * BeanFactory

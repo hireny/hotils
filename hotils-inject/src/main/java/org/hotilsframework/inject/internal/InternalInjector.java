@@ -1,8 +1,6 @@
 package org.hotilsframework.inject.internal;
 
 import org.hotilsframework.beans.BeansException;
-import org.hotilsframework.collect.LinkedMultiValueMap;
-import org.hotilsframework.collect.MultiValueMap;
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.binds.Binding;

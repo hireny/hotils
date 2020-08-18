@@ -21,24 +21,6 @@ public class Providers {
         return new ConstantProvider<> (instance);
     }
 
-    public static <T> Provider<T> of(final Class<T> type) {
-        return new TypeProvider<>(type);
-    }
-
-    private static final class TypeProvider<T> implements Provider<T> {
-
-        private final Class<T> type;
-
-        private TypeProvider(Class<T> type) {
-            this.type = type;
-        }
-
-        @Override
-        public T get() {
-            return Instantiator.tryInstance(type);
-        }
-    }
-
     private static final class ConstantProvider<T> implements Provider<T> {
 
         private final T instance;

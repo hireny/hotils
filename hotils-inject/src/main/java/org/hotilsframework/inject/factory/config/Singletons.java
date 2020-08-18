@@ -78,7 +78,7 @@ public class Singletons extends AbstractScope implements Scope {
     }
 
     @Override
-    public boolean contains(Key<?> key) {
+    public boolean containsKey(Key<?> key) {
         return this.singletons.containsKey(key);
     }
 

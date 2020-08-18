@@ -1,15 +1,12 @@
 package org.hotilsframework.inject.factory.config;
 
-import org.hotilsframework.collect.Lists;
 import org.hotilsframework.inject.Injector;
 import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.annotation.Prototype;
-import org.hotilsframework.inject.Provider;
 
 import javax.inject.Singleton;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -39,7 +36,7 @@ public class Scopes {
             return null;
         }
         @Override
-        public boolean contains(Key<?> key) {
+        public boolean containsKey(Key<?> key) {
             return false;
         }
         @Override
@@ -68,7 +65,7 @@ public class Scopes {
             return null;
         }
         @Override
-        public boolean contains(Key<?> key) {
+        public boolean containsKey(Key<?> key) {
             return false;
         }
         @Override
@@ -80,35 +77,6 @@ public class Scopes {
             return "Scopes.SINGLETON";
         }
     };
-//    /**
-//     * 没有作用域，代表你还没有设置作用域
-//     */
-//    public static final Scope NO_SCOPE = new Scope() {
-//        @Override
-//        public void register(Key<?> key, Object element) {
-//        }
-//        @Override
-//        public <T> T get(Key<T> key) {
-//            return null;
-//        }
-//        @Override
-//        public Object remove(Key<?> key) {
-//            return null;
-//        }
-//        @Override
-//        public boolean contains(Key<?> key) {
-//            return false;
-//        }
-//        @Override
-//        public Class<? extends Annotation> getScopeAnnotation() {
-//            return null;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return "Scopes.NO_SCOPE";
-//        }
-//    };
 
     private static final Map<Scope, Class<?>> SCOPE_TYPES = new ConcurrentHashMap<>();
 
@@ -119,7 +87,7 @@ public class Scopes {
         SCOPE_TYPES.putAll(tempScopeTypes);
     }
 
-    public static Collection<Class<?>> getScopeCLasses() {
+    public static Collection<Class<?>> getScopeClasses() {
         return SCOPE_TYPES.values();
     }
 

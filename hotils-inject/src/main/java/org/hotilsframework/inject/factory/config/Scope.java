@@ -2,7 +2,6 @@ package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.annotation.Prototype;
-import org.hotilsframework.inject.Provider;
 import org.hotilsframework.inject.annotation.Singleton;
 
 import java.lang.annotation.Annotation;
@@ -42,7 +41,7 @@ public interface Scope {
      * @param key
      * @return
      */
-    boolean contains(Key<?> key);
+    boolean containsKey(Key<?> key);
 
     /**
      * 获取作用域注解
@@ -87,7 +86,7 @@ public interface Scope {
             }
 
             @Override
-            public boolean contains(Key<?> key) {
+            public boolean containsKey(Key<?> key) {
                 return false;
             }
 

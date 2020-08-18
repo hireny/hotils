@@ -10,14 +10,6 @@ package org.hotilsframework.inject.qualifier;
  */
 public interface Qualifier {
 
-//    /**
-//     * 返回合格的选项，如果不合格，则返回null
-//     * @param type          类型
-//     * @param candidates    限定条件
-//     * @return
-//     */
-//    Stream<? extends T> reduce(Class<T> type, Stream<? extends T> candidates);
-
     /**
      * 重写equals
      * @param obj

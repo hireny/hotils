@@ -1,5 +1,6 @@
 package org.hotilsframework.inject.factory.config;
 
+import org.hotilsframework.core.reflects.Instantiator;
 import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.annotation.Prototype;
 
@@ -20,14 +21,14 @@ public class Prototypes extends AbstractScope implements Scope {
 
     @Override
     public <T> T get(Key<T> key) {
-        return null;
+        return Instantiator.tryInstance(key.getType());
     }
     @Override
     public Object remove(Key<?> key) {
         return null;
     }
     @Override
-    public boolean contains(Key<?> key) {
+    public boolean containsKey(Key<?> key) {
         return false;
     }
     @Override

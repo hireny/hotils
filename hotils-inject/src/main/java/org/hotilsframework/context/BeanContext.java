@@ -1,6 +1,7 @@
 package org.hotilsframework.context;
 
 import org.hotilsframework.inject.BeanDefinition;
+import org.hotilsframework.inject.Provider;
 import org.hotilsframework.inject.annotation.Scope;
 import org.hotilsframework.inject.binds.Binding;
 import org.hotilsframework.inject.Key;

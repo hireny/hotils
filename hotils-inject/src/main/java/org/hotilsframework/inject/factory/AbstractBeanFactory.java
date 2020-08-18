@@ -54,7 +54,7 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
     void addScopes(List<Scope> scopes) {
         Assert.notNull(scopes, "scope objects is not null.");
         for (Scope scope : scopes) {
-            if (Scopes.getScopeCLasses().contains(scope.getClass())) {
+            if (Scopes.getScopeClasses().contains(scope.getClass())) {
                 continue;
             }
             registerScope(scope.getClass(), scope);
