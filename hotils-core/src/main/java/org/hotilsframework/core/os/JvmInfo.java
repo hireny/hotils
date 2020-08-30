@@ -1,6 +1,6 @@
 package org.hotilsframework.core.os;
 
-import org.hotilsframework.utils.SystemUtils;
+import org.hotilsframework.lang.SystemUtils;
 
 import java.io.Serializable;
 

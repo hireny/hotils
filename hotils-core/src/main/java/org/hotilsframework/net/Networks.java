@@ -1,8 +1,8 @@
 package org.hotilsframework.net;
 
 import org.hotilsframework.lang.Filter;
-import org.hotilsframework.utils.CollectionUtils;
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.lang.CollectionUtils;
+import org.hotilsframework.lang.StringUtils;
 
 import java.net.*;
 import java.util.Enumeration;

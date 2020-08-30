@@ -1,6 +1,7 @@
 package org.hotilsframework.utils;
 
 import example.model.ArrayModelTest;
+import org.hotilsframework.lang.ArrayUtils;
 import org.junit.Test;
 
 import java.util.Arrays;

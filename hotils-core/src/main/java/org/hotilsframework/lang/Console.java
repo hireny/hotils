@@ -1,7 +1,5 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.utils.StringUtils;
-
 /**
  * @ClassName: Console
  * @Author: hireny

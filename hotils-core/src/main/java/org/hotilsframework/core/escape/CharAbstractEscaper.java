@@ -1,6 +1,6 @@
 package org.hotilsframework.core.escape;
 
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 /**
  * 字符过滤

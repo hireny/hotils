@@ -1,6 +1,6 @@
 package org.hotilsframework.core.primitives;
 
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 /**
  * 长整型

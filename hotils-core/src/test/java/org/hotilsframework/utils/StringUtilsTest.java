@@ -1,5 +1,6 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.lang.StringUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

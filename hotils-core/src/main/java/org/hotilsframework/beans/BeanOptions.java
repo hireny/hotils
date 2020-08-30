@@ -1,9 +1,8 @@
 package org.hotilsframework.beans;
 
 import org.hotilsframework.beans.copier.CopyOptions;
-import org.hotilsframework.core.MoreObjects;
 import org.hotilsframework.lang.Copyable;
-import org.hotilsframework.utils.ObjectUtils;
+import org.hotilsframework.lang.ObjectUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -71,7 +70,7 @@ public final class BeanOptions<T> implements Copyable<T>, Serializable {
 
     @Override
     public T copy() {
-        if (!MoreObjects.isEmpty(this.source)) {
+        if (!ObjectUtils.isEmpty(this.source)) {
             if (this.source instanceof Map) {
 
             }

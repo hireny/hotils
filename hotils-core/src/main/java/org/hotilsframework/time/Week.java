@@ -1,7 +1,7 @@
 package org.hotilsframework.time;
 
 import org.hotilsframework.collect.Maps;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.time.DayOfWeek;
 import java.util.*;
@@ -96,7 +96,7 @@ public enum Week {
      */
     public static Week of(int dayOfWeek) {
 
-        Assert.isTrue(dayOfWeek >= DayOfWeek.MONDAY.getValue() && dayOfWeek <= DayOfWeek.SUNDAY.getValue(), "not find day of week");
+        Assert.checkArgument(dayOfWeek >= DayOfWeek.MONDAY.getValue() && dayOfWeek <= DayOfWeek.SUNDAY.getValue(), "not find day of week");
         return WEEKS[dayOfWeek];
     }
 

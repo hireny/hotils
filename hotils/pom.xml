@@ -31,11 +31,6 @@
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>
-            <artifactId>hotils-dbcp</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>me.hireny.hotils</groupId>
             <artifactId>hotils-inject</artifactId>
         </dependency>
         <dependency>

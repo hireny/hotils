@@ -1,8 +1,8 @@
 package org.hotilsframework.net;
 
-import org.hotilsframework.utils.Assert;
-import org.hotilsframework.utils.ObjectUtils;
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.lang.Assert;
+import org.hotilsframework.lang.ObjectUtils;
+import org.hotilsframework.lang.StringUtils;
 
 import java.io.Serializable;
 
@@ -81,9 +81,9 @@ public final class HostAndPort implements Serializable {
      * @return
      */
     public static HostAndPort fromParts(String host, int port) {
-        Assert.isTrue(Networks.isValidPort(port), "Port out of range: " + port);
+        Assert.checkArgument(Networks.isValidPort(port), "Port out of range: " + port);
         HostAndPort parsedHost = fromString(host);
-        Assert.isTrue(!parsedHost.hasPort(), "Host has a port: " + host);
+        Assert.checkArgument(!parsedHost.hasPort(), "Host has a port: " + host);
         return new HostAndPort(parsedHost.host, port,parsedHost.hasBracketlessColons);
     }
 
@@ -94,7 +94,7 @@ public final class HostAndPort implements Serializable {
      */
     public static HostAndPort fromHost(String host) {
         HostAndPort parsedHost = fromString(host);
-        Assert.isTrue(!parsedHost.hasPort(), "Host has a port: " + host);
+        Assert.checkArgument(!parsedHost.hasPort(), "Host has a port: " + host);
         return parsedHost;
     }
 
@@ -130,13 +130,13 @@ public final class HostAndPort implements Serializable {
         if (!StringUtils.isEmpty(portString)) {
             // Try to parse the whole port string as a number.
             // JDK7 accepts leading plus signs. We don't want to.
-            Assert.isTrue(!portString.startsWith("+"), "Unparseable port number: " + hostPortString);
+            Assert.checkArgument(!portString.startsWith("+"), "Unparseable port number: " + hostPortString);
             try {
                 port = Integer.parseInt(portString);
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Unparseable port number: " + hostPortString);
             }
-            Assert.isTrue(Networks.isValidPort(port), "Port number out of range: " + hostPortString);
+            Assert.checkArgument(Networks.isValidPort(port), "Port number out of range: " + hostPortString);
         }
 
         return new HostAndPort(host, port, hasBracketlessColons);
@@ -150,21 +150,21 @@ public final class HostAndPort implements Serializable {
     private static String[] getHostAndPortFromBracketedHost(String hostPortString) {
         int colonIndex = 0;
         int closeBracketIndex = 0;
-        Assert.isTrue(hostPortString.charAt(0) == '[',
+        Assert.checkArgument(hostPortString.charAt(0) == '[',
                 "Bracketed host-port string must start with a bracket: " + hostPortString);
         colonIndex = hostPortString.indexOf(':');
         closeBracketIndex = hostPortString.lastIndexOf(']');
-        Assert.isTrue(colonIndex > -1 && closeBracketIndex > colonIndex,
+        Assert.checkArgument(colonIndex > -1 && closeBracketIndex > colonIndex,
                 "Invalid bracketed host/port: " + hostPortString);
 
         String host = hostPortString.substring(1, closeBracketIndex);
         if (closeBracketIndex + 1 == hostPortString.length()) {
             return new String[] {host, ""};
         } else {
-            Assert.isTrue(hostPortString.charAt(closeBracketIndex + 1) == ':',
+            Assert.checkArgument(hostPortString.charAt(closeBracketIndex + 1) == ':',
                     "Only a colon may follow a close bracket: " + hostPortString);
             for (int i = closeBracketIndex + 2; i < hostPortString.length(); ++i) {
-                Assert.isTrue( Character.isDigit(hostPortString.charAt(i)),
+                Assert.checkArgument( Character.isDigit(hostPortString.charAt(i)),
                         "Port must be numeric: " + hostPortString);
             }
             return new String[] {host, hostPortString.substring(closeBracketIndex + 2)};

@@ -1,6 +1,6 @@
 package org.hotilsframework.collect;
 
-import org.hotilsframework.utils.ArrayUtils;
+import org.hotilsframework.lang.ArrayUtils;
 
 import java.util.Collections;
 import java.util.HashSet;

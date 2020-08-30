@@ -1,6 +1,6 @@
 package org.hotilsframework.core.os;
 
-import org.hotilsframework.utils.NumberUtils;
+import org.hotilsframework.lang.NumberUtils;
 
 /**
  * JavaVersion

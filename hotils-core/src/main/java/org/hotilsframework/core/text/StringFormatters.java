@@ -1,8 +1,8 @@
 package org.hotilsframework.core.text;
 
 
-import org.hotilsframework.utils.ArrayUtils;
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.lang.ArrayUtils;
+import org.hotilsframework.lang.StringUtils;
 
 /**
  * @ClassName: StringFormatters

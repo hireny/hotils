@@ -1,8 +1,7 @@
 package org.hotilsframework.core.types;
 
 import org.hotilsframework.core.reflects.CompositeType;
-import org.hotilsframework.utils.Assert;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
+import org.hotilsframework.lang.Assert;
 
 import java.lang.reflect.*;
 import java.lang.reflect.Array;
@@ -68,7 +67,7 @@ public class MoreTypes {
         } else if (type instanceof ParameterizedType) {
             ParameterizedType parameterizedType = (ParameterizedType) type;
             Type rawType = parameterizedType.getRawType();
-            Assert.isTrue(rawType instanceof Class, "Expected a Class, but <%s> is of type %s", type, type.getClass().getName());
+            Assert.checkArgument(rawType instanceof Class, "Expected a Class, but <%s> is of type %s", type, type.getClass().getName());
             return (Class<?>) rawType;
 
         } else if (type instanceof GenericArrayType) {

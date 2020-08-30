@@ -1,7 +1,6 @@
 package org.hotilsframework.lang;
 
 import org.hotilsframework.collect.Lists;
-import org.hotilsframework.utils.Assert;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -35,7 +34,7 @@ public final class Splitter {
     }
 
     public Splitter limit(int maxItems) {
-        Assert.isTrue(maxItems > 0, "must be greater than zero: " + maxItems);
+        Assert.checkArgument(maxItems > 0, "must be greater than zero: " + maxItems);
 //        return new Splitter();
         return this;
     }

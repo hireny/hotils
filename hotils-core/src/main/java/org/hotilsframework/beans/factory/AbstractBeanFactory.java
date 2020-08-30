@@ -3,7 +3,7 @@ package org.hotilsframework.beans.factory;
 import org.hotilsframework.beans.BeanDefinition;
 import org.hotilsframework.beans.BeansException;
 import org.hotilsframework.lang.Nullable;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

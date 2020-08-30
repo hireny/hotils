@@ -2,7 +2,7 @@ package org.hotilsframework.core.convert.converter.support;
 
 import org.hotilsframework.core.convert.converter.Converter;
 import org.hotilsframework.core.convert.converter.ConverterFactory;
-import org.hotilsframework.utils.NumberUtils;
+import org.hotilsframework.lang.NumberUtils;
 
 /**
  * @author hireny

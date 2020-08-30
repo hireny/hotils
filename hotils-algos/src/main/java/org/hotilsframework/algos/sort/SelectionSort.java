@@ -1,6 +1,6 @@
 package org.hotilsframework.algos.sort;
 
-import org.hotilsframework.utils.ArrayUtils;
+import org.hotilsframework.lang.ArrayUtils;
 
 /**
  * SelectionSort

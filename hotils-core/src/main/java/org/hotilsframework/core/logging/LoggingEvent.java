@@ -1,6 +1,6 @@
 package org.hotilsframework.core.logging;
 
-import org.hotilsframework.utils.SystemUtils;
+import org.hotilsframework.lang.SystemUtils;
 
 import java.util.StringJoiner;
 

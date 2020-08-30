@@ -1,5 +1,6 @@
 package org.hotilsframework.utils;
 
+import org.hotilsframework.lang.NumberUtils;
 import org.junit.Test;
 
 /**

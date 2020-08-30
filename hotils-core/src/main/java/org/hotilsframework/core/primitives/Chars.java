@@ -1,7 +1,7 @@
 package org.hotilsframework.core.primitives;
 
 import org.hotilsframework.lang.Symbol;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 /**
  * 字符

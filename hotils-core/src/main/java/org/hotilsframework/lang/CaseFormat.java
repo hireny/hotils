@@ -1,5 +1,7 @@
 package org.hotilsframework.lang;
 
+import org.hotilsframework.lang.matchs.CharMatcher;
+
 /**
  * 名字中的格式
  * @ClassName: NameCaseFormat

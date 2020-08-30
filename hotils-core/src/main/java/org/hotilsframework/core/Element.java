@@ -3,7 +3,7 @@ package org.hotilsframework.core;
 import java.io.Serializable;
 
 /**
- * 元素抽象类，是对Bean对象的抽象建模
+ * 元素抽象类，是对对象的抽象建模
  * @author hireny
  * @className Element
  * @create 2020-05-17 23:01

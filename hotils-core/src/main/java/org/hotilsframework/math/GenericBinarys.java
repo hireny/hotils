@@ -1,7 +1,7 @@
 package org.hotilsframework.math;
 
 import org.hotilsframework.collect.Lists;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.util.Stack;
 

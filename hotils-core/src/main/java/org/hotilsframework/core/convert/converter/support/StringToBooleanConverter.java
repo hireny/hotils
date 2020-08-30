@@ -1,7 +1,7 @@
 package org.hotilsframework.core.convert.converter.support;
 
 import org.hotilsframework.core.convert.converter.Converter;
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.lang.StringUtils;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,6 +1,6 @@
 package org.hotilsframework.core.codec;
 
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.lang.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;

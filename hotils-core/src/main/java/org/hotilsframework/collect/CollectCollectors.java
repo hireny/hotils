@@ -1,10 +1,5 @@
 package org.hotilsframework.collect;
 
-import org.hotilsframework.utils.Assert;
-
-import java.util.function.Function;
-import java.util.stream.Collector;
-
 /**
  * 用于 {@code org.hotilsframework.collect} 内部的收集器工具
  * @author hireny

@@ -1,7 +1,6 @@
 package org.hotilsframework.core.logging.layout.pattern;
 
 import org.hotilsframework.core.logging.LoggingEvent;
-import org.hotilsframework.utils.SystemUtils;
 
 /**
  * @author hireny

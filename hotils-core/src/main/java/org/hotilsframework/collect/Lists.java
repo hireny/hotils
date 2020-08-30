@@ -1,8 +1,8 @@
 package org.hotilsframework.collect;
 
-import org.hotilsframework.utils.ArrayUtils;
-import org.hotilsframework.utils.Assert;
-import org.hotilsframework.utils.CollectionUtils;
+import org.hotilsframework.lang.ArrayUtils;
+import org.hotilsframework.lang.Assert;
+import org.hotilsframework.lang.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.*;

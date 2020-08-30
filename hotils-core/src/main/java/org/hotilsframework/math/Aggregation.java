@@ -1,6 +1,6 @@
 package org.hotilsframework.math;
 
-import org.hotilsframework.utils.ArrayUtils;
+import org.hotilsframework.lang.ArrayUtils;
 
 import java.util.Arrays;
 

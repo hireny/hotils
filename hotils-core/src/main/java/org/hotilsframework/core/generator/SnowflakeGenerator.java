@@ -1,6 +1,6 @@
 package org.hotilsframework.core.generator;
 
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.lang.StringUtils;
 import org.hotilsframework.time.SystemClock;
 
 import java.lang.management.ManagementFactory;

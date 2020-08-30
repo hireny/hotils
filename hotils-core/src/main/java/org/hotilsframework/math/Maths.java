@@ -1,9 +1,9 @@
 package org.hotilsframework.math;
 
 import org.hotilsframework.collect.Lists;
-import org.hotilsframework.utils.ArrayUtils;
-import org.hotilsframework.utils.Assert;
-import org.hotilsframework.utils.NumberUtils;
+import org.hotilsframework.lang.ArrayUtils;
+import org.hotilsframework.lang.Assert;
+import org.hotilsframework.lang.NumberUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

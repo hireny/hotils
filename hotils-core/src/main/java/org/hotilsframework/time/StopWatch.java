@@ -2,7 +2,7 @@ package org.hotilsframework.time;
 
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.lang.Nullable;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.text.NumberFormat;
 import java.util.List;

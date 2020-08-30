@@ -1,6 +1,6 @@
 package org.hotilsframework.time;
 
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

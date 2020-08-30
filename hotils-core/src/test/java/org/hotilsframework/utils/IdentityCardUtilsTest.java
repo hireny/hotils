@@ -1,6 +1,6 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.utils.IdentityCardUtils;
+import org.hotilsframework.lang.IdentityCardUtils;
 import org.junit.Test;
 
 /**

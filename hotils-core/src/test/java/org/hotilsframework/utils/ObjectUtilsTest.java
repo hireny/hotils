@@ -1,14 +1,11 @@
 package org.hotilsframework.utils;
 
 import example.model.Gender;
-import org.hotilsframework.collect.Lists;
-import org.hotilsframework.collect.Maps;
 import example.model.PersonModel;
+import org.hotilsframework.lang.ObjectUtils;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
 import java.util.Optional;
 
 /**

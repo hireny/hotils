@@ -1,6 +1,6 @@
 package org.hotilsframework.io;
 
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.lang.StringUtils;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

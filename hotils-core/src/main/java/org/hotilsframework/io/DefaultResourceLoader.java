@@ -1,7 +1,6 @@
 package org.hotilsframework.io;
 
 import org.hotilsframework.core.classes.ClassLoaders;
-import org.hotilsframework.utils.ClassUtils;
 
 import java.net.URL;
 

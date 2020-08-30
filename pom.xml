@@ -14,7 +14,6 @@
         <module>hotils-bom</module>
         <module>hotils-cache</module>
         <module>hotils-core</module>
-        <module>hotils-dbcp</module>
         <module>hotils-inject</module>
         <module>hotils-jdbc</module>
         <module>hotils-json</module>
@@ -94,11 +93,6 @@
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-core</artifactId>
-                <version>${hotils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-dbcp</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>

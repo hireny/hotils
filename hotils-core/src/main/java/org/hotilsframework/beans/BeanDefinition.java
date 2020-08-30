@@ -1,7 +1,7 @@
 package org.hotilsframework.beans;
 
 import org.hotilsframework.beans.factory.BeanScope;
-import org.hotilsframework.lang.AttributeAccessor;
+import org.hotilsframework.core.AttributeAccessor;
 import org.hotilsframework.lang.Nullable;
 
 /**

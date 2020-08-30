@@ -4,8 +4,8 @@ import org.hotilsframework.beans.BeanMap;
 import org.hotilsframework.beans.BeanUtils;
 import org.hotilsframework.beans.FatalBeansException;
 import org.hotilsframework.lang.Copyable;
-import org.hotilsframework.utils.Assert;
-import org.hotilsframework.utils.ClassUtils;
+import org.hotilsframework.lang.Assert;
+import org.hotilsframework.lang.ClassUtils;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
