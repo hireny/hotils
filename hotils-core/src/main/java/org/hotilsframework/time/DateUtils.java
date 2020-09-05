@@ -1,4 +1,6 @@
-package org.hotilsframework.lang;
+package org.hotilsframework.time;
+
+import org.hotilsframework.lang.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
