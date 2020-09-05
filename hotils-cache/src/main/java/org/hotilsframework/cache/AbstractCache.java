@@ -84,8 +84,8 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
             if (cacheElement == null) {
                 return false;
             }
-            if (false == cacheElement.isExpired()) {
-                // 命中
+            if (!cacheElement.isExpired()) {
+                // 未过期/命中
                 return true;
             }
         } finally {
@@ -137,7 +137,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
                 return null;
             }
 
-            if (false == cacheElement.isExpired()) {
+            if (!cacheElement.isExpired()) {
                 // 命中
                 hitCount++;
                 return cacheElement.get(isUpdateLastAccess);

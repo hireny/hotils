@@ -1,6 +1,6 @@
 package org.hotilsframework.cache;
 
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 /**
  * @ClassName: CacheStatus

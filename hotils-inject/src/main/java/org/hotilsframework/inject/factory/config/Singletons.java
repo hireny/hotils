@@ -1,10 +1,10 @@
 package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.collect.Maps;
-import org.hotilsframework.core.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.Instantiator;
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.annotation.Singleton;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;

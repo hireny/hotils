@@ -8,11 +8,6 @@ package org.hotilsframework.cache;
  */
 public final class Caches {
 
-    public static <K, V> CacheBuilder<K, V> newBuilder() {
-        return new CacheBuilder<>();
-    }
-
-
     private Caches() {
     }
 }

@@ -1,6 +1,6 @@
 package org.hotilsframework.web.servlet;
 
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.lang.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

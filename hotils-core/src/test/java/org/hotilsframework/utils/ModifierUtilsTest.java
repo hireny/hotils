@@ -1,7 +1,7 @@
 package org.hotilsframework.utils;
 
-import org.hotilsframework.lang.ModifierUtils;
-import org.hotilsframework.lang.ReflectionUtils;
+import org.hotilsframework.lang.reflects.ModifierUtils;
+import org.hotilsframework.lang.reflects.ReflectionUtils;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;

@@ -3,12 +3,11 @@ package org.hotilsframework.context;
 import org.hotilsframework.collect.Maps;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.Provider;
 import org.hotilsframework.inject.binds.Binding;
 import org.hotilsframework.inject.binds.SampleBinding;
 import org.hotilsframework.inject.factory.BeanFactory;
 import org.hotilsframework.inject.factory.DefaultBeanFactory;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.util.Collections;
 import java.util.Map;

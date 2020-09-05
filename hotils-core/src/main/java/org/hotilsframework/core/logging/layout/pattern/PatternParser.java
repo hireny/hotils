@@ -3,9 +3,9 @@ package org.hotilsframework.core.logging.layout.pattern;
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.collect.Maps;
 import org.hotilsframework.core.convert.converter.Converter;
-import org.hotilsframework.core.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.Instantiator;
 import org.hotilsframework.lang.Symbol;
-import org.hotilsframework.core.reflects.ReflectionException;
+import org.hotilsframework.lang.reflects.ReflectionException;
 import org.hotilsframework.core.logging.LoggingEvent;
 
 import java.util.List;

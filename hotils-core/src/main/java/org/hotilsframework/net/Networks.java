@@ -1,7 +1,7 @@
 package org.hotilsframework.net;
 
 import org.hotilsframework.lang.Filter;
-import org.hotilsframework.lang.CollectionUtils;
+import org.hotilsframework.collect.CollectionUtils;
 import org.hotilsframework.lang.StringUtils;
 
 import java.net.*;

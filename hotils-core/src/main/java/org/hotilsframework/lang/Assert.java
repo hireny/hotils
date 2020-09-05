@@ -1,5 +1,7 @@
 package org.hotilsframework.lang;
 
+import org.hotilsframework.collect.CollectionUtils;
+
 import java.util.Collection;
 import java.util.Map;
 

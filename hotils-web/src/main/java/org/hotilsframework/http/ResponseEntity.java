@@ -1,6 +1,6 @@
 package org.hotilsframework.http;
 
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.util.Map;
 

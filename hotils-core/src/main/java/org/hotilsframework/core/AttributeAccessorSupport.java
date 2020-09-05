@@ -2,7 +2,7 @@ package org.hotilsframework.core;
 
 import org.hotilsframework.lang.Nullable;
 import org.hotilsframework.lang.Assert;
-import org.hotilsframework.lang.CollectionUtils;
+import org.hotilsframework.collect.CollectionUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -44,7 +44,7 @@ public class HostInfo implements Serializable {
         String address = "";
         String command = "cmd.exe /c ipconfig /all";
         try {
-            Process p = Runtime.getRuntime().exec(command);
+            java.lang.Process p = Runtime.getRuntime().exec(command);
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             while ((line = br.readLine()) != null) {

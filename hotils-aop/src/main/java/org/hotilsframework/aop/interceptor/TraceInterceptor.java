@@ -1,7 +1,7 @@
 package org.hotilsframework.aop.interceptor;
 
 import org.aopalliance.intercept.Invocation;
-import org.hotilsframework.core.Order;
+import org.hotilsframework.core.Ordered;
 
 import java.lang.reflect.Method;
 
@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * @className TraceInterceptor
  * @create 2020-04-10 15:52
  */
-public interface TraceInterceptor extends Order {
+public interface TraceInterceptor extends Ordered {
 
     /**
      * 是否匹配

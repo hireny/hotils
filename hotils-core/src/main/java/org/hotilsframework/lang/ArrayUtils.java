@@ -1,6 +1,6 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.core.primitives.Primitives;
+import org.hotilsframework.lang.primitives.Primitives;
 
 import java.lang.reflect.Array;
 import java.util.*;

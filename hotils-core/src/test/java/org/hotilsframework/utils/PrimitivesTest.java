@@ -1,7 +1,7 @@
 package org.hotilsframework.utils;
 
 
-import org.hotilsframework.core.primitives.Primitives;
+import org.hotilsframework.lang.primitives.Primitives;
 import org.junit.Test;
 
 /**

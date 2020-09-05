@@ -1,6 +1,7 @@
 package org.hotilsframework.cache;
 
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.reflects.Instantiator;
+import org.hotilsframework.lang.Assert;
 
 /**
  * 缓存构建器
@@ -43,6 +44,10 @@ public final class CacheBuilder<K, V> {
     long refreshNanos = UNSET_INT;
     long expireAfterWriteNanos = UNSET_INT;
     long expireAfterAccessNanos = UNSET_INT;
+    /**
+     * 缓存策略
+     */
+    private Class<?> cacheType;
 
     /**
      * 初始化容器容量
@@ -51,8 +56,37 @@ public final class CacheBuilder<K, V> {
      * @return
      */
     public CacheBuilder<K, V> initialCapacity(int initialCapacity) {
-        Assert.state(initialCapacity >= 0);
+        Assert.checkArgument(initialCapacity >= 0);
         this.initialCapacity = initialCapacity;
         return this;
+    }
+
+    /**
+     * 最大容量，不能为负
+     * @param size      大小
+     * @return
+     */
+    public CacheBuilder<K, V> maximumSize(long size) {
+        Assert.checkArgument(size >= 0, "maximum size must not be negative.");
+        this.maximumSize = size;
+        return this;
+    }
+
+    /**
+     * 设置缓存策略
+     * @param cacheType     缓存类型
+     * @return
+     */
+    public CacheBuilder<K, V> policy(Class<?> cacheType) {
+        this.cacheType = cacheType;
+        return this;
+    }
+
+    /**
+     * 构建缓存对象
+     * @return
+     */
+    public Cache<K, V> build() {
+        return Instantiator.tryInstance(cacheType);
     }
 }

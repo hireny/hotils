@@ -1,6 +1,7 @@
 package org.hotilsframework.aop.proxy;
 
-import org.hotilsframework.utils.ClassUtils;
+import org.hotilsframework.lang.ClassLoaders;
+import org.hotilsframework.lang.ClassUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
@@ -21,7 +22,7 @@ public class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializ
 
     @Override
     public Object getProxy() {
-        return ClassUtils.getDefaultClassLoader();
+        return ClassLoaders.getDefaultClassLoader();
     }
 
     @Override

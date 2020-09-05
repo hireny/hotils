@@ -1,7 +1,6 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.core.reflects.Instantiator;
-import org.hotilsframework.utils.ObjectUtils;
+import org.hotilsframework.lang.ObjectUtils;
 
 /**
  * 对Bean实例的注册操作

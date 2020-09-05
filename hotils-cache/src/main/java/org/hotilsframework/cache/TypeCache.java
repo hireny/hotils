@@ -2,7 +2,6 @@ package org.hotilsframework.cache;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * TypeCache

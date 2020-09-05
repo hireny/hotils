@@ -2,8 +2,8 @@ package org.hotilsframework.http;
 
 import org.hotilsframework.collect.CaseInsensitiveMap;
 import org.hotilsframework.io.Charsets;
-import org.hotilsframework.utils.CollectionUtils;
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.collect.CollectionUtils;
+import org.hotilsframework.lang.StringUtils;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;

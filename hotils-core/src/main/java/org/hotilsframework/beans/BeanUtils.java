@@ -3,7 +3,7 @@ package org.hotilsframework.beans;
 import org.hotilsframework.beans.copier.BeanCopier;
 import org.hotilsframework.beans.copier.CopyOptions;
 import org.hotilsframework.collect.CaseInsensitiveMap;
-import org.hotilsframework.core.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.Instantiator;
 import org.hotilsframework.lang.Assert;
 
 import java.beans.BeanInfo;

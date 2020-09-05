@@ -1,6 +1,6 @@
 package org.hotilsframework.core.types;
 
-import org.hotilsframework.core.reflects.CompositeType;
+import org.hotilsframework.lang.reflects.CompositeType;
 import org.hotilsframework.lang.Assert;
 
 import java.lang.reflect.*;

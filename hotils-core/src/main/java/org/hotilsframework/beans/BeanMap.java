@@ -1,7 +1,7 @@
 package org.hotilsframework.beans;
 
 import org.hotilsframework.collect.Maps;
-import org.hotilsframework.core.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.Instantiator;
 
 import java.util.*;
 

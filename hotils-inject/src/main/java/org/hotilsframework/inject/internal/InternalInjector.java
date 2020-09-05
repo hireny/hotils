@@ -7,7 +7,7 @@ import org.hotilsframework.inject.binds.Binding;
 import org.hotilsframework.inject.binds.SampleBinding;
 import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.InternalFactory;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.util.*;
 

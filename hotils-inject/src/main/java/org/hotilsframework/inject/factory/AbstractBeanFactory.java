@@ -3,7 +3,7 @@ package org.hotilsframework.inject.factory;
 import org.hotilsframework.cache.TypeCache;
 import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.factory.config.*;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.util.Arrays;
 import java.util.List;

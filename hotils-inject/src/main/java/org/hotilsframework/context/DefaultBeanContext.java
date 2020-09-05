@@ -4,7 +4,12 @@ import org.hotilsframework.inject.factory.BeanFactory;
 
 /**
  * DefaultBeanContext
- * 类描述
+ *
+ * 默认实现的Bean上下文
+ *
+ * <p>
+ *     用于实现Bean类的加载
+ * </p>
  *
  * @author hireny
  * @create 2020-07-27 23:15

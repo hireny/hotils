@@ -1,9 +1,7 @@
 package org.hotilsframework.jdbc.datasource;
 
 import org.hotilsframework.jdbc.JdbcConnectionException;
-import org.hotilsframework.utils.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hotilsframework.lang.Assert;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -16,9 +14,6 @@ import java.sql.SQLException;
  * @Description: TODO   数据源工具
  */
 public class DataSourceUtils {
-
-    private static final Logger logger = LoggerFactory.getLogger(DataSourceUtils.class);
-
 
     public static Connection getConnection(DataSource dataSource) {
         try {

@@ -1,6 +1,6 @@
 package org.hotilsframework.web;
 
-import org.hotilsframework.utils.StringUtils;
+import org.hotilsframework.lang.StringUtils;
 
 /**
  * @ClassName: HtmlUtils

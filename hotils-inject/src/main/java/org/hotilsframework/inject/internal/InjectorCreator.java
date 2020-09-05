@@ -2,7 +2,7 @@ package org.hotilsframework.inject.internal;
 
 import org.hotilsframework.inject.Injector;
 import org.hotilsframework.inject.Module;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 /**
  * InjectorCreator

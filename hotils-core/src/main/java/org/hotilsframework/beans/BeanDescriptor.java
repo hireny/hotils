@@ -1,10 +1,10 @@
 package org.hotilsframework.beans;
 
 import org.hotilsframework.collect.Maps;
-import org.hotilsframework.core.primitives.Booleans;
+import org.hotilsframework.lang.primitives.Booleans;
 import org.hotilsframework.lang.Assert;
-import org.hotilsframework.lang.ModifierUtils;
-import org.hotilsframework.lang.ReflectionUtils;
+import org.hotilsframework.lang.reflects.ModifierUtils;
+import org.hotilsframework.lang.reflects.ReflectionUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;

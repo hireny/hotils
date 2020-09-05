@@ -7,7 +7,7 @@ import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.binds.Binder;
 import org.hotilsframework.inject.binds.Binding;
 import org.hotilsframework.inject.binds.Bindings;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import javax.inject.Singleton;
 import java.util.List;

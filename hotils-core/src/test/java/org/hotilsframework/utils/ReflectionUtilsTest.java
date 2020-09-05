@@ -4,8 +4,8 @@ import example.model.Gender;
 import example.model.PersonModel;
 import example.reflect.ExtandsReflectExample;
 import example.reflect.ReflectExample;
-import org.hotilsframework.core.reflects.Instantiator;
-import org.hotilsframework.lang.ReflectionUtils;
+import org.hotilsframework.lang.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.ReflectionUtils;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;

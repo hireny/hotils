@@ -3,7 +3,7 @@ package org.hotilsframework.core.logging;
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.collect.Maps;
 import org.hotilsframework.core.logging.layout.Layout;
-import org.hotilsframework.lang.ReflectionUtils;
+import org.hotilsframework.lang.reflects.ReflectionUtils;
 import org.hotilsframework.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

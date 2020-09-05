@@ -5,7 +5,7 @@ import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.factory.config.Scopes;
 import org.hotilsframework.inject.qualifier.Qualifier;
 import org.hotilsframework.inject.qualifier.Qualifiers;
-import org.hotilsframework.utils.Assert;
+import org.hotilsframework.lang.Assert;
 
 import java.lang.annotation.Annotation;
 import java.util.List;

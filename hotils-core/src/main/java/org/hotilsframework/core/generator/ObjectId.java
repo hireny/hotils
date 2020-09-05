@@ -1,6 +1,6 @@
 package org.hotilsframework.core.generator;
 
-import org.hotilsframework.core.classes.ClassLoaders;
+import org.hotilsframework.lang.ClassLoaders;
 import org.hotilsframework.lang.RandomUtils;
 import org.hotilsframework.lang.StringUtils;
 

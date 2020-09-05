@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.factory.config;
 
-import org.hotilsframework.core.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.Instantiator;
 import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.annotation.Prototype;
 
