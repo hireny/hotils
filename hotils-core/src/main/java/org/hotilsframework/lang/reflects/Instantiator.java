@@ -1,9 +1,9 @@
 package org.hotilsframework.lang.reflects;
 
 import org.hotilsframework.beans.BeanInstantiationException;
-import org.hotilsframework.core.Classes;
 import org.hotilsframework.lang.ArrayUtils;
 import org.hotilsframework.lang.Assert;
+import org.hotilsframework.lang.ClassUtils;
 import org.hotilsframework.lang.StringUtils;
 
 import java.lang.reflect.Constructor;
@@ -72,7 +72,7 @@ public final class Instantiator {
             }
 
         }
-        final Class<?>[] parameterTypes = Classes.getClasses(args);
+        final Class<?>[] parameterTypes = ClassUtils.getClasses(args);
         final Constructor<T> constructor = getConstructor(clazz, parameterTypes);
 
         if (null == constructor) {
@@ -114,7 +114,7 @@ public final class Instantiator {
             }
             ReflectionUtils.makeAccessible(constructor);
             try {
-                return constructor.newInstance(Classes.defaultValues(parameterTypes));
+                return constructor.newInstance(ClassUtils.defaultValues(parameterTypes));
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 // 构造出错时继续尝试下一种构造方法
             }

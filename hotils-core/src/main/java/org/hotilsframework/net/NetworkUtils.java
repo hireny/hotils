@@ -9,12 +9,13 @@ import java.util.Enumeration;
 import java.util.LinkedHashSet;
 
 /**
- * @ClassName: Networks
- * @Author: hireny
- * @Date: Create in 2019/12/01 22:18
- * @Description: TODO   网络工具类
+ * Networks
+ *
+ * 网络工具类
+ * @author hireny
+ * @date  Create in 2019/12/01 22:18
  */
-public class Networks {
+public class NetworkUtils {
 
     public final static String LOCAL_IP_ADDRESS = "127.0.0.1";
     /**
@@ -26,7 +27,7 @@ public class Networks {
      */
     public static final int PORT_RANGE_MAX = 0xFFFF;
 
-    public Networks() {}
+    public NetworkUtils() {}
 
     /**
      * 根据long值获取ipv4地址

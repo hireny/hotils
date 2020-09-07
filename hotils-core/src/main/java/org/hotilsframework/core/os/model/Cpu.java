@@ -1,4 +1,6 @@
-package org.hotilsframework.core.os;
+package org.hotilsframework.core.os.model;
+
+import java.io.Serializable;
 
 /**
  * Cpu
@@ -8,7 +10,8 @@ package org.hotilsframework.core.os;
  * @author hireny
  * @create 2020-07-24 8:46
  */
-public class Cpu {
+public class Cpu implements Serializable {
+    private static final long serialVersionUID = -7673904826530936975L;
     /**
      * 核心数
      */

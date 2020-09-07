@@ -1,4 +1,4 @@
-package org.hotilsframework.core.os;
+package org.hotilsframework.core.os.model;
 
 import org.hotilsframework.math.Arithmetic;
 

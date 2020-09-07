@@ -81,7 +81,7 @@ public final class HostAndPort implements Serializable {
      * @return
      */
     public static HostAndPort fromParts(String host, int port) {
-        Assert.checkArgument(Networks.isValidPort(port), "Port out of range: " + port);
+        Assert.checkArgument(NetworkUtils.isValidPort(port), "Port out of range: " + port);
         HostAndPort parsedHost = fromString(host);
         Assert.checkArgument(!parsedHost.hasPort(), "Host has a port: " + host);
         return new HostAndPort(parsedHost.host, port,parsedHost.hasBracketlessColons);
@@ -136,7 +136,7 @@ public final class HostAndPort implements Serializable {
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Unparseable port number: " + hostPortString);
             }
-            Assert.checkArgument(Networks.isValidPort(port), "Port number out of range: " + hostPortString);
+            Assert.checkArgument(NetworkUtils.isValidPort(port), "Port number out of range: " + hostPortString);
         }
 
         return new HostAndPort(host, port, hasBracketlessColons);
@@ -178,7 +178,7 @@ public final class HostAndPort implements Serializable {
      */
     public HostAndPort withDefaultPort(int defaultPort) {
         // 验证端口号是否有效
-        Assert.state(Networks.isValidPort(defaultPort));
+        Assert.state(NetworkUtils.isValidPort(defaultPort));
         if (hasPort()) {
             return this;
         }

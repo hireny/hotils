@@ -1,6 +1,5 @@
 package org.hotilsframework.lang.reflects;
 
-import org.hotilsframework.core.Classes;
 import org.hotilsframework.lang.ArrayUtils;
 import org.hotilsframework.lang.Assert;
 import org.hotilsframework.lang.ClassUtils;
@@ -435,7 +434,7 @@ public final class ReflectionUtils {
      * @throws IllegalAccessException   异常
      */
     public static Object invoke(Object target, String methodName, Object... args) throws IllegalAccessException {
-        Class<?>[] classes = Classes.getClasses(args);
+        Class<?>[] classes = ClassUtils.getClasses(args);
 
         Method method = getMethod(target.getClass(), methodName, classes);
 

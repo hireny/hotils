@@ -13,5 +13,19 @@
     <name>Hotils：Hotils Test for Java</name>
     <description>测试框架</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
 
 </project>

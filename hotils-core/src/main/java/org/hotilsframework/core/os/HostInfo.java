@@ -1,6 +1,6 @@
 package org.hotilsframework.core.os;
 
-import org.hotilsframework.net.Networks;
+import org.hotilsframework.net.NetworkUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class HostInfo implements Serializable {
 //    private final String HOST_ADDRESS;
 
     public HostInfo() {
-        final InetAddress localhost = Networks.getLocalhost();
+        final InetAddress localhost = NetworkUtils.getLocalhost();
     }
 
     /** 获取机器名 */
