@@ -1,14 +1,11 @@
 package org.hotilsframework.collect;
 
-import java.util.Collection;
-import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * TypeCache
  *
- * 类型缓存
+ * 类型映射表
  *
  * @author hireny
  * @create 2020-08-09 23:43
@@ -62,20 +59,6 @@ public class TypeMap<T> implements Map<Class<?>, T> {
         return map.containsValue(value);
     }
 
-    @Override
-    public T get(Object key) {
-        return null;
-    }
-
-//    /**
-//     * 该缓存中是否存在
-//     * @param key
-//     * @return
-//     */
-//    public boolean containsKey(final Class<?> key) {
-//        return map.containsKey(key);
-//    }
-
     /**
      * 将键值关系添加到映射表中
      * @param key
@@ -88,13 +71,8 @@ public class TypeMap<T> implements Map<Class<?>, T> {
     }
 
     @Override
-    public T remove(Object key) {
-        return null;
-    }
-
-    @Override
     public void putAll(Map<? extends Class<?>, ? extends T> m) {
-
+        map.putAll(m);
     }
 
     /**
@@ -102,7 +80,11 @@ public class TypeMap<T> implements Map<Class<?>, T> {
      * @param key
      * @return
      */
-    public T get(final Class<?> key) {
+    @Override
+    public T get(Object key) {
+        if (key instanceof Class<?>) {
+            return null;
+        }
         return map.get(key);
     }
 
@@ -111,7 +93,11 @@ public class TypeMap<T> implements Map<Class<?>, T> {
      * @param key
      * @return
      */
-    public T remove(final Class<?> key) {
+    @Override
+    public T remove(Object key) {
+        if (key instanceof Class<?>) {
+            return null;
+        }
         return map.remove(key);
     }
 
@@ -123,19 +109,31 @@ public class TypeMap<T> implements Map<Class<?>, T> {
         map.clear();
     }
 
+    /**
+     * 获取映射表中所有的键
+     * @return
+     */
     @Override
     public Set<Class<?>> keySet() {
-        return null;
+        return map.keySet();
     }
 
+    /**
+     * 获取映射表中所有的值
+     * @return
+     */
     @Override
     public Collection<T> values() {
-        return null;
+        return map.values();
     }
 
+    /**
+     * 获取映射表中所有的键值对集合
+     * @return
+     */
     @Override
     public Set<Entry<Class<?>, T>> entrySet() {
-        return null;
+        return map.entrySet();
     }
 
     public static class Builder<T> {
