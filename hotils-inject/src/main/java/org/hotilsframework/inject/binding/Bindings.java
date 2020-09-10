@@ -1,4 +1,4 @@
-package org.hotilsframework.inject.binds;
+package org.hotilsframework.inject.binding;
 
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.inject.*;

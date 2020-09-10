@@ -1,7 +1,8 @@
-package org.hotilsframework.inject.binds;
+package org.hotilsframework.inject;
 
 import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.Module;
+import org.hotilsframework.inject.binding.BindingBuilder;
 import org.hotilsframework.inject.factory.config.Scope;
 
 import java.lang.annotation.Annotation;

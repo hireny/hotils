@@ -1,8 +1,8 @@
-package org.hotilsframework.inject.binds;
+package org.hotilsframework.inject.binding;
 
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.factory.config.Scope;
-import org.hotilsframework.inject.factory.config.Scopes;
+import org.hotilsframework.inject.Scopes;
 import org.hotilsframework.inject.qualifier.Qualifier;
 import org.hotilsframework.inject.qualifier.Qualifiers;
 import org.hotilsframework.lang.Assert;

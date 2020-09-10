@@ -1,8 +1,8 @@
-package org.hotilsframework.inject.factory.config;
+package org.hotilsframework.inject;
 
-import org.hotilsframework.inject.Injector;
-import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.annotation.Prototype;
+import org.hotilsframework.inject.factory.config.Prototypes;
+import org.hotilsframework.inject.factory.config.Singletons;
 
 import javax.inject.Singleton;
 import java.lang.annotation.Annotation;
@@ -25,20 +25,10 @@ public class Scopes {
      */
     public static final Scope PROTOTYPE = new Scope() {
         @Override
-        public void register(Key<?> key, Object element) {
+        public Scope getScope() {
+            return this;
         }
-        @Override
-        public <T> T get(Key<T> key) {
-            return null;
-        }
-        @Override
-        public Object remove(Key<?> key) {
-            return null;
-        }
-        @Override
-        public boolean containsKey(Key<?> key) {
-            return false;
-        }
+
         @Override
         public Class<? extends Annotation> getScopeAnnotation() {
             return Prototype.class;
@@ -54,20 +44,10 @@ public class Scopes {
      */
     public static final Scope SINGLETON = new Scope() {
         @Override
-        public void register(Key<?> key, Object element) {
+        public Scope getScope() {
+            return this;
         }
-        @Override
-        public <T> T get(Key<T> key) {
-            return null;
-        }
-        @Override
-        public Object remove(Key<?> key) {
-            return null;
-        }
-        @Override
-        public boolean containsKey(Key<?> key) {
-            return false;
-        }
+
         @Override
         public Class<? extends Annotation> getScopeAnnotation() {
             return Singleton.class;

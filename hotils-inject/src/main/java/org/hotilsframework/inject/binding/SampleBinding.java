@@ -1,10 +1,10 @@
-package org.hotilsframework.inject.binds;
+package org.hotilsframework.inject.binding;
 
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.factory.InternalFactory;
 import org.hotilsframework.inject.factory.config.Scope;
-import org.hotilsframework.inject.factory.config.Scopes;
+import org.hotilsframework.inject.Scopes;
 import org.hotilsframework.inject.internal.InternalInjector;
 
 /**

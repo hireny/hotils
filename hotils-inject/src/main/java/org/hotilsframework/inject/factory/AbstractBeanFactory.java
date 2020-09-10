@@ -1,7 +1,8 @@
 package org.hotilsframework.inject.factory;
 
-import org.hotilsframework.cache.TypeCache;
+import org.hotilsframework.collect.TypeMap;
 import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.Scopes;
 import org.hotilsframework.inject.factory.config.*;
 import org.hotilsframework.lang.Assert;
 
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry {
 
-    private final TypeCache<Scope> scopes = TypeCache.create();
+    private final TypeMap<Scope> scopes = TypeMap.create();
 
     protected AbstractBeanFactory() {
         initScopes(null);
@@ -92,7 +93,7 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
      * 获取作用域对象
      * @return
      */
-    public TypeCache<Scope> getScopes() {
+    public TypeMap<Scope> getScopes() {
         return this.scopes;
     }
 }

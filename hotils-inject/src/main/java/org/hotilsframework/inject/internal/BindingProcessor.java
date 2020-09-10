@@ -1,9 +1,9 @@
 package org.hotilsframework.inject.internal;
 
-import org.hotilsframework.inject.binds.Binding;
+import org.hotilsframework.inject.binding.Binding;
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.binds.LinkedBinding;
-import org.hotilsframework.inject.binds.SampleBinding;
+import org.hotilsframework.inject.binding.LinkedBinding;
+import org.hotilsframework.inject.binding.SampleBinding;
 
 import java.util.Iterator;
 import java.util.List;

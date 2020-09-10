@@ -2,7 +2,7 @@ package org.hotilsframework.inject.support;
 
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.factory.config.Scope;
-import org.hotilsframework.inject.factory.config.Scopes;
+import org.hotilsframework.inject.Scopes;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;

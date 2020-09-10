@@ -1,7 +1,6 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.inject.binds.Binder;
-import org.hotilsframework.inject.binds.BindingBuilder;
+import org.hotilsframework.inject.binding.BindingBuilder;
 import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.lang.Assert;
 

@@ -1,6 +1,7 @@
 package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.Scopes;
 import org.hotilsframework.inject.annotation.Prototype;
 import org.hotilsframework.inject.annotation.Singleton;
 
@@ -56,44 +57,5 @@ public interface Scope {
     @Override
     String toString();
 
-    /**
-     * 传入作用域注解，返回作用域
-     * @param scopeType
-     * @return
-     */
-    static Scope forAnnotation(final Class<? extends Annotation> scopeType) {
-        if (scopeType == Singleton.class || scopeType == javax.inject.Singleton.class) {
-            // 单例作用域
-            return Scopes.SINGLETON;
-        }
-        if (scopeType == Prototype.class) {
-            // 原型作用域
-            return Scopes.PROTOTYPE;
-        }
-        return new Scope() {
-            @Override
-            public void register(Key<?> key, Object element) {
-            }
 
-            @Override
-            public <T> T get(Key<T> key) {
-                return null;
-            }
-
-            @Override
-            public Object remove(Key<?> key) {
-                return null;
-            }
-
-            @Override
-            public boolean containsKey(Key<?> key) {
-                return false;
-            }
-
-            @Override
-            public Class<? extends Annotation> getScopeAnnotation() {
-                return scopeType;
-            }
-        };
-    }
 }

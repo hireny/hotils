@@ -4,15 +4,15 @@ import org.hotilsframework.collect.Lists;
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.context.DefaultBeanContext;
 import org.hotilsframework.inject.*;
-import org.hotilsframework.inject.binds.Binder;
-import org.hotilsframework.inject.binds.Binding;
-import org.hotilsframework.inject.binds.Bindings;
+import org.hotilsframework.inject.Binder;
+import org.hotilsframework.inject.binding.Binding;
+import org.hotilsframework.inject.binding.Bindings;
 import org.hotilsframework.lang.Assert;
 
 import javax.inject.Singleton;
 import java.util.List;
 
-import static org.hotilsframework.inject.factory.config.Scopes.SINGLETON;
+import static org.hotilsframework.inject.Scopes.SINGLETON;
 
 /**
  * InternalInjectors

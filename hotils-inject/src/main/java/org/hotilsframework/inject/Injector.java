@@ -1,6 +1,6 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.inject.binds.Binding;
+import org.hotilsframework.inject.binding.Binding;
 
 import java.util.Map;
 
