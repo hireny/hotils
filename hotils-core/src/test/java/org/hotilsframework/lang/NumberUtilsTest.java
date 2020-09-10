@@ -1,4 +1,4 @@
-package org.hotilsframework.utils;
+package org.hotilsframework.lang;
 
 import org.hotilsframework.lang.NumberUtils;
 import org.junit.Test;

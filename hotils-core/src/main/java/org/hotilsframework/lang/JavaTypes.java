@@ -1,0 +1,154 @@
+package org.hotilsframework.lang;
+
+import org.hotilsframework.collect.Sets;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.*;
+
+/**
+ * JavaType
+ *
+ * 用来描述Java类型
+ *
+ * @author hireny
+ * @create 2020-09-07 20:57
+ */
+public final class JavaTypes {
+
+    private JavaTypes() {
+        throw new AssertionError();
+    }
+
+
+    /**
+     * A map from primitive types to their corresponding wrapper types.
+     * 一个从基本类型映射到包装类类型的映射容器
+     */
+    private static final Map<Class<?>, Class<?>> PRIMITIVE_TO_WRAPPER_TYPE;
+
+    /**
+     * A map from wrapper types to their corresponding primitive types.
+     * 一个从包装类型映射到基本类型的映射容器
+     */
+    private static final Map<Class<?>, Class<?>> WRAPPER_TO_PRIMITIVE_TYPE;
+
+    /**
+     * Map with primitive type name as key and corresponding primitive
+     * type as value, for example: "int" -> "int.class".
+     * 基本类型的映射关系的缓存
+     */
+    private static final Map<String, Class<?>> primitiveTypeNameMap;
+
+    private static final Set<Class<?>> STANDARD_NUMBER_TYPES;
+
+    static {
+        Map<Class<?>, Class<?>> primToWrap = new LinkedHashMap<>(16);
+        Map<Class<?>, Class<?>> wrapToPrim = new LinkedHashMap<>(16);
+        Map<String, Class<?>> tempPrimitiveTypeNameMap = new LinkedHashMap<>(32);
+
+        add(primToWrap, wrapToPrim, boolean.class, Boolean.class);
+        add(primToWrap, wrapToPrim, byte.class, Byte.class);
+        add(primToWrap, wrapToPrim, char.class, Character.class);
+        add(primToWrap, wrapToPrim, short.class, Short.class);
+        add(primToWrap, wrapToPrim, int.class, Integer.class);
+        add(primToWrap, wrapToPrim, float.class, Float.class);
+        add(primToWrap, wrapToPrim, long.class, Long.class);
+        add(primToWrap, wrapToPrim, double.class, Double.class);
+        add(primToWrap, wrapToPrim, void.class, Void.class);
+
+
+        PRIMITIVE_TO_WRAPPER_TYPE = Collections.unmodifiableMap(primToWrap);
+        WRAPPER_TO_PRIMITIVE_TYPE = Collections.unmodifiableMap(wrapToPrim);
+
+
+        // 基本类型的集合
+        Set<Class<?>> primitiveTypes = new HashSet<>(32);
+        primitiveTypes.addAll(wrapToPrim.values());
+        Collections.addAll(primitiveTypes, boolean[].class, byte[].class, char[].class,
+                double[].class, float[].class, int[].class, long[].class, short[].class);
+        primitiveTypes.add(void.class);
+        for (Class<?> primitiveType : primitiveTypes) {
+            tempPrimitiveTypeNameMap.put(primitiveType.getName(), primitiveType);
+        }
+
+        primitiveTypeNameMap = Collections.unmodifiableMap(tempPrimitiveTypeNameMap);
+
+        // 标准数字类型
+        Set<Class<?>> numberTypes = Sets.newHashSet();
+        numberTypes.add(Byte.class);
+        numberTypes.add(Short.class);
+        numberTypes.add(Integer.class);
+        numberTypes.add(Long.class);
+        numberTypes.add(BigInteger.class);
+        numberTypes.add(Float.class);
+        numberTypes.add(Double.class);
+        numberTypes.add(BigDecimal.class);
+        STANDARD_NUMBER_TYPES = Collections.unmodifiableSet(numberTypes);
+
+    }
+
+    /**
+     * 将基本类型与包装类型对应的添加到映射容器中
+     * @param forward
+     * @param backward
+     * @param key
+     * @param value
+     */
+    private static void add(Map<Class<?>, Class<?>> forward,
+                            Map<Class<?>, Class<?>> backward,
+                            Class<?> key,
+                            Class<?> value) {
+        forward.put(key, value);
+        backward.put(value, key);
+    }
+
+
+    /**
+     * 获取所有基本类型
+     * @return
+     */
+    public static Set<Class<?>> allPrimitiveTypes() {
+        return PRIMITIVE_TO_WRAPPER_TYPE.keySet();
+    }
+
+    /**
+     * 获取所有包装类型
+     * @return
+     */
+    public static Set<Class<?>> allWrapperTypes() {
+        return WRAPPER_TO_PRIMITIVE_TYPE.keySet();
+    }
+
+    /**
+     * 获取所有标准数字类型
+     * @return
+     */
+    public static Set<Class<?>> allStandardNumberTypes() {
+        return STANDARD_NUMBER_TYPES;
+    }
+
+    /**
+     * 获取从基本类型映射到包装类类型的映射容器
+     * @return
+     */
+    public static Map<Class<?>, Class<?>> getPrimitiveToWrapperType() {
+        return PRIMITIVE_TO_WRAPPER_TYPE;
+    }
+
+    /**
+     * 获取从包装类型映射到基本类型的映射容器
+     * @return
+     */
+    public static Map<Class<?>, Class<?>> getWrapperToPrimitiveType() {
+        return WRAPPER_TO_PRIMITIVE_TYPE;
+    }
+
+    /**
+     * 获取基本类型的映射
+     * @return
+     */
+    public static Map<String, Class<?>> getPrimitiveTypeNameMap() {
+        return primitiveTypeNameMap;
+    }
+}

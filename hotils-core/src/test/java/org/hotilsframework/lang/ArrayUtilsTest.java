@@ -1,4 +1,4 @@
-package org.hotilsframework.utils;
+package org.hotilsframework.lang;
 
 import example.model.ArrayModelTest;
 import org.hotilsframework.lang.ArrayUtils;

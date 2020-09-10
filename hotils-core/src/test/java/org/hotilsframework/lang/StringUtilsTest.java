@@ -1,4 +1,4 @@
-package org.hotilsframework.utils;
+package org.hotilsframework.lang;
 
 import org.hotilsframework.lang.StringUtils;
 import org.junit.Test;

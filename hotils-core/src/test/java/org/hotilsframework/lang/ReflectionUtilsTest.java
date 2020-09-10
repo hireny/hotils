@@ -1,4 +1,4 @@
-package org.hotilsframework.utils;
+package org.hotilsframework.lang;
 
 import example.model.Gender;
 import example.model.PersonModel;

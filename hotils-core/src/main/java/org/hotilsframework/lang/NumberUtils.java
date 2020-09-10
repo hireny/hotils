@@ -1,11 +1,8 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.collect.Sets;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collections;
-import java.util.Set;
+import java.util.Objects;
 
 /**
  * 数字工具类
@@ -18,21 +15,8 @@ import java.util.Set;
  */
 public final class NumberUtils {
 
-    private NumberUtils() {}
-
-    public static final Set<Class<?>> STANDARD_NUMBER_TYPES;
-
-    static {
-        Set<Class<?>> numberTypes = Sets.newHashSet();
-        numberTypes.add(Byte.class);
-        numberTypes.add(Short.class);
-        numberTypes.add(Integer.class);
-        numberTypes.add(Long.class);
-        numberTypes.add(BigInteger.class);
-        numberTypes.add(Float.class);
-        numberTypes.add(Double.class);
-        numberTypes.add(BigDecimal.class);
-        STANDARD_NUMBER_TYPES = Collections.unmodifiableSet(numberTypes);
+    private NumberUtils() {
+        throw new AssertionError();
     }
 
 
@@ -410,6 +394,18 @@ public final class NumberUtils {
     //========================================
     // 判断字符串类型
     //========================================
+
+    /**
+     * 判断类型是否是数字类型
+     * @param type
+     * @return
+     */
+    public static boolean isNumber(Class<?> type) {
+        if (Objects.isNull(type)) {
+            return false;
+        }
+        return JavaTypes.allStandardNumberTypes().contains(type);
+    }
 
     /**
      * 判断字符串是否合法数字

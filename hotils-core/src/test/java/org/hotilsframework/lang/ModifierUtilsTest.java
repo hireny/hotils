@@ -1,4 +1,4 @@
-package org.hotilsframework.utils;
+package org.hotilsframework.lang;
 
 import org.hotilsframework.lang.reflects.ModifierUtils;
 import org.hotilsframework.lang.reflects.ReflectionUtils;

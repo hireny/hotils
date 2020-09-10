@@ -12,4 +12,19 @@ import java.io.Serializable;
  */
 public class Memory implements Serializable {
     private static final long serialVersionUID = -4760980095731185165L;
+    /**
+     * 内存总量
+     */
+    private double total;
+    /**
+     * 已用内存
+     */
+    private double used;
+    /**
+     * 剩余内存
+     */
+    private double free;
+    private double shared;
+    private double buffers;
+    private double cached;
 }

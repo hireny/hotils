@@ -1,4 +1,4 @@
-package org.hotilsframework.utils;
+package org.hotilsframework.lang;
 
 import org.hotilsframework.io.FileResource;
 import org.hotilsframework.io.FileUtils;
