@@ -1,6 +1,6 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.lang.matchs.CharMatcher;
+import org.hotilsframework.core.match.CharMatcher;
 
 /**
  * 名字中的格式

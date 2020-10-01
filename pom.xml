@@ -15,6 +15,7 @@
         <module>hotils-cache</module>
         <module>hotils-core</module>
         <module>hotils-inject</module>
+        <module>hotils-jcl</module>
         <module>hotils-jdbc</module>
         <module>hotils-json</module>
         <module>hotils-socket</module>
@@ -98,6 +99,11 @@
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-inject</artifactId>
+                <version>${hotils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.hireny.hotils</groupId>
+                <artifactId>hotils-jcl</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>

@@ -6,8 +6,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 /**
- * @Author: hireny
- * @Date: Create in 2019/08/04 19:32
+ * @author hireny
+ * @date Create in 2019/08/04 19:32
  */
 public class DefaultSerializer implements Serializer<Object> {
     @Override

@@ -9,10 +9,10 @@ package org.hotilsframework.core.event;
  * @create 2020-09-10 23:46
  */
 @FunctionalInterface
-public interface EventListener extends java.util.EventListener {
+public interface EventListener<E extends Event> extends java.util.EventListener {
     /**
-     * 添加事件
-     * @param event
+     * 事件处理
+     * @param event 响应的事件
      */
-    void addListener(EventElement event);
+    void onEvent(E event);
 }

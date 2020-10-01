@@ -10,13 +10,21 @@ import java.net.Inet4Address;
  * @Date: Create in 2019/09/30 01:43
  */
 public final class InetAddresses {
-    // IPV4长度
+    /**
+     * IPV4长度
+     */
     private static final int IPV4_PART_COUNT = 4;
-    // IPV6长度
+    /**
+     * IPV6长度
+     */
     private static final int IPV6_PART_COUNT = 8;
-    // Ipv4分离器
+    /**
+     * Ipv4分离器
+     */
     private static final Splitter IPV4_SPLITTER = Splitter.on('.').limit(IPV4_PART_COUNT);
-    // IPV6分离器
+    /**
+     * IPV6分离器
+     */
     private static final Splitter IPV6_SPLITTER = Splitter.on(':').limit(IPV6_PART_COUNT + 2);
 
     private InetAddresses() {}

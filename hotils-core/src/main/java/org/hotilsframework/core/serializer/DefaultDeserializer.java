@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 
 /**
- * @Author: hireny
- * @Date: Create in 2019/08/04 19:33
+ * @author hireny
+ * @date Create in 2019/08/04 19:33
  */
 public class DefaultDeserializer implements Deserializer<Object> {
 

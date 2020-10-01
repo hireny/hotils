@@ -10,6 +10,8 @@ import org.hotilsframework.lang.NestedRuntimeException;
  */
 public class NetworkException extends NestedRuntimeException {
 
+    private static final long serialVersionUID = 2825811055049185792L;
+
     public NetworkException() {
         super();
     }

@@ -2,6 +2,7 @@ package org.hotilsframework.lang.tuples;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @ClassName: Tuple
@@ -46,14 +47,17 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
         return (T) args[index];
     }
 
+    /**
+     * 判断值是否存在元组中
+     * @param value
+     * @return
+     */
     public final boolean contains(final Object value) {
         for (final Object val : this.args) {
-            if (val == null) {
-                if (value == null) {
-                    return true;
-                }
+            if (val == null && value == null) {
+                return true;
             } else {
-                if (val.equals(value)) {
+                if (value.equals(val)) {
                     return true;
                 }
             }
@@ -92,7 +96,7 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
         for (final Object val : this.args) {
             if (val == null && value == null) {
                 return i;
-            } else if (val.equals(value)) {
+            } else if (value.equals(val)) {
                 return i;
             }
             i++;
@@ -105,7 +109,7 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
             final Object val = args[i];
             if (val == null && value == null) {
                 return i;
-            } else if (val.equals(value)) {
+            } else if (value.equals(val)) {
                 return i;
             }
         }
@@ -151,16 +155,16 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
         };
     }
 
-//    @Override
-//    public void forEach(Consumer<? super Object> action) {
-//        if (action == null) {
-//            return;
-//        }
-//        for (int i = 0, len = this.size; i < len; i++) {
-//            action.accept();
-//        }
-//    }
-//
+    @Override
+    public void forEach(Consumer<? super Object> action) {
+        if (action == null) {
+            return;
+        }
+        for (int i = 0, len = this.size; i < len; i++) {
+            action.accept(args[i]);
+        }
+    }
+
 //    @Override
 //    public Spliterator<Object> spliterator() {
 //        return null;
@@ -212,6 +216,6 @@ public class Tuple implements Iterable<Object>,Comparable<Tuple>, Serializable {
             }
         }
 
-        return (Integer.valueOf(this.size)).compareTo(Integer.valueOf(thatLength));
+        return Integer.compare(this.size, thatLength);
     }
 }

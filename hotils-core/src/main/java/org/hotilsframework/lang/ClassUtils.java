@@ -45,57 +45,6 @@ public final class ClassUtils {
     public static final String CLASS_FILE_SUFFIX = ".class";
 
     /**
-     * 常用的类型缓存，都是Java中的类型，不包括基本类型，
-     * 例如：boolean、char、byte、short、int、long、float、double等
-     */
-    private static final Map<String, Class<?>> commonClassCache;
-
-    /**
-     * Common Java language interfaces which are supposed to be ignored
-     * when searching for 'primary' user-level interfaces.
-     * Java语言的公共接口的类型缓存
-     */
-    private static final Set<Class<?>> javaLanguageInterfaces;
-
-    static {
-        Map<String, Class<?>> tempCommonClassCache = new LinkedHashMap<>(16);
-
-        for (Class<?> wrapperType : JavaTypes.allWrapperTypes()) {
-            // 注册常用类型
-            registerCommonClasses(tempCommonClassCache, wrapperType);
-        }
-
-        // 注册常用类型
-        registerCommonClasses(tempCommonClassCache, Boolean[].class, Byte[].class, Character[].class, Double[].class,
-                Float[].class, Integer[].class, Long[].class, Short[].class);
-        registerCommonClasses(tempCommonClassCache, Number.class, Number[].class, String.class, String[].class,
-                Class.class, Class[].class, Object.class, Object[].class);
-        registerCommonClasses(tempCommonClassCache, Throwable.class, Exception.class, RuntimeException.class,
-                Error.class, StackTraceElement.class, StackTraceElement[].class);
-        registerCommonClasses(tempCommonClassCache, Enum.class, Iterable.class, Iterator.class, Enumeration.class,
-                Collection.class, List.class, Set.class, Map.class, Map.Entry.class, Optional.class);
-
-        // Java语言公共接口的数组
-        Class<?>[] javaLanguageInterfaceArray = {Serializable.class, Externalizable.class,
-                Closeable.class, AutoCloseable.class, Cloneable.class, Comparable.class};
-        registerCommonClasses(tempCommonClassCache, javaLanguageInterfaceArray);
-        javaLanguageInterfaces = new HashSet<>(Arrays.asList(javaLanguageInterfaceArray));
-
-        commonClassCache = Collections.unmodifiableMap(tempCommonClassCache);
-    }
-
-    /**
-     * 注册常用的类型
-     * @param commonClassCache
-     * @param commonClasses
-     */
-    private static void registerCommonClasses(Map<String, Class<?>> commonClassCache, Class<?>... commonClasses) {
-        for (Class<?> commonClass : commonClasses) {
-            commonClassCache.put(commonClass.getName(), commonClass);
-        }
-    }
-
-    /**
      * 根据名称获取类
      * @param name
      * @return
@@ -170,9 +119,7 @@ public final class ClassUtils {
 
             // 如果sourceType是不是基本类型，则我们要从缓存基本对应包装的映射集合中，使用targetType，从中获取对应的包装类型
             Class<?> resolvedWrapper = JavaTypes.getPrimitiveToWrapperType().get(targetType);
-            if (resolvedWrapper != null && sourceType.isAssignableFrom(resolvedWrapper)) {
-                return true;
-            }
+            return resolvedWrapper != null && sourceType.isAssignableFrom(resolvedWrapper);
         }
         return false;
     }
@@ -201,8 +148,9 @@ public final class ClassUtils {
         for (int i = 0; i < sourceTypes.length; i++) {
             sourceType = sourceTypes[i];
             targetType = targetTypes[i];
-            if ((PrimitiveUtils.isPrimitiveType(sourceType) || PrimitiveUtils.isWrapperType(sourceType))
-                    && (PrimitiveUtils.isPrimitiveType(targetType) || PrimitiveUtils.isWrapperType(targetType))) {
+            boolean isPrimitiveTypeWithSourceType = PrimitiveUtils.isPrimitiveType(sourceType) || PrimitiveUtils.isWrapperType(sourceType);
+            boolean isPrimitiveTypeWithTargetType = PrimitiveUtils.isPrimitiveType(targetType) || PrimitiveUtils.isWrapperType(targetType);
+            if (isPrimitiveTypeWithSourceType && isPrimitiveTypeWithTargetType) {
                 // 原始类型和包装类型存在不一致情况
                 if (PrimitiveUtils.unwrap(sourceType) != PrimitiveUtils.unwrap(targetType)) {
                     return false;

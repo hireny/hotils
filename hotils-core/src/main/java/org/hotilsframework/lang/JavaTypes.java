@@ -2,9 +2,13 @@ package org.hotilsframework.lang;
 
 import org.hotilsframework.collect.Sets;
 
+import java.io.Closeable;
+import java.io.Externalizable;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.Optional;
 
 /**
  * JavaType
@@ -41,6 +45,20 @@ public final class JavaTypes {
     private static final Map<String, Class<?>> primitiveTypeNameMap;
 
     private static final Set<Class<?>> STANDARD_NUMBER_TYPES;
+
+    /**
+     * 常用的类型缓存，都是Java中的类型，不包括基本类型，
+     * 例如：boolean、char、byte、short、int、long、float、double等
+     */
+    private static final Map<String, Class<?>> commonClassCache;
+
+    /**
+     * Common Java language interfaces which are supposed to be ignored
+     * when searching for 'primary' user-level interfaces.
+     * Java语言的公共接口的类型缓存
+     */
+    private static final Set<Class<?>> javaLanguageInterfaces;
+
 
     static {
         Map<Class<?>, Class<?>> primToWrap = new LinkedHashMap<>(16);
@@ -86,6 +104,33 @@ public final class JavaTypes {
         numberTypes.add(BigDecimal.class);
         STANDARD_NUMBER_TYPES = Collections.unmodifiableSet(numberTypes);
 
+
+
+        // 常用基本类型
+        Map<String, Class<?>> tempCommonClassCache = new LinkedHashMap<>(16);
+
+        for (Class<?> wrapperType : JavaTypes.allWrapperTypes()) {
+            // 注册常用类型
+            registerCommonClasses(tempCommonClassCache, wrapperType);
+        }
+
+        // 注册常用类型
+        registerCommonClasses(tempCommonClassCache, Boolean[].class, Byte[].class, Character[].class, Double[].class,
+                Float[].class, Integer[].class, Long[].class, Short[].class);
+        registerCommonClasses(tempCommonClassCache, Number.class, Number[].class, String.class, String[].class,
+                Class.class, Class[].class, Object.class, Object[].class);
+        registerCommonClasses(tempCommonClassCache, Throwable.class, Exception.class, RuntimeException.class,
+                Error.class, StackTraceElement.class, StackTraceElement[].class);
+        registerCommonClasses(tempCommonClassCache, Enum.class, Iterable.class, Iterator.class, Enumeration.class,
+                Collection.class, List.class, Set.class, Map.class, Map.Entry.class, Optional.class);
+
+        // Java语言公共接口的数组
+        Class<?>[] javaLanguageInterfaceArray = {Serializable.class, Externalizable.class,
+                Closeable.class, AutoCloseable.class, Cloneable.class, Comparable.class};
+        registerCommonClasses(tempCommonClassCache, javaLanguageInterfaceArray);
+        javaLanguageInterfaces = new HashSet<>(Arrays.asList(javaLanguageInterfaceArray));
+
+        commonClassCache = Collections.unmodifiableMap(tempCommonClassCache);
     }
 
     /**
@@ -101,6 +146,17 @@ public final class JavaTypes {
                             Class<?> value) {
         forward.put(key, value);
         backward.put(value, key);
+    }
+
+    /**
+     * 注册常用的类型
+     * @param commonClassCache
+     * @param commonClasses
+     */
+    private static void registerCommonClasses(Map<String, Class<?>> commonClassCache, Class<?>... commonClasses) {
+        for (Class<?> commonClass : commonClasses) {
+            commonClassCache.put(commonClass.getName(), commonClass);
+        }
     }
 
 

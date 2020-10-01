@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hotils</artifactId>
-    <name>Hotils: Hotils for Java</name>
+    <name>Hotils: Hotils All for Java</name>
 
     <dependencies>
         <dependency>
@@ -32,6 +32,11 @@
         <dependency>
             <groupId>me.hireny.hotils</groupId>
             <artifactId>hotils-inject</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>me.hireny.hotils</groupId>
+            <artifactId>hotils-jcl</artifactId>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>

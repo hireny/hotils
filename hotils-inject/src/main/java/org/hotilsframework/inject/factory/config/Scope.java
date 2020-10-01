@@ -1,9 +1,6 @@
 package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.inject.Key;
-import org.hotilsframework.inject.Scopes;
-import org.hotilsframework.inject.annotation.Prototype;
-import org.hotilsframework.inject.annotation.Singleton;
 
 import java.lang.annotation.Annotation;
 

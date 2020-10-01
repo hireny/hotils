@@ -3,10 +3,12 @@ package org.hotilsframework.cache;
 import org.hotilsframework.lang.Assert;
 
 /**
- * @ClassName: CacheStatus
- * @Author: hireny
- * @Date: Create in 2019/12/03 02:03
- * @Description: TODO   缓存统计数据
+ * CacheStatus
+ *
+ * 缓存数据的统计
+ *
+ * @author hireny
+ * @date Create in 2019/12/03 02:03
  */
 public class CacheStats {
     /**

@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * @Author: hireny
- * @Date: Create in 2019/08/04 19:29
+ * 序列化
+ * @author hireny
+ * @date Create in 2019/08/04 19:29
  */
 @FunctionalInterface
 public interface Serializer<T> {

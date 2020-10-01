@@ -73,6 +73,11 @@
             </dependency>
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
+                <artifactId>hotils-jcl</artifactId>
+                <version>${hotils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-jdbc</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
