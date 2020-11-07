@@ -26,17 +26,17 @@ public class DriverManagerDataSource extends AbstractDriverManagerDataSource {
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("Could not load JDBC driver class [" + driverClassName + "]", e);
         }
-        if (logger.isDebugEnabled()) {
-            logger.debug("Loaded JDBC driver: " + driverClassNameToUse);
-        }
+//        if (logger.isDebugEnabled()) {
+//            logger.debug("Loaded JDBC driver: " + driverClassNameToUse);
+//        }
     }
 
     @Override
     protected Connection getConnectionFromDriver(Properties props) throws SQLException {
         String url = getProperties().getUrl();
-        if (logger.isDebugEnabled()) {
-            logger.debug("Creating new JDBC DriverManager Connection to [" + url + "]");
-        }
+//        if (logger.isDebugEnabled()) {
+//            logger.debug("Creating new JDBC DriverManager Connection to [" + url + "]");
+//        }
         return getConnectionFromDriverManager(url, props);
     }
 

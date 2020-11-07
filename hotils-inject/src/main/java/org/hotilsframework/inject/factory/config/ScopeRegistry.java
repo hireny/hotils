@@ -12,21 +12,21 @@ public interface ScopeRegistry {
     /**
      * 注册作用域
      * @param type
-     * @param scope
+     * @param scoping
      */
-    void registerScope(final Class<? extends Scope> type, final Scope scope);
+    void registerScope(final Class<? extends Scoping> type, final Scoping scoping);
 
     /**
      * 获取作用域
      * @param type
      * @return
      */
-    Scope getScope(final Class<? extends Scope> type);
+    Scoping getScope(final Class<? extends Scoping> type);
 
     /**
      * 作用域是否存在
      * @param type
      * @return
      */
-    boolean containsScope(final Class<? extends Scope> type);
+    boolean containsScope(final Class<? extends Scoping> type);
 }

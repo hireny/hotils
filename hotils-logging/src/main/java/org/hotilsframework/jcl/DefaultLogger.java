@@ -1,5 +1,7 @@
 package org.hotilsframework.jcl;
 
+import org.hotilsframework.jcl.appender.DefaultAppenderAttachable;
+
 import java.util.StringJoiner;
 
 /**
@@ -20,7 +22,7 @@ public class DefaultLogger implements Logger, LifeCycle {
     /**
      * 父日志记录器
      */
-    private DefaultLogger parent;
+    private DefaultLogger             parent;
     /**
      * 默认实现的可连接的输出源
      */

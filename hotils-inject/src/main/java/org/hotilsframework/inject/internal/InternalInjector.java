@@ -5,7 +5,7 @@ import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.binding.Binding;
 import org.hotilsframework.inject.binding.SampleBinding;
-import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scoping;
 import org.hotilsframework.inject.factory.InternalFactory;
 import org.hotilsframework.lang.Assert;
 
@@ -106,14 +106,14 @@ public class InternalInjector implements Injector {
      * 创建绑定关系
      * @param injector
      * @param key
-     * @param scope
+     * @param scoping
      * @param <T>
      * @return
      */
     static <T> SampleBinding<T> create(
             InternalInjector injector,
             Key<T> key,
-            Scope scope) {
+            Scoping scoping) {
         return null;
     }
 }

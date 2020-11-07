@@ -61,14 +61,24 @@ public class DriverManagerProperties {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
 
         DriverManagerProperties that = (DriverManagerProperties) object;
 
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        if (url != null ? !url.equals(that.url) : that.url != null) {
+            return false;
+        }
+        if (username != null ? !username.equals(that.username) : that.username != null) {
+            return false;
+        }
+        if (password != null ? !password.equals(that.password) : that.password != null) {
+            return false;
+        }
         return connectionProperties != null ? connectionProperties.equals(that.connectionProperties) : that.connectionProperties == null;
     }
 

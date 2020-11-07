@@ -1,4 +1,7 @@
-package org.hotilsframework.jcl;
+package org.hotilsframework.jcl.appender;
+
+import org.hotilsframework.jcl.LifeCycle;
+import org.hotilsframework.jcl.LoggingEvent;
 
 /**
  * 输出源

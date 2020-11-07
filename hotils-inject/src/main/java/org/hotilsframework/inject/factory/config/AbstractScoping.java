@@ -1,6 +1,7 @@
 package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.Scope;
 
 import java.lang.annotation.Annotation;
 
@@ -11,7 +12,7 @@ import java.lang.annotation.Annotation;
  * @author hireny
  * @create 2020-08-10 0:17
  */
-public abstract class AbstractScope implements Scope {
+public abstract class AbstractScoping implements Scoping {
 
 
     @Override
@@ -35,6 +36,11 @@ public abstract class AbstractScope implements Scope {
 
     @Override
     public Class<? extends Annotation> getScopeAnnotation() {
+        return null;
+    }
+
+    @Override
+    public Scope getScope() {
         return null;
     }
 }

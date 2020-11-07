@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.support;
 
 import org.hotilsframework.inject.BeanDefinition;
-import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scoping;
 import org.hotilsframework.inject.Scopes;
 
 import java.lang.annotation.Annotation;
@@ -27,11 +27,11 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
     /**
      * 名称
      */
-    private final String name;
+    private final String  name;
     /**
      * 作用域
      */
-    private final Scope scope;
+    private final Scoping scoping;
     /**
      * 是否被实例化
      */
@@ -45,12 +45,12 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
             BeanDefinition parent,
             Class<?> type,
             String name,
-            Scope scope,
+            Scoping scoping,
             boolean lazyInit) {
         this.parent = parent;
         this.type = type;
         this.name = name;
-        this.scope = scope;
+        this.scoping = scoping;
         this.isAbstract = Modifier.isAbstract(this.type.getModifiers());
         this.lazyInit = lazyInit;
     }
@@ -72,12 +72,12 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
 
     @Override
     public boolean isSingleton() {
-        return Scopes.SINGLETON.equals(this.scope);
+        return Scopes.SINGLETON.equals(this.scoping);
     }
 
     @Override
     public boolean isPrototype() {
-        return Scopes.PROTOTYPE.equals(this.scope);
+        return Scopes.PROTOTYPE.equals(this.scoping);
     }
 
     @Override
@@ -91,8 +91,8 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
     }
 
     @Override
-    public Class<? extends Annotation> getScope() {
-        return this.scope.getScopeAnnotation();
+    public Class<? extends Annotation> getScoping() {
+        return this.scoping.getScopeAnnotation();
     }
 
     @Override

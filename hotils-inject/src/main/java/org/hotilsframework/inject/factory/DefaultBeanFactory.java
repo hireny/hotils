@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.factory;
 
-import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scoping;
 
 /**
  * DefaultBeanFactory
@@ -22,7 +22,7 @@ public class DefaultBeanFactory extends AbstractBeanFactory {
      * 构造器
      * @param scopes
      */
-    public DefaultBeanFactory(Scope... scopes) {
+    public DefaultBeanFactory(Scoping... scopes) {
         super(scopes);
     }
 }

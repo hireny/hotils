@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hotils-jcl</artifactId>
+    <artifactId>hotils-logging</artifactId>
     <name>Hotils: Hotils Java Core Log Module</name>
     <description>Java核心日志模块</description>
 

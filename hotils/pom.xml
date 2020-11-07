@@ -35,12 +35,12 @@
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>
-            <artifactId>hotils-jcl</artifactId>
-            <version>0.0.1</version>
+            <artifactId>hotils-json</artifactId>
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>
-            <artifactId>hotils-json</artifactId>
+            <artifactId>hotils-logging</artifactId>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>me.hireny.hotils</groupId>

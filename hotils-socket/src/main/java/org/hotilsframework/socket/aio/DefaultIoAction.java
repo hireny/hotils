@@ -1,8 +1,5 @@
 package org.hotilsframework.socket.aio;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.nio.ByteBuffer;
 
 /**
@@ -14,8 +11,6 @@ import java.nio.ByteBuffer;
  */
 public abstract class DefaultIoAction implements IoAction<ByteBuffer> {
 
-    private static final Logger log = LoggerFactory.getLogger(DefaultIoAction.class);
-
     @Override
     public void accept(AioSession session) {
 
@@ -23,6 +18,6 @@ public abstract class DefaultIoAction implements IoAction<ByteBuffer> {
 
     @Override
     public void failed(Throwable t, AioSession session) {
-        log.error(t.getMessage());
+//        log.error(t.getMessage());
     }
 }

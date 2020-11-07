@@ -63,5 +63,5 @@ public interface BeanDefinition extends BeanIdentifier {
      * 获取Bean的作用域
      * @return
      */
-    Class<? extends Annotation> getScope();
+    Class<? extends Annotation> getScoping();
 }

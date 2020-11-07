@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.binding;
 
 import org.hotilsframework.inject.*;
-import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scoping;
 import org.hotilsframework.inject.Scopes;
 import org.hotilsframework.inject.qualifier.Qualifier;
 import org.hotilsframework.inject.qualifier.Qualifiers;
@@ -29,7 +29,7 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
         this.elements = elements;
         this.position = elements.size();
         // 创建绑定信息 /默认原型作用域
-        this.binding = new SampleBinding<>(key, Scopes.PROTOTYPE);
+        this.binding = new SampleBinding<T>(key, Scopes.PROTOTYPE);
         elements.add(position, this.binding);
     }
 

@@ -1,5 +1,8 @@
 package org.hotilsframework.jcl;
 
+import org.hotilsframework.jcl.appender.AbstractAppender;
+import org.hotilsframework.jcl.appender.Appender;
+import org.hotilsframework.jcl.appender.DefaultAppenderAttachable;
 import org.hotilsframework.jcl.layout.Layout;
 import org.hotilsframework.lang.StringUtils;
 import org.hotilsframework.lang.reflects.ReflectionUtils;

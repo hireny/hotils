@@ -17,7 +17,7 @@ import java.util.Map;
  * @author hireny
  * @create 2020-08-05 0:48
  */
-public class Singletons extends AbstractScope implements Scope {
+public class Singletons extends AbstractScoping implements Scoping {
     /**
      * 单例元素的关系映射存储
      */

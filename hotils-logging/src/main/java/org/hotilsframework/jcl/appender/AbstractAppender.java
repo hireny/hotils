@@ -1,6 +1,9 @@
-package org.hotilsframework.jcl;
+package org.hotilsframework.jcl.appender;
 
 
+import org.hotilsframework.jcl.LifeCycle;
+import org.hotilsframework.jcl.LogFilter;
+import org.hotilsframework.jcl.LoggingEvent;
 import org.hotilsframework.jcl.layout.Layout;
 
 import java.nio.charset.Charset;
@@ -24,7 +27,7 @@ public abstract class AbstractAppender implements Appender, LifeCycle {
     /**
      * 编码
      */
-    protected String encoding = Charset.defaultCharset().name();
+    protected String          encoding = Charset.defaultCharset().name();
     /**
      * 输出源名称
      */

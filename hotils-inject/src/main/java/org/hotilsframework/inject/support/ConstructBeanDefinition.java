@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.support;
 
 import org.hotilsframework.inject.BeanDefinition;
-import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scoping;
 
 /**
  * GenericBeanDefinition
@@ -14,7 +14,7 @@ import org.hotilsframework.inject.factory.config.Scope;
 public class ConstructBeanDefinition extends AbstractBeanDefinition {
     private static final long serialVersionUID = -7076405082212693150L;
 
-    public ConstructBeanDefinition(BeanDefinition parent, Class<?> type, String name, Scope scope, boolean lazyInit) {
-        super(parent, type, name, scope, lazyInit);
+    public ConstructBeanDefinition(BeanDefinition parent, Class<?> type, String name, Scoping scoping, boolean lazyInit) {
+        super(parent, type, name, scoping, lazyInit);
     }
 }

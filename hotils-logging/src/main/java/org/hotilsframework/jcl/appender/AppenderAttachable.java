@@ -1,4 +1,4 @@
-package org.hotilsframework.jcl;
+package org.hotilsframework.jcl.appender;
 
 /**
  * 可连接的输出源接口

@@ -3,8 +3,8 @@ package org.hotilsframework.inject.binding;
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.factory.InternalFactory;
-import org.hotilsframework.inject.factory.config.Scope;
 import org.hotilsframework.inject.Scopes;
+import org.hotilsframework.inject.factory.config.Scoping;
 import org.hotilsframework.inject.internal.InternalInjector;
 
 /**
@@ -21,11 +21,11 @@ public class SampleBinding<T> implements Binding<T> {
      * 该绑定关系所注入的注入器
      */
     private final InternalInjector injector;
-    private final Key<T>           key;
+    private final Key<T>                       key;
     /**
      * 作用域
      */
-    private final Scope                        scope;
+    private final Scope                      scope;
     /**
      * 内部工厂，用于生成对应的对象实例
      */
@@ -39,7 +39,7 @@ public class SampleBinding<T> implements Binding<T> {
     }
 
     public SampleBinding(Key<T> key, Scope scope) {
-        this(null, key,scope);
+        this(null, key, scope);
     }
 
     @Override

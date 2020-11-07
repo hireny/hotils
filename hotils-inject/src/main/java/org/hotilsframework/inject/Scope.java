@@ -19,11 +19,13 @@ public interface Scope {
      * @return  返回作用域
      */
     Scope getScope();
+
     /**
-     * 获取注解作用域
+     * 获取作用域注解
      * @return
      */
     Class<? extends Annotation> getScopeAnnotation();
+
     /**
      * 返回字符串
      * @return

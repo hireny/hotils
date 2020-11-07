@@ -15,15 +15,17 @@
         <module>hotils-cache</module>
         <module>hotils-core</module>
         <module>hotils-inject</module>
-        <module>hotils-jcl</module>
         <module>hotils-jdbc</module>
         <module>hotils-json</module>
+        <module>hotils-logging</module>
         <module>hotils-socket</module>
         <module>hotils-web</module>
         <module>hotils-nosql</module>
         <module>hotils-orm</module>
         <module>hotils-scheduling</module>
         <module>hotils-test</module>
+        <module>hotils-validator</module>
+        <module>hotils-boot</module>
     </modules>
     <packaging>pom</packaging>
     <name>Hotils: Hotils Parent for Java</name>
@@ -103,17 +105,17 @@
             </dependency>
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
-                <artifactId>hotils-jcl</artifactId>
-                <version>${hotils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-jdbc</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>
                 <groupId>me.hireny.hotils</groupId>
                 <artifactId>hotils-json</artifactId>
+                <version>${hotils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.hireny.hotils</groupId>
+                <artifactId>hotils-logging</artifactId>
                 <version>${hotils.version}</version>
             </dependency>
             <dependency>
@@ -138,16 +140,65 @@
                 <artifactId>jsr305</artifactId>
                 <version>3.0.2</version>
             </dependency>
+            <!-- JSR330 Inject -->
             <dependency>
                 <groupId>javax.inject</groupId>
                 <artifactId>javax.inject</artifactId>
                 <version>1</version>
             </dependency>
+            <!-- jakarta.inject-api -->
+            <dependency>
+                <groupId>jakarta.inject</groupId>
+                <artifactId>jakarta.inject-api</artifactId>
+                <version>1.0</version>
+            </dependency>
+
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>4.0.1</version>
+                <scope>provided</scope>
             </dependency>
+            <!-- jakarta.servlet-api -->
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>4.0.4</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- JSR303 Bean Validator -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>2.0.1.Final</version>
+            </dependency>
+            <!-- JSR303 Bean Validator -->
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>2.0.2</version>
+            </dependency>
+            <!-- jakarta.persistence-api -->
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>2.2.3</version>
+            </dependency>
+            <!-- jakarta.transaction-api -->
+            <dependency>
+                <groupId>jakarta.transaction</groupId>
+                <artifactId>jakarta.transaction-api</artifactId>
+                <version>1.3.3</version>
+            </dependency>
+            <!-- jakarta.json-api -->
+            <dependency>
+                <groupId>jakarta.json</groupId>
+                <artifactId>jakarta.json-api</artifactId>
+                <version>1.1.6</version>
+            </dependency>
+
+
 
             <!--代理框架-->
             <!--            <dependency>-->
@@ -193,6 +244,13 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
         </plugins>

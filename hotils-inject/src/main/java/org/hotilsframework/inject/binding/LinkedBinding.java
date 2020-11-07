@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.binding;
 
 import org.hotilsframework.inject.*;
-import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scoping;
 import org.hotilsframework.inject.internal.InternalInjector;
 
 /**

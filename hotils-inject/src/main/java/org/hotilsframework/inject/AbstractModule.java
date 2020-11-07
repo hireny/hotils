@@ -1,7 +1,7 @@
 package org.hotilsframework.inject;
 
 import org.hotilsframework.inject.binding.BindingBuilder;
-import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scoping;
 import org.hotilsframework.lang.Assert;
 
 import java.lang.annotation.Annotation;
@@ -39,7 +39,7 @@ public abstract class AbstractModule implements Module {
         return binder;
     }
 
-    protected void bindScope(Class<? extends Annotation> scopeAnnotation, Scope scope) {
+    protected void bindScope(Class<? extends Annotation> scopeAnnotation, Scoping scope) {
         binder().bindScope(scopeAnnotation, scope);
     }
 

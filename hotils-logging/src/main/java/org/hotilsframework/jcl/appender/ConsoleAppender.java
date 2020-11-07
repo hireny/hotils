@@ -1,4 +1,4 @@
-package org.hotilsframework.jcl;
+package org.hotilsframework.jcl.appender;
 
 import java.io.IOException;
 

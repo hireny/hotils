@@ -19,24 +19,24 @@ import java.util.List;
  */
 public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry {
 
-    private final TypeMap<Scope> scopes = TypeMap.create();
+    private final TypeMap<Scoping> scopes = TypeMap.create();
 
     protected AbstractBeanFactory() {
         initScopes(null);
     }
 
-    protected AbstractBeanFactory(Scope... scopes) {
+    protected AbstractBeanFactory(Scoping... scopes) {
         this(Arrays.asList(scopes));
     }
 
-    protected AbstractBeanFactory(List<Scope> scopes) {
+    protected AbstractBeanFactory(List<Scoping> scopes) {
         initScopes(scopes);
     }
 
     /**
      * 作用域初始化
      */
-    void initScopes(List<Scope> scopes) {
+    void initScopes(List<Scoping> scopes) {
 
         // 初始化
         addScopes();
@@ -52,9 +52,9 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
         registerScope(Prototypes.class, new Prototypes());
     }
 
-    void addScopes(List<Scope> scopes) {
+    void addScopes(List<Scoping> scopes) {
         Assert.notNull(scopes, "scope objects is not null.");
-        for (Scope scope : scopes) {
+        for (Scoping scope : scopes) {
             if (Scopes.getScopeClasses().contains(scope.getClass())) {
                 continue;
             }
@@ -64,15 +64,15 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
 
     @Override
     public <T> T get(Key<T> key, Class<?> scopeType) {
-        Scope scope = this.scopes.get(scopeType);
+        Scoping scope = this.scopes.get(scopeType);
         return scope.get(key);
     }
 
     @Override
-    public void registerScope(Class<? extends Scope> type, Scope scope) {
+    public void registerScope(Class<? extends Scoping> type, Scoping scope) {
         Assert.notNull(type, "scope type is not null.");
         Assert.notNull(scope, "scope object is not null.");
-        Scope old = this.scopes.get(type);
+        Scoping old = this.scopes.get(type);
         if (old != null) {
             throw new IllegalStateException("Could not register object [" + scope + "] under key '" + type + "': there is already object [" + old + "] bound");
         }
@@ -80,12 +80,12 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
     }
 
     @Override
-    public Scope getScope(Class<? extends Scope> type) {
+    public Scoping getScope(Class<? extends Scoping> type) {
         return getScopes().get(type);
     }
 
     @Override
-    public boolean containsScope(Class<? extends Scope> type) {
+    public boolean containsScope(Class<? extends Scoping> type) {
         return getScopes().containsKey(type);
     }
 
@@ -93,7 +93,7 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
      * 获取作用域对象
      * @return
      */
-    public TypeMap<Scope> getScopes() {
+    public TypeMap<Scoping> getScopes() {
         return this.scopes;
     }
 }

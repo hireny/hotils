@@ -1,7 +1,5 @@
 package org.hotilsframework.jdbc.datasource;
 
-import org.slf4j.LoggerFactory;
-
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -14,8 +12,6 @@ import java.util.logging.Logger;
  * @Description:    抽象数据连接
  */
 public abstract class AbstractDataSource implements DataSource {
-
-    protected final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * 获取登录时间

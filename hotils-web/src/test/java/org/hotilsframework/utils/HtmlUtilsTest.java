@@ -28,7 +28,7 @@ public class HtmlUtilsTest {
             }
             br.close();
             br = null;
-            System.out.println(HtmlUtils.escape(sb.toString()));
+            System.out.println(HtmlUtils.htmlEscape(sb.toString()));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

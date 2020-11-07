@@ -1,6 +1,7 @@
-package org.hotilsframework.jcl;
+package org.hotilsframework.jcl.appender;
 
 import org.hotilsframework.collect.Lists;
+import org.hotilsframework.jcl.LoggingEvent;
 
 import java.util.List;
 

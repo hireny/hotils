@@ -1,6 +1,7 @@
 package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.Scope;
 
 import java.lang.annotation.Annotation;
 
@@ -10,7 +11,7 @@ import java.lang.annotation.Annotation;
  * @className Scope
  * @create 2020-04-01 20:18
  */
-public interface Scope {
+public interface Scoping extends Scope {
 
     /**
      * 注册Bean元素
@@ -45,6 +46,7 @@ public interface Scope {
      * 获取作用域注解
      * @return
      */
+    @Override
     Class<? extends Annotation> getScopeAnnotation();
 
     /**

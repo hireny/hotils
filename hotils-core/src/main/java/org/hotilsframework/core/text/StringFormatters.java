@@ -39,8 +39,10 @@ public final class StringFormatters {
         int delimIndex;// 占位符所在位置
         for (int argIndex = 0; argIndex < args.length; argIndex++) {
             delimIndex = strPattern.indexOf("{}", handledPosition);
-            if (delimIndex == -1) {// 剩余部分无占位符
-                if (handledPosition == 0) { // 不带占位符的模板直接返回
+            if (delimIndex == -1) {
+                // 剩余部分无占位符
+                if (handledPosition == 0) {
+                    // 不带占位符的模板直接返回
                     return strPattern;
                 }
                 // 字符串模板剩余部分不再包含占位符，加入剩余部分后返回结果
@@ -49,8 +51,10 @@ public final class StringFormatters {
             }
 
             // 转义符
-            if (delimIndex > 0 && strPattern.charAt(delimIndex - 1) == '\\') {// 转义符
-                if (delimIndex > 1 && strPattern.charAt(delimIndex - 2) == '\\') {// 双转义符
+            if (delimIndex > 0 && strPattern.charAt(delimIndex - 1) == '\\') {
+                // 转义符
+                if (delimIndex > 1 && strPattern.charAt(delimIndex - 2) == '\\') {
+                    // 双转义符
                     // 转义符之前还有一个转义符，占位符依旧有效
                     sbuf.append(strPattern, handledPosition, delimIndex - 1);
                     sbuf.append(StringUtils.stringForUtf8(args[argIndex]));

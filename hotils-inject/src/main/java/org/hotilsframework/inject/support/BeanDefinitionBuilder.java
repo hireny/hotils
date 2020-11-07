@@ -1,9 +1,7 @@
 package org.hotilsframework.inject.support;
 
 import org.hotilsframework.inject.BeanDefinition;
-import org.hotilsframework.inject.factory.config.Scope;
-
-import java.util.Vector;
+import org.hotilsframework.inject.factory.config.Scoping;
 
 /**
  * BeanDefinitionBuilder
@@ -30,15 +28,15 @@ public class BeanDefinitionBuilder {
     /**
      * 名称
      */
-    private String   name;
+    private String  name;
     /**
      * 作用域
      */
-    private Scope    scope;
+    private Scoping scope;
     /**
      * 懒加载
      */
-    private       boolean lazyInit;
+    private boolean lazyInit;
 
     private BeanDefinitionBuilder() {}
 
@@ -66,8 +64,8 @@ public class BeanDefinitionBuilder {
         return this;
     }
 
-    BeanDefinitionBuilder scope(Scope scope) {
-        this.scope = scope;
+    BeanDefinitionBuilder scope(Scoping scoping) {
+        this.scope = scoping;
         return this;
     }
 

@@ -7,5 +7,8 @@ package org.hotilsframework.jcl;
  * @create 2020-02-17 22:11
  */
 public interface Configurator extends LifeCycle {
+    /**
+     * 配置执行
+     */
     void doConfigure();
 }

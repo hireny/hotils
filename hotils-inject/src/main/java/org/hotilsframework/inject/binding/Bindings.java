@@ -2,7 +2,7 @@ package org.hotilsframework.inject.binding;
 
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.inject.*;
-import org.hotilsframework.inject.factory.config.Scope;
+import org.hotilsframework.inject.factory.config.Scoping;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -59,6 +59,7 @@ public class Bindings {
         @Override
         public void bindScope(Class<? extends Annotation> annotationType, Scope scope) {
         }
+
 
         @Override
         public void install(Module module) {
