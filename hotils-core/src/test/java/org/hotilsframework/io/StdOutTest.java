@@ -14,9 +14,9 @@ public class StdOutTest {
     @Test
     public void stdOutTest() {
         // write to stdout
-        System.out.println("Test");
-        StdOut.println(17);
-        StdOut.println(true);
-        StdOut.printf("%.6f\n", 1.0/7.0);
+//        System.out.println("Test");
+//        StdOut.println(17);
+//        StdOut.println(true);
+//        StdOut.printf("%.6f\n", 1.0/7.0);
     }
 }
