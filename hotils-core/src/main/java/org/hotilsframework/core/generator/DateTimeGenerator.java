@@ -1,6 +1,10 @@
 package org.hotilsframework.core.generator;
 
-import java.text.*;
+import java.text.DecimalFormat;
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**

@@ -1,6 +1,6 @@
 package org.hotilsframework.cache;
 
-import org.hotilsframework.lang.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.TypeInstance;
 import org.hotilsframework.lang.Assert;
 
 /**
@@ -87,6 +87,6 @@ public final class CacheBuilder<K, V> {
      * @return
      */
     public Cache<K, V> build() {
-        return Instantiator.tryInstance(cacheType);
+        return TypeInstance.tryInstance(cacheType);
     }
 }

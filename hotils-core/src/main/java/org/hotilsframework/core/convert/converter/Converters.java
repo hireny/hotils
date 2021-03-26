@@ -7,9 +7,13 @@ package org.hotilsframework.core.convert.converter;
  */
 
 import org.hotilsframework.core.convert.TypeDescriptor;
-import org.hotilsframework.lang.KeyValue;
+import org.hotilsframework.lang.Entry;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 管理在服务中注册的所有的转换器
@@ -21,19 +25,19 @@ public class Converters {
     /**
      * 存储所有通用的转换器
      */
-    private final Set<GenericConverter>                                 globalConverters = new LinkedHashSet<>();
+    private final Set<GenericConverter>                              globalConverters = new LinkedHashSet<>();
     /**
      * 根据键值对获取相对应的所有转换器
      */
-    private final Map<KeyValue<Class<?>, Class<?>>, InternalConverters> converters       = new LinkedHashMap<>();
+    private final Map<Entry<Class<?>, Class<?>>, InternalConverters> converters       = new LinkedHashMap<>();
 
     public void add(GenericConverter converter) {
-        Set<KeyValue<Class<?>, Class<?>>> convertibleTypes = converter.getConvertibleTypes();
+        Set<Entry<Class<?>, Class<?>>> convertibleTypes = converter.getConvertibleTypes();
         if (convertibleTypes == null) {
             this.globalConverters.add(converter);
         } else {
-            for (KeyValue<Class<?>, Class<?>> keyValue : convertibleTypes) {
-                InternalConverters internalConverters = getMatchableConverters(keyValue);
+            for (Entry<Class<?>, Class<?>> entry : convertibleTypes) {
+                InternalConverters internalConverters = getMatchableConverters(entry);
                 internalConverters.add(converter);
             }
         }
@@ -41,18 +45,18 @@ public class Converters {
 
     /**
      * 是否存在
-     * @param keyValue
+     * @param entry
      * @return
      */
-    public boolean contains(KeyValue<Class<?>, Class<?>> keyValue) {
-        return this.converters.containsKey(keyValue);
+    public boolean contains(Entry<Class<?>, Class<?>> entry) {
+        return this.converters.containsKey(entry);
     }
 
-    private InternalConverters getMatchableConverters(KeyValue<Class<?>, Class<?>> keyValue) {
-        InternalConverters internalConverters = this.converters.get(keyValue);
+    private InternalConverters getMatchableConverters(Entry<Class<?>, Class<?>> entry) {
+        InternalConverters internalConverters = this.converters.get(entry);
         if (internalConverters == null) {
             internalConverters = new Converters.InternalConverters();
-            this.converters.put(keyValue, internalConverters);
+            this.converters.put(entry, internalConverters);
         }
         return internalConverters;
     }

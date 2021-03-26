@@ -96,7 +96,7 @@ public final class ReflectionUtils {
      * @param type              属性类型
      * @return
      */
-    public static Field getField(Class<?> clazz,  String name,  Class<?> type) {
+    public static Field getField(Class<?> clazz, String name, Class<?> type) {
         Assert.notNull(clazz, "Class must not be null");
         Assert.checkArgument(name != null || type != null, "Either name or type of the field must be specified");
         Class<?> searchType = clazz;
@@ -223,7 +223,7 @@ public final class ReflectionUtils {
      * @param field     字段
      * @param value     值
      */
-    public static void setFieldValue(Object target, Field field,  Object value) {
+    public static void setFieldValue(Object target, Field field, Object value) {
         Assert.notNull(target);
         Assert.notNull(field, "Field in [{}] not exist !", target.getClass().getName());
 
@@ -285,7 +285,7 @@ public final class ReflectionUtils {
      * @return                  构造方法，如果未找到返回null
      */
     @SuppressWarnings("unchecked")
-    public static <T>  Constructor<T> getConstructor(Class<T> clazz, Class<?>... parameterTypes) {
+    public static <T> Constructor<T> getConstructor(Class<T> clazz, Class<?>... parameterTypes) {
         if (null == clazz) {
             return null;
         }
@@ -453,7 +453,7 @@ public final class ReflectionUtils {
      * @param args      参数对象
      * @return          结果
      */
-    public static Object invoke(Object target, Method method,  Object... args) {
+    public static Object invoke(Object target, Method method, Object... args) {
         makeAccessible(method);
         try {
             return method.invoke(target, args);

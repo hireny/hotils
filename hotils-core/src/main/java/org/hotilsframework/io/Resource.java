@@ -8,12 +8,29 @@ import java.net.URL;
  * @Author: hireny
  * @Date: Create in 2019/07/23 13:57
  */
-public interface Resource extends InputStreamSource {
+public interface Resource {
     /**
      * 判断该资源是否存在
      * @return
      */
     boolean exists() throws ResourceException;
+
+    /**
+     * 是否有资源
+     *
+     * @param name
+     * @return
+     */
+    boolean hasResource(String name);
+
+    /**
+     * 是否有资源
+     * @param type
+     * @return
+     */
+    default boolean hasResource(Class<?> type) {
+        return hasResource(type.getName());
+    }
 
     /**
      * 判断该资源是否是文件

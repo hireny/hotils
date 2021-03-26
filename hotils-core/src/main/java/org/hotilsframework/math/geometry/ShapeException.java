@@ -1,6 +1,6 @@
 package org.hotilsframework.math.geometry;
 
-import org.hotilsframework.math.MathsException;
+import org.hotilsframework.math.MathException;
 
 /**
  * 几何形状异常
@@ -8,7 +8,7 @@ import org.hotilsframework.math.MathsException;
  * @className ShapeException
  * @create 2020-02-21 22:58
  */
-public class ShapeException extends MathsException {
+public class ShapeException extends MathException {
     private static final long serialVersionUID = -7451185955720094887L;
 
     public ShapeException() {

@@ -1,10 +1,9 @@
 package org.hotilsframework.core.convert;
 
 import org.hotilsframework.core.convert.converter.Converter;
-import org.hotilsframework.core.convert.converter.ConverterFactory;
 import org.hotilsframework.core.convert.converter.Converters;
 import org.hotilsframework.core.convert.converter.GenericConverter;
-import org.hotilsframework.lang.KeyValue;
+import org.hotilsframework.lang.Entry;
 
 import java.util.*;
 
@@ -29,7 +28,7 @@ public class GenericConversionService implements ConfigurableConversionService {
 
     @Override
     public boolean canConvert(Class<?> sourceType, Class<?> targetType) {
-        return converters.contains(new KeyValue<>(sourceType, targetType));
+        return converters.contains(new Entry<>(sourceType, targetType));
     }
 
     @Override
@@ -45,11 +44,6 @@ public class GenericConversionService implements ConfigurableConversionService {
 
     @Override
     public void addConverter(Converter<?, ?> converter) {
-
-    }
-
-    @Override
-    public void addConverterFactory(ConverterFactory<?, ?> factory) {
 
     }
 
@@ -76,7 +70,7 @@ public class GenericConversionService implements ConfigurableConversionService {
         }
 
         @Override
-        public Set<KeyValue<Class<?>, Class<?>>> getConvertibleTypes() {
+        public Set<Entry<Class<?>, Class<?>>> getConvertibleTypes() {
             return null;
         }
 

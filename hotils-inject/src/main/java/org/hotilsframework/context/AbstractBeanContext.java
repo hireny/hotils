@@ -2,7 +2,7 @@ package org.hotilsframework.context;
 
 import org.hotilsframework.collect.Maps;
 import org.hotilsframework.inject.BeanDefinition;
-import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.BeanKey;
 import org.hotilsframework.inject.binding.Binding;
 import org.hotilsframework.inject.binding.SampleBinding;
 import org.hotilsframework.inject.factory.BeanFactory;
@@ -24,15 +24,15 @@ public class AbstractBeanContext implements BeanContext {
     /**
      * 父Bean上下文
      */
-    private final BeanContext parent;
+    private final BeanContext                     parent;
     /**
      * 明确的绑定容器
      */
-    private final Map<Key<?>, Binding<?>> explicitBindings = Maps.newConcurrentHashMap();
+    private final Map<BeanKey<?>, Binding<?>>     explicitBindings       = Maps.newConcurrentHashMap();
     /**
      * 明确的绑定院系容器
      */
-    private final Map<Key<?>, BeanDefinition> explicitBindingsMuable = Maps.newConcurrentHashMap();
+    private final Map<BeanKey<?>, BeanDefinition> explicitBindingsMuable = Maps.newConcurrentHashMap();
 
 
     private final BeanFactory elements;
@@ -64,47 +64,47 @@ public class AbstractBeanContext implements BeanContext {
      * @return
      */
     @Override
-    public Map<Key<?>, Binding<?>> getBindings() {
+    public Map<BeanKey<?>, Binding<?>> getBindings() {
         return Collections.unmodifiableMap(explicitBindings);
     }
 
     @Override
-    public Map<Key<?>, BeanDefinition> getBeanDefinitions() {
+    public Map<BeanKey<?>, BeanDefinition> getBeanDefinitions() {
         return Collections.unmodifiableMap(explicitBindingsMuable);
     }
 
     /**
      * 获取键对应的绑定元素
-     * @param key
+     * @param beanKey
      * @return
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <T> SampleBinding<T> getBinding(Key<T> key) {
-        Binding<?> binding = getBindings().get(key);
-        return binding != null ? (SampleBinding<T>) binding : parent.getBinding(key);
+    public <T> SampleBinding<T> getBinding(BeanKey<T> beanKey) {
+        Binding<?> binding = getBindings().get(beanKey);
+        return binding != null ? (SampleBinding<T>) binding : parent.getBinding(beanKey);
     }
 
     @Override
-    public BeanDefinition getBeanDefinition(Key<?> key) {
-        BeanDefinition beanDefinition = getBeanDefinitions().get(key);
-        return beanDefinition != null ? beanDefinition : parent.getBeanDefinition(key);
+    public BeanDefinition getBeanDefinition(BeanKey<?> beanKey) {
+        BeanDefinition beanDefinition = getBeanDefinitions().get(beanKey);
+        return beanDefinition != null ? beanDefinition : parent.getBeanDefinition(beanKey);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T get(Key<?> key, Class<?> scopeType) {
-        return (T) elements.get(key, scopeType);
+    public <T> T get(BeanKey<?> beanKey, Class<?> scopeType) {
+        return (T) elements.get(beanKey, scopeType);
     }
 
     @Override
-    public void putBeanDefinition(Key<?> key, BeanDefinition beanDefinition) {
-        explicitBindingsMuable.put(key, beanDefinition);
+    public void putBeanDefinition(BeanKey<?> beanKey, BeanDefinition beanDefinition) {
+        explicitBindingsMuable.put(beanKey, beanDefinition);
     }
 
     @Override
-    public void putBinding(Key<?> key, SampleBinding<?> binding) {
-        explicitBindings.put(key, binding);
+    public void putBinding(BeanKey<?> beanKey, SampleBinding<?> binding) {
+        explicitBindings.put(beanKey, binding);
     }
 
     @Override

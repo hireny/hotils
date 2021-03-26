@@ -1,7 +1,7 @@
 package org.hotilsframework.core.objects;
 
-import org.hotilsframework.core.factory.DefaultObjectFactory;
-import org.hotilsframework.core.factory.ObjectFactory;
+import org.hotilsframework.core.factory.DefaultObjectProvider;
+import org.hotilsframework.core.factory.ObjectProvider;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,11 +12,11 @@ import org.junit.Test;
  * @Description: TODO   默认对象池的测试
  */
 public class DefaultObjectPoolsTest {
-    private DefaultObjectFactory pools = null;
+    private DefaultObjectProvider pools = null;
 
     public DefaultObjectPoolsTest() {
-        ObjectFactory factory = () -> "add";
-        pools = new DefaultObjectFactory(factory, 5);
+        ObjectProvider factory = () -> "add";
+        pools = new DefaultObjectProvider(factory, 5);
     }
 
     @Test

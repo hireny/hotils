@@ -1,8 +1,9 @@
 package org.hotilsframework.io;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * @Author: hireny
@@ -22,6 +23,11 @@ public class UrlResource implements Resource {
     }
 
     @Override
+    public boolean hasResource(String name) {
+        return false;
+    }
+
+    @Override
     public URL getURL() throws IOException {
         return this.url;
     }
@@ -35,17 +41,17 @@ public class UrlResource implements Resource {
         }
     }
 
-    @Override
-    public InputStream getInputStream() throws IOException {
-        URLConnection connection = this.url.openConnection();
-        connection.connect();
-        try {
-            return connection.getInputStream();
-        } catch (IOException e) {
-            if (connection instanceof HttpURLConnection) {
-                ((HttpURLConnection) connection).disconnect();
-            }
-            throw e;
-        }
-    }
+//    @Override
+//    public InputStream getInputStream() throws IOException {
+//        URLConnection connection = this.url.openConnection();
+//        connection.connect();
+//        try {
+//            return connection.getInputStream();
+//        } catch (IOException e) {
+//            if (connection instanceof HttpURLConnection) {
+//                ((HttpURLConnection) connection).disconnect();
+//            }
+//            throw e;
+//        }
+//    }
 }

@@ -76,7 +76,7 @@ public class Resources {
      * @return
      * @throws IOException
      */
-    public static FileType getFileType(InputStream is) throws IOException {
+    public static ResourceType getFileType(InputStream is) throws IOException {
         byte[] src = new byte[28];
         is.read(src, 0, 28);
         StringBuilder stringBuilder = new StringBuilder("");
@@ -91,10 +91,10 @@ public class Resources {
             }
             stringBuilder.append(hv);
         }
-        FileType[] fileTypes = FileType.values();
-        for (FileType fileType : fileTypes) {
-            if (stringBuilder.toString().startsWith(fileType.getValue())) {
-                return fileType;
+        ResourceType[] resourceTypes = ResourceType.values();
+        for (ResourceType resourceType : resourceTypes) {
+            if (stringBuilder.toString().startsWith(resourceType.getValue())) {
+                return resourceType;
             }
         }
         return null;

@@ -3,7 +3,7 @@ package org.hotilsframework.inject.qualifier;
 import java.util.Objects;
 
 /**
- * NamedQuailfier
+ * NamedQualifier
  *
  * 名字限定
  *

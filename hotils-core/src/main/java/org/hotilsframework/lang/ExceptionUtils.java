@@ -1,7 +1,5 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.lang.StringUtils;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
@@ -26,7 +24,7 @@ public class ExceptionUtils {
      * @return
      */
     public static String getMessage(Throwable t) {
-        return getMessage(t);
+        return getMessage(t, false);
     }
 
     /**
@@ -87,7 +85,8 @@ public class ExceptionUtils {
             if (advanceSlowPointer) {
                 slowPointer = slowPointer.getCause();
             }
-            advanceSlowPointer = !advanceSlowPointer; // only advance every other iteration
+            // only advance every other iteration
+            advanceSlowPointer = !advanceSlowPointer;
         }
         return throwable;
     }

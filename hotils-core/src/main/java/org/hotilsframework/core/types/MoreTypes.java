@@ -2,6 +2,7 @@ package org.hotilsframework.core.types;
 
 import org.hotilsframework.lang.reflects.CompositeType;
 import org.hotilsframework.lang.Assert;
+import org.hotilsframework.lang.reflects.GenericArrayTypeImpl;
 
 import java.lang.reflect.*;
 import java.lang.reflect.Array;
@@ -20,7 +21,7 @@ public class MoreTypes {
      * @param type
      * @return
      */
-    protected static boolean isFullySpecified(Type type) {
+    public static boolean isFullySpecified(Type type) {
         if (type instanceof Class) {
             return true;
 

@@ -7,8 +7,17 @@ import java.io.Externalizable;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * JavaType
@@ -43,8 +52,10 @@ public final class JavaTypes {
      * 基本类型的映射关系的缓存
      */
     private static final Map<String, Class<?>> primitiveTypeNameMap;
-
-    private static final Set<Class<?>> STANDARD_NUMBER_TYPES;
+    /**
+     * 标准的数字类型
+     */
+    private static final Set<Class<?>>         STANDARD_NUMBER_TYPES;
 
     /**
      * 常用的类型缓存，都是Java中的类型，不包括基本类型，
@@ -126,7 +137,7 @@ public final class JavaTypes {
 
         // Java语言公共接口的数组
         Class<?>[] javaLanguageInterfaceArray = {Serializable.class, Externalizable.class,
-                Closeable.class, AutoCloseable.class, Cloneable.class, Comparable.class};
+                Closeable.class, AutoCloseable.class, Copyable.class, Comparable.class};
         registerCommonClasses(tempCommonClassCache, javaLanguageInterfaceArray);
         javaLanguageInterfaces = new HashSet<>(Arrays.asList(javaLanguageInterfaceArray));
 

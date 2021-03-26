@@ -4,14 +4,16 @@ import org.hotilsframework.collect.Maps;
 import org.hotilsframework.lang.Assert;
 
 import java.time.DayOfWeek;
-import java.util.*;
+import java.util.Map;
 
 /**
- * @ClassName: Week
- * @Description: TODO   星期枚举
- * @Author: hireny
- * @Date: Created in 2020-01-08 21:08
- * @Version: 1.0
+ * @className Week
+ *
+ * 星期枚举
+ *
+ * @author hireny
+ * @date Created in 2020-01-08 21:08
+ * @version 1.0
  *
  * @see #SUNDAY
  * @see #MONDAY

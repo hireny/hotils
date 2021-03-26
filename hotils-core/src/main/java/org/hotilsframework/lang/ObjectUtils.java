@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 
 /**
  * 对象工具类
- * @ClassName: ObjectUtils
- * @Author: hireny
- * @Date: Created in 2020-01-15 14:04
- * @Version: 1.0
+ * @className ObjectUtils
+ * @author hireny
+ * @date Created in 2020-01-15 14:04
+ * @version 1.0
  */
 public class ObjectUtils {
 

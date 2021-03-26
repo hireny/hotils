@@ -4,7 +4,7 @@ import example.model.Gender;
 import example.model.PersonModel;
 import example.reflect.ExtandsReflectExample;
 import example.reflect.ReflectExample;
-import org.hotilsframework.lang.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.TypeInstance;
 import org.hotilsframework.lang.reflects.ReflectionUtils;
 import org.junit.Test;
 
@@ -284,19 +284,19 @@ public class ReflectionUtilsTest {
      */
     @Test
     public void newInstanceTest() {
-        ReflectExample example1 = Instantiator.tryInstance(ReflectExample.class);
+        ReflectExample example1 = TypeInstance.tryInstance(ReflectExample.class);
         System.out.println(example1);
 
-        ReflectExample example2 = Instantiator.tryInstance(ReflectExample.class);
+        ReflectExample example2 = TypeInstance.tryInstance(ReflectExample.class);
         System.out.println(example2);
 
-        ReflectExample example3 = Instantiator.tryInstance(ReflectExample.class);
+        ReflectExample example3 = TypeInstance.tryInstance(ReflectExample.class);
         System.out.println(example3);
 
-        ReflectExample example4 = Instantiator.tryInstance(ReflectExample.class);
+        ReflectExample example4 = TypeInstance.tryInstance(ReflectExample.class);
         System.out.println(example4);
 
-        ReflectExample example5 = Instantiator.tryInstance(ReflectExample.class);
+        ReflectExample example5 = TypeInstance.tryInstance(ReflectExample.class);
         System.out.println(example5);
     }
 
@@ -305,19 +305,19 @@ public class ReflectionUtilsTest {
      */
     @Test
     public void newInstanceWithParametersTest() {
-        ReflectExample example1 = Instantiator.tryInstance(ReflectExample.class, 1);
+        ReflectExample example1 = TypeInstance.tryInstance(ReflectExample.class, 1);
         System.out.println(example1);
 
-        ReflectExample example2 = Instantiator.tryInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
+        ReflectExample example2 = TypeInstance.tryInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
         System.out.println(example2);
 
-        ReflectExample example3 = Instantiator.tryInstance(ReflectExample.class, 1);
+        ReflectExample example3 = TypeInstance.tryInstance(ReflectExample.class, 1);
         System.out.println(example3);
 
-        ReflectExample example4 = Instantiator.tryInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
+        ReflectExample example4 = TypeInstance.tryInstance(ReflectExample.class, 1, new Object(), 3.1314, 'c', "string");
         System.out.println(example4);
 
-        ReflectExample example5 = Instantiator.tryInstance(ReflectExample.class, 1);
+        ReflectExample example5 = TypeInstance.tryInstance(ReflectExample.class, 1);
         System.out.println(example5);
     }
 
@@ -326,7 +326,7 @@ public class ReflectionUtilsTest {
      */
     @Test
     public void newInstanceIfPossibleTest() {
-        ReflectExample e1 = Instantiator.tryInstanceIfPossible(ReflectExample.class);
+        ReflectExample e1 = TypeInstance.tryInstanceIfPossible(ReflectExample.class);
 
         System.out.println(e1);
     }

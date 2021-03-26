@@ -33,7 +33,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
 
     @Override
     public Number getValue() {
-        return Byte.valueOf(this.value);
+        return this.value;
     }
 
     public void setValue(final byte value) {

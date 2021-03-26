@@ -1,11 +1,16 @@
 package org.hotilsframework.collect;
 
+import java.util.Collection;
+
 /**
- * @author hireny
  * @className ImmutableCollection
+ *
+ * 不可变的集合类
+ *
+ * @author hireny
  * @create 2020-06-17 20:16
  */
-public class ImmutableCollection {
+public interface ImmutableCollection<E> extends Collection<E> {
 
     /**
      * {@link ImmutableCollection} 类型的构建器的抽象类

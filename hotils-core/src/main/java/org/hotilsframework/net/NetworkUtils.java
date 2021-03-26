@@ -1,12 +1,16 @@
 package org.hotilsframework.net;
 
-import org.hotilsframework.lang.Filter;
 import org.hotilsframework.collect.CollectionUtils;
 import org.hotilsframework.lang.StringUtils;
 
-import java.net.*;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
+import java.util.function.Predicate;
 
 /**
  * Networks
@@ -169,7 +173,7 @@ public class NetworkUtils {
      * @param addressFilter
      * @return
      */
-    public static LinkedHashSet<InetAddress> localAddressList(Filter<InetAddress> addressFilter) {
+    public static LinkedHashSet<InetAddress> localAddressList(Predicate<InetAddress> addressFilter) {
         Enumeration<NetworkInterface> networkInterfaces;
         try {
             networkInterfaces = NetworkInterface.getNetworkInterfaces();
@@ -185,7 +189,7 @@ public class NetworkUtils {
             final Enumeration<InetAddress> inetAddress = networkInterface.getInetAddresses();
             while (inetAddress.hasMoreElements()) {
                 final InetAddress address = inetAddress.nextElement();
-                if (address != null && (null == addressFilter || addressFilter.accept(address))) {
+                if (address != null && (null == addressFilter || addressFilter.test(address))) {
                     inetAddresses.add(address);
                 }
             }

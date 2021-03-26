@@ -2,7 +2,6 @@ package org.hotilsframework.inject.binding;
 
 import org.hotilsframework.collect.Lists;
 import org.hotilsframework.inject.*;
-import org.hotilsframework.inject.factory.config.Scoping;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -46,14 +45,14 @@ public class Bindings {
         }
 
         @Override
-        public <T> BindingBuilder<T> bind(Key<T> key) {
+        public <T> BindingBuilder<T> bind(BeanKey<T> beanKey) {
             // 绑定元素的构建
-            return new BindingBuilder<>(this, elements, key);
+            return new BindingBuilder<>(this, elements, beanKey);
         }
 
         @Override
         public <T> BindingBuilder<T> bind(Class<T> type) {
-            return bind(Key.get(type));
+            return bind(BeanKey.get(type));
         }
 
         @Override

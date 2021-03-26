@@ -1,11 +1,14 @@
 package org.hotilsframework.inject.support;
 
+import org.hotilsframework.core.types.ArgumentValue;
+import org.hotilsframework.core.types.ArgumentValues;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.factory.config.Scoping;
 import org.hotilsframework.inject.Scopes;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
+import java.util.Map;
 
 /**
  * AbstractBeanDefinition
@@ -113,5 +116,45 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
     @Override
     public CharSequence subSequence(int start, int end) {
         return getName().subSequence(start, end);
+    }
+
+    @Override
+    public void setAttribute(String name, Object value) {
+
+    }
+
+    @Override
+    public void setAttribute(ArgumentValue value) {
+
+    }
+
+    @Override
+    public void setAttribute(Map<?, ?> map) {
+
+    }
+
+    @Override
+    public void setAttributes(ArgumentValues pvs) {
+
+    }
+
+    @Override
+    public Object getAttribute(String name) {
+        return null;
+    }
+
+    @Override
+    public Object removeAttribute(String name) {
+        return null;
+    }
+
+    @Override
+    public boolean hasAttribute(String name) {
+        return false;
+    }
+
+    @Override
+    public String[] attributeNames() {
+        return new String[0];
     }
 }

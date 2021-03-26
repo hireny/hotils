@@ -10,8 +10,8 @@ import java.util.Objects;
  * 1.原始类型数字与byte[]的双向转换
  * 2.判断字符串是否是数字，是否16进制字符串
  * 3.10进制/16进制字符串与原始类型数字/数字对象的双向转换
- * @Author: hireny
- * @Date: Create in 2019/10/16 23:10
+ * @author hireny
+ * @date Create in 2019/10/16 23:10
  */
 public final class NumberUtils {
 

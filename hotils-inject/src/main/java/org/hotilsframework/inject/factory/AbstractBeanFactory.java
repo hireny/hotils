@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.factory;
 
 import org.hotilsframework.collect.TypeMap;
-import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.BeanKey;
 import org.hotilsframework.inject.Scopes;
 import org.hotilsframework.inject.factory.config.*;
 import org.hotilsframework.lang.Assert;
@@ -47,11 +47,18 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
         }
     }
 
+    /**
+     * 添加的初始化作用域
+     */
     void addScopes() {
         registerScope(Singletons.class, new Singletons());
         registerScope(Prototypes.class, new Prototypes());
     }
 
+    /**
+     * 添加的额外的作用域
+     * @param scopes
+     */
     void addScopes(List<Scoping> scopes) {
         Assert.notNull(scopes, "scope objects is not null.");
         for (Scoping scope : scopes) {
@@ -63,9 +70,9 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
     }
 
     @Override
-    public <T> T get(Key<T> key, Class<?> scopeType) {
+    public <T> T get(BeanKey<T> beanKey, Class<?> scopeType) {
         Scoping scope = this.scopes.get(scopeType);
-        return scope.get(key);
+        return scope.get(beanKey);
     }
 
     @Override

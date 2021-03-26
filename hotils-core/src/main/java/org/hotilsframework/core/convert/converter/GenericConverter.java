@@ -1,7 +1,7 @@
 package org.hotilsframework.core.convert.converter;
 
 import org.hotilsframework.core.convert.TypeDescriptor;
-import org.hotilsframework.lang.KeyValue;
+import org.hotilsframework.lang.Entry;
 
 import java.util.Set;
 
@@ -18,7 +18,7 @@ public interface GenericConverter {
      * <p>该转换类型是每一个元素都是 source-target 这样的转换对</p>
      * @return
      */
-    Set<KeyValue<Class<?>, Class<?>>> getConvertibleTypes();
+    Set<Entry<Class<?>, Class<?>>> getConvertibleTypes();
 
     /**
      * 将 source 对象转换为 targetType 描述的类型的目标对象

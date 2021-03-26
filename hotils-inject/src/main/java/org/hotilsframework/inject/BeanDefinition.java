@@ -1,5 +1,7 @@
 package org.hotilsframework.inject;
 
+import org.hotilsframework.core.AttributeAccessor;
+
 import java.lang.annotation.Annotation;
 
 /**
@@ -10,7 +12,7 @@ import java.lang.annotation.Annotation;
  * @author hireny
  * @create 2020-08-01 20:01
  */
-public interface BeanDefinition extends BeanIdentifier {
+public interface BeanDefinition extends BeanMetadataElement, BeanIdentifier, AttributeAccessor {
     /**
      * 获取该Bean定义的父Bean定义
      * @return
@@ -61,7 +63,7 @@ public interface BeanDefinition extends BeanIdentifier {
 
     /**
      * 获取Bean的作用域
-     * @return
+     * @return  返回 Bean 的作用域，如返回 Singleton.class/Prototype.class
      */
     Class<? extends Annotation> getScoping();
 }

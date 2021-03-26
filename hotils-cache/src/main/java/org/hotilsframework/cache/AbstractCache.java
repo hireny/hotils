@@ -310,8 +310,9 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
      * @param withMissCount     是否计数丢失数
      */
     private void remove(K key, boolean withMissCount) {
-        writeLock.lock();
+
         CacheElement<K, V> cacheElement;
+        writeLock.lock();
         try {
             cacheElement = removeWithoutLock(key, withMissCount);
         } finally {

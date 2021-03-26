@@ -5,7 +5,8 @@ import java.util.Objects;
 
 /**
  * AnnotationQualifier
- * 类描述
+ *
+ * 注解限定
  *
  * @author hireny
  * @create 2020-08-07 23:39

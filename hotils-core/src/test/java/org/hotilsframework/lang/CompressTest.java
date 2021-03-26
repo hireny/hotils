@@ -1,6 +1,6 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.io.Compress;
+import org.hotilsframework.io.compress.Compressors;
 import org.junit.Test;
 
 /**
@@ -15,6 +15,6 @@ public class CompressTest {
     public void zipTest() {
         String zipName = "C:\\Users\\hireny\\Documents\\新简历1.docx";
         String zipDirec = "C:\\Users\\hireny\\Documents\\新简历1";
-        Compress.zip(zipName, zipDirec);
+        Compressors.zip(zipName, zipDirec);
     }
 }

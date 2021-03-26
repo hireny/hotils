@@ -3,7 +3,7 @@ package org.hotilsframework.core.event;
 /**
  * EventMulticaster
  *
- * 时间管理者
+ * 事件管理者
  *
  * 管理监听器和发布事件
  *

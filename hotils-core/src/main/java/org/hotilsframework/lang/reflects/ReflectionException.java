@@ -4,10 +4,9 @@ import org.hotilsframework.lang.NestedRuntimeException;
 
 /**
  * 反射异常
- * @ClassName: ReflectionException
- * @Author: hireny
- * @Date: Created in 2020-02-12 13:36
- * @Version: 1.0
+ * @className ReflectionException
+ * @author hireny
+ * @date Created in 2020-02-12 13:36
  */
 public class ReflectionException extends NestedRuntimeException {
     private static final long serialVersionUID = 8392796672704439936L;

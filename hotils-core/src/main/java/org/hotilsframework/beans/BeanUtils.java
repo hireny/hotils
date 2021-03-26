@@ -3,7 +3,7 @@ package org.hotilsframework.beans;
 import org.hotilsframework.beans.copier.BeanCopier;
 import org.hotilsframework.beans.copier.CopyOptions;
 import org.hotilsframework.collect.CaseInsensitiveMap;
-import org.hotilsframework.lang.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.TypeInstance;
 import org.hotilsframework.lang.Assert;
 
 import java.beans.BeanInfo;
@@ -219,7 +219,7 @@ public final class BeanUtils {
             BeanInfo beanInfo = Introspector.getBeanInfo(target.getClass());
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
             if (Objects.isNull(target)) {
-                target = Instantiator.tryInstance(target.getClass());
+                target = TypeInstance.tryInstance(target.getClass());
             }
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
                 String key = propertyDescriptor.getName();

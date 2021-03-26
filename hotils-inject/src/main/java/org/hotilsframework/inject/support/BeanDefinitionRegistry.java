@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.support;
 
 import org.hotilsframework.inject.BeanDefinition;
-import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.BeanKey;
 
 /**
  * BeanDefinitionRegistry
@@ -14,14 +14,14 @@ import org.hotilsframework.inject.Key;
 public interface BeanDefinitionRegistry {
     /**
      * 根据键与Bean定义的信息来注册Bean
-     * @param key
+     * @param beanKey
      * @param beanDefinition
      */
-    void registerBeanDefinition(Key<?> key, BeanDefinition beanDefinition);
+    void registerBeanDefinition(BeanKey<?> beanKey, BeanDefinition beanDefinition);
 
     /**
      * 根据键来删除指定的Bean定义信息
-     * @param key
+     * @param beanKey
      */
-    void removeBeanDefinition(Key<?> key);
+    void removeBeanDefinition(BeanKey<?> beanKey);
 }

@@ -12,7 +12,7 @@ import java.lang.annotation.Annotation;
  */
 public interface Binder {
 
-    <T> BindingBuilder<T> bind(Key<T> key);
+    <T> BindingBuilder<T> bind(BeanKey<T> beanKey);
 
     <T> BindingBuilder<T> bind(Class<T> type);
 

@@ -1,13 +1,19 @@
 package org.hotilsframework.collect;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * @ClassName: LinkedMultiValueMap
- * @Author: hireny
- * @Date: Create in 2019/12/22 22:02
- * @Description: TODO   多值的映射表的链表实现
+ *
+ * 多值的映射表的链表实现
+ * @className LinkedMultiValueMap
+ * @author hireny
+ * @date Create in 2019/12/22 22:02
  */
 public class LinkedMultiValueMap<K, V> implements MultiValueMap<K, V>, Serializable, Cloneable {
     private static final long serialVersionUID = 3321345201905547073L;

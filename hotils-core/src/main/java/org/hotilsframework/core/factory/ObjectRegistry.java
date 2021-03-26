@@ -1,7 +1,5 @@
 package org.hotilsframework.core.factory;
 
-import java.io.Closeable;
-
 /**
  * ObjectRegistry
  *
@@ -10,7 +8,7 @@ import java.io.Closeable;
  * @author hireny
  * @create 2020-08-05 23:58
  */
-public interface ObjectRegistry extends Closeable {
+public interface ObjectRegistry extends AutoCloseable {
     /**
      * 对象注册
      * @return

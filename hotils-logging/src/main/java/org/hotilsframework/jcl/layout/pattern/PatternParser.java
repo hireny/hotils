@@ -5,7 +5,7 @@ import org.hotilsframework.collect.Maps;
 import org.hotilsframework.core.convert.converter.Converter;
 import org.hotilsframework.jcl.LoggingEvent;
 import org.hotilsframework.lang.Symbol;
-import org.hotilsframework.lang.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.TypeInstance;
 import org.hotilsframework.lang.reflects.ReflectionException;
 
 import java.util.List;
@@ -112,7 +112,7 @@ public class PatternParser {
                     throw new NullPointerException("pattern [%" + keyword + "] illegal!");
                 }
                 try {
-                    converter = Instantiator.tryInstance(clazz);
+                    converter = TypeInstance.tryInstance(clazz);
                 } catch (Exception e) {
                     // 反射异常
                     throw new ReflectionException(e);

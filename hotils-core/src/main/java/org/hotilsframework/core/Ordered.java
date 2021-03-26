@@ -1,5 +1,7 @@
 package org.hotilsframework.core;
 
+import java.util.Comparator;
+
 /**
  * Order
  *
@@ -10,7 +12,7 @@ package org.hotilsframework.core;
  * @author hireny
  * @date 2020-04-10 15:52
  */
-public interface Ordered {
+public interface Ordered<T> extends Comparable<T> {
     /**
      * Constant for the highest precedence value.
      *

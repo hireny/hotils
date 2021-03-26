@@ -2,7 +2,7 @@ package org.hotilsframework.context;
 
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.binding.Binding;
-import org.hotilsframework.inject.Key;
+import org.hotilsframework.inject.BeanKey;
 import org.hotilsframework.inject.binding.SampleBinding;
 
 import java.util.Map;
@@ -24,37 +24,37 @@ public interface BeanContext {
         }
 
         @Override
-        public Map<Key<?>, Binding<?>> getBindings() {
+        public Map<BeanKey<?>, Binding<?>> getBindings() {
             return null;
         }
 
         @Override
-        public Map<Key<?>, BeanDefinition> getBeanDefinitions() {
+        public Map<BeanKey<?>, BeanDefinition> getBeanDefinitions() {
             return null;
         }
 
         @Override
-        public <T> SampleBinding<T> getBinding(Key<T> key) {
+        public <T> SampleBinding<T> getBinding(BeanKey<T> beanKey) {
             return null;
         }
 
         @Override
-        public BeanDefinition getBeanDefinition(Key<?> key) {
+        public BeanDefinition getBeanDefinition(BeanKey<?> beanKey) {
             throw new UnsupportedOperationException("不支持该操作");
         }
 
         @Override
-        public <T> T get(Key<?> key, Class<?> scopeType) {
+        public <T> T get(BeanKey<?> beanKey, Class<?> scopeType) {
             throw new UnsupportedOperationException("不支持该操作");
         }
 
         @Override
-        public void putBeanDefinition(Key<?> key, BeanDefinition beanDefinition) {
+        public void putBeanDefinition(BeanKey<?> beanKey, BeanDefinition beanDefinition) {
             throw new UnsupportedOperationException("不支持存储操作");
         }
 
         @Override
-        public void putBinding(Key<?> key, SampleBinding<?> binding) {
+        public void putBinding(BeanKey<?> beanKey, SampleBinding<?> binding) {
             throw new UnsupportedOperationException("不支持存储操作");
         }
 
@@ -74,47 +74,47 @@ public interface BeanContext {
      * 获取与键有关的所有绑定元素
      * @return
      */
-    Map<Key<?>, Binding<?>> getBindings();
+    Map<BeanKey<?>, Binding<?>> getBindings();
 
     /**
      * 获取键值对应的绑定关系
      * @return
      */
-    Map<Key<?>, BeanDefinition> getBeanDefinitions();
+    Map<BeanKey<?>, BeanDefinition> getBeanDefinitions();
 
     /**
      * 根据键获取对应的绑定元素
-     * @param key
+     * @param beanKey
      * @param <T>
      * @return
      */
-    <T> SampleBinding<T> getBinding(Key<T> key);
+    <T> SampleBinding<T> getBinding(BeanKey<T> beanKey);
 
-    BeanDefinition getBeanDefinition(Key<?> key);
+    BeanDefinition getBeanDefinition(BeanKey<?> beanKey);
 
     /**
      * 根据键获取BeanDefinition对象
      *
-     * @param key       键
+     * @param beanKey       键
      * @param scopeType 该键属于作用域
      * @return
      */
-    <T> T get(Key<?> key, Class<?> scopeType);
+    <T> T get(BeanKey<?> beanKey, Class<?> scopeType);
 
     /**
      * 存储键与对应的BeanDefinition的绑定关系
-     * @param key
+     * @param beanKey
      * @param beanDefinition
      */
-    void putBeanDefinition(Key<?> key, BeanDefinition beanDefinition);
+    void putBeanDefinition(BeanKey<?> beanKey, BeanDefinition beanDefinition);
 
 
     /**
      * 存放绑定的键值对
-     * @param key
+     * @param beanKey
      * @param binding
      */
-    void putBinding(Key<?> key,  SampleBinding<?> binding);
+    void putBinding(BeanKey<?> beanKey, SampleBinding<?> binding);
 
     /**
      * 锁对象

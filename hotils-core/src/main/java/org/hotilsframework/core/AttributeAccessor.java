@@ -1,6 +1,11 @@
 package org.hotilsframework.core;
 
+import org.hotilsframework.beans.BeansException;
+import org.hotilsframework.core.types.ArgumentValue;
+import org.hotilsframework.core.types.ArgumentValues;
 import org.hotilsframework.lang.Nullable;
+
+import java.util.Map;
 
 /**
  * 属性访问器
@@ -18,6 +23,26 @@ public interface AttributeAccessor {
      * @param value     要赋值的属性值
      */
     void setAttribute(String name, @Nullable Object value);
+
+    /**
+     * 设置参数值
+     * @param value
+     */
+    void setAttribute(ArgumentValue value);
+
+    /**
+     * 设置属性值
+     * @param map
+     * @throws BeansException
+     */
+    void setAttribute(Map<?, ?> map);
+
+    /**
+     * 设置属性值
+     * @param pvs
+     * @throws BeansException
+     */
+    void setAttributes(ArgumentValues pvs);
 
     /**
      * 根据唯一的属性键 {@code name} 获取 属性值

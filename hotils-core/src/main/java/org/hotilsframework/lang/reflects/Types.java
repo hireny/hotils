@@ -1,7 +1,5 @@
 package org.hotilsframework.lang.reflects;
 
-import org.hotilsframework.core.types.GenericArrayTypeImpl;
-
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Type;
 

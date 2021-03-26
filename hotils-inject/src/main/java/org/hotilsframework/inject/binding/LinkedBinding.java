@@ -1,7 +1,6 @@
 package org.hotilsframework.inject.binding;
 
 import org.hotilsframework.inject.*;
-import org.hotilsframework.inject.factory.config.Scoping;
 import org.hotilsframework.inject.internal.InternalInjector;
 
 /**
@@ -17,32 +16,32 @@ public class LinkedBinding<T> extends SampleBinding<T> {
     /**
      * 目标键，是需要实例化的类的关键信息
      */
-    final Key<? extends T> targetKey;
+    final BeanKey<? extends T> targetBeanKey;
 
     public LinkedBinding(
             InternalInjector injector,
-            Key<T> key,
+            BeanKey<T> beanKey,
             Scope scope,
-            Key<? extends T> targetKey) {
-        super(injector, key, scope);
-        this.targetKey = targetKey;
+            BeanKey<? extends T> targetBeanKey) {
+        super(injector, beanKey, scope);
+        this.targetBeanKey = targetBeanKey;
     }
 
-    public Key<? extends T> getTargetKey() {
-        return targetKey;
+    public BeanKey<? extends T> getTargetBeanKey() {
+        return targetBeanKey;
     }
 
     @Override
     public LinkedBinding<T> withScope(Scope scope) {
-        return new LinkedBinding<>(getInjector(),getKey(), scope, targetKey);
+        return new LinkedBinding<>(getInjector(), getBeanKey(), scope, targetBeanKey);
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("LinkedBinding{");
-        sb.append("key=").append(getKey());
+        sb.append("key=").append(getBeanKey());
         sb.append(", scope=").append(getScope());
-        sb.append(", target=").append(getTargetKey());
+        sb.append(", target=").append(getTargetBeanKey());
         sb.append('}');
         return sb.toString();
     }

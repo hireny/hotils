@@ -2,8 +2,8 @@ package org.hotilsframework.socket.aio;
 
 import org.hotilsframework.io.ResourceException;
 import org.hotilsframework.socket.SocketConfiguration;
-import org.hotilsframework.lang.concurrent.ThreadFactoryBuilder;
-import org.hotilsframework.lang.concurrent.ThreadPoolUtils;
+import org.hotilsframework.concurrent.ThreadFactoryBuilder;
+import org.hotilsframework.concurrent.ThreadPoolUtils;
 
 import java.io.Closeable;
 import java.io.IOException;

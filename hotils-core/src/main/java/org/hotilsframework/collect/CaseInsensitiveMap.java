@@ -1,13 +1,18 @@
 package org.hotilsframework.collect;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * @ClassName: CaseInsensitiveMap
- * @Author: hireny
- * @Date: Create in 2019/12/20 21:59
- * @Description: TODO   忽略大小写的映射Map结构
+ *
+ * 忽略大小写的映射Map结构
+ * @className CaseInsensitiveMap
+ * @author hireny
+ * @date Create in 2019/12/20 21:59
  *
  * 对KEY忽略大小写，get("Value")和get("value")获得的值相同，put进入的值也会被覆盖
  */
@@ -20,9 +25,9 @@ public class CaseInsensitiveMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K
     protected static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
     /**
-     * 默认初始大小
+     * 默认初始大小，初始化大小为16
      */
-    protected static final int DEFAULT_INITIAL_CAPACITY = 1 << 4;   // aka 16
+    protected static final int DEFAULT_INITIAL_CAPACITY = 1 << 4;
 
     private Map<K, V> raw;
 
@@ -88,7 +93,7 @@ public class CaseInsensitiveMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
         for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
-            raw.put(entry.getKey(), entry.getValue());
+            put(entry.getKey(), entry.getValue());
         }
     }
 

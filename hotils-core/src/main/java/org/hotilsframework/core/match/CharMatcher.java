@@ -1,27 +1,31 @@
 package org.hotilsframework.core.match;
 
 /**
+ * CharMatcher
+ *
  * 字符匹配
- * @ClassName: CharMatcher
- * @Author: hireny
- * @Date: Created in 2020-02-14 23:10
- * @Version: 1.0
+ *
+ * @author hireny
+ * @create 2020-12-29 21:39
  */
-public class CharMatcher implements Matcher<Character> {
+public class CharMatcher extends AbstractMatcher<Character> implements Matcher<Character> {
 
-    private Character c;
 
-    public CharMatcher(Character c) {
-        this.c = c;
+    public CharMatcher(Character value) {
+        super(value);
     }
 
     @Override
-    public boolean match(Character c) {
-        return false;
+    public boolean match(Character value) {
+        return super.match(value);
     }
 
-    public static CharMatcher is(Character c) {
-        return new CharMatcher(c);
+    public static CharMatcher of(Character value) {
+        return new CharMatcher(value);
+    }
+
+    public static CharMatcher is(Character value) {
+        return null;
     }
 
     public static CharMatcher range(Character c1, Character c2) {

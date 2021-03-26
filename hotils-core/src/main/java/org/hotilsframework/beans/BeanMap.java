@@ -1,16 +1,18 @@
 package org.hotilsframework.beans;
 
 import org.hotilsframework.collect.Maps;
-import org.hotilsframework.lang.reflects.Instantiator;
+import org.hotilsframework.lang.reflects.TypeInstance;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * BeanMap对象
- * @ClassName: BeanMap
- * @Author: hireny
- * @Date: Created in 2020-01-29 16:26
- * @Version: 1.0
+ * @className BeanMap
+ * @author hireny
+ * @date Created in 2020-01-29 16:26
+ * @version 1.0
  */
 public class BeanMap {
 
@@ -44,7 +46,7 @@ public class BeanMap {
 
     private BeanMap(Map<?, ?> source, Class<?> clazz) {
         this.map = source;
-        this.bean = Instantiator.tryInstance(clazz);
+        this.bean = TypeInstance.tryInstance(clazz);
         mapToBean(source, bean);
     }
 

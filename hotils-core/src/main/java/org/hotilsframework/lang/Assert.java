@@ -8,8 +8,8 @@ import java.util.Map;
 /**
  * Assert
  * 断言
- * @Author: hireny
- * @Date: Create in 2019/10/03 22:33
+ * @author hireny
+ * @date Create in 2019/10/03 22:33
  */
 public class Assert {
 
@@ -42,6 +42,44 @@ public class Assert {
             throw new IllegalArgumentException(StringUtils.format(errorMessage, args));
         }
     }
+
+    //=======================================================
+    //  check state start.
+    //=======================================================
+
+    /**
+     * 检查boolean表达式，当检查结果为false时抛出 {@link IllegalStateException}
+     *
+     * <pre class="code">
+     *     Assert.state(id == null);
+     * </pre>
+     * @param expression    boolean表达式
+     * @throws IllegalStateException    表达式为 {@code false} 时抛出此异常
+     */
+    public static void checkState(boolean expression) throws IllegalStateException {
+        checkState(expression, "[Assertion failed] - this state invariant must be true");
+    }
+
+    /**
+     * 检查boolean表达式，当检查结果为false时抛出 {@link IllegalStateException}
+     *
+     * <pre class="code">
+     *      Assert.state(id == null, "The id property must not already be initialized");
+     * </pre>
+     * @param expression        boolean表达式
+     * @param errorMessage      异常时的消息模板
+     * @param args              参数列表
+     * @throws IllegalStateException    表达式为 {@code false} 时抛出异常
+     */
+    public static void checkState(boolean expression, String errorMessage, Object... args) throws IllegalStateException {
+        if (!expression) {
+            throw new IllegalStateException(StringUtils.format(errorMessage, args));
+        }
+    }
+
+    //=======================================================
+    //  check state end.
+    //=======================================================
 
     /**
      * 断言对象是否为 {@code null}，如果不为 {@code null} 时抛出 {@link IllegalArgumentException} 异常
@@ -511,43 +549,6 @@ public class Assert {
     //  check assignable end.
     //=======================================================
 
-    //=======================================================
-    //  check state start.
-    //=======================================================
-
-    /**
-     * 检查boolean表达式，当检查结果为false时抛出 {@link IllegalStateException}
-     *
-     * <pre class="code">
-     *     Assert.state(id == null);
-     * </pre>
-     * @param expression    boolean表达式
-     * @throws IllegalStateException    表达式为 {@code false} 时抛出此异常
-     */
-    public static void state(boolean expression) throws IllegalStateException {
-        state(expression, "[Assertion failed] - this state invariant must be true");
-    }
-
-    /**
-     * 检查boolean表达式，当检查结果为false时抛出 {@link IllegalStateException}
-     *
-     * <pre class="code">
-     *      Assert.state(id == null, "The id property must not already be initialized");
-     * </pre>
-     * @param expression        boolean表达式
-     * @param errorMessage      异常时的消息模板
-     * @param args              参数列表
-     * @throws IllegalStateException    表达式为 {@code false} 时抛出异常
-     */
-    public static void state(boolean expression, String errorMessage, Object... args) throws IllegalStateException {
-        if (!expression) {
-            throw new IllegalStateException(StringUtils.format(errorMessage, args));
-        }
-    }
-
-    //=======================================================
-    //  check state end.
-    //=======================================================
 
     //=======================================================
     //  check the range of values start.

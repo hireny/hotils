@@ -65,6 +65,11 @@ public class FileResource implements Resource {
     }
 
     @Override
+    public boolean hasResource(String name) {
+        return false;
+    }
+
+    @Override
     public boolean isFile() throws ResourceException {
         return resource.isFile();
     }
@@ -94,10 +99,10 @@ public class FileResource implements Resource {
         return null;
     }
 
-    @Override
-    public InputStream getInputStream() throws IOException {
-        return null;
-    }
+//    @Override
+//    public InputStream getInputStream() throws IOException {
+//        return null;
+//    }
 
     //=====================================================
     // 静态方法

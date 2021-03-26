@@ -1,21 +1,26 @@
 package org.hotilsframework.lang.tuples;
 
+import java.util.Objects;
+
 /**
- * @ClassName: Unit
- * @Author: hireny
- * @Date: Created in 2020-01-15 14:12
- * @Version: 1.0
+ *
+ * 一元组
+ *
+ * @author hireny
+ * @className Unit
+ * @create 2020-04-10 10:14
  */
-public class Unit<T> extends Tuple {
+public class Unit<E> extends AbstractTuple implements Tuple {
     private static final long serialVersionUID = -4287309813869102196L;
     private static final int SIZE = 1;
-    private T first;
+    private final E first;
 
-    public Unit(T value) {
+    public Unit(E value) {
+        super(value);
         this.first = value;
     }
 
-    public T getFirst() {
+    public E getFirst() {
         return this.first;
     }
 
@@ -24,7 +29,7 @@ public class Unit<T> extends Tuple {
         return SIZE;
     }
 
-    public T getValue() {
+    public E getValue() {
         return first;
     }
 
@@ -39,8 +44,10 @@ public class Unit<T> extends Tuple {
 
         Unit<?> unit = (Unit<?>) o;
 
-        return first != null ? first.equals(unit.first) : unit.first == null;
+        return Objects.equals(first, unit.first);
     }
+
+
 
     @Override
     public int hashCode() {
@@ -49,8 +56,8 @@ public class Unit<T> extends Tuple {
 
     @Override
     public String toString() {
-        return "Unit{" +
-                "value=" + first +
+        return "Tuple{" +
+                first +
                 '}';
     }
 }

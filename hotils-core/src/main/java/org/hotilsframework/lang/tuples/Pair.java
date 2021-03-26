@@ -1,18 +1,23 @@
 package org.hotilsframework.lang.tuples;
 
+import java.util.Objects;
+
 /**
- * @ClassName: Pair
- * @Author: hireny
- * @Date: Created in 2020-01-15 14:14
- * @Version: 1.0
+ *
+ * 二元组
+ *
+ * @author hireny
+ * @className Pair
+ * @create 2020-04-10 10:14
  */
-public class Pair<A, B> extends Tuple {
+public class Pair<A, B> extends AbstractTuple implements Tuple {
     private static final long serialVersionUID = 5246276620136848321L;
     private static final int SIZE = 2;
-    private A first;
-    private B second;
+    private final A first;
+    private final B second;
 
     public Pair(A first, B second) {
+        super(first, second);
         this.first = first;
         this.second = second;
     }
@@ -41,10 +46,10 @@ public class Pair<A, B> extends Tuple {
 
         Pair<?, ?> pair = (Pair<?, ?>) o;
 
-        if (first != null ? !first.equals(pair.first) : pair.first != null) {
+        if (!Objects.equals(first, pair.first)) {
             return false;
         }
-        return second != null ? second.equals(pair.second) : pair.second == null;
+        return Objects.equals(second, pair.second);
     }
 
     @Override
@@ -56,9 +61,9 @@ public class Pair<A, B> extends Tuple {
 
     @Override
     public String toString() {
-        return "Pair{" +
-                "value1=" + first +
-                ", value2=" + second +
+        return "Tuple{" +
+                first +
+                ", " + second +
                 '}';
     }
 }

@@ -10,6 +10,15 @@ import java.lang.reflect.Type;
  * @Date: Create in 2019/10/31 11:02
  */
 public class TypeWrapper {
+    /**
+     * 需要解析的 JDK 类型
+     */
+    private final Type type;
+
+    public TypeWrapper(Type type) {
+        this.type = type;
+    }
+
 
     interface TypeProvider extends Serializable {
 

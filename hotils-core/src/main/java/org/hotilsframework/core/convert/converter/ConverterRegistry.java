@@ -14,12 +14,6 @@ public interface ConverterRegistry {
     void addConverter(Converter<?, ?> converter);
 
     /**
-     * 添加一个转换器工厂
-     * @param factory
-     */
-    void addConverterFactory(ConverterFactory<?, ?> factory);
-
-    /**
      * 删除从源类转换到目标类的所有转换器
      * @param sourceType
      * @param targetType
