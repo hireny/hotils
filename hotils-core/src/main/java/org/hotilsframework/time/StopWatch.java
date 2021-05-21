@@ -1,6 +1,6 @@
 package org.hotilsframework.time;
 
-import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.ListUtils;
 import org.hotilsframework.lang.Nullable;
 import org.hotilsframework.lang.Assert;
 
@@ -25,7 +25,7 @@ public class StopWatch {
     /**
      *  任务信息列表
      */
-    private final List<TaskInfo> taskList = Lists.newLinkedList();
+    private final List<TaskInfo> taskList = ListUtils.newLinkedList();
     /**
      * 当前任务的启动时间
      */
@@ -91,7 +91,7 @@ public class StopWatch {
      */
     public void start(String taskName) {
         // 当 currentTaskName != null 时，抛出异常，因为当前秒表已经在跑了
-        Assert.state(this.currentTaskName == null, "Can't start StopWatch: it's already running");
+        Assert.checkArgument(this.currentTaskName == null, "Can't start StopWatch: it's already running");
         this.currentTaskName = taskName;
         this.startTimeNanos = System.nanoTime();
     }
@@ -101,7 +101,7 @@ public class StopWatch {
      */
     public void stop() {
         // 当 currentTaskName == null时，抛出异常，因为当前秒表已经停止
-        Assert.state(this.currentTaskName != null, "Can't stop StopWatch: it's not running");
+        Assert.checkArgument(this.currentTaskName != null, "Can't stop StopWatch: it's not running");
         long lastTime = System.nanoTime() - this.startTimeNanos;
         this.totalTimeNanos += lastTime;
         this.lastTaskInfo = new TaskInfo(this.currentTaskName, lastTime);
@@ -134,7 +134,7 @@ public class StopWatch {
      */
     public long getLastTaskTimeNanos() {
         // 判断最后的任务信息是否还有，如果没有就抛出异常，没有任务在跑了
-        Assert.state(this.lastTaskInfo != null, "No tasks run: can't get last task interval");
+        Assert.checkArgument(this.lastTaskInfo != null, "No tasks run: can't get last task interval");
         return this.lastTaskInfo.getTimeNanos();
     }
 
@@ -143,17 +143,17 @@ public class StopWatch {
      * @return
      */
     public long getLastTaskTimeMillis() {
-        Assert.state(this.lastTaskInfo != null, "No tasks run: can't get last task interval");
+        Assert.checkArgument(this.lastTaskInfo != null, "No tasks run: can't get last task interval");
         return this.lastTaskInfo.getTimeMillis();
     }
 
     public String getLastTaskName() {
-        Assert.state(this.lastTaskInfo != null, "No tasks run: can't get last task name");
+        Assert.checkArgument(this.lastTaskInfo != null, "No tasks run: can't get last task name");
         return this.lastTaskInfo.getTaskName();
     }
 
     public TaskInfo getLastTaskInfo() {
-        Assert.state(this.lastTaskInfo != null, "No tasks run: can't get last task info");
+        Assert.checkArgument(this.lastTaskInfo != null, "No tasks run: can't get last task info");
         return this.lastTaskInfo;
     }
 

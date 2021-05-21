@@ -20,7 +20,7 @@ public class NumberMatcher<T extends Number> extends AbstractMatcher<T> implemen
     }
 
     public static void main(String[] args) {
-        Integer a = 123;
+        int a = 123;
         Matcher<Integer> iMatcher = new NumberMatcher<>(a);
         boolean isMa = iMatcher.match(124);
         System.out.println(isMa);

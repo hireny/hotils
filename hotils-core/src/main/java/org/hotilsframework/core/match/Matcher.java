@@ -1,10 +1,12 @@
 package org.hotilsframework.core.match;
 
 /**
- * @ClassName: Matcher
- * @Author: hireny
- * @Date: Create in 2019/12/10 00:19
- * @Description: TODO   匹配接口
+ * Matcher
+ *
+ * 匹配器接口
+ *
+ * @author hireny
+ * @date: Create in 2019/12/10 00:19
  *
  * @param <T>   匹配的对象类型
  */

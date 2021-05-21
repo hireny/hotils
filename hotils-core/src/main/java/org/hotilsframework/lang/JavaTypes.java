@@ -1,6 +1,6 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.collect.Sets;
+import org.hotilsframework.collect.SetUtils;
 
 import java.io.Closeable;
 import java.io.Externalizable;
@@ -104,7 +104,7 @@ public final class JavaTypes {
         primitiveTypeNameMap = Collections.unmodifiableMap(tempPrimitiveTypeNameMap);
 
         // 标准数字类型
-        Set<Class<?>> numberTypes = Sets.newHashSet();
+        Set<Class<?>> numberTypes = SetUtils.newHashSet();
         numberTypes.add(Byte.class);
         numberTypes.add(Short.class);
         numberTypes.add(Integer.class);

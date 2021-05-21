@@ -11,7 +11,7 @@ import java.io.Serializable;
 public interface Element extends Serializable {
     /**
      * 返回资源对象，该对象包含有关此元素的信息
-     * @return
+     * @return  返回对象
      */
-    Object getElement();
+    Object get();
 }

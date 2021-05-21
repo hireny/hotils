@@ -8,5 +8,5 @@ package org.hotilsframework.core.match;
  * @author hireny
  * @create 2020-08-31 10:28
  */
-public class PathMatcher {
+public interface PathMatcher {
 }

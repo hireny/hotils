@@ -1,6 +1,6 @@
 package org.hotilsframework.core.types;
 
-import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.ListUtils;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class ArgumentValues {
     private final List<ArgumentValue> propertyValues;
 
     public ArgumentValues() {
-        this(Lists.newArrayList());
+        this(ListUtils.newArrayList());
     }
 
     public ArgumentValues(List<ArgumentValue> propertyValues) {

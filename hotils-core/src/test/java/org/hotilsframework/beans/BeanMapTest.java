@@ -1,7 +1,7 @@
 package org.hotilsframework.beans;
 
-import org.hotilsframework.collect.Lists;
-import org.hotilsframework.collect.Maps;
+import org.hotilsframework.collect.ListUtils;
+import org.hotilsframework.collect.MapUtils;
 import org.junit.Test;
 
 import java.sql.Timestamp;
@@ -29,7 +29,7 @@ public class BeanMapTest {
         beanTest.setCreateTime(new Date());
         beanTest.setModifiedTime(LocalDateTime.now());
         beanTest.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-        beanTest.setFriends(Lists.newArrayList("小张", "小赵", "小钱", "小孙", "小李"));
+        beanTest.setFriends(ListUtils.newArrayList("小张", "小赵", "小钱", "小孙", "小李"));
         BeanMap beanMap = BeanMap.create(beanTest);
         System.out.println("获取封装的bean：");
         System.out.println(beanMap.toBean());
@@ -42,7 +42,7 @@ public class BeanMapTest {
         System.out.println("获取值：");
         System.out.println(beanMap.values().toString());
 
-        Map<String, Object> mapTest = Maps.newHashMap();
+        Map<String, Object> mapTest = MapUtils.newHashMap();
         mapTest.put("id", 2);
         mapTest.put("username", "肖玲玲");
         mapTest.put("password", "123456".getBytes());
@@ -52,14 +52,14 @@ public class BeanMapTest {
         mapTest.put("modifiedTime", LocalDateTime.now());
         mapTest.put("updateTime", new Timestamp(System.currentTimeMillis()));
         mapTest.put("address", new String[]{"小街道", "大街道", "中街道"});
-        mapTest.put("friends", Lists.newArrayList("小龙", "小凤", "小虎", "小玄武", "小麒麟"));
+        mapTest.put("friends", ListUtils.newArrayList("小龙", "小凤", "小虎", "小玄武", "小麒麟"));
 
 
         BeanMap beanMap1 = BeanMap.create(mapTest, BeanMapTestClass.class);
         System.out.println("获取另一个Map：");
         System.out.println(beanMap1.toBean().toString());
 
-        Map<String, Object> mapTest2 = Maps.newHashMap();
+        Map<String, Object> mapTest2 = MapUtils.newHashMap();
         mapTest2.put("id", 2);
         mapTest2.put("username", "肖玲玲");
         mapTest2.put("password", "123456".getBytes());
@@ -69,7 +69,7 @@ public class BeanMapTest {
         mapTest2.put("modifiedTime", LocalDateTime.now());
         mapTest2.put("updateTime", new Timestamp(System.currentTimeMillis()));
         mapTest2.put("address", new String[]{"小街道", "大街道", "中街道"});
-        mapTest2.put("friends", Lists.newArrayList("小龙", "小凤", "小虎", "小玄武", "小麒麟"));
+        mapTest2.put("friends", ListUtils.newArrayList("小龙", "小凤", "小虎", "小玄武", "小麒麟"));
 
         BeanMapTestClass beanMapTestClass2 = new BeanMapTestClass();
         System.out.println("赋值之前=");

@@ -1,6 +1,6 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.ListUtils;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -73,7 +73,7 @@ public final class Splitter {
         Assert.notNull(cs);
 
         Iterator<String> iterator = splittingIterator(cs);
-        List<String> result = Lists.newArrayList();
+        List<String> result = ListUtils.newArrayList();
 
         while (iterator.hasNext()) {
             result.add(iterator.next());

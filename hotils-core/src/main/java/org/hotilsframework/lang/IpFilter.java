@@ -1,7 +1,7 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.collect.Lists;
-import org.hotilsframework.collect.Sets;
+import org.hotilsframework.collect.ListUtils;
+import org.hotilsframework.collect.SetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +42,13 @@ public class IpFilter {
      * @return              allow ip address list
      */
     private static Set<String> getAllowIpList(String allowIp) {
-        Set<String> ipList = Sets.newHashSet();
+        Set<String> ipList = SetUtils.newHashSet();
         for (String allow : allowIp.replace("\\s", "").split(";")) {
             if (allow.contains("*")) {
                 String[] ips = allow.split("\\.");
                 String[] from = new String[]{"0", "0", "0", "0"};
                 String[] end = new String[]{"255", "255", "255", "255"};
-                List<String> tem = Lists.newArrayList();
+                List<String> tem = ListUtils.newArrayList();
                 for (int i = 0, len = ips.length; i < len; i++) {
                     if (ips[i].contains("*")) {
                         tem = complete(ips[i]);

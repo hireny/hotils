@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.internal;
 
-import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.ListUtils;
 import org.hotilsframework.context.BeanContext;
 import org.hotilsframework.context.DefaultBeanContext;
 import org.hotilsframework.inject.*;
@@ -47,11 +47,11 @@ public class InternalWrapper {
         /**
          * 存储绑定信息的元素
          */
-        private final List<Binding<?>> elements = Lists.newArrayList();
+        private final List<Binding<?>> elements = ListUtils.newArrayList();
         /**
          * 模块信息
          */
-        private final List<Module>     modules = Lists.newArrayList();
+        private final List<Module>     modules = ListUtils.newArrayList();
         /**
          * bean上下文
          */
@@ -81,7 +81,7 @@ public class InternalWrapper {
 
         InternalWrapper build() {
             // 没有上下文，你记得加锁了吗？
-            Assert.state(beanContext != null, "no bean context. Did you remember to lock() ?");
+            Assert.checkArgument(beanContext != null, "no bean context. Did you remember to lock() ?");
             // 通过模块信息获取所有的绑定信息并存储在集合中
             elements.addAll(Bindings.getBindings(modules));
             System.out.println("绑定元素曝光=" + elements.toString());

@@ -1,6 +1,6 @@
 package org.hotilsframework.lang;
 
-import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.ListUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Builder<T> implements Serializable {
 
     private static final long serialVersionUID = -2074704018805998201L;
     private final Supplier<T> instantiator;
-    private List<Consumer<T>> modifiers = Lists.newArrayList();
+    private List<Consumer<T>> modifiers = ListUtils.newArrayList();
 
     public Builder(Supplier<T> instantiator) {
         this.instantiator = instantiator;

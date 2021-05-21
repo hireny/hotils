@@ -1,7 +1,5 @@
 package org.hotilsframework.core;
 
-import java.util.Comparator;
-
 /**
  * Order
  *

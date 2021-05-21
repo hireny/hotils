@@ -1,6 +1,6 @@
 package org.hotilsframework.time;
 
-import org.hotilsframework.collect.Maps;
+import org.hotilsframework.collect.MapUtils;
 import org.hotilsframework.lang.Assert;
 
 import java.time.DayOfWeek;
@@ -116,7 +116,7 @@ public enum Week {
      * @return
      */
     private static Map<Week, String> weeksOfChinese() {
-        Map<Week, String> weekOfChinese = Maps.newHashMap();
+        Map<Week, String> weekOfChinese = MapUtils.newHashMap();
         weekOfChinese.put(Week.MONDAY, "一");
         weekOfChinese.put(Week.TUESDAY, "二");
         weekOfChinese.put(Week.WEDNESDAY, "三");

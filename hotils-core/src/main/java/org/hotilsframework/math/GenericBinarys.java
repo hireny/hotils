@@ -1,6 +1,6 @@
 package org.hotilsframework.math;
 
-import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.ListUtils;
 import org.hotilsframework.lang.Assert;
 
 import java.util.Stack;
@@ -20,11 +20,11 @@ public class GenericBinarys {
      * @return          转化后的数字表示
      */
     public static String transfrom(int num, int dest) {
-        Assert.state(dest <= 16, "Transform out of range, base<= 16");
+        Assert.checkState(dest <= 16, "Transform out of range, base<= 16");
 
         StringBuilder stringBuilder = new StringBuilder();
         String digths = "0123456789ABCDEF";
-        Stack<Character> stack = Lists.newStack();
+        Stack<Character> stack = ListUtils.newStack();
         while (num != 0) {
             stack.push(digths.charAt(num % dest));
             num /= dest;

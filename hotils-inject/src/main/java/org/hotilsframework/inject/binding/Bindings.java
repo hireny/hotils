@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.binding;
 
-import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.ListUtils;
 import org.hotilsframework.inject.*;
 
 import java.lang.annotation.Annotation;
@@ -40,8 +40,8 @@ public class Bindings {
 
 
         public RecordBinder() {
-            this.modules = Lists.newArrayList();
-            this.elements = Lists.newArrayList();
+            this.modules = ListUtils.newArrayList();
+            this.elements = ListUtils.newArrayList();
         }
 
         @Override

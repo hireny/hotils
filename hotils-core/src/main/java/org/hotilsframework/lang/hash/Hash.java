@@ -1,6 +1,6 @@
 package org.hotilsframework.lang.hash;
 
-import org.hotilsframework.codec.ByteSource;
+import org.hotilsframework.codec.ByteDefinition;
 
 /**
  * Hash
@@ -8,7 +8,7 @@ import org.hotilsframework.codec.ByteSource;
  * @Author: hireny
  * @Date: Create in 2019/10/13 19:43
  */
-public interface Hash extends ByteSource {
+public interface Hash {
 
     /**
      * Returns the name of the algorithm used to hash the input source, for example, {@code SHA-256}, {@code MD5}, etc.
@@ -26,7 +26,7 @@ public interface Hash extends ByteSource {
      * @return a salt used to compute the hash or {@code null} if no salt was used.
      * @since 1.2
      */
-    ByteSource getSalt();
+    ByteDefinition getSalt();
 
     /**
      * Returns the number of hash iterations used to compute the hash.

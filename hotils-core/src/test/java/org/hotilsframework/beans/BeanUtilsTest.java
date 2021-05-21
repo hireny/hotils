@@ -1,7 +1,7 @@
 package org.hotilsframework.beans;
 
 import org.hotilsframework.beans.copier.CopyOptions;
-import org.hotilsframework.collect.Maps;
+import org.hotilsframework.collect.MapUtils;
 import org.junit.Test;
 
 import java.beans.IntrospectionException;
@@ -87,7 +87,7 @@ public class BeanUtilsTest {
         javaBean1.setUsername("我是小沈阳");
         javaBean1.setPassword("123456");
         javaBean1.setSex(true);
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         BeanUtils.copyProperties(javaBean1, map);
         System.out.println("Java Bean 1 = " + javaBean1);
         System.out.println("Map 2 = " + map.toString());
@@ -100,7 +100,7 @@ public class BeanUtilsTest {
         javaBean1.setUsername("我是小沈阳");
         javaBean1.setPassword("123456");
         javaBean1.setSex(true);
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         BeanUtils.copyProperties(javaBean1, map, "password", "id");
         System.out.println("Java Bean 1 = " + javaBean1);
         System.out.println("Map 2 = " + map.toString());
@@ -113,7 +113,7 @@ public class BeanUtilsTest {
         javaBean1.setUsername("我是小沈阳");
         javaBean1.setPassword("123456");
         javaBean1.setSex(true);
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         BeanUtils.copyProperties(javaBean1, map, CopyOptions.create(JavaBean3.class, "password"));
         System.out.println("Java Bean 1 = " + javaBean1);
         System.out.println("Map 2 = " + map.toString());
@@ -126,7 +126,7 @@ public class BeanUtilsTest {
     @Test
     public void copyPropertiesTest7() {
 
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         map.put("id", 1);
         map.put("username", "我是笑声杨");
         map.put("password", "123456");
@@ -142,7 +142,7 @@ public class BeanUtilsTest {
 
     @Test
     public void copyPropertiesTest8() {
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         map.put("id", 1);
         map.put("username", "我是笑声杨");
         map.put("password", "123456");
@@ -158,7 +158,7 @@ public class BeanUtilsTest {
 
     @Test
     public void copyPropertiesTest9() {
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         map.put("id", 1);
         map.put("username", "我是笑声杨");
         map.put("password", "123456");
@@ -178,13 +178,13 @@ public class BeanUtilsTest {
     @Test
     public void copyPropertiesTest10() {
 
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         map.put("id", 1);
         map.put("username", "我是笑声杨");
         map.put("password", "123456");
         map.put("sex", true);
         map.put("age", 123);
-        Map<String, Object> copyMap = Maps.newHashMap();
+        Map<String, Object> copyMap = MapUtils.newHashMap();
 
         BeanUtils.copyProperties(map, copyMap);
         System.out.println("Map  = " + map.toString());
@@ -195,13 +195,13 @@ public class BeanUtilsTest {
 
     @Test
     public void copyPropertiesTest11() {
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         map.put("id", 1);
         map.put("username", "我是笑声杨");
         map.put("password", "123456");
         map.put("sex", true);
         map.put("age", 123);
-        Map<String, Object> copyMap = Maps.newHashMap();
+        Map<String, Object> copyMap = MapUtils.newHashMap();
 
         BeanUtils.copyProperties(map, copyMap, "id", "sex");
         System.out.println("Map  = " + map.toString());
@@ -212,13 +212,13 @@ public class BeanUtilsTest {
 
     @Test
     public void copyPropertiesTest12() {
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         map.put("id", 1);
         map.put("username", "我是笑声杨");
         map.put("password", "123456");
         map.put("sex", true);
         map.put("age", 123);
-        Map<String, Object> copyMap = Maps.newHashMap();
+        Map<String, Object> copyMap = MapUtils.newHashMap();
 
         BeanUtils.copyProperties(map, copyMap, CopyOptions.create(Map.class, "username", "age"));
         System.out.println("Map  = " + map.toString());
@@ -238,7 +238,7 @@ public class BeanUtilsTest {
         javaBean1.setUsername("我是小沈阳");
         javaBean1.setPassword("123456");
         javaBean1.setSex(true);
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         BeanUtils.beanToMap(javaBean1, map);
         System.out.println("Java Bean 1 = " + javaBean1);
         System.out.println("Map = " + map.toString());
@@ -250,7 +250,7 @@ public class BeanUtilsTest {
 
     @Test
     public void mapToBeanTest() {
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = MapUtils.newHashMap();
         map.put("id", 1);
         map.put("username", "我是笑声杨");
         map.put("password", "123456");

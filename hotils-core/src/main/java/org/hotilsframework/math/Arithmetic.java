@@ -1,6 +1,6 @@
 package org.hotilsframework.math;
 
-import org.hotilsframework.collect.Lists;
+import org.hotilsframework.collect.ListUtils;
 import org.hotilsframework.lang.ArrayUtils;
 import org.hotilsframework.lang.Assert;
 import org.hotilsframework.lang.NumberUtils;
@@ -742,7 +742,7 @@ public final class Arithmetic {
         if (0 >= n) {
             return null;
         }
-        List<Integer> factors = Lists.newArrayList();
+        List<Integer> factors = ListUtils.newArrayList();
         int half = n / 2;
         for (int i = 1; i <= half; i++) {
             if (n % i == 0) {

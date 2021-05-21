@@ -4,8 +4,13 @@ import org.hotilsframework.lang.reflects.CompositeType;
 import org.hotilsframework.lang.Assert;
 import org.hotilsframework.lang.reflects.GenericArrayTypeImpl;
 
-import java.lang.reflect.*;
 import java.lang.reflect.Array;
+import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.GenericDeclaration;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Objects;

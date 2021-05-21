@@ -3,7 +3,11 @@ package org.hotilsframework.collect;
 import org.hotilsframework.lang.ArrayUtils;
 import org.hotilsframework.lang.Nullable;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Collections

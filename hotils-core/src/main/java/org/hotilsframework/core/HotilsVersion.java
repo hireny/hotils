@@ -2,6 +2,7 @@ package org.hotilsframework.core;
 
 /**
  * HotilsVersion
+ *
  * 项目版本
  *
  * @author hireny

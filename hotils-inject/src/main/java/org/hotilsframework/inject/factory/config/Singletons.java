@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.factory.config;
 
-import org.hotilsframework.collect.Maps;
+import org.hotilsframework.collect.MapUtils;
 import org.hotilsframework.lang.reflects.TypeInstance;
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.annotation.Singleton;
@@ -21,7 +21,7 @@ public class Singletons extends AbstractScoping implements Scoping {
     /**
      * 单例元素的关系映射存储
      */
-    private final Map<BeanKey<?>, Object> singletons = Maps.newConcurrentHashMap();
+    private final Map<BeanKey<?>, Object> singletons = MapUtils.newConcurrentHashMap();
 
     /**
      * 单例Bean注册

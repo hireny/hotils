@@ -21,7 +21,6 @@
         <module>hotils-socket</module>
         <module>hotils-web</module>
         <module>hotils-nosql</module>
-        <module>hotils-orm</module>
         <module>hotils-scheduling</module>
         <module>hotils-test</module>
         <module>hotils-validator</module>

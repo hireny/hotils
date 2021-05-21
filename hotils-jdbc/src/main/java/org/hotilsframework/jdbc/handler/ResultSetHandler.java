@@ -5,11 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @ClassName: ResultSetHandler
- * @Author: hireny
- * @Date: Create in 2020/01/04 14:37
- * @Description: TODO   结果集处理接口
+ * ResultSetHandler
+ *
+ * 结果集处理器
+ *
+ * @author hireny
+ * @date Create in 2020/01/04 14:37
  */
+@FunctionalInterface
 public interface ResultSetHandler<T> extends Serializable {
 
     /**
@@ -20,5 +23,5 @@ public interface ResultSetHandler<T> extends Serializable {
      * @return                  处理后生成的对象
      * @throws SQLException     SQL异常
      */
-    T handleResultSets(ResultSet rs) throws SQLException;
+    T handle(ResultSet rs) throws SQLException;
 }

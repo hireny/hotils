@@ -36,7 +36,7 @@ public class CopiedIterator<E> implements Iterator<E>, Iterable<E>, Serializable
      * @param iterator  被复制的Iterator
      */
     public CopiedIterator(Iterator<E> iterator) {
-        final List<E> elements = Lists.newArrayList(iterator);
+        final List<E> elements = ListUtils.newArrayList(iterator);
         this.listIterator = elements.iterator();
     }
 
@@ -61,6 +61,6 @@ public class CopiedIterator<E> implements Iterator<E>, Iterable<E>, Serializable
      */
     @Override
     public void remove() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("THis is a read-only iterator.");
+        throw new UnsupportedOperationException("This is a read-only iterator.");
     }
 }

@@ -1,6 +1,6 @@
 package org.hotilsframework.beans;
 
-import org.hotilsframework.collect.Maps;
+import org.hotilsframework.collect.MapUtils;
 import org.hotilsframework.lang.reflects.TypeInstance;
 
 import java.util.Collection;
@@ -34,7 +34,7 @@ public class BeanMap {
 
     private BeanMap(Object bean) {
         this.bean = bean;
-        this.map = Maps.newHashMap();
+        this.map = MapUtils.newHashMap();
         beanToMap(bean, map);
     }
 

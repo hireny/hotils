@@ -1,6 +1,6 @@
 package org.hotilsframework.context;
 
-import org.hotilsframework.collect.Maps;
+import org.hotilsframework.collect.MapUtils;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.BeanKey;
 import org.hotilsframework.inject.binding.Binding;
@@ -28,11 +28,11 @@ public class AbstractBeanContext implements BeanContext {
     /**
      * 明确的绑定容器
      */
-    private final Map<BeanKey<?>, Binding<?>>     explicitBindings       = Maps.newConcurrentHashMap();
+    private final Map<BeanKey<?>, Binding<?>>     explicitBindings       = MapUtils.newConcurrentHashMap();
     /**
      * 明确的绑定院系容器
      */
-    private final Map<BeanKey<?>, BeanDefinition> explicitBindingsMuable = Maps.newConcurrentHashMap();
+    private final Map<BeanKey<?>, BeanDefinition> explicitBindingsMuable = MapUtils.newConcurrentHashMap();
 
 
     private final BeanFactory elements;

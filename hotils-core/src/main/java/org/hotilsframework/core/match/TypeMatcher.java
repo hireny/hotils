@@ -2,22 +2,22 @@ package org.hotilsframework.core.match;
 
 /**
  * TypeMatcher
- * 类描述
+ *
+ * 类型匹配
  *
  * @author hireny
  * @create 2020-12-02 11:56
  */
-public class TypeMatcher<T> implements Matcher<T> {
+public class TypeMatcher extends AbstractMatcher<Class<?>> implements Matcher<Class<?>> {
 
-    private final Class<T> value;
 
-    public TypeMatcher(Class<T> value) {
-        this.value = value;
+    public TypeMatcher(Class<?> value) {
+        super(value);
     }
 
 
     @Override
-    public boolean match(T t) {
-        return this.value.equals(t);
+    public boolean match(Class<?> type) {
+        return super.match(type);
     }
 }
