@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.factory;
 
 import org.hotilsframework.collect.TypeMap;
-import org.hotilsframework.inject.BeanKey;
+import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.Scopes;
 import org.hotilsframework.inject.factory.config.*;
 import org.hotilsframework.lang.Assert;
@@ -70,9 +70,9 @@ public abstract class AbstractBeanFactory implements BeanFactory, ScopeRegistry 
     }
 
     @Override
-    public <T> T get(BeanKey<T> beanKey, Class<?> scopeType) {
+    public <T> T get(Key<T> key, Class<?> scopeType) {
         Scoping scope = this.scopes.get(scopeType);
-        return scope.get(beanKey);
+        return scope.get(key);
     }
 
     @Override

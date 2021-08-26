@@ -12,7 +12,7 @@ import java.lang.annotation.Annotation;
  */
 public interface Binder {
 
-    <T> BindingBuilder<T> bind(BeanKey<T> beanKey);
+    <T> BindingBuilder<T> bind(Key<T> key);
 
     <T> BindingBuilder<T> bind(Class<T> type);
 
@@ -25,7 +25,7 @@ public interface Binder {
 
     /**
      * 将配置信息绑定
-     * @param module
+     * @param configuration
      */
-    void install(Module module);
+    void install(Configuration configuration);
 }

@@ -2,7 +2,7 @@ package org.hotilsframework.context;
 
 import org.hotilsframework.collect.MapUtils;
 import org.hotilsframework.inject.BeanDefinition;
-import org.hotilsframework.inject.BeanKey;
+import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.binding.Binding;
 import org.hotilsframework.inject.binding.SampleBinding;
 import org.hotilsframework.inject.factory.BeanFactory;
@@ -19,20 +19,20 @@ import java.util.Map;
  * @author hireny
  * @create 2020-08-18 0:07
  */
-public class AbstractBeanContext implements BeanContext {
+public class AbstractContext implements Context {
 
     /**
      * 父Bean上下文
      */
-    private final BeanContext                     parent;
+    private final Context                     parent;
     /**
      * 明确的绑定容器
      */
-    private final Map<BeanKey<?>, Binding<?>>     explicitBindings       = MapUtils.newConcurrentHashMap();
+    private final Map<Key<?>, Binding<?>>     explicitBindings       = MapUtils.newConcurrentHashMap();
     /**
      * 明确的绑定院系容器
      */
-    private final Map<BeanKey<?>, BeanDefinition> explicitBindingsMuable = MapUtils.newConcurrentHashMap();
+    private final Map<Key<?>, BeanDefinition> explicitBindingsMuable = MapUtils.newConcurrentHashMap();
 
 
     private final BeanFactory elements;
@@ -42,20 +42,20 @@ public class AbstractBeanContext implements BeanContext {
      */
     private final Object lock;
 
-    public AbstractBeanContext(BeanContext parent) {
+    public AbstractContext(Context parent) {
         this.parent = Assert.notNull(parent, "parent bean context is null.");
         this.elements = new DefaultBeanFactory();
-        this.lock = (parent == BeanContext.NONE) ? this : parent.lock();
+        this.lock = (parent == Context.NONE) ? this : parent.lock();
     }
 
-    public AbstractBeanContext(BeanContext parent, BeanFactory provider) {
+    public AbstractContext(Context parent, BeanFactory provider) {
         this.parent = Assert.notNull(parent, "parent bean context is null.");
         this.elements = provider;
-        this.lock = (parent == BeanContext.NONE) ? this : parent.lock();
+        this.lock = (parent == Context.NONE) ? this : parent.lock();
     }
 
     @Override
-    public BeanContext parent() {
+    public Context parent() {
         return parent;
     }
 
@@ -64,47 +64,47 @@ public class AbstractBeanContext implements BeanContext {
      * @return
      */
     @Override
-    public Map<BeanKey<?>, Binding<?>> getBindings() {
+    public Map<Key<?>, Binding<?>> getBindings() {
         return Collections.unmodifiableMap(explicitBindings);
     }
 
     @Override
-    public Map<BeanKey<?>, BeanDefinition> getBeanDefinitions() {
+    public Map<Key<?>, BeanDefinition> getBeanDefinitions() {
         return Collections.unmodifiableMap(explicitBindingsMuable);
     }
 
     /**
      * 获取键对应的绑定元素
-     * @param beanKey
+     * @param key
      * @return
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <T> SampleBinding<T> getBinding(BeanKey<T> beanKey) {
-        Binding<?> binding = getBindings().get(beanKey);
-        return binding != null ? (SampleBinding<T>) binding : parent.getBinding(beanKey);
+    public <T> SampleBinding<T> getBinding(Key<T> key) {
+        Binding<?> binding = getBindings().get(key);
+        return binding != null ? (SampleBinding<T>) binding : parent.getBinding(key);
     }
 
     @Override
-    public BeanDefinition getBeanDefinition(BeanKey<?> beanKey) {
-        BeanDefinition beanDefinition = getBeanDefinitions().get(beanKey);
-        return beanDefinition != null ? beanDefinition : parent.getBeanDefinition(beanKey);
+    public BeanDefinition getBeanDefinition(Key<?> key) {
+        BeanDefinition beanDefinition = getBeanDefinitions().get(key);
+        return beanDefinition != null ? beanDefinition : parent.getBeanDefinition(key);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T get(BeanKey<?> beanKey, Class<?> scopeType) {
-        return (T) elements.get(beanKey, scopeType);
+    public <T> T get(Key<?> key, Class<?> scopeType) {
+        return (T) elements.get(key, scopeType);
     }
 
     @Override
-    public void putBeanDefinition(BeanKey<?> beanKey, BeanDefinition beanDefinition) {
-        explicitBindingsMuable.put(beanKey, beanDefinition);
+    public void putBeanDefinition(Key<?> key, BeanDefinition beanDefinition) {
+        explicitBindingsMuable.put(key, beanDefinition);
     }
 
     @Override
-    public void putBinding(BeanKey<?> beanKey, SampleBinding<?> binding) {
-        explicitBindings.put(beanKey, binding);
+    public void putBinding(Key<?> key, SampleBinding<?> binding) {
+        explicitBindings.put(key, binding);
     }
 
     @Override

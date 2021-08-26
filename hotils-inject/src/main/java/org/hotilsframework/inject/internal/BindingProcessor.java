@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.internal;
 
 import org.hotilsframework.inject.binding.Binding;
-import org.hotilsframework.inject.BeanKey;
+import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.binding.LinkedBinding;
 import org.hotilsframework.inject.binding.SampleBinding;
 
@@ -44,9 +44,9 @@ public class BindingProcessor {
      * @param binding
      */
     protected <T> void putBinding(Binding<T> binding) {
-        BeanKey<T> beanKey = binding.getBeanKey();
+        Key<T> key = binding.getKey();
 
-        SampleBinding<?> original = injector.getBinding(beanKey);
+        SampleBinding<?> original = injector.getBinding(key);
         System.out.println("原生=" + original);
         if (original != null) {
             // 存在以key为键的绑定信息
@@ -54,10 +54,10 @@ public class BindingProcessor {
         }
         if (binding instanceof LinkedBinding) {
 
-            binding = new LinkedBinding<T>(injector, binding.getBeanKey(), binding.getScope(),((LinkedBinding) binding).getTargetBeanKey());
+            binding = new LinkedBinding<T>(injector, binding.getKey(), binding.getScope(),((LinkedBinding) binding).getTargetKey());
         }
 
         // 在存进bean context 之前，要对 binding 进行处理
-        injector.beanContext.putBinding(beanKey, (SampleBinding<?>) binding);
+        injector.context.putBinding(key, (SampleBinding<?>) binding);
     }
 }

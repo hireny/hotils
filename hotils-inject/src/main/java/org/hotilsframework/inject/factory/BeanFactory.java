@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.factory;
 
-import org.hotilsframework.inject.BeanKey;
+import org.hotilsframework.inject.Key;
 
 /**
  * BeanFactory
@@ -14,9 +14,9 @@ public interface BeanFactory {
 
     /**
      * 根据键获取值
-     * @param beanKey           键，是Bean的唯一标识
+     * @param key           键，是Bean的唯一标识
      * @param scopeType     作用域，根据作用域获取对象
      * @return
      */
-    <T> T get(BeanKey<T> beanKey, Class<?> scopeType);
+    <T> T get(Key<T> key, Class<?> scopeType);
 }

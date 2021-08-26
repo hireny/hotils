@@ -11,9 +11,17 @@ import java.util.Objects;
  * @create 2020-07-09 12:38
  */
 public abstract class AbstractMapEntry<K, V> implements Map.Entry<K, V> {
+    /**
+     * 获取键
+     * @return  获取键
+     */
     @Override
     public abstract K getKey();
 
+    /**
+     * 获取值
+     * @return  获取值
+     */
     @Override
     public abstract V getValue();
 

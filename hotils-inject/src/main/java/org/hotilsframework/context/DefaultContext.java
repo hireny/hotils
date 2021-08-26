@@ -14,14 +14,14 @@ import org.hotilsframework.inject.factory.BeanFactory;
  * @author hireny
  * @create 2020-07-27 23:15
  */
-public class DefaultBeanContext extends AbstractBeanContext {
+public class DefaultContext extends AbstractContext {
 
 
-    public DefaultBeanContext(BeanContext parent) {
+    public DefaultContext(Context parent) {
         super(parent);
     }
 
-    public DefaultBeanContext(BeanContext parent, BeanFactory provider) {
+    public DefaultContext(Context parent, BeanFactory provider) {
         super(parent, provider);
     }
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author hireny
  * @create 2020-11-16 20:43
  */
-public class ArgumentValue implements Serializable {
+public class PropertyValue implements Serializable {
     private static final long serialVersionUID = -8824705865183646976L;
 
     /**
@@ -27,7 +27,7 @@ public class ArgumentValue implements Serializable {
      */
     private final Object value;
 
-    public ArgumentValue(String name, Object value) {
+    public PropertyValue(String name, Object value) {
         // name不能为空
         Assert.notNull(name, "Name must not be null.");
         this.name = name;

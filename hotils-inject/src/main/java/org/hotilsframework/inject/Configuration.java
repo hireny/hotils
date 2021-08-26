@@ -6,7 +6,7 @@ package org.hotilsframework.inject;
  * @className Module
  * @create 2020-05-15 21:10
  */
-public interface Module {
+public interface Configuration {
 
     /**
      * 配置

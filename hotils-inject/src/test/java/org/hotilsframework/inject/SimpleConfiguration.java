@@ -1,8 +1,5 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.inject.annotation.Singleton;
-import org.hotilsframework.inject.qualifier.Qualifiers;
-
 /**
  * EventModule
  * 类描述
@@ -10,7 +7,7 @@ import org.hotilsframework.inject.qualifier.Qualifiers;
  * @author hireny
  * @create 2020-07-27 0:03
  */
-public class SimpleModule extends AbstractModule {
+public class SimpleConfiguration extends AbstractConfiguration {
 
     @Override
     public void configure() {

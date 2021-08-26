@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.binding;
 
-import org.hotilsframework.context.BeanContext;
+import org.hotilsframework.context.Context;
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.factory.InternalFactory;
 import org.hotilsframework.inject.Scopes;
@@ -20,7 +20,7 @@ public class SampleBinding<T> implements Binding<T> {
      * 该绑定关系所注入的注入器
      */
     private final InternalInjector injector;
-    private final BeanKey<T>       beanKey;
+    private final Key<T>           key;
     /**
      * 作用域
      */
@@ -30,20 +30,20 @@ public class SampleBinding<T> implements Binding<T> {
      */
     private final InternalFactory<? extends T> internalFactory;
 
-    public SampleBinding(InternalInjector injector, BeanKey<T> beanKey, Scope scope) {
+    public SampleBinding(InternalInjector injector, Key<T> key, Scope scope) {
         this.injector = injector;
-        this.beanKey = beanKey;
+        this.key = key;
         this.scope = scope;
-        this.internalFactory = new Factory<>(beanKey);
+        this.internalFactory = new Factory<>(key);
     }
 
-    public SampleBinding(BeanKey<T> beanKey, Scope scope) {
-        this(null, beanKey, scope);
+    public SampleBinding(Key<T> key, Scope scope) {
+        this(null, key, scope);
     }
 
     @Override
-    public BeanKey<T> getBeanKey() {
-        return beanKey;
+    public Key<T> getKey() {
+        return key;
     }
 
     private volatile Provider<T> provider;
@@ -57,7 +57,7 @@ public class SampleBinding<T> implements Binding<T> {
                 throw new UnsupportedOperationException("getProvider() not supported for module bindings");
             }
             System.out.println("获取提取者");
-            provider= injector.getProvider(beanKey);
+            provider= injector.getProvider(key);
         }
         System.out.println("已经具有绑定提供者=" + provider);
         return provider;
@@ -82,12 +82,12 @@ public class SampleBinding<T> implements Binding<T> {
 
     @Override
     public SampleBinding<T> withScope(Scope scope) {
-        return new SampleBinding<>(getInjector(), getBeanKey(), scope);
+        return new SampleBinding<>(getInjector(), getKey(), scope);
     }
 
     @Override
-    public SampleBinding<T> withKey(BeanKey<T> beanKey) {
-        return new SampleBinding<T>(getInjector(), beanKey, getScope());
+    public SampleBinding<T> withKey(Key<T> key) {
+        return new SampleBinding<T>(getInjector(), key, getScope());
     }
 
     @Override
@@ -98,7 +98,7 @@ public class SampleBinding<T> implements Binding<T> {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("SampleBinding{");
-        sb.append(", key=").append(beanKey);
+        sb.append(", key=").append(key);
         sb.append(", scope=").append(scope);
         sb.append('}');
         return sb.toString();
@@ -110,20 +110,20 @@ public class SampleBinding<T> implements Binding<T> {
      */
     private static class Factory<T> implements InternalFactory<T> {
 
-        private final BeanKey<T> beanKey;
+        private final Key<T> key;
 
-        private Factory(BeanKey<T> beanKey) {
-            this.beanKey = beanKey;
+        private Factory(Key<T> key) {
+            this.key = key;
         }
 
         @Override
-        public T get(BeanContext beanContext) {
+        public T get(Context context) {
 
-            System.out.println("进入工厂1111=" + beanKey);
+            System.out.println("进入工厂1111=" + key);
 
             // 可以先从单例中获取
             T t = null;
-            SampleBinding<T> binding = beanContext.getBinding(beanKey);
+            SampleBinding<T> binding = context.getBinding(key);
             System.out.println("获取的信息=" + binding);
 
             // 可以先从容器中获取实例
@@ -136,7 +136,7 @@ public class SampleBinding<T> implements Binding<T> {
                 LinkedBinding<T> c = (LinkedBinding<T>) binding;
 
 
-                t = beanContext.get(c.getTargetBeanKey(), Scopes.getScopeTypes().get(binding.scope));
+                t = context.get(c.getTargetKey(), Scopes.getScopeTypes().get(binding.scope));
             }
 
             return t;

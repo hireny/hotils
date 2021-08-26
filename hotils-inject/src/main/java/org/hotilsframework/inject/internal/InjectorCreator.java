@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.internal;
 
+import org.hotilsframework.inject.Configuration;
 import org.hotilsframework.inject.Injector;
-import org.hotilsframework.inject.Module;
 import org.hotilsframework.lang.Assert;
 
 /**
@@ -19,7 +19,7 @@ public class InjectorCreator {
     private InternalWrapper wrapper;
 
 
-    public InjectorCreator addModules(Iterable<Module> modules) {
+    public InjectorCreator addModules(Iterable<Configuration> modules) {
         builder.addModules(modules);
         return this;
     }

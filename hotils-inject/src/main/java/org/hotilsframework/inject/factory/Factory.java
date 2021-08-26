@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.factory;
 
-import org.hotilsframework.context.BeanContext;
+import org.hotilsframework.context.Context;
 
 /**
  * Factory
@@ -17,5 +17,5 @@ public interface Factory {
      * @param <T>
      * @return
      */
-    <T> T get(BeanContext context);
+    <T> T get(Context context);
 }

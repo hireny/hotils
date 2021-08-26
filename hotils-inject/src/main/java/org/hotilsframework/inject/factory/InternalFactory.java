@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.factory;
 
-import org.hotilsframework.context.BeanContext;
+import org.hotilsframework.context.Context;
 
 /**
  * InternalFactory
@@ -14,8 +14,8 @@ public interface InternalFactory<T> {
 
     /**
      * 根据上下文获取对象
-     * @param beanContext
+     * @param context
      * @return
      */
-    T get(BeanContext beanContext);
+    T get(Context context);
 }

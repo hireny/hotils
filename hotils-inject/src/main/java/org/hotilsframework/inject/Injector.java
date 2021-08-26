@@ -15,23 +15,23 @@ public interface Injector {
      * 获取所有的绑定信息
      * @return
      */
-    Map<BeanKey<?>, Binding<?>> getBindings();
+    Map<Key<?>, Binding<?>> getBindings();
 
     /**
      * 根据键获取绑定元素
-     * @param beanKey
+     * @param key
      * @param <T>
      * @return
      */
-    <T> Binding<T> getBinding(BeanKey<T> beanKey);
+    <T> Binding<T> getBinding(Key<T> key);
 
     /**
      * 根据键获取实例的提供者
-     * @param beanKey       Bean键
+     * @param key       Bean键
      * @param <T>       泛型类型
      * @return          返回的是实例的提供者
      */
-    <T> Provider<T> getProvider(BeanKey<T> beanKey);
+    <T> Provider<T> getProvider(Key<T> key);
 
     /**
      * 根据类型获取实例的提供者
@@ -43,11 +43,11 @@ public interface Injector {
 
     /**
      * 获取Bean实例
-     * @param beanKey       Bean的键
+     * @param key       Bean的键
      * @param <T>       泛型类型
      * @return          返回的Bean的实例
      */
-    <T> T getInstance(BeanKey<T> beanKey);
+    <T> T getInstance(Key<T> key);
 
 
     /**

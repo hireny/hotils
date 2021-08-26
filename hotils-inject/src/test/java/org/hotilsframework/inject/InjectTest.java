@@ -1,6 +1,5 @@
 package org.hotilsframework.inject;
 
-import org.hotilsframework.inject.qualifier.Qualifiers;
 import org.junit.Test;
 
 /**
@@ -14,7 +13,7 @@ public class InjectTest {
     @Test
     public void injectTest() {
         // 这步就是我们向Injectors去要对象
-        final Injector injector = Injectors.createInjector(new SimpleModule());
+        final Injector injector = Injectors.createInjector(new SimpleConfiguration());
         System.out.println(injector.getClass());
         System.out.println("绑定信息");
         System.out.println(injector.getBindings());

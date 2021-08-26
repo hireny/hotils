@@ -1,8 +1,8 @@
 package org.hotilsframework.core;
 
 import org.hotilsframework.beans.BeansException;
-import org.hotilsframework.core.types.ArgumentValue;
-import org.hotilsframework.core.types.ArgumentValues;
+import org.hotilsframework.core.types.PropertyValue;
+import org.hotilsframework.core.types.PropertyValues;
 import org.hotilsframework.lang.Nullable;
 
 import java.util.Map;
@@ -28,7 +28,7 @@ public interface AttributeAccessor {
      * 设置参数值
      * @param value
      */
-    void setAttribute(ArgumentValue value);
+    void setAttribute(PropertyValue value);
 
     /**
      * 设置属性值
@@ -42,7 +42,7 @@ public interface AttributeAccessor {
      * @param pvs
      * @throws BeansException
      */
-    void setAttributes(ArgumentValues pvs);
+    void setAttributes(PropertyValues pvs);
 
     /**
      * 根据唯一的属性键 {@code name} 获取 属性值
@@ -55,7 +55,7 @@ public interface AttributeAccessor {
     /**
      * 删除有 {@code name} 标识的属性并返回其属性值
      * @param name      唯一的属性键
-     * @return
+     * @return          移除 {@code name} 属性键的属性值
      */
     @Nullable
     Object removeAttribute(String name);

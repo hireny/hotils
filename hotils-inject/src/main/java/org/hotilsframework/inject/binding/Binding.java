@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.binding;
 
-import org.hotilsframework.inject.BeanKey;
+import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.Provider;
 import org.hotilsframework.inject.Scope;
 
@@ -15,7 +15,7 @@ public interface Binding<T> {
      * 获取绑定元素的Key
      * @return
      */
-    BeanKey<T> getBeanKey();
+    Key<T> getKey();
 
     /**
      * 获取提供者
@@ -38,10 +38,10 @@ public interface Binding<T> {
 
     /**
      * 绑定Key键
-     * @param beanKey
+     * @param key
      * @return
      */
-    Binding<T> withKey(BeanKey<T> beanKey);
+    Binding<T> withKey(Key<T> key);
 
     /**
      * 是否常量绑定，就是常量绑定或者 toInstance()绑定，该方法都返回true。

@@ -87,7 +87,7 @@ captures/
 .idea/libraries
 # Android Studio 3 in .gitignore file.
 .idea/caches
-.idea/modules.xml
+.idea/configurations.xml
 # Comment next line if keeping position of elements in Navigation Editor is relevant for you
 .idea/navEditor.xml
 
@@ -663,14 +663,14 @@ gradle-app.setting
 .idea/**/libraries
 
 # Gradle and Maven with auto-import
-# When using Gradle or Maven with auto-import, you should exclude module files,
+# When using Gradle or Maven with auto-import, you should exclude configuration files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
 # .idea/artifacts
 # .idea/compiler.xml
-# .idea/modules.xml
+# .idea/configurations.xml
 # .idea/*.iml
-# .idea/modules
+# .idea/configurations
 # *.iml
 # *.ipr
 

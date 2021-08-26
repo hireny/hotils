@@ -17,11 +17,11 @@ public class Injectors {
 
     /**
      * 创建注入对象
-     * @param modules
+     * @param configurations
      * @return
      */
-    public static Injector createInjector(Module... modules) {
-        return createInjector(Arrays.asList(modules));
+    public static Injector createInjector(Configuration... configurations) {
+        return createInjector(Arrays.asList(configurations));
     }
 
     /**
@@ -29,7 +29,7 @@ public class Injectors {
      * @param modules
      * @return
      */
-    public static Injector createInjector(Iterable<Module> modules) {
+    public static Injector createInjector(Iterable<Configuration> modules) {
         return new InjectorCreator().addModules(modules).build();
     }
 }

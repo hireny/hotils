@@ -1,8 +1,8 @@
 package org.hotilsframework.inject.internal;
 
 import org.hotilsframework.beans.BeansException;
-import org.hotilsframework.context.BeanContext;
-import org.hotilsframework.inject.BeanKey;
+import org.hotilsframework.context.Context;
+import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.Injector;
 import org.hotilsframework.inject.Provider;
 import org.hotilsframework.inject.binding.Binding;
@@ -24,15 +24,15 @@ import java.util.Map;
  */
 public class InternalInjector implements Injector {
 
-    final BeanContext beanContext;
+    final Context  context;
     /**
      * 指向父类
      */
-    final Injector                          parent;
+    final Injector parent;
 
-    InternalInjector(Injector parent, BeanContext beanContext) {
+    InternalInjector(Injector parent, Context context) {
         this.parent = parent;
-        this.beanContext = beanContext;
+        this.context = context;
     }
 
 
@@ -41,42 +41,42 @@ public class InternalInjector implements Injector {
      * @return
      */
     @Override
-    public Map<BeanKey<?>, Binding<?>> getBindings() {
-        return beanContext.getBindings();
+    public Map<Key<?>, Binding<?>> getBindings() {
+        return context.getBindings();
     }
 
     @Override
-    public <T> SampleBinding<T> getBinding(BeanKey<T> beanKey) {
-        SampleBinding<T> binding = beanContext.getBinding(beanKey);
+    public <T> SampleBinding<T> getBinding(Key<T> key) {
+        SampleBinding<T> binding = context.getBinding(key);
         return binding;
     }
 
     /**
      * 根据键获取提供者
-     * @param beanKey
+     * @param key
      * @param <T>
      * @return
      */
     @Override
-    public <T> Provider<T> getProvider(BeanKey<T> beanKey) {
-        System.out.println("提供的键=" + beanKey);
-        Assert.notNull(beanKey, "key is not null.");
-        SampleBinding<? extends T> binding = getBinding(beanKey);
+    public <T> Provider<T> getProvider(Key<T> key) {
+        System.out.println("提供的键=" + key);
+        Assert.notNull(key, "key is not null.");
+        SampleBinding<? extends T> binding = getBinding(key);
 
         System.out.println("获取的绑定信息=" + binding);
         final InternalFactory<? extends T> internalFactory = binding.getInternalFactory();
 
-        return () -> internalFactory.get(beanContext);
+        return () -> internalFactory.get(context);
     }
 
     @Override
     public  <T> Provider<T> getProvider(Class<T> type) {
-        return getProvider(BeanKey.get(type));
+        return getProvider(Key.get(type));
     }
 
     @Override
-    public <T> T getInstance(BeanKey<T> beanKey) {
-        return getProvider(beanKey).get();
+    public <T> T getInstance(Key<T> key) {
+        return getProvider(key).get();
     }
 
     @Override
@@ -97,25 +97,25 @@ public class InternalInjector implements Injector {
 
     /**
      * 根据键创建绑定关系
-     * @param beanKey
+     * @param key
      * @param <T>
      * @return
      */
-    private <T> SampleBinding<T> createSampleBinding(BeanKey<T> beanKey) {
+    private <T> SampleBinding<T> createSampleBinding(Key<T> key) {
         return null;
     }
 
     /**
      * 创建绑定关系
      * @param injector
-     * @param beanKey
+     * @param key
      * @param scoping
      * @param <T>
      * @return
      */
     static <T> SampleBinding<T> create(
             InternalInjector injector,
-            BeanKey<T> beanKey,
+            Key<T> key,
             Scoping scoping) {
         return null;
     }

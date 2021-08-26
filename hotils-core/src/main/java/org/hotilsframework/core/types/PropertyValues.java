@@ -11,25 +11,25 @@ import java.util.List;
  * @Date: Created in 2020-01-30 20:34
  * @Version: 1.0
  */
-public class ArgumentValues {
+public class PropertyValues {
 
-    private final List<ArgumentValue> propertyValues;
+    private final List<PropertyValue> propertyValues;
 
-    public ArgumentValues() {
+    public PropertyValues() {
         this(ListUtils.newArrayList());
     }
 
-    public ArgumentValues(List<ArgumentValue> propertyValues) {
+    public PropertyValues(List<PropertyValue> propertyValues) {
         this.propertyValues = propertyValues;
     }
 
-    public List<ArgumentValue> getPropertyValues() {
+    public List<PropertyValue> getPropertyValues() {
         return propertyValues;
     }
 
-    public boolean addPropertyValue(ArgumentValue propertyValue) {
+    public boolean addPropertyValue(PropertyValue propertyValue) {
         for (int i=0; i < this.propertyValues.size(); i++) {
-            ArgumentValue currentPv = this.propertyValues.get(i);
+            PropertyValue currentPv = this.propertyValues.get(i);
             if (currentPv.equals(propertyValue)) {
                 // 缺少合并方法   pv = mergeIfRequired(pv, currentPv);
                 setPropertyValueAt(propertyValue, i);
@@ -41,14 +41,14 @@ public class ArgumentValues {
 
     public boolean addPropertyValue(String propertyName, Object propertyValue) {
 
-        return addPropertyValue(new ArgumentValue(propertyName, propertyValue));
+        return addPropertyValue(new PropertyValue(propertyName, propertyValue));
     }
 
     /**
      * Modify a PropertyValue object held in this object.
      * Indexed from 0.
      */
-    public void setPropertyValueAt(ArgumentValue pv, int i) {
+    public void setPropertyValueAt(PropertyValue pv, int i) {
         this.propertyValues.set(i, pv);
     }
 

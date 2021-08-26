@@ -26,9 +26,9 @@ public class CacheStats {
 
 
     public CacheStats(int hitCount, int missCount, long timeout) {
-        Assert.state(hitCount >= 0);
-        Assert.state(missCount >= 0);
-        Assert.state(timeout >= 0);
+        Assert.checkState(hitCount >= 0);
+        Assert.checkState(missCount >= 0);
+        Assert.checkState(timeout >= 0);
         this.hitCount = hitCount;
         this.missCount = missCount;
         this.timeout = timeout;

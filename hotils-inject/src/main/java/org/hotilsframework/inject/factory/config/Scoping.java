@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.factory.config;
 
-import org.hotilsframework.inject.BeanKey;
+import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.Scope;
 
 import java.lang.annotation.Annotation;
@@ -15,32 +15,32 @@ public interface Scoping extends Scope {
 
     /**
      * 注册Bean元素
-     * @param beanKey
+     * @param key
      * @param element
      */
-    void register(BeanKey<?> beanKey, Object element);
+    void register(Key<?> key, Object element);
 
     /**
      * 根据指定的键来获取该作用域的对象
-     * @param beanKey       键，用来获取该作用域下的提供者
+     * @param key       键，用来获取该作用域下的提供者
      * @param <T>       泛型
      * @return
      */
-    <T> T get(BeanKey<T> beanKey);
+    <T> T get(Key<T> key);
 
     /**
      * 移除作用域中关于键的元素
-     * @param beanKey
+     * @param key
      * @return
      */
-    Object remove(BeanKey<?> beanKey);
+    Object remove(Key<?> key);
 
     /**
      * 判断该key是否存在
-     * @param beanKey
+     * @param key
      * @return
      */
-    boolean containsKey(BeanKey<?> beanKey);
+    boolean containsKey(Key<?> key);
 
     /**
      * 获取作用域注解

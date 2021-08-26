@@ -23,12 +23,12 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
     protected final Binder           binder;
     private         SampleBinding<T> binding;
 
-    public BindingBuilder(Binder binder, List<Binding<?>> elements, BeanKey<T> beanKey) {
+    public BindingBuilder(Binder binder, List<Binding<?>> elements, Key<T> key) {
         this.binder = binder;
         this.elements = elements;
         this.position = elements.size();
         // 创建绑定信息 /默认原型作用域
-        this.binding = new SampleBinding<T>(beanKey, Scopes.PROTOTYPE);
+        this.binding = new SampleBinding<T>(key, Scopes.PROTOTYPE);
         elements.add(position, this.binding);
     }
 
@@ -52,7 +52,7 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
     @Override
     public BindingBuilder<T> annotatedWith(Qualifier qualifier) {
         Assert.notNull(qualifier, "qualifier is not null.");
-        setBinding(binding.withKey(BeanKey.get(this.binding.getBeanKey().getType(), qualifier)));
+        setBinding(binding.withKey(Key.get(this.binding.getKey().getType(), qualifier)));
         return this;
     }
 
@@ -69,11 +69,11 @@ public class BindingBuilder<T> implements BindingBuilderInterface<T> {
     @Override
     public BindingBuilder<T> to(Class<? extends T> implementation) {
         Assert.notNull(implementation, "implementation is not null.");
-        BeanKey<? extends T> targetBeanKey = BeanKey.get(implementation);
+        Key<? extends T> targetKey = Key.get(implementation);
         SampleBinding<T> binding = getBinding();
         System.out.println(binding.getScope());
         // 默认使用单例作用域
-        setBinding(new LinkedBinding<T>(binding.getInjector(),binding.getBeanKey(), binding.getScope(), targetBeanKey));
+        setBinding(new LinkedBinding<T>(binding.getInjector(),binding.getKey(), binding.getScope(), targetKey));
         return this;
     }
 

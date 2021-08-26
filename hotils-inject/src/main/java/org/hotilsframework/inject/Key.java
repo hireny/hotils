@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author hireny
  * @create 2020-07-28 22:32
  */
-public class BeanKey<T> {
+public class Key<T> {
     /**
      * 键的类型
      */
@@ -28,15 +28,15 @@ public class BeanKey<T> {
      */
     private final int       hashCode;
 
-    public BeanKey(Class<T> type) {
+    public Key(Class<T> type) {
         this(type, Qualifiers.byAnnotation(Qualifiers.typed(type)));
     }
 
-    public BeanKey(Class<T> type, Annotation annotation) {
+    public Key(Class<T> type, Annotation annotation) {
         this(type, Qualifiers.byAnnotation(annotation));
     }
 
-    public BeanKey(Class<T> type, Qualifier qualifier) {
+    public Key(Class<T> type, Qualifier qualifier) {
         this.type = type;
         this.qualifier = qualifier;
         this.hashCode = computeHashCode();
@@ -58,9 +58,9 @@ public class BeanKey<T> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BeanKey<?> beanKey = (BeanKey<?>) o;
-        return hashCode == beanKey.hashCode &&
-                Objects.equals(type, beanKey.type);
+        Key<?> key = (Key<?>) o;
+        return hashCode == key.hashCode &&
+                Objects.equals(type, key.type);
     }
 
     @Override
@@ -74,11 +74,11 @@ public class BeanKey<T> {
         return String.valueOf(qualifier);
     }
 
-    public static <T> BeanKey<T> get(Class<T> type) {
-        return new BeanKey<>(type);
+    public static <T> Key<T> get(Class<T> type) {
+        return new Key<>(type);
     }
 
-    public static <T> BeanKey<T> get(Class<T> type, Qualifier qualifier) {
-        return new BeanKey<>(type, qualifier);
+    public static <T> Key<T> get(Class<T> type, Qualifier qualifier) {
+        return new Key<>(type, qualifier);
     }
 }

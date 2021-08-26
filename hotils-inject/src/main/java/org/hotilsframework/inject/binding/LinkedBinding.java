@@ -16,32 +16,32 @@ public class LinkedBinding<T> extends SampleBinding<T> {
     /**
      * 目标键，是需要实例化的类的关键信息
      */
-    final BeanKey<? extends T> targetBeanKey;
+    final Key<? extends T> targetKey;
 
     public LinkedBinding(
             InternalInjector injector,
-            BeanKey<T> beanKey,
+            Key<T> key,
             Scope scope,
-            BeanKey<? extends T> targetBeanKey) {
-        super(injector, beanKey, scope);
-        this.targetBeanKey = targetBeanKey;
+            Key<? extends T> targetKey) {
+        super(injector, key, scope);
+        this.targetKey = targetKey;
     }
 
-    public BeanKey<? extends T> getTargetBeanKey() {
-        return targetBeanKey;
+    public Key<? extends T> getTargetKey() {
+        return targetKey;
     }
 
     @Override
     public LinkedBinding<T> withScope(Scope scope) {
-        return new LinkedBinding<>(getInjector(), getBeanKey(), scope, targetBeanKey);
+        return new LinkedBinding<>(getInjector(), getKey(), scope, targetKey);
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("LinkedBinding{");
-        sb.append("key=").append(getBeanKey());
+        sb.append("key=").append(getKey());
         sb.append(", scope=").append(getScope());
-        sb.append(", target=").append(getTargetBeanKey());
+        sb.append(", target=").append(getTargetKey());
         sb.append('}');
         return sb.toString();
     }

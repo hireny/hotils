@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.factory.config;
 
 import org.hotilsframework.lang.reflects.TypeInstance;
-import org.hotilsframework.inject.BeanKey;
+import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.annotation.Prototype;
 
 import java.lang.annotation.Annotation;
@@ -16,19 +16,19 @@ import java.lang.annotation.Annotation;
  */
 public class Prototypes extends AbstractScoping implements Scoping {
     @Override
-    public void register(BeanKey<?> beanKey, Object element) {
+    public void register(Key<?> key, Object element) {
     }
 
     @Override
-    public <T> T get(BeanKey<T> beanKey) {
-        return TypeInstance.tryInstance(beanKey.getType());
+    public <T> T get(Key<T> key) {
+        return TypeInstance.tryInstance(key.getType());
     }
     @Override
-    public Object remove(BeanKey<?> beanKey) {
+    public Object remove(Key<?> key) {
         return null;
     }
     @Override
-    public boolean containsKey(BeanKey<?> beanKey) {
+    public boolean containsKey(Key<?> key) {
         return false;
     }
     @Override

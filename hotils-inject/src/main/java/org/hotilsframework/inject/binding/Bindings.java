@@ -18,11 +18,11 @@ import java.util.List;
  */
 public class Bindings {
 
-    public static List<Binding<?>> getBindings(Module... modules) {
-        return getBindings(Arrays.asList(modules));
+    public static List<Binding<?>> getBindings(Configuration... configurations) {
+        return getBindings(Arrays.asList(configurations));
     }
 
-    public static List<Binding<?>> getBindings(Iterable<? extends Module> modules) {
+    public static List<Binding<?>> getBindings(Iterable<? extends Configuration> modules) {
         RecordBinder binder = new RecordBinder();
         modules.forEach(binder::install);
         return Collections.unmodifiableList(binder.getElements());
@@ -32,27 +32,27 @@ public class Bindings {
      * 记录绑定信息
      */
     private static class RecordBinder implements Binder {
-        private final List<Module>     modules;
+        private final List<Configuration> configurations;
         /**
          * 绑定的元素列表
          */
-        private final List<Binding<?>> elements;
+        private final List<Binding<?>>    elements;
 
 
         public RecordBinder() {
-            this.modules = ListUtils.newArrayList();
+            this.configurations = ListUtils.newArrayList();
             this.elements = ListUtils.newArrayList();
         }
 
         @Override
-        public <T> BindingBuilder<T> bind(BeanKey<T> beanKey) {
+        public <T> BindingBuilder<T> bind(Key<T> key) {
             // 绑定元素的构建
-            return new BindingBuilder<>(this, elements, beanKey);
+            return new BindingBuilder<>(this, elements, key);
         }
 
         @Override
         public <T> BindingBuilder<T> bind(Class<T> type) {
-            return bind(BeanKey.get(type));
+            return bind(Key.get(type));
         }
 
         @Override
@@ -61,17 +61,17 @@ public class Bindings {
 
 
         @Override
-        public void install(Module module) {
+        public void install(Configuration configuration) {
             // 忽略相同模块实例的重复安装
-            if (modules.contains(module)) {
+            if (configurations.contains(configuration)) {
                 return;
             }
             RecordBinder binder = this;
 //        moduleSource = getModules(module.getClass());
 
-            modules.add(module);
-            module.configure(binder);
-            binder.install(module);
+            configurations.add(configuration);
+            configuration.configure(binder);
+            binder.install(configuration);
         }
 
         /**

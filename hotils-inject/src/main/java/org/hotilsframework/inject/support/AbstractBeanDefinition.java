@@ -1,7 +1,7 @@
 package org.hotilsframework.inject.support;
 
-import org.hotilsframework.core.types.ArgumentValue;
-import org.hotilsframework.core.types.ArgumentValues;
+import org.hotilsframework.core.types.PropertyValue;
+import org.hotilsframework.core.types.PropertyValues;
 import org.hotilsframework.inject.BeanDefinition;
 import org.hotilsframework.inject.factory.config.Scoping;
 import org.hotilsframework.inject.Scopes;
@@ -124,7 +124,7 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
     }
 
     @Override
-    public void setAttribute(ArgumentValue value) {
+    public void setAttribute(PropertyValue value) {
 
     }
 
@@ -134,7 +134,7 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
     }
 
     @Override
-    public void setAttributes(ArgumentValues pvs) {
+    public void setAttributes(PropertyValues pvs) {
 
     }
 

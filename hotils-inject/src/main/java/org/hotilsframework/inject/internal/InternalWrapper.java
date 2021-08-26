@@ -1,8 +1,8 @@
 package org.hotilsframework.inject.internal;
 
 import org.hotilsframework.collect.ListUtils;
-import org.hotilsframework.context.BeanContext;
-import org.hotilsframework.context.DefaultBeanContext;
+import org.hotilsframework.context.Context;
+import org.hotilsframework.context.DefaultContext;
 import org.hotilsframework.inject.*;
 import org.hotilsframework.inject.Binder;
 import org.hotilsframework.inject.binding.Binding;
@@ -47,15 +47,15 @@ public class InternalWrapper {
         /**
          * 存储绑定信息的元素
          */
-        private final List<Binding<?>> elements = ListUtils.newArrayList();
+        private final List<Binding<?>>    elements       = ListUtils.newArrayList();
         /**
          * 模块信息
          */
-        private final List<Module>     modules = ListUtils.newArrayList();
+        private final List<Configuration> configurations = ListUtils.newArrayList();
         /**
          * bean上下文
          */
-        private       BeanContext      beanContext;
+        private       Context             context;
         /**
          * 父的注入器
          */
@@ -63,12 +63,12 @@ public class InternalWrapper {
 
         Builder parent(InternalInjector parent) {
             this.parent = parent;
-            this.beanContext = new DefaultBeanContext(parent.beanContext);
+            this.context = new DefaultContext(parent.context);
             return this;
         }
 
-        void addModules(Iterable<? extends Module> modules) {
-            modules.forEach(this.modules::add);
+        void addModules(Iterable<? extends Configuration> modules) {
+            modules.forEach(this.configurations::add);
         }
 
         /**
@@ -76,17 +76,17 @@ public class InternalWrapper {
          * @return
          */
         Object lock() {
-            return getBeanContext().lock();
+            return getContext().lock();
         }
 
         InternalWrapper build() {
             // 没有上下文，你记得加锁了吗？
-            Assert.checkArgument(beanContext != null, "no bean context. Did you remember to lock() ?");
+            Assert.checkArgument(context != null, "no bean context. Did you remember to lock() ?");
             // 通过模块信息获取所有的绑定信息并存储在集合中
-            elements.addAll(Bindings.getBindings(modules));
+            elements.addAll(Bindings.getBindings(configurations));
             System.out.println("绑定元素曝光=" + elements.toString());
             // 创建注入器
-            InternalInjector injector = new InternalInjector(parent, beanContext);
+            InternalInjector injector = new InternalInjector(parent, context);
 
             // 如果parent是顶级注入器，可以添加默认的类型转换器，本人没有实现
 
@@ -99,16 +99,16 @@ public class InternalWrapper {
         }
 
         // 获取Bean上下文
-        private BeanContext getBeanContext() {
-            if (beanContext == null) {
-                beanContext = new DefaultBeanContext(BeanContext.NONE);
+        private Context getContext() {
+            if (context == null) {
+                context = new DefaultContext(Context.NONE);
             }
-            return beanContext;
+            return context;
         }
     }
 
 
-    private static class RootModule implements Module {
+    private static class RootConfiguration implements Configuration {
 
         @Override
         public void configure(Binder binder) {

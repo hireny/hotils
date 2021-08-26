@@ -21,71 +21,71 @@ public class Singletons extends AbstractScoping implements Scoping {
     /**
      * 单例元素的关系映射存储
      */
-    private final Map<BeanKey<?>, Object> singletons = MapUtils.newConcurrentHashMap();
+    private final Map<Key<?>, Object> singletons = MapUtils.newConcurrentHashMap();
 
     /**
      * 单例Bean注册
-     * @param beanKey
+     * @param key
      * @param element
      */
     @Override
-    public void register(BeanKey<?> beanKey, Object element) {
-        Assert.notNull(beanKey, "key must not be null.");
+    public void register(Key<?> key, Object element) {
+        Assert.notNull(key, "key must not be null.");
         Assert.notNull(element, "Singleton object must be null.");
         synchronized (this.singletons) {
-            Object old = this.singletons.get(beanKey);
+            Object old = this.singletons.get(key);
             if (old != null) {
-                throw new IllegalStateException("Could not register object [" + element + "] under key '" + beanKey + "': there is already object [" + old + "] bound");
+                throw new IllegalStateException("Could not register object [" + element + "] under key '" + key + "': there is already object [" + old + "] bound");
             }
-            addSingleton(beanKey, element);
+            addSingleton(key, element);
         }
     }
 
-    protected void addSingleton(BeanKey<?> beanKey, Object element) {
+    protected void addSingleton(Key<?> key, Object element) {
         synchronized (this.singletons) {
-            this.singletons.put(beanKey, element);
+            this.singletons.put(key, element);
         }
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T get(BeanKey<T> beanKey) {
-        Assert.notNull(beanKey, "key is not null.");
-        Object element = doGetSingleton(beanKey);
+    public <T> T get(Key<T> key) {
+        Assert.notNull(key, "key is not null.");
+        Object element = doGetSingleton(key);
         return (T) element;
     }
 
-    private Object doGetSingleton(BeanKey<?> beanKey) {
-        Object element = singletons.get(beanKey);
+    private Object doGetSingleton(Key<?> key) {
+        Object element = singletons.get(key);
         if (element == null) {
             // 单例对象不存在，则创建
-            element = doCreateElement(beanKey);
+            element = doCreateElement(key);
             // 创建后，存储起来
-            singletons.put(beanKey, element);
+            singletons.put(key, element);
         }
         return element;
     }
 
     /**
      * 创建元素
-     * @param beanKey
+     * @param key
      * @param <T>
      * @return
      */
-    private <T> T doCreateElement(BeanKey<?> beanKey) {
+    private <T> T doCreateElement(Key<?> key) {
         // 创建对象
-        return TypeInstance.tryInstance(beanKey.getType());
+        return TypeInstance.tryInstance(key.getType());
     }
 
     @Override
-    public boolean containsKey(BeanKey<?> beanKey) {
-        return this.singletons.containsKey(beanKey);
+    public boolean containsKey(Key<?> key) {
+        return this.singletons.containsKey(key);
     }
 
     @Override
-    public Object remove(BeanKey<?> beanKey) {
-        Assert.notNull(beanKey, "key is not null.");
-        return this.singletons.remove(beanKey);
+    public Object remove(Key<?> key) {
+        Assert.notNull(key, "key is not null.");
+        return this.singletons.remove(key);
     }
 
     @Override

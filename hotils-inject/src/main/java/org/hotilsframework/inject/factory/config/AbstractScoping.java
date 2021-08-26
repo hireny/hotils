@@ -1,6 +1,6 @@
 package org.hotilsframework.inject.factory.config;
 
-import org.hotilsframework.inject.BeanKey;
+import org.hotilsframework.inject.Key;
 import org.hotilsframework.inject.Scope;
 
 import java.lang.annotation.Annotation;
@@ -16,21 +16,21 @@ public abstract class AbstractScoping implements Scoping {
 
 
     @Override
-    public void register(BeanKey<?> beanKey, Object element) {
+    public void register(Key<?> key, Object element) {
     }
 
     @Override
-    public <T> T get(BeanKey<T> beanKey) {
+    public <T> T get(Key<T> key) {
         return null;
     }
 
     @Override
-    public Object remove(BeanKey<?> beanKey) {
+    public Object remove(Key<?> key) {
         return null;
     }
 
     @Override
-    public boolean containsKey(BeanKey<?> beanKey) {
+    public boolean containsKey(Key<?> key) {
         return false;
     }
 

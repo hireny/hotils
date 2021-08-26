@@ -5,14 +5,16 @@ import org.hotilsframework.lang.ArrayUtils;
 import org.hotilsframework.lang.StringUtils;
 
 /**
- * @ClassName: StringFormatters
- * @Author: hireny
- * @Date: Create in 2019/12/07 02:22
- * @Description: TODO   字符串格式化工具
+ * StringFormatter
+ *
+ * 字符串格式化
+ *
+ * @author hireny
+ * @date Create in 2019/12/07 02:22
  */
-public final class StringFormatters {
+public final class StringFormatter {
 
-    private StringFormatters() {}
+    private StringFormatter() {}
 
     /**
      * 格式化字符串

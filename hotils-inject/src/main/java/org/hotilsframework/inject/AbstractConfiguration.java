@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
  * @className AbstractModule
  * @create 2020-05-17 23:23
  */
-public abstract class AbstractModule implements Module {
+public abstract class AbstractConfiguration implements Configuration {
     /**
      * 绑定者
      */
@@ -19,7 +19,7 @@ public abstract class AbstractModule implements Module {
 
     @Override
     public void configure(Binder binder) {
-        Assert.state(this.binder == null, "Re-entry is not allowed.");
+        Assert.checkState(this.binder == null, "Re-entry is not allowed.");
 
         this.binder = Assert.notNull(binder, "builder");
         try {
@@ -35,7 +35,7 @@ public abstract class AbstractModule implements Module {
     }
 
     protected Binder binder() {
-        Assert.state(binder != null, "The binder can only be used inside configure()");
+        Assert.checkState(binder != null, "The binder can only be used inside configure()");
         return binder;
     }
 
